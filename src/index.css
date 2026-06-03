@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,28..36,100..1000;1,28..36,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-[#1C1C1C] bg-cream-100 antialiased;
+  }
+}
+
+@layer base {
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-emerald-600 text-white px-6 py-3 rounded-xl font-body font-medium
+           hover:bg-emerald-700 transition-all duration-200
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-gold {
+    @apply bg-gold-500 text-white px-6 py-3 rounded-xl font-body font-medium
+           hover:bg-gold-600 transition-all duration-200
+           active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply border-2 border-gold-500 text-gold-500 px-6 py-3 rounded-xl font-body font-medium
+           hover:bg-gold-50 transition-all duration-200
+           active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply text-emerald-600 px-4 py-2 rounded-xl font-body font-medium
+           hover:bg-emerald-50 transition-all duration-200;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-body font-medium
+           transition-all duration-200 cursor-pointer;
+  }
+  .safe-top {
+    padding-top: var(--sat);
+  }
+  .safe-bottom {
+    padding-bottom: var(--sab);
+  }
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-cream-300 bg-white
+           focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600
+           placeholder:text-[#6B6B6B] transition-all duration-200;
+  }
+}

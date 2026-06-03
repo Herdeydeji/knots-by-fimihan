@@ -1,0 +1,98 @@
+import { Link } from 'react-router-dom'
+import { HiOutlineCube, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineExclamationCircle } from 'react-icons/hi'
+import { orders, getOrderStats } from '../../lib/orders'
+import { products } from '../../lib/products'
+
+function formatPrice(price) {
+  return `₦${price.toLocaleString()}`
+}
+
+export default function AdminDashboard() {
+  const stats = getOrderStats()
+  const lowStock = products.filter((p) => p.stock < 5 && p.stock > 0)
+  const outOfStock = products.filter((p) => p.stock === 0)
+  const recentOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5)
+
+  const cards = [
+    { label: 'Total Orders', value: stats.totalOrders, icon: HiOutlineClipboardList, color: 'bg-blue-50 text-blue-600' },
+    { label: 'Revenue', value: formatPrice(stats.totalRevenue), icon: HiOutlineCurrencyDollar, color: 'bg-emerald-50 text-emerald-600' },
+    { label: 'Pending', value: stats.pendingOrders, icon: HiOutlineExclamationCircle, color: 'bg-yellow-50 text-yellow-600' },
+    { label: 'Products', value: products.filter((p) => p.isActive).length, icon: HiOutlineCube, color: 'bg-purple-50 text-purple-600' },
+  ]
+
+  return (
+    <div>
+      <h1 className="text-2xl font-display font-semibold text-emerald-600 mb-8">Dashboard</h1>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {cards.map((card) => {
+          const Icon = card.icon
+          return (
+            <div key={card.label} className="card p-4 lg:p-6">
+              <div className={`w-10 h-10 rounded-xl ${card.color} flex items-center justify-center mb-3`}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <p className="text-2xl font-display font-bold text-[#1C1C1C]">{card.value}</p>
+              <p className="text-sm text-[#6B6B6B] font-body">{card.label}</p>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        <div className="card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-body font-semibold text-[#1C1C1C]">Recent Orders</h3>
+            <Link to="/admin/orders" className="text-sm text-emerald-600 hover:text-emerald-700 font-body">View All</Link>
+          </div>
+          <div className="space-y-3">
+            {recentOrders.map((order) => (
+              <Link
+                key={order.id}
+                to={`/admin/orders`}
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-cream-50 transition-colors"
+              >
+                <div>
+                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{order.id}</p>
+                  <p className="text-xs text-[#6B6B6B]">{order.customerName}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-body font-bold text-emerald-600">{formatPrice(order.total)}</p>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    order.fulfillmentStatus === 'shipped' ? 'bg-emerald-50 text-emerald-600' :
+                    order.fulfillmentStatus === 'processing' ? 'bg-blue-50 text-blue-600' :
+                    'bg-yellow-50 text-yellow-600'
+                  }`}>
+                    {order.fulfillmentStatus}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="card p-6">
+          <h3 className="font-body font-semibold text-[#1C1C1C] mb-4">Inventory Alerts</h3>
+          {lowStock.length === 0 && outOfStock.length === 0 ? (
+            <p className="text-sm text-[#6B6B6B] font-body">All products are well-stocked.</p>
+          ) : (
+            <div className="space-y-3">
+              {outOfStock.map((p) => (
+                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-red-50">
+                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{p.name}</p>
+                  <span className="text-xs text-red-600 font-medium">Out of Stock</span>
+                </div>
+              ))}
+              {lowStock.map((p) => (
+                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-yellow-50">
+                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{p.name}</p>
+                  <span className="text-xs text-yellow-600 font-medium">{p.stock} left</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
