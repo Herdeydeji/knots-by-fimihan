@@ -67,12 +67,13 @@ export default function Checkout() {
         if (error) throw error
         clearCart()
         setLoading(false)
-        navigate('/order-success', { state: { orderNumber: data.order_number, total } })
+        navigate(`/order-success?reference=${response.reference}`, { state: { orderNumber: data.order_number, total } })
       })
       .catch((err) => {
         console.error('Payment verification error:', err)
-        alert('Payment was successful but we had trouble confirming your order. Please contact support with your payment reference: ' + response.reference)
         setLoading(false)
+        const ref = response.reference
+        navigate(`/order-success?reference=${ref}`, { state: { error: true, ref } })
       })
   }
 

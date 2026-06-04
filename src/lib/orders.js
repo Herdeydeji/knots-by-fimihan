@@ -43,6 +43,26 @@ export async function getOrderStats() {
   }
 }
 
+export async function getOrderByReference(reference) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .or(`payment_reference.eq.${reference},order_number.eq.${reference}`)
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function getOrdersByEmail(email) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('customer_email', email)
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return data || []
+}
+
 export async function updateFulfillmentStatus(id, status, trackingNumber) {
   const updates = { fulfillment_status: status }
   if (trackingNumber !== undefined) updates.tracking_number = trackingNumber

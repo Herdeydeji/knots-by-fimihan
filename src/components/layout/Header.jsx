@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout } from 'react-icons/hi'
+import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
 import { KBFLogo } from '../ui/IslamicPattern'
@@ -76,6 +76,9 @@ export default function Header() {
                   </button>
                   <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-cream-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <p className="px-4 py-2 text-sm text-[#6B6B6B] border-b border-cream-100 truncate">{user.email}</p>
+                    <Link to="/orders" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] hover:bg-cream-50">
+                      <HiOutlineClipboardList className="w-4 h-4" /> My Orders
+                    </Link>
                     <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] hover:bg-cream-50">
                       <HiOutlineUser className="w-4 h-4" /> Dashboard
                     </Link>
@@ -132,6 +135,9 @@ export default function Header() {
               {user ? (
                 <>
                   <p className="px-4 py-2 text-sm text-[#6B6B6B]">{user.email}</p>
+                  <Link to="/orders" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] hover:bg-cream-200">
+                    <HiOutlineClipboardList className="w-4 h-4" /> My Orders
+                  </Link>
                   <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] hover:bg-cream-200">
                     Dashboard
                   </Link>

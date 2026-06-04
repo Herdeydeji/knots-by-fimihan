@@ -27,6 +27,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { label: 'Shop All', path: '/shop' },
+                { label: 'My Orders', path: '/orders' },
                 { label: 'About Us', path: '/about' },
                 { label: 'Contact', path: '/contact' },
               ].map((link) => (
