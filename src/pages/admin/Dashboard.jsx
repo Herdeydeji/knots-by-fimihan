@@ -43,13 +43,13 @@ export default function AdminDashboard() {
         {cards.map((card) => {
           const Icon = card.icon
           return (
-            <div key={card.label} className="card p-4 lg:p-6">
-              <div className={`w-10 h-10 rounded-xl ${card.color} flex items-center justify-center mb-3`}>
-                <Icon className="w-5 h-5" />
-              </div>
-              <p className="text-2xl font-display font-bold text-[#1C1C1C]">{card.value}</p>
-              <p className="text-sm text-[#6B6B6B] font-body">{card.label}</p>
-            </div>
+                <div key={card.label} className="card p-4 lg:p-6">
+                  <div className={`w-10 h-10 rounded-xl ${card.color} flex items-center justify-center mb-3`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <p className="text-2xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{card.value}</p>
+                  <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">{card.label}</p>
+                </div>
           )
         })}
       </div>
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="card p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-body font-semibold text-[#1C1C1C]">Recent Orders</h3>
+            <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200">Recent Orders</h3>
             <Link to="/admin/orders" className="text-sm text-emerald-600 hover:text-emerald-700 font-body">View All</Link>
           </div>
           <div className="space-y-3">
@@ -65,11 +65,11 @@ export default function AdminDashboard() {
               <Link
                 key={order.id}
                 to={`/admin/orders`}
-                className="flex items-center justify-between p-3 rounded-xl hover:bg-cream-50 transition-colors"
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-cream-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <div>
-                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{order.order_number}</p>
-                  <p className="text-xs text-[#6B6B6B]">{order.customer_name}</p>
+                  <p className="text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200">{order.order_number}</p>
+                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{order.customer_name}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-body font-bold text-emerald-600">{formatPrice(order.total)}</p>
@@ -87,20 +87,20 @@ export default function AdminDashboard() {
         </div>
 
         <div className="card p-6">
-          <h3 className="font-body font-semibold text-[#1C1C1C] mb-4">Inventory Alerts</h3>
+          <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Inventory Alerts</h3>
           {lowStock.length === 0 && outOfStock.length === 0 ? (
-            <p className="text-sm text-[#6B6B6B] font-body">All products are well-stocked.</p>
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">All products are well-stocked.</p>
           ) : (
             <div className="space-y-3">
               {outOfStock.map((p) => (
-                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-red-50">
-                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{p.name}</p>
+                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-red-50 dark:bg-red-900/30">
+                  <p className="text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200">{p.name}</p>
                   <span className="text-xs text-red-600 font-medium">Out of Stock</span>
                 </div>
               ))}
               {lowStock.map((p) => (
-                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-yellow-50">
-                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{p.name}</p>
+                <div key={p.id} className="flex items-center justify-between p-3 rounded-xl bg-yellow-50 dark:bg-yellow-900/30">
+                  <p className="text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200">{p.name}</p>
                   <span className="text-xs text-yellow-600 font-medium">{p.stock} left</span>
                 </div>
               ))}

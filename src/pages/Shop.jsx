@@ -51,7 +51,7 @@ export default function Shop() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 bg-cream-50 dark:bg-gray-950 min-h-[calc(100vh-16rem)]">
       <Breadcrumbs items={[
         { label: 'Home', path: '/' },
         { label: 'Shop', path: '' },
@@ -61,12 +61,12 @@ export default function Shop() {
         <aside className="lg:w-64 flex-shrink-0">
           <div className="lg:sticky lg:top-24 space-y-6">
             <div>
-              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] mb-3">Category</h3>
+              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] dark:text-gray-400 mb-3">Category</h3>
               <div className="space-y-2">
                 <button
                   onClick={() => updateFilter('category', '')}
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                    !activeCategory ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-[#1C1C1C] hover:bg-cream-200'
+                    !activeCategory ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 font-medium' : 'text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   All Products
@@ -76,7 +76,7 @@ export default function Shop() {
                     key={cat.slug}
                     onClick={() => updateFilter('category', cat.slug)}
                     className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors capitalize ${
-                      activeCategory === cat.slug ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-[#1C1C1C] hover:bg-cream-200'
+                      activeCategory === cat.slug ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 font-medium' : 'text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-200 dark:hover:bg-gray-700'
                     }`}
                   >
                     {cat.name}
@@ -86,7 +86,7 @@ export default function Shop() {
             </div>
 
             <div>
-              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] mb-3">Price Range</h3>
+              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] dark:text-gray-400 mb-3">Price Range</h3>
               <div className="flex items-center gap-2">
                 <input
                   type="number"
@@ -95,7 +95,7 @@ export default function Shop() {
                   onChange={(e) => setPriceRange((p) => ({ ...p, min: e.target.value }))}
                   className="input-field !py-2 text-sm w-full"
                 />
-                <span className="text-[#6B6B6B]">-</span>
+                <span className="text-[#6B6B6B] dark:text-gray-400">-</span>
                 <input
                   type="number"
                   placeholder="Max"
@@ -110,8 +110,8 @@ export default function Shop() {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-[#6B6B6B] font-body">
-              Showing <span className="font-medium text-[#1C1C1C]">{filtered.length}</span> products
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">
+              Showing <span className="font-medium text-[#1C1C1C] dark:text-gray-200">{filtered.length}</span> products
             </p>
             <select
               value={activeSort}

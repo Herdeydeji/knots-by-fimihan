@@ -4,7 +4,7 @@ import ChatUI from '../components/chat/ChatUI'
 
 export default function StyleAssistant() {
   return (
-    <div className="h-dvh flex flex-col bg-cream-100 lg:hidden">
+    <div className="h-dvh flex flex-col bg-cream-100 dark:bg-gray-950 lg:hidden">
       <header className="safe-top bg-emerald-600 text-white flex items-center gap-3 px-4 pb-3 pt-[calc(var(--sat)+12px)] flex-shrink-0">
         <Link
           to="/"

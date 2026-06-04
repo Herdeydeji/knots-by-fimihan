@@ -40,7 +40,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-display font-semibold text-emerald-600 mb-4">We'd Love to Hear from You</h2>
-            <p className="text-[#6B6B6B] font-body leading-relaxed mb-8">
+            <p className="text-[#6B6B6B] dark:text-gray-400 font-body leading-relaxed mb-8">
               Have a question, complaint, or feedback? We're here to help. Reach out via any of these channels.
             </p>
 
@@ -53,13 +53,13 @@ export default function Contact() {
               ].map((item) => {
                 const Icon = item.icon
                 return (
-                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="card p-4 flex items-center gap-4 hover:border-emerald-600/20 transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="card p-4 flex items-center gap-4 hover:border-emerald-600/20 dark:hover:border-emerald-600/40 transition-colors">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0">
                       <Icon className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div>
-                      <p className="text-xs text-[#6B6B6B] font-body">{item.label}</p>
-                      <p className="font-body font-medium text-[#1C1C1C]">{item.value}</p>
+                      <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body">{item.label}</p>
+                      <p className="font-body font-medium text-[#1C1C1C] dark:text-gray-200">{item.value}</p>
                     </div>
                   </a>
                 )
@@ -76,19 +76,19 @@ export default function Contact() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Name</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Name</label>
                   <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input-field" placeholder="Your name" />
                 </div>
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Email</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Email</label>
                   <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-field" placeholder="your@email.com" />
                 </div>
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Subject</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Subject</label>
                   <input required value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="input-field" placeholder="What's this about?" />
                 </div>
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Message</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Message</label>
                   <textarea required rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="input-field resize-none" placeholder="How can we help you?" />
                 </div>
                 {error && <p className="text-red-600 text-sm">{error}</p>}

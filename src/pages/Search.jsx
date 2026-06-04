@@ -20,7 +20,7 @@ export default function Search() {
       <h1 className="text-2xl lg:text-3xl font-display font-semibold text-emerald-600 mb-6">Search</h1>
 
       <form onSubmit={handleSearch} className="relative mb-8">
-        <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6B6B6B]" />
+        <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6B6B6B] dark:text-gray-400" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -33,11 +33,11 @@ export default function Search() {
       {!searched && (
         <div className="flex items-center justify-center min-h-[40vh]">
           <div className="text-center max-w-md">
-            <div className="w-20 h-20 rounded-2xl bg-cream-200 flex items-center justify-center mx-auto mb-6">
-              <HiOutlineSearch className="w-10 h-10 text-[#6B6B6B]" />
+            <div className="w-20 h-20 rounded-2xl bg-cream-200 dark:bg-gray-700 flex items-center justify-center mx-auto mb-6">
+              <HiOutlineSearch className="w-10 h-10 text-[#6B6B6B] dark:text-gray-400" />
             </div>
-            <h3 className="text-xl font-display font-semibold text-[#1C1C1C]">Find What You Love</h3>
-            <p className="text-[#6B6B6B] font-body mt-2 leading-relaxed">
+            <h3 className="text-xl font-display font-semibold text-[#1C1C1C] dark:text-gray-200">Find What You Love</h3>
+            <p className="text-[#6B6B6B] dark:text-gray-400 font-body mt-2 leading-relaxed">
               Search for your favorite abayas, hijabs, kaftans, and more.
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function Search() {
 
       {searched && (
         <div>
-          <p className="text-sm text-[#6B6B6B] font-body mb-6">
+          <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body mb-6">
             {results.length === 0
               ? `No results found for "${query}"`
               : `Found ${results.length} result${results.length === 1 ? '' : 's'} for "${query}"`}

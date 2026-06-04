@@ -3,9 +3,11 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
   HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox,
+  HiOutlineSun, HiOutlineMoon,
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
+import { useTheme } from '../../lib/theme'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
@@ -22,6 +24,7 @@ export default function AdminLayout() {
   const [unreadCount, setUnreadCount] = useState(0)
   const location = useLocation()
   const navigate = useNavigate()
+  const { dark, toggle } = useTheme()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -48,14 +51,14 @@ export default function AdminLayout() {
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
-        <p className="text-[#6B6B6B] font-body">Verifying access...</p>
+      <div className="min-h-screen bg-cream-50 dark:bg-gray-950 flex items-center justify-center">
+        <p className="text-[#6B6B6B] dark:text-gray-400 font-body">Verifying access...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-cream-50 dark:bg-gray-950">
       <div className="flex">
         <aside className={`fixed inset-y-0 left-0 z-40 w-64 bg-emerald-600 text-white transform transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex items-center justify-between h-16 px-6 border-b border-white/10">
@@ -105,12 +108,26 @@ export default function AdminLayout() {
         </aside>
 
         <div className="flex-1 min-w-0 lg:ml-64">
-          <div className="sticky top-0 z-30 bg-cream-50 border-b border-cream-200 lg:hidden">
-            <div className="flex items-center h-14 px-4">
-              <button onClick={() => setSidebarOpen(true)} aria-label="Open admin menu">
-                <HiOutlineMenu className="w-6 h-6 text-emerald-600" />
+          <div className="sticky top-0 z-30 bg-cream-50 dark:bg-gray-900 border-b border-cream-200 dark:border-gray-700 lg:hidden">
+            <div className="flex items-center justify-between h-14 px-4">
+              <div className="flex items-center gap-2">
+                <button onClick={() => setSidebarOpen(true)} className="p-1 -ml-1" aria-label="Open admin menu">
+                  <HiOutlineMenu className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                </button>
+                <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center border border-gold-500/30">
+                  <span className="text-[10px] font-bold text-gold-500 font-display tracking-wide">KBF</span>
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-200">Admin</span>
+              </div>
+              <button onClick={toggle} className="p-2 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400">
+                {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
               </button>
             </div>
+          </div>
+          <div className="flex items-center justify-end px-4 lg:px-8 pt-4 pb-0">
+            <button onClick={toggle} className="p-2 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 hidden lg:block">
+              {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
+            </button>
           </div>
           <div className="p-4 lg:p-8">
             <Outlet />

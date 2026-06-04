@@ -42,7 +42,7 @@ export default function AdminComplaints() {
             className={`chip text-xs capitalize ${
               filter === key
                 ? 'bg-emerald-600 text-white'
-                : 'bg-white border border-cream-300 text-[#6B6B6B] hover:border-emerald-600'
+                : 'bg-white dark:bg-gray-700 border border-cream-300 dark:border-gray-600 text-[#6B6B6B] dark:text-gray-300 hover:border-emerald-600'
             }`}
           >
             {label}
@@ -54,31 +54,31 @@ export default function AdminComplaints() {
         <div className={`${selected ? 'hidden lg:block' : 'block'} lg:col-span-2 space-y-3`}>
           {filtered.length === 0 ? (
             <div className="card p-8 text-center">
-              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-cream-200 flex items-center justify-center">
-                <HiOutlineInbox className="w-6 h-6 text-[#6B6B6B]" />
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-cream-200 dark:bg-gray-700 flex items-center justify-center">
+                <HiOutlineInbox className="w-6 h-6 text-[#6B6B6B] dark:text-gray-400" />
               </div>
-              <p className="text-[#6B6B6B] font-body text-sm">No {filter !== 'all' ? filter : ''} messages</p>
+              <p className="text-[#6B6B6B] dark:text-gray-400 font-body text-sm">No {filter !== 'all' ? filter : ''} messages</p>
             </div>
           ) : filtered.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelected(c)}
-              className={`card p-4 w-full text-left transition-colors ${selected?.id === c.id ? 'ring-2 ring-emerald-600' : 'hover:border-emerald-600/20'}`}
+              className={`card p-4 w-full text-left transition-colors ${selected?.id === c.id ? 'ring-2 ring-emerald-600' : 'hover:border-emerald-600/20 dark:hover:border-emerald-600/40'}`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-semibold text-[#1C1C1C]">{c.name}</span>
+                    <span className="text-sm font-semibold text-[#1C1C1C] dark:text-gray-200">{c.name}</span>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       c.status === 'open' ? 'bg-yellow-50 text-yellow-600' :
                       c.status === 'in_progress' ? 'bg-blue-50 text-blue-600' :
                       'bg-green-50 text-green-600'
                     }`}>{c.status.replace('_', ' ')}</span>
                   </div>
-                  <p className="text-sm font-medium text-[#1C1C1C] mb-0.5">{c.subject}</p>
-                  <p className="text-xs text-[#6B6B6B] line-clamp-1">{c.message}</p>
+                  <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200 mb-0.5">{c.subject}</p>
+                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400 line-clamp-1">{c.message}</p>
                 </div>
-                <span className="text-xs text-[#6B6B6B] whitespace-nowrap">
+                <span className="text-xs text-[#6B6B6B] dark:text-gray-400 whitespace-nowrap">
                   {new Date(c.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                 </span>
               </div>
@@ -94,20 +94,20 @@ export default function AdminComplaints() {
                 selected.status === 'in_progress' ? 'bg-blue-50 text-blue-600' :
                 'bg-green-50 text-green-600'
               }`}>{selected.status.replace('_', ' ')}</span>
-              <button onClick={() => setSelected(null)} className="text-sm text-[#6B6B6B] hover:text-[#1C1C1C] lg:hidden">Close</button>
+              <button onClick={() => setSelected(null)} className="text-sm text-[#6B6B6B] dark:text-gray-400 hover:text-[#1C1C1C] dark:hover:text-gray-200 lg:hidden">Close</button>
             </div>
-            <h3 className="font-display font-semibold text-lg text-[#1C1C1C] mb-1">{selected.subject}</h3>
-            <p className="text-sm text-[#6B6B6B] mb-4">
+            <h3 className="font-display font-semibold text-lg text-[#1C1C1C] dark:text-gray-200 mb-1">{selected.subject}</h3>
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-400 mb-4">
               From <strong>{selected.name}</strong> ({selected.email})
               &middot; {new Date(selected.created_at).toLocaleDateString('en-GB', {
                 day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
               })}
             </p>
-            <div className="bg-cream-50 rounded-xl p-4 mb-6">
-              <p className="text-sm text-[#1C1C1C] leading-relaxed whitespace-pre-wrap">{selected.message}</p>
+            <div className="bg-cream-50 dark:bg-gray-700/50 rounded-xl p-4 mb-6">
+              <p className="text-sm text-[#1C1C1C] dark:text-gray-200 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
             </div>
             <div className="space-y-2">
-              <p className="text-xs text-[#6B6B6B] font-medium uppercase tracking-wider">Update Status</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-medium uppercase tracking-wider">Update Status</p>
               <div className="flex gap-2">
                 {selected.status !== 'in_progress' && (
                   <button onClick={() => handleStatus(selected.id, 'in_progress')} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 text-blue-600 text-sm font-medium hover:bg-blue-100 transition-colors">

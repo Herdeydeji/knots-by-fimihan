@@ -80,7 +80,7 @@ export default function Homepage() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <p className="text-gold-500 text-sm font-medium uppercase tracking-[0.15em] font-body">Featured</p>
-              <h2 className="font-display text-3xl lg:text-4xl font-bold text-[#1C1C1C] mt-2">Bestsellers</h2>
+              <h2 className="font-display text-3xl lg:text-4xl font-bold text-[#1C1C1C] dark:text-gray-200 mt-2">Bestsellers</h2>
             </div>
             <Link
               to="/shop"
@@ -98,7 +98,7 @@ export default function Homepage() {
                 />
               ))
             ) : (
-              <p className="col-span-full text-center text-[#6B6B6B] py-12">No featured products available.</p>
+              <p className="col-span-full text-center text-[#6B6B6B] dark:text-gray-400 py-12">No featured products available.</p>
             )}
           </div>
           <div className="mt-8 text-center sm:hidden">
@@ -112,7 +112,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      <section className="relative bg-emerald-50 py-16 lg:py-24">
+      <section className="relative bg-emerald-50 dark:bg-gray-900 py-16 lg:py-24">
         <PatternOverlay opacity="0.03" className="text-emerald-600" />
         <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -122,8 +122,8 @@ export default function Homepage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C]">Premium Quality</h3>
-              <p className="text-[#6B6B6B] text-sm mt-2 leading-relaxed">Hand-selected fabrics and meticulous craftsmanship in every piece.</p>
+              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C] dark:text-gray-200">Premium Quality</h3>
+              <p className="text-[#6B6B6B] dark:text-gray-400 text-sm mt-2 leading-relaxed">Hand-selected fabrics and meticulous craftsmanship in every piece.</p>
             </div>
             <div className="text-center lg:text-left">
               <div className="w-12 h-12 rounded-xl bg-gold-100 flex items-center justify-center mx-auto lg:mx-0">
@@ -131,8 +131,8 @@ export default function Homepage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C]">Secure Payments</h3>
-              <p className="text-[#6B6B6B] text-sm mt-2 leading-relaxed">Safe and convenient payment options for peace of mind.</p>
+              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C] dark:text-gray-200">Secure Payments</h3>
+              <p className="text-[#6B6B6B] dark:text-gray-400 text-sm mt-2 leading-relaxed">Safe and convenient payment options for peace of mind.</p>
             </div>
             <div className="text-center lg:text-left">
               <div className="w-12 h-12 rounded-xl bg-gold-100 flex items-center justify-center mx-auto lg:mx-0">
@@ -140,8 +140,8 @@ export default function Homepage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
-              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C]">Made with Love</h3>
-              <p className="text-[#6B6B6B] text-sm mt-2 leading-relaxed">Each piece is thoughtfully designed with care and attention.</p>
+              <h3 className="font-display font-bold text-lg mt-4 text-[#1C1C1C] dark:text-gray-200">Made with Love</h3>
+              <p className="text-[#6B6B6B] dark:text-gray-400 text-sm mt-2 leading-relaxed">Each piece is thoughtfully designed with care and attention.</p>
             </div>
           </div>
         </div>

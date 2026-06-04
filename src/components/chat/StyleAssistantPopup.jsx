@@ -3,7 +3,7 @@ import ChatUI from './ChatUI'
 
 export default function StyleAssistantPopup({ onClose }) {
   return (
-    <div className="fixed bottom-6 right-6 z-50 hidden lg:flex flex-col w-[400px] h-[540px] bg-cream-100 rounded-2xl shadow-2xl border border-cream-200 overflow-hidden animate-fade-in">
+    <div className="fixed bottom-6 right-6 z-50 hidden lg:flex flex-col w-[400px] h-[540px] bg-cream-100 dark:bg-gray-800 rounded-2xl shadow-2xl border border-cream-200 dark:border-gray-700 overflow-hidden animate-fade-in">
       <header className="bg-emerald-600 text-white flex items-center justify-between px-4 py-3 flex-shrink-0 rounded-t-2xl">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">

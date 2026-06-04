@@ -22,29 +22,29 @@ function formatPriceRaw(price) {
 function OrderDetailModal({ order, onClose, onAction }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40" onClick={onClose}>
-      <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="sticky top-0 bg-white border-b border-cream-200 flex items-center justify-between px-6 py-4">
-          <h2 className="font-display font-semibold text-lg text-[#1C1C1C]">Order {order.order_number}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-cream-50 rounded-lg"><HiOutlineX className="w-5 h-5 text-[#6B6B6B]" /></button>
+      <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-cream-200 dark:border-gray-700 flex items-center justify-between px-6 py-4">
+          <h2 className="font-display font-semibold text-lg text-[#1C1C1C] dark:text-gray-200">Order {order.order_number}</h2>
+          <button onClick={onClose} className="p-1 hover:bg-cream-50 dark:hover:bg-gray-700 rounded-lg"><HiOutlineX className="w-5 h-5 text-[#6B6B6B] dark:text-gray-400" /></button>
         </div>
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-xs text-[#6B6B6B]">Customer</p>
-              <p className="text-sm font-medium text-[#1C1C1C]">{order.customer_name}</p>
-              <p className="text-xs text-[#6B6B6B]">{order.customer_email}</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Customer</p>
+              <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">{order.customer_name}</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{order.customer_email}</p>
             </div>
             <div>
-              <p className="text-xs text-[#6B6B6B]">Payment</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Payment</p>
               <p className={`text-sm font-medium capitalize ${order.payment_status === 'paid' ? 'text-emerald-600' : 'text-yellow-600'}`}>{order.payment_status}</p>
-              <p className="text-xs text-[#6B6B6B]">{order.payment_reference}</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{order.payment_reference}</p>
             </div>
           </div>
 
           {order.shipping_address && (
             <div>
-              <p className="text-xs text-[#6B6B6B] mb-1">Shipping Address</p>
-              <p className="text-sm text-[#1C1C1C]">
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mb-1">Shipping Address</p>
+              <p className="text-sm text-[#1C1C1C] dark:text-gray-200">
                 {order.customer_name}<br />
                 {order.shipping_address.street}, {order.shipping_address.city}, {order.shipping_address.state}
               </p>
@@ -52,16 +52,16 @@ function OrderDetailModal({ order, onClose, onAction }) {
           )}
 
           <div>
-            <p className="text-xs text-[#6B6B6B] mb-2">Items</p>
+            <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mb-2">Items</p>
             <div className="space-y-2">
               {order.items?.map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 bg-cream-50 rounded-xl">
-                  <div className="w-10 h-10 rounded-lg bg-cream-200 overflow-hidden flex-shrink-0">
+                <div key={i} className="flex items-center gap-3 p-3 bg-cream-50 dark:bg-gray-700/50 rounded-xl">
+                  <div className="w-10 h-10 rounded-lg bg-cream-200 dark:bg-gray-600 overflow-hidden flex-shrink-0">
                     {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#1C1C1C]">{item.name}</p>
-                    <p className="text-xs text-[#6B6B6B]">{item.qty} x {formatPriceRaw(item.price)}{item.size && ` — Size ${item.size}`}</p>
+                    <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">{item.name}</p>
+                    <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{item.qty} x {formatPriceRaw(item.price)}{item.size && ` — Size ${item.size}`}</p>
                   </div>
                   <span className="text-sm font-medium">{formatPriceRaw(item.qty * item.price)}</span>
                 </div>
@@ -69,15 +69,15 @@ function OrderDetailModal({ order, onClose, onAction }) {
             </div>
           </div>
 
-          <div className="border-t border-cream-200 pt-4 space-y-1 text-right">
-            <p className="text-sm text-[#6B6B6B]">Subtotal: {formatPriceRaw(order.subtotal)}</p>
-            <p className="text-sm text-[#6B6B6B]">Shipping: {order.shipping_fee > 0 ? formatPriceRaw(order.shipping_fee) : 'Free'}</p>
+          <div className="border-t border-cream-200 dark:border-gray-700 pt-4 space-y-1 text-right">
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-400">Subtotal: {formatPriceRaw(order.subtotal)}</p>
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-400">Shipping: {order.shipping_fee > 0 ? formatPriceRaw(order.shipping_fee) : 'Free'}</p>
             <p className="text-lg font-bold text-emerald-600">Total: {formatPriceRaw(order.total)}</p>
           </div>
 
           {order.fulfillment_status === 'pending' && order.payment_status === 'paid' && (
-            <div className="border-t border-cream-200 pt-4">
-              <p className="text-xs text-[#6B6B6B] font-medium uppercase tracking-wider mb-3">Order Actions</p>
+            <div className="border-t border-cream-200 dark:border-gray-700 pt-4">
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-medium uppercase tracking-wider mb-3">Order Actions</p>
               <div className="flex gap-3">
                 <button onClick={() => onAction('processing')} className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
                   <HiOutlineCheckCircle className="w-4 h-4" /> Confirm Order
@@ -190,7 +190,7 @@ export default function AdminOrders() {
             className={`chip text-xs capitalize ${
               filter === status
                 ? 'bg-emerald-600 text-white'
-                : 'bg-white border border-cream-300 text-[#6B6B6B] hover:border-emerald-600'
+                : 'bg-white dark:bg-gray-700 border border-cream-300 dark:border-gray-600 text-[#6B6B6B] dark:text-gray-300 hover:border-emerald-600'
             }`}
           >
             {status}
@@ -201,11 +201,11 @@ export default function AdminOrders() {
       {filtered.length === 0 ? (
         <div className="card py-16">
           <div className="text-center max-w-md mx-auto">
-            <div className="w-20 h-20 rounded-2xl bg-cream-200 flex items-center justify-center mx-auto mb-6">
-              <HiOutlineClipboardList className="w-10 h-10 text-[#6B6B6B]" />
+            <div className="w-20 h-20 rounded-2xl bg-cream-200 dark:bg-gray-700 flex items-center justify-center mx-auto mb-6">
+              <HiOutlineClipboardList className="w-10 h-10 text-[#6B6B6B] dark:text-gray-400" />
             </div>
-            <h3 className="text-xl font-display font-semibold text-[#1C1C1C]">No Orders Yet</h3>
-            <p className="text-[#6B6B6B] font-body mt-2 leading-relaxed">
+            <h3 className="text-xl font-display font-semibold text-[#1C1C1C] dark:text-gray-200">No Orders Yet</h3>
+            <p className="text-[#6B6B6B] dark:text-gray-400 font-body mt-2 leading-relaxed">
               {filter === 'all' ? 'Orders will appear here once customers start purchasing.' : `No orders with status "${filter}".`}
             </p>
           </div>
@@ -215,13 +215,13 @@ export default function AdminOrders() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-cream-200 bg-cream-50">
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Order</th>
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Customer</th>
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Total</th>
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Payment</th>
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Status</th>
-                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Date</th>
+                <tr className="border-b border-cream-200 dark:border-gray-700 bg-cream-50 dark:bg-gray-800">
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Order</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Customer</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Total</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Payment</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Status</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -229,12 +229,12 @@ export default function AdminOrders() {
                   <tr
                     key={order.id}
                     onClick={() => setSelectedOrder(order)}
-                    className="border-b border-cream-100 hover:bg-cream-50 transition-colors cursor-pointer"
+                    className="border-b border-cream-100 dark:border-gray-800 hover:bg-cream-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
                   >
-                    <td className="px-4 py-3 font-mono text-sm font-medium text-[#1C1C1C]">{order.order_number}</td>
+                    <td className="px-4 py-3 font-mono text-sm font-medium text-[#1C1C1C] dark:text-gray-200">{order.order_number}</td>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#1C1C1C]">{order.customer_name}</p>
-                      <p className="text-xs text-[#6B6B6B]">{order.customer_email}</p>
+                      <p className="font-medium text-[#1C1C1C] dark:text-gray-200">{order.customer_name}</p>
+                      <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{order.customer_email}</p>
                     </td>
                     <td className="px-4 py-3 font-medium text-emerald-600">{formatPrice(order.total)}</td>
                     <td className="px-4 py-3">
@@ -249,7 +249,7 @@ export default function AdminOrders() {
                         {order.fulfillment_status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-[#6B6B6B]">{new Date(order.created_at).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-[#6B6B6B] dark:text-gray-400">{new Date(order.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
               </tbody>

@@ -168,11 +168,11 @@ export default function Checkout() {
   if (processingRedirect) {
     return (
       <div className="max-w-lg mx-auto px-4 lg:px-8 py-20 text-center">
-        <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center mx-auto mb-6">
           <HiOutlineSparkles className="w-10 h-10 text-emerald-600 animate-pulse" />
         </div>
         <h2 className="font-display text-2xl font-bold text-emerald-600">Payment Confirmed!</h2>
-        <p className="text-[#6B6B6B] mt-2">Verifying your payment and creating your order...</p>
+        <p className="text-[#6B6B6B] dark:text-gray-400 mt-2">Verifying your payment and creating your order...</p>
       </div>
     )
   }
@@ -185,8 +185,8 @@ export default function Checkout() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         </div>
-        <h2 className="font-display text-2xl font-bold text-[#1C1C1C]">Sign In Required</h2>
-        <p className="text-[#6B6B6B] mt-2">Please sign in to proceed with checkout.</p>
+        <h2 className="font-display text-2xl font-bold text-[#1C1C1C] dark:text-gray-200">Sign In Required</h2>
+        <p className="text-[#6B6B6B] dark:text-gray-400 mt-2">Please sign in to proceed with checkout.</p>
         <button onClick={() => navigate('/login')} className="mt-6 bg-emerald-600 text-white px-6 py-3 rounded-xl font-body font-medium hover:bg-emerald-700 transition-colors">
           Sign In
         </button>
@@ -212,33 +212,33 @@ export default function Checkout() {
       <div className="grid lg:grid-cols-5 gap-8">
         <form onSubmit={(e) => { e.preventDefault(); payWithPaystack() }} className="lg:col-span-3 space-y-6">
           <div className="card p-6">
-            <h3 className="font-body font-semibold text-[#1C1C1C] mb-4">Shipping Information</h3>
+            <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Shipping Information</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Full Name</label>
+                <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Full Name</label>
                 <input name="name" required value={form.name} onChange={handleChange} className="input-field" placeholder="e.g. Aisha Mohammed" />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Email</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Email</label>
                   <input name="email" type="email" required value={form.email} onChange={handleChange} className="input-field" placeholder="aisha@email.com" />
                 </div>
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Phone</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Phone</label>
                   <input name="phone" type="tel" required value={form.phone} onChange={handleChange} className="input-field" placeholder="+234 801 234 5678" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Street Address</label>
+                <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Street Address</label>
                 <input name="street" required value={form.street} onChange={handleChange} className="input-field" placeholder="15 Bourdillon Road" />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">City</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">City</label>
                   <input name="city" required value={form.city} onChange={handleChange} className="input-field" placeholder="Lagos" />
                 </div>
                 <div>
-                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">State</label>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">State</label>
                   <input name="state" required value={form.state} onChange={handleChange} className="input-field" placeholder="Lagos" />
                 </div>
               </div>
@@ -253,39 +253,39 @@ export default function Checkout() {
             <HiOutlineLockClosed className="w-5 h-5" />
             {loading ? 'Processing...' : `Pay ${formatPrice(total)}`}
           </button>
-          <p className="text-xs text-center text-[#6B6B6B] font-body">
+          <p className="text-xs text-center text-[#6B6B6B] dark:text-gray-400 font-body">
             Secure payment powered by Paystack. Your information is encrypted and secure.
           </p>
         </form>
 
         <div className="lg:col-span-2">
           <div className="card p-6 sticky top-24">
-            <h3 className="font-body font-semibold text-[#1C1C1C] mb-4">Order Summary</h3>
+            <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Order Summary</h3>
             <div className="space-y-4">
               {items.map((item, i) => (
                 <div key={`${item.id}-${item.size}-${item.color}-${i}`} className="flex gap-3">
-                  <div className="w-16 h-16 rounded-xl bg-cream-200 overflow-hidden flex-shrink-0">
+                  <div className="w-16 h-16 rounded-xl bg-cream-200 dark:bg-gray-700 overflow-hidden flex-shrink-0">
                     <img src={item.image} alt="" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-body font-medium text-[#1C1C1C] line-clamp-1">{item.name}</p>
-                    <p className="text-xs text-[#6B6B6B]">Qty: {item.quantity}</p>
+                    <p className="text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 line-clamp-1">{item.name}</p>
+                    <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Qty: {item.quantity}</p>
                     <p className="text-sm font-body font-bold text-emerald-600">{formatPrice(item.price)}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <hr className="border-cream-200 my-4" />
+            <hr className="border-cream-200 dark:border-gray-700 my-4" />
             <div className="space-y-2 text-sm font-body">
               <div className="flex justify-between">
-                <span className="text-[#6B6B6B]">Subtotal</span>
+                <span className="text-[#6B6B6B] dark:text-gray-400">Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#6B6B6B]">Shipping</span>
+                <span className="text-[#6B6B6B] dark:text-gray-400">Shipping</span>
                 <span>{shipping.free ? <span className="text-emerald-600">Free</span> : formatPrice(shipping.fee)}</span>
               </div>
-              <hr className="border-cream-200" />
+              <hr className="border-cream-200 dark:border-gray-700" />
               <div className="flex justify-between text-base">
                 <span className="font-semibold">Total</span>
                 <span className="font-bold text-emerald-600">{formatPrice(total)}</span>

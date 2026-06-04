@@ -8,7 +8,7 @@ export default function CategoryPills() {
         <Link
           key={cat.slug}
           to={`/category/${cat.slug}`}
-          className="chip bg-white border border-cream-300 hover:border-emerald-600 hover:text-emerald-600 text-[#1C1C1C] whitespace-nowrap flex-shrink-0"
+          className="chip bg-white dark:bg-gray-800 border border-cream-300 dark:border-gray-600 hover:border-emerald-600 hover:text-emerald-600 text-[#1C1C1C] dark:text-gray-200 dark:hover:text-emerald-400 whitespace-nowrap flex-shrink-0"
         >
           <span>{cat.icon}</span>
           <span>{cat.name}</span>

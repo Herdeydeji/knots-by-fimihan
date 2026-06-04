@@ -50,7 +50,7 @@ export default function ChatUI({ onClose }) {
               className={`max-w-[85%] sm:max-w-[70%] px-4 py-2.5 text-sm leading-relaxed ${
                 msg.role === 'user'
                   ? 'bg-emerald-600 text-white rounded-2xl rounded-br-md'
-                  : 'bg-white text-[#1C1C1C] rounded-2xl rounded-bl-md shadow-sm border border-cream-200'
+                  : 'bg-white dark:bg-gray-700 text-[#1C1C1C] dark:text-gray-200 rounded-2xl rounded-bl-md shadow-sm border border-cream-200 dark:border-gray-600'
               }`}
             >
               {msg.text}
@@ -59,12 +59,12 @@ export default function ChatUI({ onClose }) {
         ))}
         {messages.length === 1 && (
           <div className="pt-4 space-y-2 max-w-sm">
-            <p className="text-xs text-[#6B6B6B] font-body font-medium px-1">Try asking:</p>
+            <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body font-medium px-1">Try asking:</p>
             {suggestions.map((s) => (
               <button
                 key={s}
                 onClick={() => handleSend(s)}
-                className="block w-full text-left px-4 py-2.5 rounded-xl bg-white hover:bg-cream-50 text-sm text-[#1C1C1C] transition-colors border border-cream-200 shadow-sm"
+                className="block w-full text-left px-4 py-2.5 rounded-xl bg-white dark:bg-gray-700 hover:bg-cream-50 dark:hover:bg-gray-600 text-sm text-[#1C1C1C] dark:text-gray-200 transition-colors border border-cream-200 dark:border-gray-600 shadow-sm"
                 type="button"
               >
                 {s}
@@ -75,7 +75,7 @@ export default function ChatUI({ onClose }) {
         <div ref={bottomRef} />
       </div>
 
-      <div className="bg-cream-100 border-t border-cream-200 px-4 py-3 flex-shrink-0">
+      <div className="bg-cream-100 dark:bg-gray-800 border-t border-cream-200 dark:border-gray-700 px-4 py-3 flex-shrink-0">
         <div className="flex items-end gap-2 max-w-3xl mx-auto">
           <input
             ref={inputRef}
