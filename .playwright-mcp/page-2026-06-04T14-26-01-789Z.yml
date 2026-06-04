@@ -1,0 +1,92 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - button "Open menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - link "KBF" [ref=e11] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e14]: KBF
+      - generic [ref=e15]:
+        - link "Search" [ref=e16] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e17]
+        - button "Account" [ref=e20] [cursor=pointer]:
+          - generic [ref=e22]: A
+        - link [ref=e23] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e24]
+  - main [ref=e26]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - link "KBF" [ref=e30] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e32]: KBF
+        - heading "Welcome Back" [level=1] [ref=e33]
+        - paragraph [ref=e34]: Sign in to your account
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Email
+          - textbox "your@email.com" [ref=e38]
+        - generic [ref=e39]:
+          - generic [ref=e40]: Password
+          - textbox "Enter your password" [ref=e41]
+        - button "Sign In" [ref=e42] [cursor=pointer]
+      - paragraph [ref=e43]:
+        - text: Don't have an account?
+        - link "Create one" [ref=e44] [cursor=pointer]:
+          - /url: /signup
+  - contentinfo [ref=e45]:
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e51]: KBF
+        - paragraph [ref=e52]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - link "WhatsApp" [ref=e54] [cursor=pointer]:
+          - /url: https://wa.me/+2348057370277
+          - img [ref=e55]
+      - generic [ref=e57]:
+        - heading "Quick Links" [level=4] [ref=e58]
+        - list [ref=e59]:
+          - listitem [ref=e60]:
+            - link "Shop All" [ref=e61] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e62]:
+            - link "My Orders" [ref=e63] [cursor=pointer]:
+              - /url: /orders
+          - listitem [ref=e64]:
+            - link "About Us" [ref=e65] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e66]:
+            - link "Contact" [ref=e67] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e68]:
+        - heading "Customer Service" [level=4] [ref=e69]
+        - list [ref=e70]:
+          - listitem [ref=e71]:
+            - link "Shipping Information" [ref=e72] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e73]:
+            - link "Returns & Exchanges" [ref=e74] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e75]:
+            - link "Size Guide" [ref=e76] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e77]:
+            - link "WhatsApp Us" [ref=e78] [cursor=pointer]:
+              - /url: https://wa.me/+2348057370277
+              - img [ref=e79]
+              - text: WhatsApp Us
+      - generic [ref=e81]:
+        - heading "Newsletter" [level=4] [ref=e82]
+        - paragraph [ref=e83]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e84]:
+          - textbox "Your email" [ref=e85]
+          - button "Subscribe" [ref=e86] [cursor=pointer]
+    - generic [ref=e88]:
+      - paragraph [ref=e89]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "knotbyfimihan121@gmail.com" [ref=e90] [cursor=pointer]:
+        - /url: mailto:knotbyfimihan121@gmail.com
+        - img [ref=e91]
+        - text: knotbyfimihan121@gmail.com
+  - button "Open AI style assistant" [ref=e93] [cursor=pointer]:
+    - img [ref=e94]

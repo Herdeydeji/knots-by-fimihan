@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shop - Knots by Fimihan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#91d2a7",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary": "#3a3a37",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "on-background": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c0c9bf",
+                    "surface": "#fcf9f8",
+                    "on-tertiary-container": "#c6c3bf",
+                    "on-tertiary-fixed": "#1c1c19",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#93d5aa",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#002110",
+                    "inverse-on-surface": "#f3f0ef",
+                    "outline": "#707971",
+                    "surface-container-low": "#f6f3f2",
+                    "primary-container": "#1a5c3a",
+                    "inverse-primary": "#93d5aa",
+                    "surface-container": "#f0eded",
+                    "secondary-container": "#fec564",
+                    "primary": "#004326",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary-fixed": "#281900",
+                    "on-tertiary-fixed-variant": "#474743",
+                    "on-surface-variant": "#404942",
+                    "secondary-fixed-dim": "#f5bd5d",
+                    "tertiary-container": "#51514d",
+                    "on-primary-fixed-variant": "#0b5131",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-surface": "#1b1b1b",
+                    "secondary-fixed": "#ffdeac",
+                    "on-secondary-fixed-variant": "#604100",
+                    "tertiary-fixed": "#e5e2dd",
+                    "primary-fixed": "#aff2c4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#2a6a47",
+                    "secondary": "#7e5700",
+                    "on-secondary-container": "#765100",
+                    "error": "#ba1a1a",
+                    "background": "#fcf9f8",
+                    "inverse-surface": "#313030",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container-high": "#eae7e7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "stack-md": "24px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-md": ["DM Sans"],
+                    "body-lg": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "label-sm": ["DM Sans"],
+                    "display-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-swatch { outline: 2px solid #004326; outline-offset: 2px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c0c9bf; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+            Knots by Fimihan
+        </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Shop</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Collections</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">About</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity" data-icon="favorite">favorite</button>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity" data-icon="shopping_bag">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-primary" data-icon="menu">menu</button>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg px-margin-mobile md:px-margin-desktop min-h-screen">
+<!-- Search & Filter Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mb-stack-lg">
+<div class="flex-1 max-w-xl">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-sm">The Curated Collection</h1>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-b border-outline-variant py-3 pl-12 focus:outline-none focus:border-primary transition-all font-body-md" placeholder="Find your signature style..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md transition-transform active:scale-95">New In</button>
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-all active:scale-95">Bestsellers</button>
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-all active:scale-95">Sale</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<select class="bg-transparent font-label-md text-label-md border-none focus:ring-0 text-on-surface-variant">
+<option>Sort By: Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</section>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Sidebar Filter -->
+<aside class="hidden lg:block w-64 flex-shrink-0 space-y-stack-lg sticky top-28 h-fit">
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-stack-md">Categories</h3>
+<ul class="space-y-stack-sm font-body-md text-on-surface-variant">
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/> Hijabs</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/> Abayas</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/> Modest Sets</label></li>
+<li><label class="flex items-center gap-2 cursor-pointer hover:text-primary"><input class="rounded text-primary focus:ring-primary border-outline-variant" type="checkbox"/> Essentials</label></li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-stack-md">Price Range</h3>
+<div class="px-2">
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between mt-2 font-label-sm text-on-surface-variant">
+<span>₦10,000</span>
+<span>₦150,000+</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-stack-md">Colors</h3>
+<div class="flex flex-wrap gap-3">
+<button class="w-6 h-6 rounded-full bg-[#004326] active-swatch shadow-inner"></button>
+<button class="w-6 h-6 rounded-full bg-[#EADDCA] border border-outline-variant"></button>
+<button class="w-6 h-6 rounded-full bg-[#F5F5DC] border border-outline-variant"></button>
+<button class="w-6 h-6 rounded-full bg-[#000000] border border-outline-variant"></button>
+<button class="w-6 h-6 rounded-full bg-[#704214] border border-outline-variant"></button>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-stack-md">Size</h3>
+<div class="grid grid-cols-3 gap-2">
+<button class="border border-outline-variant py-1 text-label-sm hover:border-primary transition-colors">XS</button>
+<button class="border border-outline-variant py-1 text-label-sm hover:border-primary transition-colors">S</button>
+<button class="border border-outline-variant py-1 text-label-sm bg-primary text-on-primary">M</button>
+<button class="border border-outline-variant py-1 text-label-sm hover:border-primary transition-colors">L</button>
+<button class="border border-outline-variant py-1 text-label-sm hover:border-primary transition-colors">XL</button>
+</div>
+</div>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-stack-lg">
+<!-- Product Card 1 -->
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sophisticated woman in a deep emerald green silk abaya standing gracefully in a minimalist modern heritage setting with warm Nigerian sunlight. The lighting is soft and golden, highlighting the delicate textures of the premium fabric. The mood is serene, luxurious, and rooted in Islamic modesty, with high-end editorial composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA23VWiTDonYR5n5ZFfs2fnMiD2jBleXYfipMWD6pWFrVFOLMUlufYArtjmxmH6fK32hxePGjw9j1ytgB6DM9aQVqz937jgxEPmR6-x1ZTFJ0QIz0679UWY8Gh4M1-CxXpNUYWyx6x7NFG4LORErfZ8Hh-VVBEIYmhRleJ-tmefIsLtEU9eUybCFHeD9HeLWcsLviNmjeTwGxW6aWp2b2VvmUCwSEH2XQAcEbPSSfMUt2WNBP2JcgmeZ6x6i5w20C6XslvOfXxTmp7f"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 text-label-sm rounded-full">New</span>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Emerald Silk Abaya</h4>
+<p class="font-body-md text-primary font-bold">₦85,000</p>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up detail of a premium gold-toned hijab with intricate cultural geometric motifs, draped elegantly in a studio setting. The lighting is high-key and professional, accentuating the shimmer of the high-quality modest wear fabric. The color palette features warm creams and rich golds, evoking a sense of prestige and modern elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArkpUhEfkOaZ-db_EqKWxfdKmesYltTVxizuy3ZrHOUcFQh_rX4wh6_HoO8Wd2RfQmsCX66k5InbxAqkIUoWt2BhPBvagBFfcUZxnE3qvPBeT_t5F191cZqoAdxo0D1j1XXrDSSoHVa3xNFrvVT0QVz19FCPDFhhnXq9_Y5flVruvtsx2qRqaCQnovr8UIZjB6Nkx6NVKBEVr97XiRNNXh1FpmumU5Od1mkuebQxZWo9LuZcmGgtJNzVfKUq6kB_6wagH4VOHFUxTo"/>
+<span class="absolute top-3 left-3 bg-primary-container text-on-primary-container px-3 py-1 text-label-sm rounded-full">Sale</span>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Medina Gold Wrap</h4>
+<div class="flex items-center gap-2">
+<span class="font-body-md text-primary font-bold">₦12,500</span>
+<span class="font-body-md text-on-surface-variant line-through text-label-sm">₦18,000</span>
+</div>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist modest set in sand-colored linen, showcased on a high-fashion model walking through an airy, white-walled gallery space with arched shadows. The aesthetic is clean, sophisticated, and contemporary. The lighting is natural and bright, creating a calm and organized digital boutique feel with soft emerald accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWaTuQ4UY3k_UT5qDsS1HiJulkJyXRGVDIl8A3QpfiKOZM76YEqgQWJ8s7_mvVUe5rue7BBOc9VuAZe87yK1eWYCmXboMwSKUVKFbFulCJycdkXBukJOjX3Nn_6oxPi8ttP4qFD9Rh92eNXJrOGshipy_6C314nZjUaGL46SfigoN3MV4PPL0wUV74WXSu0XdFKkbjzG_GcMRjAAiRxesZIs2bxvhQaWdKaMiImNZphqCUWbad-2LO3ybc8VdKRORMHgosgjft8Kb2"/>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Desert Linen Set</h4>
+<p class="font-body-md text-primary font-bold">₦54,000</p>
+</div>
+</article>
+<!-- Product Card 4 -->
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Detail of a modest black evening gown with delicate Nigerian-inspired embroidery in metallic threads. The image is captured in low, atmospheric lighting that creates a sense of exclusivity and art. The focus is on the craftsmanship and the interplay of light on the dark, rich fabric. The vibe is poised, celebratory, and culturally rooted." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3wG26E40tmWI5Iv02StUlP9uVim-td68KSnTxlwuCB_2zWqTIVWBbHd0IBuxbVTJMOZmiqjhSBeaskNSGXMFs6Ouhx91MwUNhENC5_x-k6pUO2XIi4lSAOuCaF8QJHYwSQjYd-T7FKgyDuMCyhSwjIe9MzqxfhmDZFYWjRjLLs2lOjoVrZ7fb5p0z5u_eVy5Xk7NV6gcRJX0SaELh0OK4HUW39an3qPHRlghp_YfJqvbybGerFPiLS_r6ARxPx7AWLSu7KJJG61Rk"/>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Noir Heritage Kaftan</h4>
+<p class="font-body-md text-primary font-bold">₦120,000</p>
+</div>
+</article>
+<!-- Repeated items for grid filling -->
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Premium modal hijab in soft taupe shade draped artistically over a minimalist marble stand. The background is a cream-colored textured wall with subtle Islamic geometric watermarks. The lighting is diffused and airy, creating a high-end minimalist editorial look that emphasizes quality and modesty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ4x9KbdHqjOs0yHaqkiNmPLh5EmrnjnQ5jNuMOFR4x3pgji5ubNkUBJ6n2htUsbjtWMQd4yymc2KydJ2GDjNyCHyqnPmwLlzb3ehBQiqk4MMBk3IgL_Y-qqh-EWSKfR2aEcEF0wNabH6PIwdb9BzFA66REMzC_5n_V34YQVquCimgnFGBTCSExOBMrvG8-m2Fyk_NYHDY6nKhfkwLlaAdqIPOTU0rBLZ7zf2k3TEXH_UZzTNxmZW6Wy9RZ5bXe0WMKRY7adXg-q5s"/>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Essential Modal Wrap</h4>
+<p class="font-body-md text-primary font-bold">₦15,000</p>
+</div>
+</article>
+<article class="group space-y-stack-sm relative">
+<div class="aspect-[3/4] overflow-hidden bg-surface-container-low rounded-lg relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A chic woman wearing a structured clay-colored modest set, posing in an outdoor urban setting with brutalist architecture that contrasts with the softness of the fabric. The sunlight creates dramatic shadows, and the overall look is exceptionally modern, minimalist, and elite. High fashion photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7zlJh2MMpa2nZrUjh1niRh3FGSQ6cL3OfIb0RwhlP6Yh543HK1tSNVmRhImyS0WSA4HjFqXq8BA3LVLRG35v4GcEbmiDNcq1TXhXm_NrfAhq9SR0RC92uWFR9FcZ-YgnCFTRRdYmO7oEtU0WDtOtlrog1Xq57ygX7Fm5y6Be36DLDPORs9DFbYEctq_nu2MxT_yllk6OE_vHpCz__8j5AZvPcAuAk81zLXZl-MFIJxmzNhRoxWk8WyOGuZ4fZMEzR6yjBeCfIvdJP"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 text-label-sm rounded-full">New</span>
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-surface/60 backdrop-blur-sm rounded-full text-primary hover:bg-surface transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="absolute bottom-0 left-0 w-full py-3 bg-primary/90 text-on-primary font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity translate-y-full group-hover:translate-y-0 duration-300">
+                            Add to Cart
+                        </button>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface">Clay Structured Kimono</h4>
+<p class="font-body-md text-primary font-bold">₦72,000</p>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- Floating AI Assistant -->
+<button class="fixed bottom-24 right-6 md:right-12 w-16 h-16 bg-secondary rounded-full shadow-[0_8px_30px_rgb(126,87,0,0.3)] flex items-center justify-center text-on-secondary-fixed transition-transform hover:scale-110 active:scale-95 z-40" id="ai-assistant">
+<span class="material-symbols-outlined text-3xl" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant">
+<div class="col-span-1 md:col-span-1 space-y-stack-md">
+<div class="font-headline-md text-headline-md text-primary">Knots by Fimihan</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-4">Customer Care</h5>
+<ul class="space-y-2">
+<li><a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+<li><a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-4">Information</h5>
+<ul class="space-y-2">
+<li><a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-primary font-bold mb-4">Newsletter</h5>
+<div class="flex flex-col gap-2">
+<p class="text-label-sm text-on-surface-variant">Join the circle for exclusive releases.</p>
+<div class="flex border-b border-primary py-1">
+<input class="bg-transparent border-none focus:ring-0 text-label-sm flex-1" placeholder="Email address" type="email"/>
+<button class="material-symbols-outlined text-primary" data-icon="arrow_forward">arrow_forward</button>
+</div>
+</div>
+</div>
+</footer>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-surface border-t border-outline-variant flex justify-around items-center z-50">
+<button class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center text-primary">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-[10px] font-label-sm">Shop</span>
+</button>
+<button class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="text-[10px] font-label-sm">Saved</span>
+</button>
+<button class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for AI Assistant
+        const aiBtn = document.getElementById('ai-assistant');
+        aiBtn.addEventListener('mouseenter', () => {
+            aiBtn.classList.add('animate-pulse');
+        });
+        aiBtn.addEventListener('mouseleave', () => {
+            aiBtn.classList.remove('animate-pulse');
+        });
+
+        // Simple active state toggle for swatches
+        const swatches = document.querySelectorAll('.flex.flex-wrap.gap-3 button');
+        swatches.forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                swatches.forEach(s => s.classList.remove('active-swatch'));
+                swatch.classList.add('active-swatch');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,84 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - button "Open menu" [ref=e216] [cursor=pointer]:
+          - img [ref=e217]
+        - link "KBF" [ref=e219] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e11]: KBF
+      - generic [ref=e19]:
+        - link "Search" [ref=e20] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e21]
+        - button "Account" [ref=e24] [cursor=pointer]:
+          - generic [ref=e26]: A
+        - link [ref=e27] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e28]
+  - main [ref=e30]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - img "Knots by Fimihan" [ref=e33]
+        - img
+        - generic [ref=e35]:
+          - generic [ref=e38]: Islamic Modest Fashion
+          - heading "Dress Modestly, Live Beautifully" [level=1] [ref=e39]
+          - paragraph [ref=e40]: Premium abayas, hijabs, and kaftans for the woman who values both her faith and her style. Thoughtfully curated, ethically sourced.
+          - generic [ref=e41]
+          - generic [ref=e46]
+      - generic [ref=e59]:
+        - img
+        - generic [ref=e60]:
+          - generic [ref=e62]
+          - generic [ref=e68]
+          - link "View All" [ref=e221] [cursor=pointer]:
+            - /url: /shop
+      - generic [ref=e70]:
+        - img
+        - generic [ref=e72]:
+          - generic [ref=e73]
+          - generic [ref=e79]
+          - generic [ref=e85]
+      - generic [ref=e93]:
+        - img
+        - generic [ref=e94]:
+          - heading "Join Our Community" [level=2] [ref=e95]
+          - paragraph [ref=e96]: Be the first to know about new collections, exclusive offers, and styling tips.
+          - generic [ref=e97]
+  - contentinfo [ref=e100]:
+    - generic [ref=e102]:
+      - generic [ref=e103]:
+        - generic [ref=e106]: KBF
+        - paragraph [ref=e109]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - link "WhatsApp" [ref=e111] [cursor=pointer]:
+          - /url: https://wa.me/+2348057370277
+          - img [ref=e112]
+      - generic [ref=e114]:
+        - heading "Quick Links" [level=4] [ref=e115]
+        - list [ref=e116]:
+          - listitem [ref=e117]
+          - listitem [ref=e119]
+          - listitem [ref=e121]
+          - listitem [ref=e123]
+      - generic [ref=e125]:
+        - heading "Customer Service" [level=4] [ref=e126]
+        - list [ref=e127]:
+          - listitem [ref=e128]
+          - listitem [ref=e130]
+          - listitem [ref=e132]
+          - listitem [ref=e134]
+      - generic [ref=e138]:
+        - heading "Newsletter" [level=4] [ref=e139]
+        - paragraph [ref=e140]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e141]:
+          - textbox "Your email" [ref=e142]
+          - button "Subscribe" [ref=e143] [cursor=pointer]
+    - generic [ref=e145]:
+      - paragraph [ref=e146]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "knotbyfimihan121@gmail.com" [ref=e147] [cursor=pointer]:
+        - /url: mailto:knotbyfimihan121@gmail.com
+        - img [ref=e148]
+        - text: knotbyfimihan121@gmail.com
+  - button "Open AI style assistant" [ref=e150] [cursor=pointer]:
+    - img [ref=e151]

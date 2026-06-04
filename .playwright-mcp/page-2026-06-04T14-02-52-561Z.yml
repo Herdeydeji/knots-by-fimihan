@@ -1,0 +1,129 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link "KBF Knots by Fimihan" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]:
+          - generic [ref=e11]: KBF
+          - generic [ref=e13]: Knots by Fimihan
+      - navigation [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - link "Shop" [ref=e16] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e17] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e18] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e19]:
+        - link "Search" [ref=e20] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e21]
+        - button "Account" [ref=e24] [cursor=pointer]:
+          - generic [ref=e26]: A
+        - link [ref=e27] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e28]
+  - main [ref=e30]:
+    - generic [ref=e139]:
+      - navigation [ref=e140]:
+        - link "Home" [ref=e142] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e143]:
+          - img [ref=e144]
+          - generic [ref=e146]: My Orders
+      - heading "My Orders" [level=1] [ref=e147]
+      - generic [ref=e148]:
+        - button "KBF-20260718 pending 4 Jun 2026 ₦27,000" [ref=e150] [cursor=pointer]:
+          - generic [ref=e151]:
+            - generic [ref=e152]:
+              - generic [ref=e153]:
+                - generic [ref=e154]: KBF-20260718
+                - generic [ref=e155]: pending
+              - paragraph [ref=e156]: 4 Jun 2026
+            - generic [ref=e157]:
+              - generic [ref=e158]: ₦27,000
+              - img [ref=e159]
+        - button "KBF-20268180 pending 4 Jun 2026 ₦27,000" [ref=e162] [cursor=pointer]:
+          - generic [ref=e163]:
+            - generic [ref=e164]:
+              - generic [ref=e165]:
+                - generic [ref=e166]: KBF-20268180
+                - generic [ref=e167]: pending
+              - paragraph [ref=e168]: 4 Jun 2026
+            - generic [ref=e169]:
+              - generic [ref=e170]: ₦27,000
+              - img [ref=e171]
+        - button "KBF-20261849 pending 4 Jun 2026 ₦111,000" [ref=e174] [cursor=pointer]:
+          - generic [ref=e175]:
+            - generic [ref=e176]:
+              - generic [ref=e177]:
+                - generic [ref=e178]: KBF-20261849
+                - generic [ref=e179]: pending
+              - paragraph [ref=e180]: 4 Jun 2026
+            - generic [ref=e181]:
+              - generic [ref=e182]: ₦111,000
+              - img [ref=e183]
+        - button "KBF-20260592 pending 4 Jun 2026 ₦51,000" [ref=e186] [cursor=pointer]:
+          - generic [ref=e187]:
+            - generic [ref=e188]:
+              - generic [ref=e189]:
+                - generic [ref=e190]: KBF-20260592
+                - generic [ref=e191]: pending
+              - paragraph [ref=e192]: 4 Jun 2026
+            - generic [ref=e193]:
+              - generic [ref=e194]: ₦51,000
+              - img [ref=e195]
+  - contentinfo [ref=e88]:
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - generic [ref=e92]:
+          - generic [ref=e94]: KBF
+          - generic [ref=e96]: Knots by Fimihan
+        - paragraph [ref=e97]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - link "WhatsApp" [ref=e99] [cursor=pointer]:
+          - /url: https://wa.me/+2348057370277
+          - img [ref=e100]
+      - generic [ref=e102]:
+        - heading "Quick Links" [level=4] [ref=e103]
+        - list [ref=e104]:
+          - listitem [ref=e105]:
+            - link "Shop All" [ref=e106] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e107]:
+            - link "About Us" [ref=e108] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e109]:
+            - link "Contact" [ref=e110] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e111]:
+        - heading "Customer Service" [level=4] [ref=e112]
+        - list [ref=e113]:
+          - listitem [ref=e114]:
+            - link "Shipping Information" [ref=e115] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e116]:
+            - link "Returns & Exchanges" [ref=e117] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e118]:
+            - link "Size Guide" [ref=e119] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e120]:
+            - link "WhatsApp Us" [ref=e121] [cursor=pointer]:
+              - /url: https://wa.me/+2348057370277
+              - img [ref=e122]
+              - text: WhatsApp Us
+      - generic [ref=e124]:
+        - heading "Newsletter" [level=4] [ref=e125]
+        - paragraph [ref=e126]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e127]:
+          - textbox "Your email" [ref=e128]
+          - button "Subscribe" [ref=e129] [cursor=pointer]
+    - generic [ref=e131]:
+      - paragraph [ref=e132]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "knotbyfimihan121@gmail.com" [ref=e133] [cursor=pointer]:
+        - /url: mailto:knotbyfimihan121@gmail.com
+        - img [ref=e134]
+        - text: knotbyfimihan121@gmail.com
+  - button "Open AI style assistant" [ref=e136] [cursor=pointer]:
+    - img [ref=e137]

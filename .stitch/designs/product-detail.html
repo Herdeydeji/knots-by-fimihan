@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .active-thumb { border: 2px solid #004326; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#91d2a7",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#3a3a37",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c9bf",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#c6c3bf",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d5aa",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002110",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#707971",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#1a5c3a",
+                        "inverse-primary": "#93d5aa",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fec564",
+                        "primary": "#004326",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#281900",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#404942",
+                        "secondary-fixed-dim": "#f5bd5d",
+                        "tertiary-container": "#51514d",
+                        "on-primary-fixed-variant": "#0b5131",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1b1b1b",
+                        "secondary-fixed": "#ffdeac",
+                        "on-secondary-fixed-variant": "#604100",
+                        "tertiary-fixed": "#e5e2dd",
+                        "primary-fixed": "#aff2c4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#2a6a47",
+                        "secondary": "#7e5700",
+                        "on-secondary-container": "#765100",
+                        "error": "#ba1a1a",
+                        "background": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-primary">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+            Knots by Fimihan
+        </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">shopping_bag</button>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg px-margin-mobile md:px-margin-desktop">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-12">
+<!-- Left: Image Gallery -->
+<div class="md:col-span-7 flex flex-col-reverse md:flex-row gap-4">
+<!-- Thumbnail Carousel -->
+<div class="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto no-scrollbar md:w-24 shrink-0">
+<button class="thumb-btn active-thumb w-20 h-24 md:w-full md:h-32 rounded-lg overflow-hidden shrink-0" onclick="changeImage('img1')">
+<img class="w-full h-full object-cover" data-alt="High-end studio photography of a luxurious deep emerald silk abaya draped on a minimalist mannequin. The lighting is soft and cinematic, highlighting the rich luster and fluid movement of the premium silk fabric. The setting is a clean, modern cream-toned gallery space with subtle Islamic geometric shadows on the wall. The overall mood is sophisticated, modest, and editorial." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEEBs4xJz8JVhiUetYYleHeBLxdRy-Vr4PnrlS7xzCHMY4PegVvXNZwQrz6ZQAv2sqls3rhvjhpJX4L_hPpz6yciL4Bc675HGkImwm014b_HtQgZ_1fSjXYreUR6R0SWPugpEPqgjrZOKl4CqUyRe4HTNwf2FYB_Pig1nzVCQvW27epbRCrDvCOhNUTe6NERT8P4v8n4ShA2zrRDjBJHBD65p_f3cAlxwQ1gfXifKeX_ztJVtDJMh382hIA4ewcfFi11C9xyvGd-BT"/>
+</button>
+<button class="thumb-btn w-20 h-24 md:w-full md:h-32 rounded-lg overflow-hidden shrink-0 opacity-60" onclick="changeImage('img2')">
+<img class="w-full h-full object-cover" data-alt="A detailed close-up shot of the intricate gold embroidery and stitching on the cuff of a deep emerald silk garment. The texture of the high-quality silk is visible under warm, focused lighting. The background is a soft-focus cream luxury boutique interior, maintaining a minimalist and elegant brand aesthetic. The lighting creates a gentle shimmer on the metallic gold threads." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW-RRvpHyIUpRYiNT7F1cvx9cxiyNpUJWopZHUn6GHDrkiCqMoZwYiViXRwqz1WCbrU0ir4np9M0N5x8nFxyfL0i_43DwbVuSCYQpRtlur-FYrtFC65_Er3b54bwNI5QukeGR7OLRCS9iRbKCkNwFpCDOmwDXRyDrLw09dKZXKTmeGVoEzb7gmfy7U7-vOv3q2qGx4Hv65Gno8SxB6JaTjlVT75tvebAu8hBz-MImMzRI1x2KPt4yC7h3aE2DoypEca9fsdnNwWC-L"/>
+</button>
+<button class="thumb-btn w-20 h-24 md:w-full md:h-32 rounded-lg overflow-hidden shrink-0 opacity-60" onclick="changeImage('img3')">
+<img class="w-full h-full object-cover" data-alt="A lifestyle shot of a model wearing a luxurious emerald abaya walking through a modern architectural space with high ceilings and natural light. The garment flows elegantly, capturing the 'Modern Heritage' brand essence. The color palette is dominated by deep greens and warm creams, creating a poised and celebratory atmosphere. Soft daylight creates long, ambient shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE_bDDeFNH4c-SHKdw5IiKXtlZ0IEsDdLN13jXGhMJwWWGbUJSEj0JUXhi3OQ2Rb8VU5qo8vhy0cm0rzVK3fPRcsf-aUg9gCs8hDydYhPBy8mJt5Z-_92mHVeu9BFkvpSAiGM6W1QFZ2WkiwUq6We1jUby16lKz3n3JyZDJugvO6-ATQGwAXW9pO24-HXBiJntoTs9ikyO57IU0hpH2CrDtCdpsOcuEHqFDPS_qDqIhmd3zEr1UhjjjAi9hvqh4X2YaRjEPmvePH_D"/>
+</button>
+</div>
+<!-- Main Image -->
+<div class="flex-1 rounded-xl overflow-hidden aspect-[3/4] bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover transition-all duration-500" data-alt="Detailed full-length view of the Luxe Emerald Silk Abaya. The garment is captured in a minimalist luxury boutique setting with a warm cream-colored floor and pristine white walls. The lighting is bright and airy, creating a high-end editorial feel that allows the deep green silk to pop as a central art piece. The mood is calm, organized, and intentional." id="main-product-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUBMW68yD499dYESOcAdUQ1FzyxizfVqTCIeLVu1DCg07SZOk844JM4TfihlDnUPM_K5PUZAGJ-6JiWsiP3uw_LoWlUySVbK68P2D-uWEq3FeTlkii8MAPNHhMX3PdQ0JINU3oAKiAMBWPhKVgwZcZton_OE3Na3OVu-P0S9LDgAoxhpIxS9V-oYhvnL-DsbTBsUSqAPyLqTaVB8-7G6tUiN2UkoHHO0ctMOnwZUO7N8JuBcBld66nf13ZJ5XJg5Qt5LhzZe5W-VeP"/>
+</div>
+</div>
+<!-- Right: Product Controls -->
+<div class="md:col-span-5 flex flex-col gap-stack-md">
+<nav class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<a class="hover:text-primary" href="#">Shop</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-primary" href="#">Abayas</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">Luxe Emerald Silk</span>
+</nav>
+<div>
+<h1 class="font-headline-lg text-headline-lg md:text-headline-lg text-primary mb-2">Luxe Emerald Silk Abaya</h1>
+<div class="flex items-center gap-4">
+<span class="font-body-lg text-body-lg font-bold text-secondary">₦45,000</span>
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-label-sm font-label-sm rounded-full">New Arrival</span>
+</div>
+</div>
+<!-- Color Swatches -->
+<div class="flex flex-col gap-stack-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Color: <span class="text-on-surface font-semibold">Emerald Green</span></span>
+<div class="flex gap-3">
+<button class="w-8 h-8 rounded-full border-2 border-primary bg-[#004326] p-0.5 shadow-sm ring-1 ring-primary/20"></button>
+<button class="w-8 h-8 rounded-full border-2 border-transparent bg-[#1C1C19] p-0.5 hover:border-outline transition-all"></button>
+<button class="w-8 h-8 rounded-full border-2 border-transparent bg-[#7E5700] p-0.5 hover:border-outline transition-all"></button>
+</div>
+</div>
+<!-- Size Selector -->
+<div class="flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Size</span>
+<button class="text-primary font-label-sm text-label-sm underline underline-offset-4 hover:opacity-80">Size Guide</button>
+</div>
+<div class="grid grid-cols-4 gap-3">
+<button class="py-3 text-center border border-outline-variant rounded-lg font-label-md text-label-md hover:border-primary hover:text-primary transition-all">S</button>
+<button class="py-3 text-center border-2 border-primary rounded-lg font-label-md text-label-md text-primary bg-primary/5">M</button>
+<button class="py-3 text-center border border-outline-variant rounded-lg font-label-md text-label-md hover:border-primary hover:text-primary transition-all">L</button>
+<button class="py-3 text-center border border-outline-variant rounded-lg font-label-md text-label-md hover:border-primary hover:text-primary transition-all">XL</button>
+</div>
+</div>
+<!-- Quantity -->
+<div class="flex flex-col gap-stack-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Quantity</span>
+<div class="flex items-center w-fit border border-outline-variant rounded-lg overflow-hidden">
+<button class="px-4 py-2 hover:bg-surface-container transition-colors">-</button>
+<span class="px-6 py-2 border-x border-outline-variant font-medium">1</span>
+<button class="px-4 py-2 hover:bg-surface-container transition-colors">+</button>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col gap-4 mt-4">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+                        Add to Cart
+                    </button>
+<button class="w-full py-4 border-2 border-secondary text-secondary rounded-xl font-label-md text-label-md hover:bg-secondary/5 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Buy Now
+                        <img alt="Paystack" class="h-4 grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByEfdkdtofudYDUvB-SNl6lEcLv3kdrgcgG3Nkz54YcfhrdrCStoarvZ9obrLFCbLJebAXQXNBaNMKFOQE0Z69tQYYtgn_eOUVgOJm1vdsgfwq7TEHbfqCoVxQqG-uwUe5ePeCayF9Hp4Sq5_-WDwMgIybbaX8sXEovrC4-JRfkd53mueOlqcWV2GotUrta9HxrzmHl7OMiwvrj1aVh6n9C0ywjdzQ1gvkv_JG0b5cggP4FnxfUBp9W9UbaQt1yrBW4WnMl8gn66Ji"/>
+</button>
+</div>
+<!-- Delivery Info -->
+<div class="mt-6 border-t border-outline-variant pt-6 space-y-4">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<div>
+<p class="font-label-md text-label-md font-semibold">Standard Delivery</p>
+<p class="text-on-surface-variant text-label-sm">Free for orders over ₦100,000. Arrives in 3-5 days.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div>
+<p class="font-label-md text-label-md font-semibold">Islamic Inspired Craftsmanship</p>
+<p class="text-on-surface-variant text-label-sm">Each piece is ethically produced with heritage-conscious materials.</p>
+</div>
+</div>
+</div>
+<!-- AI Prompt Section -->
+<div class="mt-4 p-6 bg-surface-container-low rounded-2xl border border-outline-variant flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<p class="font-headline-md text-[18px] leading-tight text-primary">Need styling help?</p>
+</div>
+<p class="text-body-md text-on-surface-variant">Ask our fashion assistant for advice on matching hijabs or accessories.</p>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface border-0 border-b border-outline-variant focus:ring-0 focus:border-primary text-label-md py-2" placeholder="Ask our fashion assistant..." type="text"/>
+<button class="text-primary"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Related Products Section -->
+<section class="mt-stack-lg border-t border-outline-variant pt-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-stack-md text-center md:text-left">You May Also Love</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Product Card 1 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Full body studio shot of a luxurious pearl white silk abaya with subtle floral embroidery on the sleeves. The model is standing in a brightly lit, minimalist space that emphasizes elegance and purity. The overall color palette is cream, white, and soft gold. High-fashion editorial photography style with soft ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2N0fufFWHST87OYP63VTWx3QoqXtRmxa0Cmvy24HtnMFmLThyQ-pB1QUYpQYw2GHoW3tae4HmO6_sZqiVzdDfNrsFeJGDZE-Sid66U7dfCdBRrVgiAB9xfmv4tf3Ujs6nYk5tCXEXf1yaABSzKYshaBS14IMZZ_fDdfh5yvQvVKe-48DXWkV7aCIy_iEnCdHkZHWoGzG26wUbCWldRKnH9SMSWtmUt6jGPznPv_ILv7jqaKBjtUxis20a3uk-P6gJEL2FGFhzlrHa"/>
+<button class="absolute top-4 right-4 p-2 bg-white/50 backdrop-blur-md rounded-full hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Pearl White Silk Kaftan</h3>
+<p class="text-secondary font-bold">₦42,000</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sophisticated black velvet abaya with gold metallic trimmings along the edges, draped over a gold chair in a heritage Nigerian home setting. The lighting is warm and intimate, casting soft shadows that highlight the rich velvet texture. The environment feels exclusive and regal, staying true to the brand's 'Modern Heritage' aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRVjMlz3tv6H766FYmFZeBvZhU96TDGHh4Mw-_Kr4OT9wKOOIsGbHDnDYm0dWhugF5b-PX80cbIWCjbqB8CKgwAnMZThtNPEDl69c1P8rmWf1Ihtf64EEnm7a_3kv8OXrMLJriC8eb9qpQXQz6Rqlm9qfZzHwFRv4U9sJ1HLA9gwMnUl8bfWTz-j8KDxNsbp1079H9PMxlj85cfrbAseEKY0egPQh1meZuYz5AUq3rudJYqfuCP_PMY8T9Xi--EW4NLH-y2YryA4La"/>
+<button class="absolute top-4 right-4 p-2 bg-white/50 backdrop-blur-md rounded-full hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Midnight Onyx Velvet</h3>
+<p class="text-secondary font-bold">₦55,000</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist fashion photography shot of a terracotta-colored modest dress made from organic linen. The model is posed against a warm, sun-drenched stucco wall, reflecting a calm and natural atmosphere. The composition is airy and editorial, with a focus on sustainable luxury and Nigerian craftsmanship. Tonal layers of earth colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAovgtl71lP4sHMffSs89_GGhj7Knn1c9alqoAI_6FJSGQR0yBxWSDS_swv5IsvYWCv6NfroatASbGgADfu_PyndVNnmriMx_188nHZn5waKJ4huoXcnjyxN_Wa1vraGMrADNnyVszlpEfl-Wji9fEvwZrO1Ggy7DkASDP6Sz8OTUBbJAsCDo10vbaeJJsXCunjdB3_T_uar2ATqLzk88-T6DnImaFsATMuZarZm4MwzVSI-P80ifx9ro1hNnRQPp5F0TZY6qNnNrdQ"/>
+<button class="absolute top-4 right-4 p-2 bg-white/50 backdrop-blur-md rounded-full hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Terracotta Linen Wrap</h3>
+<p class="text-secondary font-bold">₦38,500</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up artistic shot of a sheer silk chiffon hijab in a dusty rose hue, floating gently in the air against a soft cream background. The fabric's translucency and delicate weave are emphasized by high-key, ethereal lighting. The mood is poetic and serene, representing the brand's commitment to modesty and artisanal quality. Subtle Islamic motifs are visible in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEs5w4nbnFvnQzZrLGkfNsWVoCjAfruxuQP_HJvK2jxBx85g-9lGbyH6FdpjbKiA-lzIgPz-rYkR_jUs43G243JNuVuTNpg3ZWNMQsbp-qke5FgVPgP8N1_eHEaYi42gxXogQWfWsimSlYn9lnxCKhDXET_CQ4wJ0RY7KAj9jkVwq29GfLK8QTKSI5g6DbqXf9nyi68VHbF-YgmmTww18UcgzWbFFe8Dh3ukVpO2CcpsYbs060ZkDwVMDucJn7HGzAJQ1Zbx7PMl8z"/>
+<button class="absolute top-4 right-4 p-2 bg-white/50 backdrop-blur-md rounded-full hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Dusty Rose Chiffon Set</h3>
+<p class="text-secondary font-bold">₦15,000</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="md:col-span-1">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-4">Knots by Fimihan</div>
+<p class="text-on-surface-variant text-label-md mb-4">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary">Customer Care</h4>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Contact Us</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary">Legal</h4>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md font-bold text-primary">Our Ethos</h4>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Sustainability</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors text-label-sm" href="#">Artisans</a>
+</div>
+</footer>
+<!-- Mobile Sticky Add-to-Cart Bar -->
+<div class="md:hidden fixed bottom-0 left-0 w-full p-4 bg-surface/90 backdrop-blur-xl border-t border-outline-variant z-50 flex items-center justify-between gap-4">
+<div class="flex flex-col">
+<span class="text-label-sm text-on-surface-variant">Luxe Emerald Silk</span>
+<span class="font-bold text-secondary">₦45,000</span>
+</div>
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+            Add to Cart
+        </button>
+</div>
+<!-- Floating Gold AI Assistant Button -->
+<button class="fixed bottom-24 right-6 md:bottom-10 md:right-10 w-14 h-14 bg-secondary-fixed text-on-secondary-fixed rounded-full shadow-[0_8px_30px_rgb(126,87,0,0.2)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 group overflow-hidden">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="absolute -inset-1 bg-white/20 blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+<script>
+        function changeImage(type) {
+            const mainImg = document.getElementById('main-product-image');
+            const thumbs = document.querySelectorAll('.thumb-btn');
+            
+            // Remove active classes
+            thumbs.forEach(t => {
+                t.classList.remove('active-thumb');
+                t.classList.add('opacity-60');
+            });
+            
+            // This is a simple visual demo - in production you'd use the actual array index
+            // For now, we'll just toggle the first thumb as the "active" one for demo purposes
+            event.currentTarget.classList.add('active-thumb');
+            event.currentTarget.classList.remove('opacity-60');
+            
+            // Simulate image change
+            const newSrc = event.currentTarget.querySelector('img').src;
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = newSrc;
+                mainImg.style.opacity = '1';
+            }, 300);
+        }
+
+        // Active State Navigation Logic
+        // Handled by hardcoded active styles in TopNavBar since it's a specific Product Page
+    </script>
+</body></html>

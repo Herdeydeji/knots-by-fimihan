@@ -1,0 +1,18 @@
+[     686ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/shop?_=3:0
+[     740ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/shop?_=3:0
+[  138848ms] TypeError: n is not a function
+    at a (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:34:92672)
+    at yd (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:126036)
+    at https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:131025
+    at gn (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:15076)
+    at wd (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:127263)
+    at up (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:9:28445)
+    at cp (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:9:28267)
+[  139802ms] TypeError: n is not a function
+    at a (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:34:92672)
+    at yd (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:126036)
+    at https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:131025
+    at gn (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:15076)
+    at wd (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:8:127263)
+    at up (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:9:28445)
+    at cp (https://knotbyfimihan.netlify.app/assets/index-CcTq2sn6.js:9:28267)

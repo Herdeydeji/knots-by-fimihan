@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Product | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#91d2a7",
+                      "surface-bright": "#fcf9f8",
+                      "tertiary": "#3a3a37",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#c8c6c2",
+                      "on-background": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c0c9bf",
+                      "surface": "#fcf9f8",
+                      "on-tertiary-container": "#c6c3bf",
+                      "on-tertiary-fixed": "#1c1c19",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#93d5aa",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#002110",
+                      "inverse-on-surface": "#f3f0ef",
+                      "outline": "#707971",
+                      "surface-container-low": "#f6f3f2",
+                      "primary-container": "#1a5c3a",
+                      "inverse-primary": "#93d5aa",
+                      "surface-container": "#f0eded",
+                      "secondary-container": "#fec564",
+                      "primary": "#004326",
+                      "surface-variant": "#e5e2e1",
+                      "on-secondary-fixed": "#281900",
+                      "on-tertiary-fixed-variant": "#474743",
+                      "on-surface-variant": "#404942",
+                      "secondary-fixed-dim": "#f5bd5d",
+                      "tertiary-container": "#51514d",
+                      "on-primary-fixed-variant": "#0b5131",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface": "#1b1b1b",
+                      "secondary-fixed": "#ffdeac",
+                      "on-secondary-fixed-variant": "#604100",
+                      "tertiary-fixed": "#e5e2dd",
+                      "primary-fixed": "#aff2c4",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#2a6a47",
+                      "secondary": "#7e5700",
+                      "on-secondary-container": "#765100",
+                      "error": "#ba1a1a",
+                      "background": "#fcf9f8",
+                      "inverse-surface": "#313030",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dcd9d9",
+                      "surface-container-high": "#eae7e7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "12px",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "stack-md": "24px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "body-md": ["DM Sans"],
+                      "body-lg": ["DM Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "label-sm": ["DM Sans"],
+                      "display-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active { @apply text-primary font-bold border-b-2 border-primary; }
+        .step-inactive { @apply text-on-surface-variant/50; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c0c9bf; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Admin Side Nav (Web) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 h-screen w-64 bg-surface-container-low dark:bg-surface-container-highest border-r border-outline-variant dark:border-outline">
+<div class="p-8">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Knots Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Store Manager</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">package</span>
+<span class="font-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md">Catalog</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<img alt="Admin Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a middle-aged Nigerian man with a warm smile, wearing a modern, tailored traditional tunic. The lighting is soft and studio-quality, emphasizing a professional yet approachable corporate modern aesthetic. The background is a clean, minimalist off-white office setting that aligns with a high-end digital boutique environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8T4fX9XGf_pdAA63M3-gAc_r5rMs0jiEugwvMK5hmJzKLL3Xs773LidqXLtBO6W36a9Tmx3iVzpi6hzeSZLgTQdXTdFUHaHnDXcXvXcrxyHQelP3cCZHreXv_Be-idpIIYAk27zk1Xwo9ujG9pXY0rWLlgFHJqD4CQnQCJoIvJQlSY1KLHLobLx_STwaimurz-oT14zWecJEmIkMjmUJE-mn74181TYP9PBOjL-FYLZ6GVVKHFJkOjBKSEuNtl9w_Sp_us-AhmC6u"/>
+<div>
+<p class="font-label-md font-bold">Fimihan A.</p>
+<p class="text-[10px] uppercase tracking-widest opacity-60">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 min-h-screen pb-stack-lg">
+<!-- Header -->
+<header class="h-20 flex items-center justify-between px-margin-mobile md:px-margin-desktop sticky top-0 bg-surface/80 backdrop-blur-md z-30">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Add New Product</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 border border-secondary text-secondary rounded-lg font-label-md hover:bg-secondary/5 transition-colors">
+                    Save Draft
+                </button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:shadow-lg transition-all active:scale-95">
+                    Publish Product
+                </button>
+</div>
+</header>
+<div class="max-w-5xl mx-auto mt-stack-md px-margin-mobile md:px-margin-desktop">
+<!-- Stepper -->
+<div class="flex items-center justify-between mb-stack-lg border-b border-outline-variant">
+<button class="flex-1 py-4 text-center font-label-md transition-all step-active" id="step-btn-1" onclick="switchStep(1)">
+                    01. Basic Info
+                </button>
+<button class="flex-1 py-4 text-center font-label-md transition-all step-inactive" id="step-btn-2" onclick="switchStep(2)">
+                    02. Pricing &amp; Stock
+                </button>
+<button class="flex-1 py-4 text-center font-label-md transition-all step-inactive" id="step-btn-3" onclick="switchStep(3)">
+                    03. Media &amp; Style
+                </button>
+</div>
+<!-- Form Sections -->
+<form class="space-y-stack-lg" id="product-form">
+<!-- Step 1: Basic Information -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter" id="step-1">
+<div class="md:col-span-1">
+<h3 class="font-headline-md text-primary mb-2">Basic Details</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Define the core identity of your garment. Product names should reflect heritage and craftsmanship.</p>
+</div>
+<div class="md:col-span-2 space-y-stack-md bg-white p-8 rounded-lg shadow-sm">
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Product Name</label>
+<input class="w-full border-0 border-b border-outline focus:border-primary focus:ring-0 bg-transparent py-3 font-body-lg" placeholder="e.g. The Heritage Agbada - Emerald Silk" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">SKU</label>
+<input class="w-full border-0 border-b border-outline focus:border-primary focus:ring-0 bg-transparent py-3 font-body-md" placeholder="KNF-2024-001" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Category</label>
+<select class="w-full border-0 border-b border-outline focus:border-primary focus:ring-0 bg-transparent py-3 font-body-md appearance-none">
+<option>Men's Traditional</option>
+<option>Women's Modest Wear</option>
+<option>Accessories</option>
+<option>Seasonal Collection</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Description (Rich Text)</label>
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<div class="bg-surface-container-low p-2 flex gap-4 border-b border-outline-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">format_bold</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">format_italic</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">format_list_bulleted</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">link</span>
+</div>
+<textarea class="w-full p-4 border-none focus:ring-0 font-body-md" placeholder="Describe the fabric, the inspiration, and the cut..." rows="6"></textarea>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Pricing & Inventory (Hidden by default) -->
+<section class="hidden grid grid-cols-1 md:grid-cols-3 gap-gutter" id="step-2">
+<div class="md:col-span-1">
+<h3 class="font-headline-md text-primary mb-2">Commerce</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Set your premium valuation and track stock levels across regions.</p>
+</div>
+<div class="md:col-span-2 space-y-stack-md bg-white p-8 rounded-lg shadow-sm">
+<div class="grid grid-cols-2 gap-gutter">
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Price (₦)</label>
+<input class="w-full border-0 border-b border-outline focus:border-primary focus:ring-0 bg-transparent py-3 font-headline-md" placeholder="0.00" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Stock Quantity</label>
+<input class="w-full border-0 border-b border-outline focus:border-primary focus:ring-0 bg-transparent py-3 font-headline-md" placeholder="10" type="number"/>
+</div>
+</div>
+<div class="flex items-center gap-3 p-4 bg-primary/5 rounded-lg border border-primary/20">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="font-label-md text-primary">Pricing includes standard Nigerian luxury VAT of 7.5%.</p>
+</div>
+</div>
+</section>
+<!-- Step 3: Media & Style (Hidden by default) -->
+<section class="hidden grid grid-cols-1 md:grid-cols-3 gap-gutter" id="step-3">
+<div class="md:col-span-1">
+<h3 class="font-headline-md text-primary mb-2">Visual Heritage</h3>
+<p class="font-body-md text-on-surface-variant text-sm">Upload high-resolution editorial photography. Showcase the drape and the detail.</p>
+</div>
+<div class="md:col-span-2 space-y-stack-md">
+<!-- Drag and Drop -->
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-12 text-center bg-white hover:border-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors mb-4">cloud_upload</span>
+<p class="font-headline-md text-on-surface">Drag &amp; Drop Product Images</p>
+<p class="font-body-md text-on-surface-variant mt-2">Supports JPG, PNG, WEBP (Min. 2000px width for zoom)</p>
+<button class="mt-6 px-6 py-2 border border-outline rounded-lg font-label-md hover:bg-surface-container transition-colors" type="button">Select Files</button>
+</div>
+<!-- Style Variants -->
+<div class="bg-white p-8 rounded-lg shadow-sm space-y-6">
+<div>
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider block mb-4">Color Swatches</label>
+<div class="flex flex-wrap gap-4">
+<label class="relative cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-10 rounded-full bg-[#004326] border-2 border-transparent peer-checked:border-secondary peer-checked:scale-110 transition-all"></div>
+<span class="text-[10px] block text-center mt-1">Emerald</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-10 rounded-full bg-[#FAF7F2] border-2 border-outline-variant peer-checked:border-secondary peer-checked:scale-110 transition-all"></div>
+<span class="text-[10px] block text-center mt-1">Cream</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-10 rounded-full bg-[#7e5700] border-2 border-transparent peer-checked:border-secondary peer-checked:scale-110 transition-all"></div>
+<span class="text-[10px] block text-center mt-1">Gold</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-10 rounded-full bg-[#1b1b1b] border-2 border-transparent peer-checked:border-secondary peer-checked:scale-110 transition-all"></div>
+<span class="text-[10px] block text-center mt-1">Onyx</span>
+</label>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider block mb-4">Available Sizes</label>
+<div class="flex flex-wrap gap-3">
+<label class="cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-6 py-2 border border-outline-variant rounded-lg font-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-all">S</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-6 py-2 border border-outline-variant rounded-lg font-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-all">M</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-6 py-2 border border-outline-variant rounded-lg font-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-all">L</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-6 py-2 border border-outline-variant rounded-lg font-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-all">XL</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-6 py-2 border border-outline-variant rounded-lg font-label-md peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary transition-all">XXL</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</section>
+</form>
+<!-- Navigation Buttons -->
+<div class="flex items-center justify-between mt-stack-lg pt-stack-md border-t border-outline-variant">
+<button class="invisible flex items-center gap-2 font-label-md text-on-surface-variant hover:text-primary transition-colors" id="prev-btn" onclick="prevStep()">
+<span class="material-symbols-outlined">arrow_back</span>
+                    Back
+                </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-8 py-3 rounded-lg font-label-md hover:shadow-lg transition-all active:scale-95" id="next-btn" onclick="nextStep()">
+                    Continue to Pricing
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Success Toast (Hidden) -->
+<div class="fixed bottom-10 right-10 bg-primary text-on-primary px-8 py-4 rounded-xl shadow-2xl flex items-center gap-4 translate-y-32 transition-transform duration-500 z-50" id="publish-toast">
+<span class="material-symbols-outlined">check_circle</span>
+<div>
+<p class="font-label-md font-bold">Product Published</p>
+<p class="text-xs opacity-80">Heritage Agbada is now live.</p>
+</div>
+</div>
+<script>
+        let currentStep = 1;
+
+        function switchStep(step) {
+            // Hide all sections
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            
+            // Remove active styles from all buttons
+            for(let i=1; i<=3; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                btn.classList.remove('step-active');
+                btn.classList.add('step-inactive');
+            }
+
+            // Show current section and activate button
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`step-btn-${step}`);
+            activeBtn.classList.add('step-active');
+            activeBtn.classList.remove('step-inactive');
+
+            // Update footer buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if(step === 1) {
+                prevBtn.classList.add('invisible');
+                nextBtn.innerHTML = `Continue to Pricing <span class="material-symbols-outlined">arrow_forward</span>`;
+            } else {
+                prevBtn.classList.remove('invisible');
+                if(step === 2) {
+                    nextBtn.innerHTML = `Continue to Media <span class="material-symbols-outlined">arrow_forward</span>`;
+                } else {
+                    nextBtn.innerHTML = `Review & Publish <span class="material-symbols-outlined">auto_awesome</span>`;
+                }
+            }
+
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if(currentStep < 3) {
+                switchStep(currentStep + 1);
+            } else {
+                showToast();
+            }
+        }
+
+        function prevStep() {
+            if(currentStep > 1) {
+                switchStep(currentStep - 1);
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('publish-toast');
+            toast.classList.remove('translate-y-32');
+            setTimeout(() => {
+                toast.classList.add('translate-y-32');
+            }, 4000);
+        }
+    </script>
+</body></html>

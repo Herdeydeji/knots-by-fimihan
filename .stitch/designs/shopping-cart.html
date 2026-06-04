@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Cart | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#91d2a7",
+                      "surface-bright": "#fcf9f8",
+                      "tertiary": "#3a3a37",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#c8c6c2",
+                      "on-background": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c0c9bf",
+                      "surface": "#fcf9f8",
+                      "on-tertiary-container": "#c6c3bf",
+                      "on-tertiary-fixed": "#1c1c19",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#93d5aa",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#002110",
+                      "inverse-on-surface": "#f3f0ef",
+                      "outline": "#707971",
+                      "surface-container-low": "#f6f3f2",
+                      "primary-container": "#1a5c3a",
+                      "inverse-primary": "#93d5aa",
+                      "surface-container": "#f0eded",
+                      "secondary-container": "#fec564",
+                      "primary": "#004326",
+                      "surface-variant": "#e5e2e1",
+                      "on-secondary-fixed": "#281900",
+                      "on-tertiary-fixed-variant": "#474743",
+                      "on-surface-variant": "#404942",
+                      "secondary-fixed-dim": "#f5bd5d",
+                      "tertiary-container": "#51514d",
+                      "on-primary-fixed-variant": "#0b5131",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface": "#1b1b1b",
+                      "secondary-fixed": "#ffdeac",
+                      "on-secondary-fixed-variant": "#604100",
+                      "tertiary-fixed": "#e5e2dd",
+                      "primary-fixed": "#aff2c4",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#2a6a47",
+                      "secondary": "#7e5700",
+                      "on-secondary-container": "#765100",
+                      "error": "#ba1a1a",
+                      "background": "#fcf9f8",
+                      "inverse-surface": "#313030",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dcd9d9",
+                      "surface-container-high": "#eae7e7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "stack-md": "24px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "body-md": ["DM Sans"],
+                      "body-lg": ["DM Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "label-sm": ["DM Sans"],
+                      "display-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #004326;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            background: rgba(252, 249, 248, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+            Knots by Fimihan
+        </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity" data-icon="favorite">favorite</button>
+<div class="relative">
+<button class="material-symbols-outlined p-2 text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity" data-icon="shopping_bag" style="font-variation-settings: 'FILL' 1;">shopping_bag</button>
+<span class="absolute -top-1 -right-1 bg-secondary text-on-secondary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">3</span>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-stack-lg px-margin-mobile md:px-margin-desktop min-h-screen max-w-[1440px] mx-auto">
+<!-- Page Title -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-primary">Shopping Cart</h1>
+<p class="font-body-md text-on-surface-variant mt-2">Review your selected pieces of heritage.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Cart Items List (8 Columns) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Cart Item 1 -->
+<div class="flex flex-col md:flex-row gap-6 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:shadow-md transition-shadow group">
+<div class="w-full md:w-32 h-40 md:h-32 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Luxury Nigerian Kaftan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium Nigerian luxury kaftan in deep emerald green fabric with intricate gold embroidery along the collar. The garment is displayed on a minimalist studio backdrop with soft, warm lighting that highlights the rich texture of the silk-blend material. The overall aesthetic is one of modern African elegance and Islamic modesty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCldiUQxeG_Bo-nFmOR11TMzsRloavsaQUcaj6rs34V7BQnbJzpTvqO87a7dLrqcwfAYcoNcodtJhdAUAT_I3OgfcwQ7IH8FShkOP9oznbM01A3hRN4U_sFxgdU4yx0OnTXkVT11_kYsl6nMEn8Xy4qhNKZPsdH0mdSwUJWT0yKoKps_KUTIeRJoX2Jf4r7xebyEVgGnJLxgmRCWaJgP2JQnCXFvG4x7ExWY1QWao1ZuX1vG2Z8Oufje-mULlYmUm_iMoFrJ-7KEyY-"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">The Heritage Kaftan</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Size: Large | Emerald Green</p>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg p-1 border border-outline-variant/20">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">-</button>
+<span class="w-8 text-center font-bold">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">+</button>
+</div>
+<span class="font-headline-md text-headline-md text-primary">₦85,000</span>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="flex flex-col md:flex-row gap-6 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:shadow-md transition-shadow group">
+<div class="w-full md:w-32 h-40 md:h-32 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Islamic Modest Tunic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, long-line ivory tunic with a minimalist high collar and subtle geometric patterns woven into the fabric. The lighting is ethereal and bright, emphasizing the clean lines and sophisticated Islamic silhouette. The scene is a high-end fashion boutique setting with cream marble textures and golden accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy8L3QHb6r0JSS9iWy70x1exMr5ldsWXMverRQuGeqEDrO3ahvGVue356w56m14sX9JFH3jBv_-0necZhRMk4XhPiaaycGd8ei5_gtWgzAKtCQUA1CBHCfZmPNaFevH5S65vmpkyMK4GSeSvTnXRjWVPi-5GApRlaPVduOYtSxbu3UJFLPzhXH29fe3HvqBBCe17B9gk-zzPD4X62TO9gElwQ_M7B46c58mpFSkO4WPqUVi9TWXIBtT62tP9iMmqMOAUO3_bZpVigz"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Minimalist Tunic</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Size: Medium | Ivory Shell</p>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg p-1 border border-outline-variant/20">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">-</button>
+<span class="w-8 text-center font-bold">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">+</button>
+</div>
+<span class="font-headline-md text-headline-md text-primary">₦42,500</span>
+</div>
+</div>
+</div>
+<!-- Cart Item 3 -->
+<div class="flex flex-col md:flex-row gap-6 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:shadow-md transition-shadow group">
+<div class="w-full md:w-32 h-40 md:h-32 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Gold Embroidered Cap" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A traditional Nigerian hand-woven cap featuring intricate gold thread embroidery against a rich cream background. The cap sits on a polished mahogany surface, illuminated by a single spotlight that creates dramatic shadows and emphasizes the artisanal craftsmanship. The color palette consists of cream, gold, and warm wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxUdaNev3H341PqJdVxD6H1veBm3NSg3o0H5JeE0bZVSmSvZ4py6wvtbJpehJqEUYzcfk2JWxbAJZUn8QN27nvIB49IjlZ0uLCUv5l6WnpgPpPT4gM0FOTdfjQImNCG30eGdo5Z5pM9FdBxeXid2Wjx0f1H60dcIbHHMQQA7MUw9buyjO4kQ_6Pmr8h4qPOXb4hp6gVWLlHq_AYnx1DWxTjJJVoGcLvI1vb3f6KwFLDvKM0RfMxoK282RwNGHgJ9X0V02f1ybYW7yT"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Artisanal Kufi</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Size: One Size | Gold Laced</p>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg p-1 border border-outline-variant/20">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">-</button>
+<span class="w-8 text-center font-bold">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded transition-colors">+</button>
+</div>
+<span class="font-headline-md text-headline-md text-primary">₦12,000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary & Checkout (4 Columns) -->
+<div class="lg:col-span-4">
+<div class="sticky top-28 space-y-gutter">
+<!-- Shipping Estimate Card -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/20 shadow-sm">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Shipping Estimate</h4>
+<div class="flex items-center gap-3 bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Deliver to</p>
+<p class="font-body-md text-body-md font-semibold">Lagos, Nigeria</p>
+</div>
+<button class="text-secondary font-label-md text-label-md font-bold">Change</button>
+</div>
+<p class="mt-3 font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="local_shipping">local_shipping</span>
+                            Estimated delivery: 2-4 business days.
+                        </p>
+</div>
+<!-- Order Summary Card -->
+<div class="bg-primary text-on-primary p-8 rounded-2xl shadow-xl relative overflow-hidden">
+<!-- Decorative Watermark -->
+<div class="absolute -bottom-10 -right-10 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h2 class="font-headline-md text-headline-md mb-6 border-b border-on-primary-container/30 pb-4">Order Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between">
+<span class="font-body-md text-on-primary-container">Subtotal</span>
+<span class="font-body-md font-bold">₦139,500</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-on-primary-container">Shipping</span>
+<span class="font-body-md font-bold text-secondary-fixed">FREE</span>
+</div>
+<div class="flex justify-between pt-4 border-t border-on-primary-container/30">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-headline-md text-headline-md">₦139,500</span>
+</div>
+</div>
+<!-- Promo Code -->
+<div class="mb-8 group">
+<div class="relative">
+<input class="w-full bg-white/10 border-on-primary-container/20 rounded-xl py-3 px-4 text-on-primary placeholder:text-on-primary-container/50 focus:ring-secondary focus:border-secondary transition-all" placeholder="Promo Code" type="text"/>
+<button class="absolute right-2 top-2 bottom-2 px-4 bg-secondary-fixed text-on-secondary-fixed rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Apply</button>
+</div>
+</div>
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed py-4 rounded-xl font-headline-md text-headline-md font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
+                            Proceed to Checkout
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<div class="mt-6 flex items-center justify-center gap-4 opacity-70">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<p class="font-label-sm text-label-sm">Secure Payment Guaranteed</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="md:col-span-1">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-4">Knots by Fimihan</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-4">Customer Care</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors text-label-sm font-label-sm" href="#">Contact Us</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors text-label-sm font-label-sm" href="#">Shipping &amp; Returns</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-4">Information</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors text-label-sm font-label-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors text-label-sm font-label-sm" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-4">Newsletter</h4>
+<div class="flex">
+<input class="bg-surface-container border border-outline-variant rounded-l-lg px-3 py-2 text-label-sm w-full focus:ring-primary focus:border-primary" placeholder="Enter email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-r-lg font-label-sm">Join</button>
+</div>
+</div>
+</footer>
+<!-- Floating AI Assistant Button -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary-fixed text-on-secondary-fixed rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group" id="ai-assistant-trigger">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<!-- Tooltip -->
+<div class="absolute right-16 bg-on-surface text-surface py-2 px-4 rounded-lg text-label-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl">
+            Ask Fimihan AI
+        </div>
+</button>
+<!-- Micro-interaction for quantity buttons and Promo Code -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const assistantBtn = document.getElementById('ai-assistant-trigger');
+            
+            // Subtle pulse effect on the assistant button
+            setInterval(() => {
+                assistantBtn.classList.add('ring-4', 'ring-secondary-fixed/20');
+                setTimeout(() => {
+                    assistantBtn.classList.remove('ring-4', 'ring-secondary-fixed/20');
+                }, 1000);
+            }, 3000);
+
+            // Simple quantity interactions (visual only)
+            const quantityContainers = document.querySelectorAll('.flex.items-center.gap-2.bg-surface-container-low');
+            quantityContainers.forEach(container => {
+                const btns = container.querySelectorAll('button');
+                const span = container.querySelector('span');
+                
+                btns[0].addEventListener('click', () => {
+                    let val = parseInt(span.innerText);
+                    if (val > 1) span.innerText = val - 1;
+                });
+                
+                btns[1].addEventListener('click', () => {
+                    let val = parseInt(span.innerText);
+                    span.innerText = val + 1;
+                });
+            });
+        });
+    </script>
+</body></html>

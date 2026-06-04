@@ -1,0 +1,140 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link "KBF Knots by Fimihan" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]:
+          - generic [ref=e11]: KBF
+          - generic [ref=e13]: Knots by Fimihan
+      - navigation [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - link "Shop" [ref=e16] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e17] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e18] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e19]:
+        - link "Search" [ref=e20] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e21]
+        - button "Account" [ref=e24] [cursor=pointer]:
+          - generic [ref=e26]: A
+        - link "2" [ref=e27] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e28]
+          - generic [ref=e30]: "2"
+  - main [ref=e31]:
+    - generic [ref=e32]:
+      - navigation [ref=e33]:
+        - link "Home" [ref=e35] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e36]:
+          - img [ref=e37]
+          - link "Cart" [ref=e39] [cursor=pointer]:
+            - /url: /cart
+        - generic [ref=e40]:
+          - img [ref=e41]
+          - generic [ref=e43]: Checkout
+      - heading "Checkout" [level=1] [ref=e44]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - heading "Shipping Information" [level=3] [ref=e48]
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: Full Name
+                - textbox "e.g. Aisha Mohammed" [ref=e52]: adedejiadebeso
+              - generic [ref=e53]:
+                - generic [ref=e54]:
+                  - generic [ref=e55]: Email
+                  - textbox "aisha@email.com" [ref=e56]: adedejiadebeso@gmail.com
+                - generic [ref=e57]:
+                  - generic [ref=e58]: Phone
+                  - textbox "+234 801 234 5678" [ref=e59]
+              - generic [ref=e60]:
+                - generic [ref=e61]: Street Address
+                - textbox "15 Bourdillon Road" [ref=e62]
+              - generic [ref=e63]:
+                - generic [ref=e64]:
+                  - generic [ref=e65]: City
+                  - textbox "Lagos" [ref=e66]
+                - generic [ref=e67]:
+                  - generic [ref=e68]: State
+                  - textbox "Lagos" [ref=e69]
+          - button "Pay ₦37,000" [ref=e70] [cursor=pointer]:
+            - img [ref=e71]
+            - text: Pay ₦37,000
+          - paragraph [ref=e73]: Secure payment powered by Paystack. Your information is encrypted and secure.
+        - generic [ref=e75]:
+          - heading "Order Summary" [level=3] [ref=e76]
+          - generic [ref=e80]:
+            - paragraph [ref=e81]: Emerald Grace Abaya
+            - paragraph [ref=e82]: "Qty: 2"
+            - paragraph [ref=e83]: ₦18,500
+          - separator [ref=e84]
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87]: Subtotal
+              - generic [ref=e88]: ₦37,000
+            - generic [ref=e89]:
+              - generic [ref=e90]: Shipping
+              - generic [ref=e91]: Free
+            - separator [ref=e92]
+            - generic [ref=e93]:
+              - generic [ref=e94]: Total
+              - generic [ref=e95]: ₦37,000
+  - contentinfo [ref=e96]:
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e102]: KBF
+          - generic [ref=e104]: Knots by Fimihan
+        - paragraph [ref=e105]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - link "WhatsApp" [ref=e107] [cursor=pointer]:
+          - /url: https://wa.me/+2348057370277
+          - img [ref=e108]
+      - generic [ref=e110]:
+        - heading "Quick Links" [level=4] [ref=e111]
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - link "Shop All" [ref=e114] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e115]:
+            - link "About Us" [ref=e116] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e117]:
+            - link "Contact" [ref=e118] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e119]:
+        - heading "Customer Service" [level=4] [ref=e120]
+        - list [ref=e121]:
+          - listitem [ref=e122]:
+            - link "Shipping Information" [ref=e123] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e124]:
+            - link "Returns & Exchanges" [ref=e125] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e126]:
+            - link "Size Guide" [ref=e127] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e128]:
+            - link "WhatsApp Us" [ref=e129] [cursor=pointer]:
+              - /url: https://wa.me/+2348057370277
+              - img [ref=e130]
+              - text: WhatsApp Us
+      - generic [ref=e132]:
+        - heading "Newsletter" [level=4] [ref=e133]
+        - paragraph [ref=e134]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e135]:
+          - textbox "Your email" [ref=e136]
+          - button "Subscribe" [ref=e137] [cursor=pointer]
+    - generic [ref=e139]:
+      - paragraph [ref=e140]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "knotbyfimihan121@gmail.com" [ref=e141] [cursor=pointer]:
+        - /url: mailto:knotbyfimihan121@gmail.com
+        - img [ref=e142]
+        - text: knotbyfimihan121@gmail.com
+  - button "Open AI style assistant" [ref=e144] [cursor=pointer]:
+    - img [ref=e145]

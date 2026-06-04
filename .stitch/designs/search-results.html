@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Results | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for premium feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fcf9f8; }
+        ::-webkit-scrollbar-thumb { background: #c0c9bf; border-radius: 10px; }
+        
+        .islamic-pattern-bg {
+            background-image: radial-gradient(#004326 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.03;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#91d2a7",
+                      "surface-bright": "#fcf9f8",
+                      "tertiary": "#3a3a37",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#c8c6c2",
+                      "on-background": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c0c9bf",
+                      "surface": "#fcf9f8",
+                      "on-tertiary-container": "#c6c3bf",
+                      "on-tertiary-fixed": "#1c1c19",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#93d5aa",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#002110",
+                      "inverse-on-surface": "#f3f0ef",
+                      "outline": "#707971",
+                      "surface-container-low": "#f6f3f2",
+                      "primary-container": "#1a5c3a",
+                      "inverse-primary": "#93d5aa",
+                      "surface-container": "#f0eded",
+                      "secondary-container": "#fec564",
+                      "primary": "#004326",
+                      "surface-variant": "#e5e2e1",
+                      "on-secondary-fixed": "#281900",
+                      "on-tertiary-fixed-variant": "#474743",
+                      "on-surface-variant": "#404942",
+                      "secondary-fixed-dim": "#f5bd5d",
+                      "tertiary-container": "#51514d",
+                      "on-primary-fixed-variant": "#0b5131",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface": "#1b1b1b",
+                      "secondary-fixed": "#ffdeac",
+                      "on-secondary-fixed-variant": "#604100",
+                      "tertiary-fixed": "#e5e2dd",
+                      "primary-fixed": "#aff2c4",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#2a6a47",
+                      "secondary": "#7e5700",
+                      "on-secondary-container": "#765100",
+                      "error": "#ba1a1a",
+                      "background": "#fcf9f8",
+                      "inverse-surface": "#313030",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dcd9d9",
+                      "surface-container-high": "#eae7e7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "stack-md": "24px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "body-md": ["DM Sans"],
+                      "body-lg": ["DM Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "label-md": ["DM Sans"],
+                      "label-sm": ["DM Sans"],
+                      "display-lg": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+            Knots by Fimihan
+        </div>
+<nav class="hidden md:flex gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-primary">menu</button>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg min-h-screen relative">
+<div class="islamic-pattern-bg absolute inset-0 pointer-events-none"></div>
+<div class="px-margin-mobile md:px-margin-desktop relative z-10">
+<!-- Search Header Section -->
+<section class="mb-stack-lg">
+<div class="max-w-3xl mx-auto md:mx-0">
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border-b-2 border-outline-variant focus:border-primary outline-none py-4 px-12 font-headline-md text-headline-md transition-all placeholder:text-surface-variant" placeholder="Search our collection..." type="text" value="Abaya"/>
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-primary text-3xl">search</span>
+<button class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">close</button>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<p class="text-on-surface-variant font-label-md text-label-md">
+<span class="font-bold text-primary">24</span> results found for "Abaya"
+                        </p>
+<button class="md:hidden flex items-center gap-2 text-primary font-label-md text-label-md" onclick="document.getElementById('mobile-filter').classList.toggle('hidden')">
+<span class="material-symbols-outlined">tune</span> Filter
+                        </button>
+</div>
+</div>
+</section>
+<div class="flex flex-col md:flex-row gap-gutter">
+<!-- Sidebar Filtering -->
+<aside class="hidden md:block w-64 flex-shrink-0 space-y-stack-md" id="desktop-filter">
+<div>
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-primary mb-stack-sm">Category</h3>
+<ul class="space-y-2">
+<li><label class="flex items-center gap-3 cursor-pointer group"><input checked="" class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 transition-all" type="checkbox"/> <span class="group-hover:text-primary transition-colors">Modest Abayas</span></label></li>
+<li><label class="flex items-center gap-3 cursor-pointer group"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 transition-all" type="checkbox"/> <span class="group-hover:text-primary transition-colors">Luxury Kaftans</span></label></li>
+<li><label class="flex items-center gap-3 cursor-pointer group"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 transition-all" type="checkbox"/> <span class="group-hover:text-primary transition-colors">Embroidered Sets</span></label></li>
+</ul>
+</div>
+<div class="pt-stack-md border-t border-outline-variant">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-primary mb-stack-sm">Color Palette</h3>
+<div class="flex flex-wrap gap-2">
+<button class="w-8 h-8 rounded-full border border-outline-variant bg-[#004326] ring-offset-2 ring-1 ring-primary"></button>
+<button class="w-8 h-8 rounded-full border border-outline-variant bg-[#FAF7F2]"></button>
+<button class="w-8 h-8 rounded-full border border-outline-variant bg-[#7e5700]"></button>
+<button class="w-8 h-8 rounded-full border border-outline-variant bg-[#1b1b1b]"></button>
+</div>
+</div>
+<div class="pt-stack-md border-t border-outline-variant">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-primary mb-stack-sm">Price Range</h3>
+<input class="w-full accent-primary" type="range"/>
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant mt-2">
+<span>₦15,000</span>
+<span>₦150,000+</span>
+</div>
+</div>
+<div class="pt-stack-md">
+<button class="w-full py-3 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all">Apply Filters</button>
+</div>
+</aside>
+<!-- Results Grid -->
+<section class="flex-grow">
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-x-gutter gap-y-stack-lg">
+<!-- Product Item 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A luxurious forest green silk abaya with intricate gold thread embroidery along the hem and cuffs. The garment is draped elegantly on a minimalist mannequin in a high-end Nigerian boutique. The lighting is soft and golden, highlighting the shimmering fabric texture and modest design. The background is a clean cream-colored gallery wall with subtle geometric shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlMK3dtCCkryStVdFNz24UYvatzzS4jkJy468-oK3mOaN0QU_pvYcx_lSruUP0C_CLNumWh9dcnd9FvkwYqZhgHUrQxqz3AfL_nzce4f4vyeN8Jcx7aH9I5yc1AyRoMZDjzDs-hYRo1tVstBRJe-phUpId0om4g9r-JS2yYmXEhgMaENhltks0S2YlPdZVvyYZA8oHoQpgLTUesY4Teo_36IXrX78TNs74qv10AzlSeM6vYEX46LfRnn2khrfnh5DWLGg9FvmXdfPG"/>
+<div class="absolute top-4 left-4 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 font-label-sm text-label-sm rounded-full">New Arrival</div>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Royal Emerald Abaya</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦75,000</p>
+</div>
+<!-- Product Item 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A pristine ivory-colored linen abaya featuring minimalist vertical pleats and a matching floor-length hijab. The model is standing in a brightly lit, modern architectural courtyard with white marble surfaces and a clear blue sky. The aesthetic is extremely clean, modest, and high-fashion editorial. Soft shadows from a palm tree dance across the scene, creating a serene, heritage-inspired atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4tvvqO6Vn_jMTOBf-FR-sX9ffv7ugyPiRF9Sxi_2LYdPrMqWoJmK_oLxmeRLQ8OK36zYlPbfs3GYZ4yjmy0rk6QmTSxTk9kJRsDwBYxLk3a-AIWnfhFo3SFGTwoF31axqVJOPJ-PW2ezd5QvnQH9cDZtII7BJAUHsC3lDB2cDdqRKgifFGNFOKprmWH7R_XIne8XC0aetdQijG2NYagKBbjyCMbkLfi0N7OQc_ST37Axj7QN-5eWd0wFl5Hrkld9jf90-nKXtWzmh"/>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Desert Pearl Cloak</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦62,500</p>
+</div>
+<!-- Product Item 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A deep midnight black abaya crafted from premium crepe fabric with subtle Islamic geometric patterns embossed into the material. The garment flows elegantly as a model walks through a contemporary art gallery. High-contrast lighting emphasizes the sophisticated draping and the rich texture of the dark fabric. The overall mood is poised, professional, and deeply rooted in Nigerian heritage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtYP5NMrrRV5tS9CjJdVXFTUioDsO9uAB98viE4IGboAyF5NMziOyKPeFIISTkODFAormXHyZi8XweyaXFROiKLXMr-OaO4X1WKz6AmqtIL3bCw7gJQggq622icNIg1y87lyEe1rYfF_nWzJSbhbDJkxPm2Aw_tktunmPfd7NhFCNfeaTxAzvhRWH8_Odjx4i359_xTvkST3PAuYywXpsrtXpsmYR-5mM-3XNj-YWdkwTKoYfFSK-Kv-U5Vf7HrBXUdg5rnL7phoi9"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 font-label-sm text-label-sm rounded-full">Limited Edition</div>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Midnight Onyx Set</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦98,000</p>
+</div>
+<!-- Product Item 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An exquisite terracotta-colored silk kaftan with hand-stitched detailing around the collar and open sleeves. The scene is set in a sun-drenched atrium with golden hour light pouring in, casting long rhythmic shadows. The style is sophisticated, blending Nigerian luxury with a modern minimalist editorial feel. The earth-toned palette creates a warm, welcoming, and prestigious brand presence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLMrnZBq6od65mWgMkeXVb0QvIFIVy-MBJL_cBHKqyvjI6-dx89-BIRRI1NvTiGzshV9XKRdD2of-CF5pLr43v_4fLdkzvhfhSXn0-iPEFiCrCRKPPJkptNG1rMOmJ1MJx9RbMi2qJmPrLXy8V-CwS4HoBPYgW6WTq81W_DOZgLzRxt-9uxiqEc0InL5--P69zjGIR7Xxn6j0N1ky8JVMo4mUKdICquMfKfCPgMqaf3WnIcymDcrk57A1xASWYgwnvU4spHCl4ZMBI"/>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Terracotta Serenity</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦55,000</p>
+</div>
+<!-- Product Item 5 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern interpretation of a traditional Nigerian wrapper set, reimagined as a sleek abaya in a soft sage green. The fabric is light and airy, styled in a vast minimalist space with cream-colored walls and large architectural windows. The lighting is clean and high-key, highlighting the brand's commitment to modesty and poised elegance. The composition is artistic and intentional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCofuTpH659GpxNxsHzTXlr_CNkhvweXtTd6J4truRmQ30OrUWwPeUGGzEdZNMtfBfSwfShG2-VaidOkHd3rwwB1yeh-tGUmKupsypyHC2bYCtfU5Di9WI3KH5hAcOIhaUFSOhNDD4eaS9oQa1kbdUZ4sjo_oL3KUckX9a3wnfT9lJhTvhwQa95j_jaG5wHGtp3WTViWBEkKhe-LOiM_4z0y1G_n7xJ1b8ap_6GUtweoMVDrkMJRe54Yys2lN0kTEPLDTFEjXSM8FKg"/>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Sage Grace Ensemble</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦48,500</p>
+</div>
+<!-- Product Item 6 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container mb-stack-sm rounded-lg shadow-sm group-hover:shadow-lg transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed close-up of premium textured gold fabric being used for a limited edition abaya line. The scene is a master tailor's studio, filled with soft ambient light. In the background, a mood board features Islamic geometric patterns and high-end fashion sketches. The image conveys artisan craftsmanship, heritage, and the luxurious nature of the Knots by Fimihan brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWX4shwY2mMcdm5Jl0jZTSHJt_01K39ZWyVYyDCpQ_Y9T0oggeWZ9H6909t4VCSDgDZRzPbfvIpYjFPtQJe0RBFEEi5b0AwylJ8u7jUrs0kzN2pBdNLrdzm5K3Gj-6Vzw0gDn_lgcoIbLcDaX0tSMK-eIXXE2ff4p_Sttiw3abHGPPxJN6zF93d1MyhvjiqSaN3DydYCd0DbBt7jMmiOzghF3l_w2uqcOSgNgD7QkC2CXY-g3LcU8ygCdaPwoVgvlnhW0-4-bf8N1G"/>
+<div class="absolute top-4 left-4 bg-error text-on-error px-3 py-1 font-label-sm text-label-sm rounded-full">Last Few Left</div>
+<button class="absolute bottom-4 right-4 bg-surface/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity material-symbols-outlined text-primary">shopping_cart</button>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Golden Heritage Kaftan</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">₦120,000</p>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-stack-lg flex justify-center items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="font-label-md text-label-md text-primary font-bold">1</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</section>
+</div>
+</div>
+<!-- Hidden Empty State Template (For concept demonstration) -->
+<div class="hidden absolute inset-0 flex flex-col items-center justify-center px-margin-mobile text-center bg-background/95 z-20" id="empty-state">
+<div class="w-24 h-24 bg-surface-container rounded-full flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined text-surface-variant text-5xl">search_off</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-stack-sm">No pieces found</h2>
+<p class="max-w-md text-on-surface-variant mb-stack-md">We couldn't find any results for your query. Try broadening your search or exploring our curated collections.</p>
+<div class="flex gap-4">
+<button class="px-8 py-3 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-lg hover:opacity-90 transition-all" onclick="location.reload()">Clear Search</button>
+<button class="px-8 py-3 border border-secondary text-secondary font-label-md text-label-md rounded-lg hover:bg-secondary/5 transition-all">View All Products</button>
+</div>
+</div>
+</main>
+<!-- Floating AI Assistant Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-secondary-fixed text-on-secondary-fixed rounded-full shadow-2xl flex items-center justify-center group hover:scale-110 active:scale-95 transition-all z-[60] border-2 border-white/20">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">auto_awesome</span>
+<span class="absolute -top-12 right-0 bg-white text-primary font-label-sm text-label-sm px-4 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Ask Fimihan AI</span>
+</button>
+<!-- Footer Section -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="space-y-stack-sm">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-4">Knots by Fimihan</div>
+<p class="text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm">
+                © 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.
+            </p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold mb-2">Customer Care</h4>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-sm text-label-sm" href="#">Contact Us</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-sm text-label-sm" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold mb-2">Policies</h4>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-sm text-label-sm" href="#">Sustainability</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold mb-2">Social</h4>
+<div class="flex gap-4">
+<a class="material-symbols-outlined text-primary hover:text-secondary transition-colors" href="#">public</a>
+<a class="material-symbols-outlined text-primary hover:text-secondary transition-colors" href="#">grade</a>
+<a class="material-symbols-outlined text-primary hover:text-secondary transition-colors" href="#">photo_camera</a>
+</div>
+</div>
+</footer>
+<!-- Mobile Filter Overlay (Hidden by default) -->
+<div class="hidden fixed inset-0 z-[100] bg-white flex flex-col p-margin-mobile" id="mobile-filter">
+<div class="flex justify-between items-center mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-primary">Filters</h2>
+<button class="material-symbols-outlined" onclick="document.getElementById('mobile-filter').classList.add('hidden')">close</button>
+</div>
+<div class="flex-grow space-y-8">
+<!-- Reuse sidebar logic here -->
+<div>
+<h3 class="font-label-md text-label-md uppercase mb-4">Category</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-full text-sm">Abayas</button>
+<button class="px-4 py-2 border border-outline-variant rounded-full text-sm">Kaftans</button>
+<button class="px-4 py-2 border border-outline-variant rounded-full text-sm">Hijabs</button>
+</div>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl mt-auto" onclick="document.getElementById('mobile-filter').classList.add('hidden')">Show Results</button>
+</div>
+<script>
+        // Micro-interaction: Scroll reveal for product cards
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.group').forEach(card => {
+            card.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(card);
+        });
+
+        // Toggle empty state for demo (can be triggered by search input logic)
+        function toggleEmptyState(show) {
+            const state = document.getElementById('empty-state');
+            if (show) {
+                state.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                state.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+    </script>
+</body></html>

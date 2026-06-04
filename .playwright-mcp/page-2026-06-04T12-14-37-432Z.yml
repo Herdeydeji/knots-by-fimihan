@@ -1,0 +1,107 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link "KBF Knots by Fimihan" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]:
+          - generic [ref=e11]: KBF
+          - generic [ref=e13]: Knots by Fimihan
+      - navigation [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - link "Shop" [ref=e16] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e17] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e18] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e19]:
+        - link "Search" [ref=e20] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e21]
+        - link "Sign in" [ref=e23] [cursor=pointer]:
+          - /url: /login
+          - img [ref=e24]
+        - link [ref=e26] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e27]
+  - main [ref=e29]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - link "KBF" [ref=e33] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e35]: KBF
+        - heading "Welcome Back" [level=1] [ref=e36]
+        - paragraph [ref=e37]: Sign in to your account
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]: Email
+          - textbox "your@email.com" [active] [ref=e41]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Password
+          - textbox "Enter your password" [ref=e44]
+        - button "Sign In" [ref=e45] [cursor=pointer]
+      - paragraph [ref=e46]:
+        - text: Don't have an account?
+        - link "Create one" [ref=e47] [cursor=pointer]:
+          - /url: /signup
+  - contentinfo [ref=e48]:
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e54]: KBF
+          - generic [ref=e56]: Knots by Fimihan
+        - paragraph [ref=e57]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - generic [ref=e58]:
+          - link "Instagram" [ref=e59] [cursor=pointer]:
+            - /url: https://instagram.com
+            - img [ref=e60]
+          - link "WhatsApp" [ref=e62] [cursor=pointer]:
+            - /url: https://wa.me/+2348000000000
+            - img [ref=e63]
+          - link "TikTok" [ref=e65] [cursor=pointer]:
+            - /url: https://tiktok.com
+            - img [ref=e66]
+      - generic [ref=e68]:
+        - heading "Quick Links" [level=4] [ref=e69]
+        - list [ref=e70]:
+          - listitem [ref=e71]:
+            - link "Shop All" [ref=e72] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e73]:
+            - link "About Us" [ref=e74] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e75]:
+            - link "Contact" [ref=e76] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e77]:
+        - heading "Customer Service" [level=4] [ref=e78]
+        - list [ref=e79]:
+          - listitem [ref=e80]:
+            - link "Shipping Information" [ref=e81] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e82]:
+            - link "Returns & Exchanges" [ref=e83] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e84]:
+            - link "Size Guide" [ref=e85] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e86]:
+            - link "WhatsApp Us" [ref=e87] [cursor=pointer]:
+              - /url: https://wa.me/+2348000000000
+              - img [ref=e88]
+              - text: WhatsApp Us
+      - generic [ref=e90]:
+        - heading "Newsletter" [level=4] [ref=e91]
+        - paragraph [ref=e92]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e93]:
+          - textbox "Your email" [ref=e94]
+          - button "Subscribe" [ref=e95] [cursor=pointer]
+    - generic [ref=e97]:
+      - paragraph [ref=e98]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "hello@knotsbyfimihan.com" [ref=e99] [cursor=pointer]:
+        - /url: mailto:hello@knotsbyfimihan.com
+        - img [ref=e100]
+        - text: hello@knotsbyfimihan.com
+  - button "Open AI style assistant" [ref=e102] [cursor=pointer]:
+    - img [ref=e103]

@@ -1,0 +1,19 @@
+[    2042ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/checkout?_=1:0
+[    2693ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/checkout?_=1:0
+[   18170ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/shop?_=1780577426565:0
+[   18234ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/shop?_=1780577426565:0
+[   20581ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/product/emerald-grace-abaya?_=1780577429121:0
+[   20644ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/product/emerald-grace-abaya?_=1780577429121:0
+[   24405ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/checkout?_=1780577432999:0
+[   24469ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/checkout?_=1780577432999:0
+[   31981ms] [ERROR] Paystack error: Error: Attribute callback must be a valid function
+    at i (https://js.paystack.co/v1/inline.js:1:16607)
+    at r (https://js.paystack.co/v1/inline.js:1:16509)
+    at validateInputTypes (https://js.paystack.co/v1/inline.js:1:16344)
+    at isValid (https://js.paystack.co/v1/inline.js:1:15084)
+    at Object.setup (https://js.paystack.co/v1/inline.js:1:14374)
+    at f (https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:34:118587)
+    at onSubmit (https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:34:120165)
+    at yd (https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:8:126036)
+    at https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:8:131025
+    at gn (https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:8:15076) @ https://knotbyfimihan.netlify.app/assets/index-Da5oUFPs.js:33

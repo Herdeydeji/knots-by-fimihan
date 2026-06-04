@@ -1,0 +1,186 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - button "Open menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+        - link "KBF" [ref=e11] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e14]: KBF
+      - generic [ref=e15]:
+        - link "Search" [ref=e16] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e17]
+        - button "Account" [ref=e20] [cursor=pointer]:
+          - generic [ref=e22]: A
+        - link [ref=e23] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e24]
+  - main [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - img "Knots by Fimihan" [ref=e29]
+        - img
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: Knots by Fimihan
+          - heading "Modest Fashion, Timeless Elegance" [level=1] [ref=e33]:
+            - text: Modest Fashion,
+            - text: Timeless Elegance
+          - paragraph [ref=e34]: Discover our curated collection of Islamic modest fashion for the modern woman. Abayas, hijabs, kaftans, and more.
+          - generic [ref=e35]:
+            - link "Shop Now" [ref=e36] [cursor=pointer]:
+              - /url: /shop
+              - text: Shop Now
+              - img [ref=e37]
+            - link "Our Story" [ref=e39] [cursor=pointer]:
+              - /url: /about
+      - generic [ref=e40]:
+        - img
+        - generic [ref=e41]:
+          - generic [ref=e43]:
+            - paragraph [ref=e44]: Featured
+            - heading "Bestsellers" [level=2] [ref=e45]
+          - generic [ref=e46]:
+            - link "Emerald Grace Abaya Add to wishlist 16% OFF abayas Emerald Grace Abaya ₦18,500 ₦22,000" [ref=e47] [cursor=pointer]:
+              - /url: /product/emerald-grace-abaya
+              - generic [ref=e48]:
+                - img "Emerald Grace Abaya" [ref=e49]
+                - button "Add to wishlist" [ref=e50]:
+                  - img [ref=e51]
+                - generic [ref=e53]: 16% OFF
+              - generic [ref=e54]:
+                - paragraph [ref=e55]: abayas
+                - heading "Emerald Grace Abaya" [level=3] [ref=e56]
+                - generic [ref=e57]:
+                  - generic [ref=e58]: ₦18,500
+                  - generic [ref=e59]: ₦22,000
+            - link "Gold Dust Kaftan Add to wishlist kaftans Gold Dust Kaftan ₦22,500" [ref=e60] [cursor=pointer]:
+              - /url: /product/gold-dust-kaftan
+              - generic [ref=e61]:
+                - img "Gold Dust Kaftan" [ref=e62]
+                - button "Add to wishlist" [ref=e63]:
+                  - img [ref=e64]
+              - generic [ref=e66]:
+                - paragraph [ref=e67]: kaftans
+                - heading "Gold Dust Kaftan" [level=3] [ref=e68]
+                - generic [ref=e70]: ₦22,500
+            - link "Silk Touch Hijab Set Add to wishlist 15% OFF hijabs Silk Touch Hijab Set ₦8,500 ₦10,000" [ref=e71] [cursor=pointer]:
+              - /url: /product/silk-touch-hijab-set
+              - generic [ref=e72]:
+                - img "Silk Touch Hijab Set" [ref=e73]
+                - button "Add to wishlist" [ref=e74]:
+                  - img [ref=e75]
+                - generic [ref=e77]: 15% OFF
+              - generic [ref=e78]:
+                - paragraph [ref=e79]: hijabs
+                - heading "Silk Touch Hijab Set" [level=3] [ref=e80]
+                - generic [ref=e81]:
+                  - generic [ref=e82]: ₦8,500
+                  - generic [ref=e83]: ₦10,000
+            - link "Cream Luxe Kaftan Set Remove from wishlist 16% OFF sets Cream Luxe Kaftan Set ₦32,000 ₦38,000" [ref=e84] [cursor=pointer]:
+              - /url: /product/cream-luxe-kaftan-set
+              - generic [ref=e85]:
+                - img "Cream Luxe Kaftan Set" [ref=e86]
+                - button "Remove from wishlist" [ref=e87]:
+                  - img [ref=e88]
+                - generic [ref=e90]: 16% OFF
+              - generic [ref=e91]:
+                - paragraph [ref=e92]: sets
+                - heading "Cream Luxe Kaftan Set" [level=3] [ref=e93]
+                - generic [ref=e94]:
+                  - generic [ref=e95]: ₦32,000
+                  - generic [ref=e96]: ₦38,000
+            - link "Gold Filigree Prayer Mat Add to wishlist 17% OFF accessories Gold Filigree Prayer Mat ₦12,500 ₦15,000" [ref=e97] [cursor=pointer]:
+              - /url: /product/gold-filigree-prayer-mat
+              - generic [ref=e98]:
+                - img "Gold Filigree Prayer Mat" [ref=e99]
+                - button "Add to wishlist" [ref=e100]:
+                  - img [ref=e101]
+                - generic [ref=e103]: 17% OFF
+              - generic [ref=e104]:
+                - paragraph [ref=e105]: accessories
+                - heading "Gold Filigree Prayer Mat" [level=3] [ref=e106]
+                - generic [ref=e107]:
+                  - generic [ref=e108]: ₦12,500
+                  - generic [ref=e109]: ₦15,000
+          - link "View All" [ref=e111] [cursor=pointer]:
+            - /url: /shop
+            - text: View All
+            - img [ref=e112]
+      - generic [ref=e114]:
+        - img
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - img [ref=e119]
+            - heading "Premium Quality" [level=3] [ref=e121]
+            - paragraph [ref=e122]: Hand-selected fabrics and meticulous craftsmanship in every piece.
+          - generic [ref=e123]:
+            - img [ref=e125]
+            - heading "Secure Payments" [level=3] [ref=e127]
+            - paragraph [ref=e128]: Safe and convenient payment options for peace of mind.
+          - generic [ref=e129]:
+            - img [ref=e131]
+            - heading "Made with Love" [level=3] [ref=e133]
+            - paragraph [ref=e134]: Each piece is thoughtfully designed with care and attention.
+      - generic [ref=e137]:
+        - img
+        - generic [ref=e138]:
+          - heading "Join Our Community" [level=2] [ref=e139]
+          - paragraph [ref=e140]: Be the first to know about new collections, exclusive offers, and styling tips.
+          - generic [ref=e141]:
+            - textbox "Enter your email" [ref=e142]
+            - button "Subscribe" [ref=e143] [cursor=pointer]
+  - contentinfo [ref=e144]:
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - generic [ref=e150]: KBF
+        - paragraph [ref=e151]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - link "WhatsApp" [ref=e153] [cursor=pointer]:
+          - /url: https://wa.me/+2348057370277
+          - img [ref=e154]
+      - generic [ref=e156]:
+        - heading "Quick Links" [level=4] [ref=e157]
+        - list [ref=e158]:
+          - listitem [ref=e159]:
+            - link "Shop All" [ref=e160] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e161]:
+            - link "My Orders" [ref=e162] [cursor=pointer]:
+              - /url: /orders
+          - listitem [ref=e163]:
+            - link "About Us" [ref=e164] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e165]:
+            - link "Contact" [ref=e166] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e167]:
+        - heading "Customer Service" [level=4] [ref=e168]
+        - list [ref=e169]:
+          - listitem [ref=e170]:
+            - link "Shipping Information" [ref=e171] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e172]:
+            - link "Returns & Exchanges" [ref=e173] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e174]:
+            - link "Size Guide" [ref=e175] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e176]:
+            - link "WhatsApp Us" [ref=e177] [cursor=pointer]:
+              - /url: https://wa.me/+2348057370277
+              - img [ref=e178]
+              - text: WhatsApp Us
+      - generic [ref=e180]:
+        - heading "Newsletter" [level=4] [ref=e181]
+        - paragraph [ref=e182]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e183]:
+          - textbox "Your email" [ref=e184]
+          - button "Subscribe" [ref=e185] [cursor=pointer]
+    - generic [ref=e187]:
+      - paragraph [ref=e188]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "knotbyfimihan121@gmail.com" [ref=e189] [cursor=pointer]:
+        - /url: mailto:knotbyfimihan121@gmail.com
+        - img [ref=e190]
+        - text: knotbyfimihan121@gmail.com
+  - button "Open AI style assistant" [ref=e192] [cursor=pointer]:
+    - img [ref=e193]

@@ -1,0 +1,55 @@
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - link "KBF" [ref=e7] [cursor=pointer]:
+        - /url: /admin/dashboard
+        - generic [ref=e9]: KBF
+      - button [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+    - navigation [ref=e13]:
+      - link "Dashboard" [ref=e14] [cursor=pointer]:
+        - /url: /admin/dashboard
+        - img [ref=e15]
+        - generic [ref=e17]: Dashboard
+      - link "Products" [ref=e18] [cursor=pointer]:
+        - /url: /admin/products
+        - img [ref=e19]
+        - generic [ref=e21]: Products
+      - link "Orders" [ref=e22] [cursor=pointer]:
+        - /url: /admin/orders
+        - img [ref=e23]
+        - generic [ref=e25]: Orders
+      - link "Complaints" [ref=e26] [cursor=pointer]:
+        - /url: /admin/complaints
+        - img [ref=e27]
+        - generic [ref=e29]: Complaints
+    - generic [ref=e30]:
+      - link "Back to Store" [ref=e31] [cursor=pointer]:
+        - /url: /
+        - img [ref=e32]
+        - text: Back to Store
+      - button "Sign Out" [ref=e34] [cursor=pointer]
+  - generic [ref=e35]:
+    - generic [ref=e37]:
+      - button "Open admin menu" [ref=e38] [cursor=pointer]:
+        - img [ref=e39]
+      - generic [ref=e41]: Admin
+    - generic [ref=e43]:
+      - heading "Orders" [level=1] [ref=e44]
+      - generic [ref=e45]:
+        - button "all" [ref=e46] [cursor=pointer]
+        - button "pending" [ref=e47] [cursor=pointer]
+        - button "processing" [ref=e48] [cursor=pointer]
+        - button "shipped" [ref=e49] [cursor=pointer]
+        - button "delivered" [ref=e50] [cursor=pointer]
+        - button "cancelled" [ref=e51] [cursor=pointer]
+      - table [ref=e54]:
+        - rowgroup [ref=e55]:
+          - row "Order Customer Total Payment Status Date" [ref=e56]:
+            - columnheader "Order" [ref=e57]
+            - columnheader "Customer" [ref=e58]
+            - columnheader "Total" [ref=e59]
+            - columnheader "Payment" [ref=e60]
+            - columnheader "Status" [ref=e61]
+            - columnheader "Date" [ref=e62]
+        - rowgroup

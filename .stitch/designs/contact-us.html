@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact &amp; Support | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .faq-accordion[open] .faq-icon {
+            transform: rotate(180deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #004326;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#91d2a7",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#3a3a37",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c9bf",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#c6c3bf",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d5aa",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002110",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#707971",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#1a5c3a",
+                        "inverse-primary": "#93d5aa",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fec564",
+                        "primary": "#004326",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#281900",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#404942",
+                        "secondary-fixed-dim": "#f5bd5d",
+                        "tertiary-container": "#51514d",
+                        "on-primary-fixed-variant": "#0b5131",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1b1b1b",
+                        "secondary-fixed": "#ffdeac",
+                        "on-secondary-fixed-variant": "#604100",
+                        "tertiary-fixed": "#e5e2dd",
+                        "primary-fixed": "#aff2c4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#2a6a47",
+                        "secondary": "#7e5700",
+                        "on-secondary-container": "#765100",
+                        "error": "#ba1a1a",
+                        "background": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+            Knots by Fimihan
+        </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Shop</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Collections</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">About</a>
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-on-surface-variant">menu</button>
+</div>
+</nav>
+<main class="pt-32 pb-stack-lg">
+<!-- Hero Section -->
+<section class="px-margin-mobile md:px-margin-desktop mb-stack-lg text-center max-w-4xl mx-auto">
+<span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm mb-4">WE'RE HERE TO HELP</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Let's Connect</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Whether you're inquiring about a bespoke garment or need assistance with an order, our team provides a service as refined as our craftsmanship.
+            </p>
+</section>
+<!-- Contact Grid -->
+<section class="px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter max-w-7xl mx-auto">
+<!-- Left: Contact Form -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-sm">
+<h2 class="font-headline-md text-headline-md text-primary mb-8">Send a Message</h2>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="relative">
+<input class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary transition-colors peer font-body-md" id="name" placeholder=" " type="text"/>
+<label class="absolute left-0 top-3 text-on-surface-variant peer-focus:text-primary peer-focus:-translate-y-6 peer-placeholder-shown:translate-y-0 transition-transform font-label-md" for="name">Full Name</label>
+</div>
+<div class="relative">
+<input class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary transition-colors peer font-body-md" id="email" placeholder=" " type="email"/>
+<label class="absolute left-0 top-3 text-on-surface-variant peer-focus:text-primary peer-focus:-translate-y-6 peer-placeholder-shown:translate-y-0 transition-transform font-label-md" for="email">Email Address</label>
+</div>
+</div>
+<div class="relative">
+<select class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary transition-colors font-body-md text-on-surface-variant" id="subject">
+<option value="">Select an Inquiry Type</option>
+<option value="bespoke">Bespoke Consultations</option>
+<option value="order">Order Status</option>
+<option value="press">Press &amp; Media</option>
+<option value="other">General Inquiry</option>
+</select>
+</div>
+<div class="relative">
+<textarea class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary transition-colors peer font-body-md" id="message" placeholder=" " rows="4"></textarea>
+<label class="absolute left-0 top-3 text-on-surface-variant peer-focus:text-primary peer-focus:-translate-y-6 peer-placeholder-shown:translate-y-0 transition-transform font-label-md" for="message">Your Message</label>
+</div>
+<button class="w-full md:w-auto px-10 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all" type="submit">Send Message</button>
+</form>
+</div>
+<!-- Right: Direct Channels & Social -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Direct CTAs -->
+<div class="bg-primary-container p-8 rounded-xl text-on-primary shadow-sm group cursor-pointer active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">chat</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Chat via WhatsApp</h3>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container mb-6 opacity-90">Experience real-time concierge service for quick questions regarding sizing and availability.</p>
+<span class="inline-flex items-center gap-2 font-label-md text-label-md text-white border-b border-white/30 pb-1">Chat Now <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+</div>
+<div class="bg-surface-container-high p-8 rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Connect With Us</h3>
+<div class="grid grid-cols-2 gap-4">
+<a class="flex items-center gap-3 p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">share</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Instagram</span>
+<span class="font-label-md text-label-md text-primary font-bold">@fimihan.knots</span>
+</div>
+</a>
+<a class="flex items-center gap-3 p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">alternate_email</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Twitter</span>
+<span class="font-label-md text-label-md text-primary font-bold">@KnotsFimihan</span>
+</div>
+</a>
+</div>
+<div class="mt-6 p-4 border border-outline-variant rounded-lg border-dashed">
+<p class="font-label-md text-label-md text-on-surface-variant text-center">Follow for exclusive drops &amp; cultural narratives</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Accordion -->
+<section class="px-margin-mobile md:px-margin-desktop mt-stack-lg max-w-4xl mx-auto">
+<h2 class="font-headline-md text-headline-md text-center text-primary mb-stack-md">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<details class="faq-accordion group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md text-on-surface font-semibold">How long does custom tailoring take?</span>
+<span class="material-symbols-outlined faq-icon transition-transform text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Our bespoke pieces typically require 4 to 6 weeks for completion. This allows our artisans to meticulously hand-craft every detail, from Islamic geometric embroideries to structural finishes.
+                    </div>
+</details>
+<details class="faq-accordion group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Do you offer international shipping?</span>
+<span class="material-symbols-outlined faq-icon transition-transform text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Yes, we ship our Nigerian-crafted garments globally. Delivery times vary by location, typically ranging from 7 to 14 business days via our premium logistics partners.
+                    </div>
+</details>
+<details class="faq-accordion group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-surface-container-high transition-colors">
+<span class="font-label-md text-label-md text-on-surface font-semibold">What is your return policy for bespoke items?</span>
+<span class="material-symbols-outlined faq-icon transition-transform text-primary">expand_more</span>
+</summary>
+<div class="p-6 pt-0 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Due to the highly personalized nature of bespoke garments, they are non-refundable. However, we offer complimentary adjustments within 15 days of receipt to ensure the perfect fit.
+                    </div>
+</details>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-4">Knots by Fimihan</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">
+                Nigerian Crafted. Islamic Inspired. Modern Heritage for the global individual.
+            </p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Quick Links</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Shop All</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Bespoke Service</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Sustainability</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Support</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Newsletter</h4>
+<div class="flex gap-2">
+<input class="w-full bg-surface-container p-2 text-label-sm rounded focus:ring-1 focus:ring-primary outline-none" placeholder="Email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-label-sm active:scale-95 transition-transform">Join</button>
+</div>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-8">
+                © 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.
+            </div>
+</div>
+</footer>
+<!-- AI Assistant Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-[60] group border-4 border-surface overflow-hidden" id="ai-assistant-btn">
+<span class="material-symbols-outlined text-3xl font-variation-settings: 'FILL' 1 group-hover:rotate-12 transition-transform">smart_toy</span>
+<div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+<!-- AI Chat Window (Hidden by default) -->
+<div class="fixed bottom-28 right-8 w-[350px] max-w-[calc(100vw-40px)] bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant overflow-hidden z-[60] flex flex-col transform scale-0 origin-bottom-right transition-transform duration-300" id="ai-chat-window">
+<div class="bg-primary p-4 flex items-center justify-between text-on-primary">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md">Fimihan Assistant</span>
+</div>
+<button class="material-symbols-outlined hover:opacity-70" id="close-chat">close</button>
+</div>
+<div class="h-80 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-surface-bright">
+<div class="flex gap-2 items-start">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<div class="bg-surface-container-high p-3 rounded-2xl rounded-tl-none font-body-md text-sm text-on-surface-variant">
+                    Assalamu Alaikum. I'm the Fimihan digital concierge. How can I assist with your garment selection today?
+                </div>
+</div>
+</div>
+<div class="p-4 border-t border-outline-variant flex gap-2">
+<input class="w-full bg-surface-container-low border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-primary outline-none" placeholder="Type a message..." type="text"/>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+<script>
+        const chatBtn = document.getElementById('ai-assistant-btn');
+        const chatWindow = document.getElementById('ai-chat-window');
+        const closeBtn = document.getElementById('close-chat');
+
+        chatBtn.addEventListener('click', () => {
+            chatWindow.classList.toggle('scale-0');
+            chatWindow.classList.toggle('scale-100');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWindow.classList.add('scale-0');
+            chatWindow.classList.remove('scale-100');
+        });
+
+        // Add subtle hover lift effect to interaction elements
+        document.querySelectorAll('.bg-surface-container-lowest, .bg-primary-container').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

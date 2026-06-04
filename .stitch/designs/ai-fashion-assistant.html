@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Knots by Fimihan | AI Fashion Assistant</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#91d2a7",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary": "#3a3a37",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#c8c6c2",
+                    "on-background": "#1b1b1b",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c0c9bf",
+                    "surface": "#fcf9f8",
+                    "on-tertiary-container": "#c6c3bf",
+                    "on-tertiary-fixed": "#1c1c19",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#93d5aa",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#002110",
+                    "inverse-on-surface": "#f3f0ef",
+                    "outline": "#707971",
+                    "surface-container-low": "#f6f3f2",
+                    "primary-container": "#1a5c3a",
+                    "inverse-primary": "#93d5aa",
+                    "surface-container": "#f0eded",
+                    "secondary-container": "#fec564",
+                    "primary": "#004326",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary-fixed": "#281900",
+                    "on-tertiary-fixed-variant": "#474743",
+                    "on-surface-variant": "#404942",
+                    "secondary-fixed-dim": "#f5bd5d",
+                    "tertiary-container": "#51514d",
+                    "on-primary-fixed-variant": "#0b5131",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-surface": "#1b1b1b",
+                    "secondary-fixed": "#ffdeac",
+                    "on-secondary-fixed-variant": "#604100",
+                    "tertiary-fixed": "#e5e2dd",
+                    "primary-fixed": "#aff2c4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#2a6a47",
+                    "secondary": "#7e5700",
+                    "on-secondary-container": "#765100",
+                    "error": "#ba1a1a",
+                    "background": "#fcf9f8",
+                    "inverse-surface": "#313030",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container-high": "#eae7e7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "stack-md": "24px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-md": ["DM Sans"],
+                    "body-lg": ["DM Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "label-md": ["DM Sans"],
+                    "label-sm": ["DM Sans"],
+                    "display-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .chat-sheet-open {
+            transform: translateY(0);
+        }
+        .chat-sheet-closed {
+            transform: translateY(100%);
+        }
+        .message-in {
+            animation: slideInUp 0.4s ease-out forwards;
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-panel {
+            background: rgba(252, 249, 248, 0.9);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<!-- Blurred Background Content (Homepage) -->
+<main class="fixed inset-0 z-0 filter blur-xl opacity-60 pointer-events-none scale-105">
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80">
+<span class="font-headline-md text-headline-md font-semibold text-primary">Knots by Fimihan</span>
+</nav>
+<section class="pt-24 px-margin-mobile">
+<div class="h-96 w-full rounded-xl bg-surface-container-high mb-stack-lg flex items-center justify-center">
+<img alt="Editorial Fashion" class="w-full h-full object-cover rounded-xl" data-alt="A high-fashion editorial photograph featuring a Nigerian model wearing a luxurious emerald green hijab and contemporary modest silk gown. The lighting is soft and golden, evocative of a high-end digital boutique. The background is a minimalist architectural space with creamy textured walls and subtle Islamic geometric patterns etched into the surface, emphasizing a modern heritage aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMfun87rKNWZVhilG69qjs0pLIU5vo3U2jw2YBJpZ5_JyTd7WzRsYedh5stxt4hTvK0_gbRCjhVuhdDvioPhm0LNLEBugNkmi_535zJihJ-wUgBR2GQK2i2Ec3a-jT1wlNNaPIJw4mOfJXAEyYoYOZzdwYBCEPW0KpVFyLAn_Hq3648xTEOXLISPmQ0xCT4CEpejCbhUq-uiBTMGDr2VKXLGJN6xtjeX5I3xvAAqnznLAJmJ2ZzTadszQz4esNS2-fTzkS8J-p8GqL"/>
+</div>
+<div class="space-y-stack-md">
+<div class="h-8 w-2/3 bg-surface-variant rounded"></div>
+<div class="h-4 w-full bg-surface-variant rounded"></div>
+<div class="h-4 w-4/5 bg-surface-variant rounded"></div>
+</div>
+</section>
+</main>
+<!-- Overlay Backdrop -->
+<div class="fixed inset-0 bg-on-background/20 z-10 transition-opacity duration-500" id="backdrop"></div>
+<!-- AI Chat Interface (Slide-up Panel) -->
+<div class="fixed inset-x-0 bottom-0 z-50 transition-transform duration-500 ease-out chat-sheet-open h-[870px] md:h-[921px] max-w-2xl mx-auto" id="chatSheet">
+<div class="glass-panel h-full rounded-t-[32px] flex flex-col shadow-2xl border-x border-t border-outline-variant/30">
+<!-- Drag Handle & Header -->
+<div class="flex flex-col items-center pt-3 pb-4">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mb-6"></div>
+<div class="w-full px-6 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Assistant</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span> Online
+                            </p>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors" onclick="toggleChat()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- Chat Message Container -->
+<div class="flex-1 overflow-y-auto px-6 py-4 space-y-stack-lg scroll-smooth" id="chatContent">
+<!-- Welcome Message -->
+<div class="flex flex-col gap-2 max-w-[85%] message-in">
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-none border border-outline-variant/20 shadow-sm">
+<p class="font-body-md text-body-md text-on-surface">Hello! I'm your <span class="font-bold">Knots by Fimihan</span> assistant. How can I help you find your perfect piece today?</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-1">10:24 AM</span>
+</div>
+<!-- Suggested Prompts -->
+<div class="flex flex-wrap gap-2 message-in" style="animation-delay: 0.2s;">
+<button class="px-4 py-2 bg-white border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+                        'Help me find an Eid outfit'
+                    </button>
+<button class="px-4 py-2 bg-white border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+                        'I need a gift'
+                    </button>
+<button class="px-4 py-2 bg-white border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary hover:text-white transition-all active:scale-95">
+                        'Latest Silk Collection'
+                    </button>
+</div>
+<!-- AI Response with Product Recommendations -->
+<div class="flex flex-col gap-4 max-w-[95%] message-in" style="animation-delay: 0.5s;">
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-none border border-outline-variant/20">
+<p class="font-body-md text-body-md text-on-surface">I've curated a few elegant options for Eid that celebrate heritage with a modern silhouette. Which of these resonates with you?</p>
+</div>
+<!-- Horizontal Product Scroll -->
+<div class="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 no-scrollbar">
+<!-- Product Card 1 -->
+<div class="min-w-[240px] bg-white rounded-xl overflow-hidden shadow-lg border border-outline-variant/10">
+<div class="h-48 overflow-hidden relative">
+<span class="absolute top-2 left-2 px-3 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full">New Arrival</span>
+<img alt="The Sahar Kaftan" class="w-full h-full object-cover" data-alt="A luxurious silk modest dress in a rich deep emerald shade, draped elegantly over a high-end mannequin. The fabric has a subtle sheen that reflects soft studio lighting. The aesthetic is clean, minimalist, and premium, aligned with a high-end Nigerian luxury brand. The background is a neutral warm beige, highlighting the garment's texture and craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9eyn49r9rcrC796quXMNggEUjWQAjAVAMxlYKT5mdzuL5X-68MS_-RWa2eGhlJX0jIyS7ehzUmmiq1qyr22HP4TuEjNbdRXXkLBFrpou5C-CS4S-DXFEKVDuuP7r0QHhzIfO0WS59Wxr9mNfdAYNCQrUsseXc8bkNUdhlO7QyYtOKWnmG0dQOyKHEfd6hjGbCEKff1qcejHGAQFYvDT5-FVYYqQZjvyVm4MiUmBV036vdA-wokVwajg8GwTvqoFqL6buqDUyagDkQ"/>
+</div>
+<div class="p-4 flex flex-col">
+<h3 class="font-headline-md text-[18px] text-on-surface truncate">The Sahar Kaftan</h3>
+<p class="font-label-md text-primary font-bold">₦85,000</p>
+<button class="mt-3 w-full py-2 bg-primary text-white rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">
+                                    View Details
+                                </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="min-w-[240px] bg-white rounded-xl overflow-hidden shadow-lg border border-outline-variant/10">
+<div class="h-48 overflow-hidden">
+<img alt="Heritage Abaya" class="w-full h-full object-cover" data-alt="An exquisite modest abaya crafted from heavy sand-colored crepe, featuring intricate gold embroidery along the cuffs. The style is sophisticated and regal, photographed in a high-key setting with expansive whitespace. The lighting emphasizes the fine detail of the Islamic-inspired patterns and the luxurious drape of the fabric, consistent with elite Nigerian fashion standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzEmaWqlCYDy3yt3Sh8hR_jfBXxsiGz_C17UzgDMhvM8MlswaogiqsEmN7aEKpE_YflkqZS8eRELKS8HYQz-rOiNWkRFwaNj6UVsJQ9UyUQuWZL23xUZ2GcAo3PZP5K17KwfUI-UeLZJBbTo8ziBiGwtVPFJ2CMG2aAtJ3ZwKzP2SRgpm83yQk-E5vlXA6YY77sLfTziKzW5486jNNO4mijfCR1Wf38WAm4WkwCQX1TOHWRamGsmVAku80JMJ8pnxjuPzAlw4erhos"/>
+</div>
+<div class="p-4 flex flex-col">
+<h3 class="font-headline-md text-[18px] text-on-surface truncate">Heritage Abaya</h3>
+<p class="font-label-md text-primary font-bold">₦110,000</p>
+<button class="mt-3 w-full py-2 bg-primary text-white rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">
+                                    View Details
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-6 bg-surface border-t border-outline-variant/30 pb-10">
+<div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant rounded-2xl px-4 py-2 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md placeholder:text-on-surface-variant/60" placeholder="Type your message..." type="text"/>
+<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white active:scale-90 transition-transform shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Nav (Hidden when chat is high, but included for structure as per system rules) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-40 h-16 bg-surface border-t border-outline-variant/10 flex justify-around items-center px-4">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-[10px]">Assistant</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-sm text-[10px]">Shop</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-[10px]">Favorites</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Account</span>
+</div>
+</nav>
+<script>
+        function toggleChat() {
+            const sheet = document.getElementById('chatSheet');
+            const backdrop = document.getElementById('backdrop');
+            
+            if (sheet.classList.contains('chat-sheet-open')) {
+                sheet.classList.remove('chat-sheet-open');
+                sheet.classList.add('chat-sheet-closed');
+                backdrop.style.opacity = '0';
+                setTimeout(() => backdrop.classList.add('hidden'), 500);
+            } else {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.style.opacity = '1', 10);
+                sheet.classList.remove('chat-sheet-closed');
+                sheet.classList.add('chat-sheet-open');
+            }
+        }
+
+        // Auto-scroll to bottom of chat
+        const chatContent = document.getElementById('chatContent');
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        // Micro-interaction: Input focus lift
+        const chatInput = document.querySelector('input');
+        const inputContainer = chatInput.parentElement;
+        
+        chatInput.addEventListener('focus', () => {
+            inputContainer.style.transform = 'translateY(-2px)';
+            inputContainer.style.boxShadow = '0 10px 25px -5px rgba(0, 67, 38, 0.1)';
+        });
+        
+        chatInput.addEventListener('blur', () => {
+            inputContainer.style.transform = 'translateY(0)';
+            inputContainer.style.boxShadow = 'none';
+        });
+    </script>
+</body></html>

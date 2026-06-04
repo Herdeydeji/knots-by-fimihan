@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Knots by Fimihan | Elegant Modest Fashion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#91d2a7",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#3a3a37",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c9bf",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#c6c3bf",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d5aa",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002110",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#707971",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#1a5c3a",
+                        "inverse-primary": "#93d5aa",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fec564",
+                        "primary": "#004326",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#281900",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#404942",
+                        "secondary-fixed-dim": "#f5bd5d",
+                        "tertiary-container": "#51514d",
+                        "on-primary-fixed-variant": "#0b5131",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1b1b1b",
+                        "secondary-fixed": "#ffdeac",
+                        "on-secondary-fixed-variant": "#604100",
+                        "tertiary-fixed": "#e5e2dd",
+                        "primary-fixed": "#aff2c4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#2a6a47",
+                        "secondary": "#7e5700",
+                        "on-secondary-container": "#765100",
+                        "error": "#ba1a1a",
+                        "background": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .hero-gradient { background: linear-gradient(to right, rgba(250, 247, 242, 0.9) 0%, rgba(250, 247, 242, 0.4) 50%, transparent 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary/30">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">Knots by Fimihan</span>
+<div class="hidden md:flex gap-6">
+<a class="text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-primary">menu</button>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[921px] w-full overflow-hidden bg-surface-container-low">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover object-center" data-alt="A graceful model wearing an exquisite, emerald green silk abaya with intricate gold embroidery along the cuffs. She stands in a sun-drenched, high-ceilinged modern gallery with white marble floors. The lighting is soft and ethereal, highlighting the luxurious drape of the fabric. The overall atmosphere is one of timeless Nigerian elegance and Islamic modesty, using a sophisticated cream and emerald color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF6q-avFpeAModYBZBmQDBSmsl3l65hraeBvuxDjsYCa3EKDB43chiczVvnQqUkue6htLonQ8LD7iTeplDV8ow8jbEeRSo4Osdg7ovEfD2T5Z1FdXIBIWqh4PdKKZTqom5YmSEfB7sw_UwZ4LFlidVGSBSEbLp64-jThbtJ5kHv5xrWV7eUDck8QXLbQILPLU-ceLlWWcTt3R-yIPn441Cb7UPFeU_8GS7lTnYIc-fZ-LUS9eBR5Qo6BLO2wQciBOzELZEuh1Tb96v"/>
+<div class="absolute inset-0 hero-gradient hidden md:block"></div>
+<div class="absolute inset-0 bg-black/10 md:hidden"></div>
+</div>
+<div class="relative z-10 h-full flex flex-col justify-center px-margin-mobile md:px-margin-desktop max-w-4xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-6 animate-fade-in">
+                    Elegant Modest <br/>Fashion for Every Occasion
+                </h1>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-[12px] font-label-md text-label-md hover:scale-[0.98] transition-transform shadow-lg">
+                        Shop Now
+                    </button>
+<button class="border-2 border-secondary text-secondary px-8 py-4 rounded-[12px] font-label-md text-label-md hover:bg-secondary/5 transition-colors">
+                        Explore Collections
+                    </button>
+</div>
+</div>
+</section>
+<!-- Promotional Banner -->
+<div class="bg-secondary-container py-3 text-center">
+<p class="font-label-md text-label-md text-on-secondary-container">Free Shipping on Orders Above ₦25,000</p>
+</div>
+<!-- Featured Categories -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop">
+<h2 class="font-headline-lg text-headline-lg text-center mb-stack-lg text-primary">Featured Categories</h2>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-gutter">
+<!-- Abayas -->
+<div class="group cursor-pointer text-center">
+<div class="aspect-[3/4] rounded-t-full overflow-hidden mb-stack-sm bg-surface-container shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A portrait-oriented view of a luxury abaya displayed on a minimalist arched frame. The fabric is a deep midnight blue with subtle sheen, draped perfectly to show its high-quality texture. The background is a clean, off-white studio setting with soft directional light creating gentle shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ0wrpbWSeUalgyJvazgDFwT8ueezofAGYTY8F5Y0DDaLz8X1w1zGwyJQWCNiNKUaNlZvFPYknG-n8LmiYzQ3p9dWIQN7FHT5xZ0JnH2yDegllhWHZum7PEDwDQszCGS4Drrw6FCnWbjOFiTiHEhfdIE3q6qzjOVZn5zktYQqtjpEGoqva9fwJYjK-32ACS2r2ku9fhl7vyUnak4Sz-q0Svt9ad-ww8g3RMH8FDsQ820vsOpFiX13I5VrfnJY-TLJ4zsgoccIhgbJg"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Abayas</span>
+</div>
+<!-- Hijabs -->
+<div class="group cursor-pointer text-center">
+<div class="aspect-[3/4] rounded-t-full overflow-hidden mb-stack-sm bg-surface-container shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of several folded premium silk and chiffon hijabs in a palette of cream, gold, and sage green. They are arranged artfully on a light wooden surface in a bright, airy room. The lighting is natural and soft, emphasizing the delicate weave of the fabrics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLVlPqFaMIHBhtJKS_PKhUfU47Y-iI3vKN6LcQ-vIOVLklzeC_sVkU-2GCKL66MsvAqzIxocWFKpPY2MA6mhACa0mKrkWfb8k6WReNH48rMwzL6tzyLkWOQ8gA-zSdUNX8uX-T85pdsLYpArS98RfjtakRlfiEWMGlPY_qlB0t0hXQBMC5XXSIF9DolvPIji7oTjbuNx5oC6qfQzw4FLYaFv9TX-OmIvysV9j9gPbjm10HF9p0LoFnQCTr3MkWRJb9orJo92nLPjIa"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Hijabs</span>
+</div>
+<!-- Kaftans -->
+<div class="group cursor-pointer text-center">
+<div class="aspect-[3/4] rounded-t-full overflow-hidden mb-stack-sm bg-surface-container shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant kaftan with traditional Nigerian embroidery details, styled on a mannequin in a minimalist boutique setting. The kaftan is a rich burnt orange color. The surrounding space is bright with a focus on clean lines and sophisticated modern Islamic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx2JDGuuSjHQ-_7KvZO1bEft_KfZdaIU2ZCbmbYEmCG1RlXQJuy8vAAvTr0twvyTZuI1KezMsmfgT0s2tkzbPzRQAEY-k6urviqwgD-zqGAAC7k93kJj9UxMBerSMCkki0d2KPSB7lEaXWWZ-NgIe6MmNR8PuC2RwlDyPdeFX-epkyWHKsnDvrCt1I7gkoC9i6LcEmQw-VV69UsmQWweK3caupSeRAbGDBIT8saL2saSqvCSC1i_rufXtyZHHW1DYQACdokDwhUbWg"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Kaftans</span>
+</div>
+<!-- Sets -->
+<div class="group cursor-pointer text-center">
+<div class="aspect-[3/4] rounded-t-full overflow-hidden mb-stack-sm bg-surface-container shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A two-piece modest co-ord set in a soft beige linen fabric. The set is neatly laid out on a white textured rug in a contemporary bedroom with minimalist decor. The sunlight filters through thin curtains, creating a warm and inviting lifestyle scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgu7yF5xHNTVhHRkD7LnXf37Fg8-LAkFUrGyo6-41PAgaopt-o-VDee1Nlmjj93hEm89mRwac8odUGZRN50UPaSYtjEQlbtG_4_5KOEEu_xKnGfLk3BQ7TD8SR_QRBmtGxR3WsGEDKtzi7rwT3RhSJEe_MfrZdf7DWjWTpeB767azUhvbPNvdaHGBEgjrH5R3lBAIM93ZuD0FQ32gSFJqQRs8-pSGWVZL1Y9z5clzGHNuwA6j-C0TiQG2k_-n-UNWe907R_y9yNJUQ"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Sets</span>
+</div>
+<!-- Accessories -->
+<div class="group cursor-pointer text-center">
+<div class="aspect-[3/4] rounded-t-full overflow-hidden mb-stack-sm bg-surface-container shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A collection of luxury modest fashion accessories including a gold-toned brooch and a structured leather handbag. The items are arranged on a polished marble surface with a blurred background of a high-end fashion boutique. The lighting is crisp and highlights the metallic details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYwFxgre0sM9RodOZMTklBiPKJEZx7cfC3oeP_8u3Bl9Yh_PHMouOXPmltR97ja1AlcnYxxYiXSjZxqYFzJ_w-Z2Sq1-HdeiNdEx7RADjfkvVs3egsKK06OWECHiPcYcFay_Xb9n8oe8oAWBittJOTtLsJayvD_U6si1X1hFL7T-8IG3HmZyTsczCPlGL891y9_-40hxvpMc94UNr_JjS69e-VKPiedGOk_isshJ6RT7soSJknq0zZKIvkQuVTUB3RqOt0l2dl5akz"/>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Accessories</span>
+</div>
+</div>
+</section>
+<!-- Featured Products Carousel -->
+<section class="py-stack-lg bg-surface-container-low overflow-hidden">
+<div class="px-margin-mobile md:px-margin-desktop flex justify-between items-end mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">New Arrivals</h2>
+<button class="text-secondary font-label-md hover:underline flex items-center gap-2">
+                    View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="flex gap-gutter px-margin-mobile md:px-margin-desktop overflow-x-auto no-scrollbar pb-stack-md">
+<!-- Product Card 1 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group">
+<div class="relative aspect-[4/5] mb-stack-sm overflow-hidden rounded-lg bg-white">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A premium modest dress in a soft pastel lavender shade, featuring subtle pleats and a matching waist tie. The model is walking through a bright urban garden with blooming flowers. The photography is clean, bright, and editorial in style, emphasizing the flow and quality of the fabric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq7ltnVv6BkVKm5Q9tkFfIhae_ssLBHqrbuvAfCAlIHrPCG_f_p-m-qB19LT9wwQojm9lsXp3jXaLZRBhFPPA5niB7HWURKY-ndrZLTUO3HA_QGzSselptvGnV15U4rXLRR-8rIGA01-OcD6kYQKfe8Ne2Tviyc5sbHhFqb1izY_PDF-6ZosiLqDsSSPBbX_qy1s8h5qz9hfeMoc1IPCw-G29p0L1VBA_aLHVThooPKxQJb1ohfA7gf7Wj0lZIaUm2VzOeg7KEZ8ik"/>
+<div class="absolute top-3 left-3 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm">New</div>
+<button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+<span class="material-symbols-outlined text-primary">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Amina Silk Abaya</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">₦45,000</p>
+</div>
+<!-- Product Card 2 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group">
+<div class="relative aspect-[4/5] mb-stack-sm overflow-hidden rounded-lg bg-white">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A stylish kaftan set in ivory white, featuring a long top and matching wide-leg trousers. The model is posed in a modern architectural space with sharp geometric shadows and soft natural light. The aesthetic is high-fashion and minimalist, showcasing the brand's Nigerian heritage and modern sensibilities." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiRYD6uz0UgR-_RC_EA_JO9OcvEfm3aV8eBZY7zoWkBBbS0Q6bIZvUBtZf7F8T8d9MwNfLmSrrzPuo6dh-xVk7mp64vKtpjZgDq0yUgAOPo5KffnXa4GSqW-r5iLBrDXh6OOkt9kD5M0WNsEzGRmgcsm75MpgdjSXTYPwVpW8kTana7RS2ZwhdZCVKHBFF75n5ZkUGjXsVmE5oQUwzugqpzlY27AqQoDdmtncGMQ1eBNyIZGZ68oUOwe5biT9puiH8iKbUUKqH8fvJ"/>
+<button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+<span class="material-symbols-outlined text-primary">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Zahara Co-ord Set</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">₦38,500</p>
+</div>
+<!-- Product Card 3 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group">
+<div class="relative aspect-[4/5] mb-stack-sm overflow-hidden rounded-lg bg-white">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A beautiful dusty rose hijab made from high-quality pleated georgette. The hijab is elegantly styled on a mannequin in a room with warm, ambient lighting. The focus is on the fine texture and the way the light catches the pleats, creating a sense of luxury and sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX0YddwRfmiLwQ884Iys8dq3zQkDtp3PvNWB1gKymWGfPWZ17ZDbBARl8YYPT3NrWQjrVQIa2WdkTtk9PiARRM7hfZFTVD0h4A3ksk8ZNTyASSTc42mz8fwk35O1Awy_fK9uGkwlJumfAclAGyi9oIn8wV-ITDP6uJrR9RS-a1tIk0vJJ4ZIsebjXg4zvuYYzXCfoLRPuy2djsYIDts45qmhr0f6shWsoQLluyNcY_UfTevmHo9omksAq4jQZETtrlqaMMJt3kZ9MD"/>
+<div class="absolute top-3 left-3 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm">Limited</div>
+<button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+<span class="material-symbols-outlined text-primary">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Royal Pleat Hijab</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">₦12,000</p>
+</div>
+<!-- Product Card 4 -->
+<div class="min-w-[280px] md:min-w-[320px] flex-shrink-0 group">
+<div class="relative aspect-[4/5] mb-stack-sm overflow-hidden rounded-lg bg-white">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An open-front kimono style abaya in a rich forest green with delicate gold floral patterns. The model is standing in a courtyard with traditional Islamic tiling. The soft evening light creates a peaceful and regal atmosphere, perfectly aligning with the brand's heritage-inspired identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB708RYmy5YKxdSRY-KFt2mE1jedthprOPHsBA7hbqtgf37mqErP2QMXIzqEmY7MpU9DOhkRCZnkNzJT-e-AFStmi4w18Q5ZWHY34URjjvAyJXdFbNjsUz8ng0mnlwDQfSzlj3Aq-ykMiiNRENCOBaIpyW-Wdv-YgZFLsywXRSigtZ2MoSbP_p0eRMUzlM4kQwB8XvkPneOLvEPJpL-OZ_MItLGbmBWk2whv9FHgQSsJ4J7kufeKpSri42RdzIUF6CYm5XzRPDIQgjR"/>
+<button class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
+<span class="material-symbols-outlined text-primary">add_shopping_cart</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Laila Patterned Abaya</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">₦52,000</p>
+</div>
+</div>
+</section>
+<!-- Why Shop With Us Grid -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg border-y border-outline-variant py-stack-lg">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]">verified_user</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Secure Payments</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Shop with confidence using our 100% secure payment gateways.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]">local_shipping</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Fast Delivery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Nationwide shipping with dedicated tracking for all orders.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]">workspace_premium</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Quality Fabrics</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Handpicked premium textiles that prioritize comfort and durability.</p>
+</div>
+</div>
+</section>
+<!-- Instagram Gallery -->
+<section class="py-stack-lg">
+<div class="px-margin-mobile md:px-margin-desktop text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">Seen on Instagram</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Tag @KnotsByFimihan for a chance to be featured</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 px-2">
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A stylish woman taking a selfie in a high-end dressing room, wearing a cream abaya from the Knots by Fimihan collection. The lighting is warm and flattering, with reflections from ornate mirrors creating a layered, artistic effect. The mood is intimate and fashionable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoEGDVHm6jW8utM6ysk2mThkgk6XMuOLqPoXY7h742QTbzWHfFy3FU2yiQ_oJMcsnYVW4_sie9JHJxZMlub4DNnVeiILTMOMg5FBcVZShIQ4OYNjStVlE88ymrfAFVZtezPEfVcsVrJNUvoRxYg8-sMnM_dZihW4dLsBDluF58Zdbuz8N2Qv_lhTPZRo3ojTHSBymOxjGjfJqGfDvM-hdQGHjwdMDmdQRkyVlIYnyMlkg2eLDMA6nZw7fxTVuq-AZeDh_d3Mfcp5Kg"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A detail shot of a woman's hand resting on a marble table, wearing a delicate gold bracelet over the sleeve of a silk abaya. A coffee cup and a fashion magazine are visible in the soft-focus background. The image has a calm, 'slow living' lifestyle vibe in a modern light-mode setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5l9MBo-WoHGfJ3Rcf29YyGwsT7oXOMcCfP2J-fvbq9u5tm8_VSQsaP4RopoQ1gywOpDRjf5gn4fllpX4UpBYHm8KEExa89xkQi5tvHdZC_MUnFg-i2y-nzu1KqE_b8lVes7Yg8o6Srgri6TIo4uOgwUvOeaEGRsCzpYlWkDM82basz1k0PHCoMn9XRo31N6oI1d4KDvq0KITwSpQL9rExJYZpk77OlTt8Mls_pUxa6o5gtsiphpY7hTSCQY9Pe4yciOLRIoAaP7Rp"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Two women in modest fashion walking together through a bright, sunlit outdoor corridor with traditional arches. They are wearing flowy, elegant dresses in earthy tones. The photograph captures a candid moment of joy and friendship, reflecting a clean, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHPWYkweYAtjED25eB-r8LGaSkzMzSMcS-1KG9h3wV0LoPpAne7zKXOfIliTdFFqFkvRHqB_LSJVySqlxCRU61z70yG0qN87rpQGX2WGihe6acvkjELSKmzHBsinR2xe3QwFJr4QUXflifmkMlyxtg0xR2gYDbQt9IrD56PDgMOuoPLcrGWMAqpJik8JxlkuknGrm2nlZPmZTwV1dE3aVrDIYRC2wYgGKbppFGKu2ATK6NsiIKcynESCT_L4Hi6pJqaeuFWWKlcWD4"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A flat lay photograph of a luxury outfit featuring a midnight blue abaya, a matching hijab, and silver accessories on a white linen sheet. The composition is balanced and minimalist, using natural window light to create soft highlights and shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_ECRf35_TXl-fPiMtdeLguZ_8fsvWzWMAM27kgDo5AFZNaz0JCyi0vUXFfWIhiU0HBb6RSPm44-D2839BEBneQyRKQJ1IR4pVrUCo_u8rHmXGLDPBxktKWlC6kSWk3dy5xCeKFxyP49OQW7cOV0FBdv4NstIadKgsYz9jJnAMKkLdmm7Ubm9UVfBPBPEZk8zKeLN1M2x7aneLdLhL6hfeRsYzDdH8T2osPaa6YIHunlNZRRx0IiFv7uDTQAV0OtuDZG-HRR8qV8Hy"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer hidden md:block">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A portrait of a woman wearing a sheer, patterned hijab over a solid base, styled with an oversized blazer. She is standing against a textured white wall in a bright studio. The aesthetic is contemporary and edgy yet modest, showing the versatility of the brand's pieces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR9qTl-D42VK7a5ohkZrdsr7A5XSA48Bvv0CmcRt8jbQldaaFAyGkNgUUGFR2nsx2V7rBWwtxt5u3xtosgo-XI0glnJElbIcdE_y9V_H7gPsHV6gvCLVbqPsZTkS7_oagTBZibZpmXOEW5GnYc0Yx7Tn43hL4EOxQ0lVuN7R3-U7SUe80ZUQMjhnePGpaCIGzsoEjKi3nQw9SKzRIjJ_kh7QupdEqWDV-28vGrwrRSO0dIQDl6uwCpDbahvsSWBU7kCpw1YA5EiwDA"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group cursor-pointer hidden lg:block">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A fashion-forward model posing in a desert setting during the golden hour, wearing a flowing kaftan that catches the warm light. The wind softly blows the fabric, creating dynamic shapes. The image captures the essence of heritage and natural beauty with a high-end fashion lens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVJYRktpZviGuekY5CIVVCEGzpxvea0LCTQLCDG_pSA-SdXaBhT-VivKtjBCx7GlSglps3zrPHffjaj7c-dCwUIlZdkibRhKWmB_j_sc_XNi4SC9oBV2RGAZe89QjvW-g0dU3xJLOm7Wraw1EaZGYiihUw5u3X0-H_VGg4MZhn3WtmNFVVeiqrBolkvrjcgt6kXPRbJ96xi_nMns1Awj-04EXI2EPv9I_lzrJtXMqx8jxP-Z4bmds5jzDadACGnczw_yBz53AFr5y_"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Knots by Fimihan</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-primary font-bold">Quick Links</h4>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Shop All</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Sustainability</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Our Story</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-primary font-bold">Support</h4>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Contact Us</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Shipping &amp; Returns</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors font-label-sm" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary font-bold">Newsletter</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Join our community for exclusive early access to new collections.</p>
+<div class="flex">
+<input class="bg-surface border-none border-b border-outline-variant focus:border-primary focus:ring-0 w-full text-label-sm" placeholder="Your email" type="email"/>
+<button class="text-primary material-symbols-outlined ml-2">arrow_forward</button>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-md z-50 flex justify-around items-center h-16 shadow-[0_-1px_10px_rgba(0,0,0,0.05)] px-4">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-[10px]">Shop</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-[10px]">Search</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-[10px]">Wishlist</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Account</span>
+</button>
+</nav>
+<!-- Floating AI Assistant Button -->
+<button class="fixed bottom-20 right-6 md:bottom-10 md:right-10 w-16 h-16 bg-secondary-container text-on-secondary-container rounded-full shadow-xl flex items-center justify-center group hover:scale-110 transition-all duration-300 z-[60]" id="ai-assistant">
+<span class="material-symbols-outlined text-[32px] group-hover:rotate-12 transition-transform">smart_toy</span>
+<span class="absolute -top-12 right-0 bg-primary text-on-primary text-[10px] py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            How can I help you today?
+        </span>
+</button>
+<script>
+        // Micro-interactions
+        const aiBtn = document.getElementById('ai-assistant');
+        aiBtn.addEventListener('click', () => {
+            alert('Hello! I am your Knots by Fimihan AI assistant. How can I help you find the perfect outfit today?');
+        });
+
+        // Sticky Nav logic (translucency adjustment)
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

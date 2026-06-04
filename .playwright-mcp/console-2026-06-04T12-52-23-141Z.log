@@ -1,0 +1,4 @@
+[    2993ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/product/emerald-grace-abaya?_=2:0
+[    3080ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/product/emerald-grace-abaya?_=2:0
+[   14753ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/checkout?_=1780577557488:0
+[   14819ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/checkout?_=1780577557488:0

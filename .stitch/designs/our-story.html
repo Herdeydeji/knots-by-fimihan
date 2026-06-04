@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(250, 247, 242, 0) 0%, rgba(250, 247, 242, 1) 100%);
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#91d2a7",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#3a3a37",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c9bf",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#c6c3bf",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d5aa",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002110",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#707971",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#1a5c3a",
+                        "inverse-primary": "#93d5aa",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fec564",
+                        "primary": "#004326",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#281900",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#404942",
+                        "secondary-fixed-dim": "#f5bd5d",
+                        "tertiary-container": "#51514d",
+                        "on-primary-fixed-variant": "#0b5131",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1b1b1b",
+                        "secondary-fixed": "#ffdeac",
+                        "on-secondary-fixed-variant": "#604100",
+                        "tertiary-fixed": "#e5e2dd",
+                        "primary-fixed": "#aff2c4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#2a6a47",
+                        "secondary": "#7e5700",
+                        "on-secondary-container": "#765100",
+                        "error": "#ba1a1a",
+                        "background": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed-dim">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<a class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed" href="#">Knots by Fimihan</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-primary">menu</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[819px] w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-fashion editorial photograph of a Nigerian woman wearing a luxurious, flowing emerald green silk hijab and an elegant modest floor-length gown. She stands gracefully in a sun-drenched, minimalist courtyard with traditional Yoruba architectural accents. The lighting is soft and golden, highlighting the fine texture of the fabric. The overall mood is sophisticated, celebrating African heritage with a modern, serene aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ0xjeYnBMz3zceXn2bSvTZvo7j5AM_5J2Jc4fv-oretD2RbdaXW6uyRkjwb7mVpB4btFEk5RYdY6kB4Enq1w87MoEraIaUM2ChMfVr_kof9yL_kGSoqzSyey_ITnYr3TlWMiPziAtUq1C4hnv-wDxbfZHf4r5_lLQ_OjuTdEKjKcBMDF4RmNtgWtvGeU0GkDPLja9WkyFp7UprRE2JOGm6jnzI9zaLRHyPUH5fcmbiOiCIWW246rXXvlDfpjs1_94aOou8JjZC6L2"/>
+<div class="absolute inset-0 hero-gradient flex flex-col justify-end px-margin-mobile md:px-margin-desktop pb-stack-lg">
+<div class="max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-4">Our Story</h1>
+<p class="font-headline-md text-headline-md text-on-surface-variant leading-relaxed italic">"Modesty is not about hiding, but about choosing what to reveal. It is the ultimate expression of self-possession."</p>
+</div>
+</div>
+</section>
+<!-- The Vision Narrative -->
+<section class="px-margin-mobile md:px-margin-desktop py-stack-lg bg-background">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-6 scroll-reveal">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-stack-md">Fimihan's Vision</h2>
+<div class="space-y-4 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+<p>Born from the vibrant pulse of Lagos and the timeless values of Islamic tradition, Knots by Fimihan was founded to redefine the modest fashion landscape in Nigeria. Our founder, Fimihan, recognized a gap between global fashion trends and the specific needs of the modern Nigerian woman who seeks both elegance and adherence to her faith.</p>
+<p>We believe that clothing is a silent dialogue. It speaks of where we come from and who we aspire to be. Our garments are designed to be knots—strong, intricate connections between heritage and the contemporary world.</p>
+</div>
+</div>
+<div class="md:col-span-6 flex justify-center scroll-reveal">
+<div class="relative w-full max-w-md aspect-[3/4] rounded-xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+<img class="w-full h-full object-cover" data-alt="A portrait of a visionary female designer in a bright, modern studio filled with sketches and high-quality fabrics. She is wearing a chic, tailored black modest suit and a delicate silk headwrap. Sunlight pours through large windows, creating a workspace that feels airy and creative. The scene conveys professional excellence, focused creativity, and the fusion of modern fashion with traditional modesty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHJd1otBGtTw4Y4-k6IgHyTo35NOxKwTMdzHRiEPJdlijl6mou0VwLXdmh9ExTGVtGV_vwbk6S77dccOPcrS9v8pHDOokH0_6H1hXlPY2Yv9vKH5mPH8jBvC9Bc_P-J4qWvUWUSzBK8RBuFBX0mgxzjVXpWIU8GPdqnwDTmpBNvvv1jzAteG1WoyZAMC6ATM6NKywWHCcGEG7l-SbUOkv6URF5g2hiI0087b7x0L2NmAQX3qsntTTixCcQ5HqBzziRL1RhvNVEuTSA"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Mission & Values (Bento Grid) -->
+<section class="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface-container-low">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-stack-lg">Mission &amp; Values</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-gutter h-auto md:h-[600px]">
+<div class="md:col-span-2 md:row-span-2 bg-primary p-8 rounded-xl flex flex-col justify-end text-on-primary shadow-lg scroll-reveal">
+<span class="material-symbols-outlined text-4xl mb-4">diamond</span>
+<h3 class="font-headline-md text-headline-md mb-2">Unwavering Quality</h3>
+<p class="font-body-md text-body-md opacity-90">Every knot, every stitch, and every fabric selection is meticulously inspected to ensure it meets the highest luxury standards of the African continent.</p>
+</div>
+<div class="md:col-span-2 md:row-span-1 bg-secondary-container p-8 rounded-xl flex flex-col justify-between text-on-secondary-container shadow-md scroll-reveal">
+<h3 class="font-headline-md text-headline-md">Cultural Pride</h3>
+<p class="font-body-md text-body-md">We celebrate the Nigerian spirit, integrating local motifs and traditional weaving techniques into modern silhouettes.</p>
+</div>
+<div class="md:col-span-1 md:row-span-1 bg-surface-container-highest p-8 rounded-xl flex flex-col items-center justify-center text-center shadow-md scroll-reveal">
+<span class="material-symbols-outlined text-primary text-3xl mb-2">eco</span>
+<h4 class="font-label-md text-label-md font-bold text-primary">Sustainability</h4>
+</div>
+<div class="md:col-span-1 md:row-span-1 bg-white p-8 rounded-xl flex flex-col items-center justify-center text-center shadow-md border border-outline-variant scroll-reveal">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2">diversity_3</span>
+<h4 class="font-label-md text-label-md font-bold text-secondary">Community</h4>
+</div>
+</div>
+</section>
+<!-- Artisanal Craftsmanship -->
+<section class="px-margin-mobile md:px-margin-desktop py-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+<div class="order-2 md:order-1 scroll-reveal">
+<div class="grid grid-cols-2 gap-4">
+<img class="w-full aspect-square object-cover rounded-lg" data-alt="A close-up shot of skilled hands delicately embroidering a piece of high-end fabric with intricate gold thread patterns. The scene is set in a well-lit artisanal workshop in Nigeria. The details of the fabric texture and the precision of the needlework are sharply focused. The warm lighting emphasizes the artisanal quality and the careful craftsmanship involved in the creation of luxury modest garments." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPyXZjmcgCB-6Nj9y5ZpDjGlcFawtGw7aRNB0jpuzb7-1FZn05VlzXACyiVZEFHsOPL564zVARwcbRTL4WnOGEual3pBJq6eQuFFE8jhytn-wJ4QgD2KWhUdR4KdgGCCIrmbrvO7Foii1GfCa0doqZASfMSdT-fN7LkjLOCnzrqgmYkvAvJT86j2NSEnI3iJcuV62cQE5Aa7g8-pdw7w4zZzHbzKrM0ZYkPQ6NLn34Pu6H9Sr0AccF6g_sZfXa0nb81warNZtdMqq2"/>
+<img class="w-full aspect-square object-cover rounded-lg mt-8" data-alt="A collection of vibrant, hand-woven Nigerian textiles stacked neatly on a dark wooden table. The fabrics feature rich patterns and colors characteristic of local heritage, but styled with a contemporary aesthetic. The lighting is soft and natural, creating an atmosphere of refined elegance and cultural appreciation. This image highlights the brand's commitment to using authentic, high-quality materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxmfMmzHAIWCNWmv5Px8A-vZpIbBYnzxg3shKOn2M-mYriB1l754qGJQQ479MgDH91BBcJkwWBBU4rahldklXkE0hcw4x69l3W4oGZEM_3te6wFd87TqihatRds6Ws-D38MY6OKeSg0iytFHvNosxvyEQtbz6Ah-d1hnDlH21ZedoDZemknLpbzP0JnizdlEEGw0o2DGhkl3KjCWuQcZu9wrXxTaMFs6KIYAaYKNYZ5ozBOk8eDXyRpkOcF7IIBqvlrnama591bCjO"/>
+</div>
+</div>
+<div class="order-1 md:order-2 scroll-reveal">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-stack-md">Artisanal Craftsmanship</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Our studio is a sanctuary of precision. We collaborate with local Nigerian artisans to keep traditional techniques alive while adapting them for the 21st-century wardrobe.</p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary pt-1">check_circle</span>
+<div>
+<span class="font-label-md text-label-md font-bold block">Ethical Production</span>
+<span class="font-body-md text-body-md">Ensuring fair wages and safe environments for all our master tailors.</span>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary pt-1">check_circle</span>
+<div>
+<span class="font-label-md text-label-md font-bold block">Limited Editions</span>
+<span class="font-body-md text-body-md">Small batch production to ensure exclusivity and reduce waste.</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Lifestyle Gallery -->
+<section class="py-stack-lg overflow-hidden">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-stack-lg px-margin-mobile">Life in Knots</h2>
+<div class="flex gap-gutter px-margin-mobile overflow-x-auto pb-8 snap-x no-scrollbar">
+<div class="flex-none w-80 md:w-[450px] snap-center scroll-reveal">
+<img class="w-full aspect-[4/5] object-cover rounded-xl mb-4" data-alt="A lifestyle photo of a group of Nigerian women laughing and talking in a stylish, modern café in Abuja. They are all wearing diverse, elegant modest outfits from the Knots by Fimihan collection. The setting is bright, with plants and minimalist furniture. The image conveys a sense of sisterhood, modern lifestyle, and the versatility of the brand's designs for everyday social settings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeVjm1vlMKo3moTlcuvVcNlCjH-Lktg_m4Z2oEnqE1cJbrnp3zK40P_JdM_OWbmFWklXGqPTLft1SaO1m8TkA1JHCSsw8p8Ue307s_Ni8To7evYrlF_Hd3QPlvgUHs4D64I18ziqcbs_9YJigC3f4XfcTowz1QKNo1I8tdYxCcOdNfWptSTJj6pY4BdSXoaqSDZhxcwltlyMHcLKyrDIkNOncKoS6kAENkG1OjYks-47CviGdj6qkpYowgucEWxBmwGHJOQPC2vrp8"/>
+<p class="font-label-md text-label-md text-on-surface-variant">Sunday Brunch, Abuja</p>
+</div>
+<div class="flex-none w-80 md:w-[450px] snap-center scroll-reveal">
+<img class="w-full aspect-[4/5] object-cover rounded-xl mb-4" data-alt="An elegant woman in a flowing beige modest gown walking through a historic building with grand arches and natural light filtering in. The architectural backdrop complements the fluid lines of her dress. The mood is timeless and regal, showcasing the 'Modern Heritage' aesthetic of the brand. The lighting creates soft shadows that emphasize the movement of the high-quality fabric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7oLsBCAaOxwiSL79-8GwVWRzrlqipGFoU32irclSOqfnKMWa9R2VUpdEsupfmbCsSgAcrApLn9udjgdakWlPP3ovq2wEisdCsLSe398x_VhokcL0UvuIFBBrpzyUDDv2gwt3vLNdZthENPweWg-PBE4VEGfg47fqTloSMnFN5Q0fvanD5dYgTWyimIUzyAjr4yJcYPNIiuORFaULGn50HHyh3ypEwxOmCaMNLeNNbsyNuQynHMLOydQVDLPZExVljTliWc2RTkEPW"/>
+<p class="font-label-md text-label-md text-on-surface-variant">Heritage Series, Kano</p>
+</div>
+<div class="flex-none w-80 md:w-[450px] snap-center scroll-reveal">
+<img class="w-full aspect-[4/5] object-cover rounded-xl mb-4" data-alt="A confident professional woman wearing a sharp, emerald green modest blazer and matching trousers, standing on a balcony overlooking the Lagos skyline at sunset. The warm, golden light of the setting sun glints off the buildings in the background. She looks poised and empowered, representing the intersection of traditional values and modern professional success in a global city." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVUkptu_4tmn-EFXlV-FIF1dUPUdpW0UrgOZTVfEgGFBJs3ih5bFLKNU2RYA06ugxkG_wtzJ5510fxrBvy35pANxmanooGShCpTeZNBXj6pUilLc8duMx_cOf4YNN9m_gR5mNHXZf1YR159txGoSNpQ739fyGIuKHyZBGFV2mHgkkkSOM7s_tleJxGiMKfpygPaOEOxd5gPk2HpIl3SGkdtj8qX-GMr3PBoz2Li43-IatJ7z-pt3iRBzqCbHEBkbCAEnoXXZEN2B5D"/>
+<p class="font-label-md text-label-md text-on-surface-variant">Executive Edit, Lagos</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="col-span-1 md:col-span-1">
+<h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-4">Knots by Fimihan</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-80 mb-4">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-4">Shop</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Abayas</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Hijabs</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Modest Sets</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-4">Explore</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Our Story</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Sustainability</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Artisans</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-4">Support</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+</footer>
+<!-- Floating AI Assistant -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-secondary-fixed-dim text-on-secondary-fixed rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group border-4 border-white">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<!-- Tooltip -->
+<div class="absolute right-20 bg-white px-4 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+<span class="font-label-md text-label-md text-primary">Ask Fimihan AI</span>
+</div>
+</button>
+<script>
+        // Simple Scroll Reveal Interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // Floating button micro-interaction
+        const aiButton = document.querySelector('button.fixed');
+        aiButton.addEventListener('click', () => {
+            // Simulated AI interaction
+            alert('Fimihan AI: "Welcome! I can help you find the perfect hijab or explain our artisanal process. How can I assist you today?"');
+        });
+    </script>
+</body></html>

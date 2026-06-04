@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#91d2a7",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#3a3a37",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#1b1b1b",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c9bf",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#c6c3bf",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d5aa",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002110",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#707971",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#1a5c3a",
+                        "inverse-primary": "#93d5aa",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fec564",
+                        "primary": "#004326",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed": "#281900",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-surface-variant": "#404942",
+                        "secondary-fixed-dim": "#f5bd5d",
+                        "tertiary-container": "#51514d",
+                        "on-primary-fixed-variant": "#0b5131",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-surface": "#1b1b1b",
+                        "secondary-fixed": "#ffdeac",
+                        "on-secondary-fixed-variant": "#604100",
+                        "tertiary-fixed": "#e5e2dd",
+                        "primary-fixed": "#aff2c4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#2a6a47",
+                        "secondary": "#7e5700",
+                        "on-secondary-container": "#765100",
+                        "error": "#ba1a1a",
+                        "background": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "12px",
+                        "xl": "16px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["DM Sans"],
+                        "label-md": ["DM Sans"],
+                        "label-sm": ["DM Sans"],
+                        "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .trend-up { color: #1a5c3a; }
+        .trend-down { color: #ba1a1a; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c0c9bf; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim">
+<!-- Side Navigation Shell -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 bg-surface-container-low dark:bg-surface-container-highest h-screen w-64 flex flex-col border-r border-outline-variant dark:border-outline">
+<div class="p-8">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-1">Fimihan Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Store Manager</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<!-- Active State: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="package">package</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Catalog</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-6">
+<button class="w-full bg-primary text-on-primary font-label-md py-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Collection
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 min-h-screen">
+<!-- Header -->
+<header class="h-20 flex justify-between items-center px-margin-mobile md:px-margin-desktop bg-surface/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Welcome, Fimihan</h2>
+<p class="font-label-sm text-label-sm text-outline">Monday, 14 Oct 2024</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full focus:ring-1 focus:ring-primary text-body-md w-64" placeholder="Search analytics..." type="text"/>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a modern Nigerian fashion entrepreneur. The lighting is sophisticated and editorial, highlighting clear skin and a confident expression. The background is a soft, warm cream color that matches a premium luxury brand aesthetic. He wears a subtle, high-quality linen garment in a deep emerald green." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs0SiYpubcWfFz5lE9FJ2yWyLzvqpoVPmbQGlw9b_goLX2fNC0I04anT7VVteZ0KbjQ3DZtFRsTY9Wmz9WW2xV5SPgCN0ejVNLuMYLzjfNzdm5gJHkt4iuHAXh-2bDoepHz55h5ExhVGbYAfwglfAwJI4WWUNDy0LB-lZyLdJunhC0xBJATihD27XmD6pbTPtQM75yjPuTXgIJ5gGszB7XEu-KcVVQ8fyNtaGuWHAMsV7S841vKQnVK40kIeiwTOC1SqQi0n6jHFoP"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-margin-mobile md:p-margin-desktop max-w-[1400px] mx-auto">
+<!-- Revenue & Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/10 text-primary rounded-lg">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</span>
+<span class="flex items-center text-label-sm trend-up">
+                            +12.5% <span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+</span>
+</div>
+<div>
+<p class="font-label-md text-outline">Total Revenue</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">₦4,250,000</h3>
+</div>
+<div class="mt-4 h-12 w-full flex items-end gap-1">
+<div class="bg-primary/20 h-[40%] flex-1 rounded-t-sm"></div>
+<div class="bg-primary/20 h-[60%] flex-1 rounded-t-sm"></div>
+<div class="bg-primary/20 h-[50%] flex-1 rounded-t-sm"></div>
+<div class="bg-primary/20 h-[80%] flex-1 rounded-t-sm"></div>
+<div class="bg-primary h-[100%] flex-1 rounded-t-sm"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary/10 text-secondary rounded-lg">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</span>
+<span class="flex items-center text-label-sm trend-up">
+                            +8.2% <span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+</span>
+</div>
+<div>
+<p class="font-label-md text-outline">Total Orders</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">1,284</h3>
+</div>
+<div class="mt-4 h-12 w-full flex items-end gap-1">
+<div class="bg-secondary/20 h-[30%] flex-1 rounded-t-sm"></div>
+<div class="bg-secondary/20 h-[45%] flex-1 rounded-t-sm"></div>
+<div class="bg-secondary/20 h-[70%] flex-1 rounded-t-sm"></div>
+<div class="bg-secondary/20 h-[55%] flex-1 rounded-t-sm"></div>
+<div class="bg-secondary h-[90%] flex-1 rounded-t-sm"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-tertiary/10 text-tertiary rounded-lg">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</span>
+<span class="flex items-center text-label-sm trend-down">
+                            -2.1% <span class="material-symbols-outlined text-[16px]" data-icon="trending_down">trending_down</span>
+</span>
+</div>
+<div>
+<p class="font-label-md text-outline">Active Customers</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">8,942</h3>
+</div>
+<div class="mt-4 h-12 w-full flex items-end gap-1">
+<div class="bg-tertiary/20 h-[80%] flex-1 rounded-t-sm"></div>
+<div class="bg-tertiary/20 h-[70%] flex-1 rounded-t-sm"></div>
+<div class="bg-tertiary/20 h-[60%] flex-1 rounded-t-sm"></div>
+<div class="bg-tertiary/20 h-[65%] flex-1 rounded-t-sm"></div>
+<div class="bg-tertiary h-[55%] flex-1 rounded-t-sm"></div>
+</div>
+</div>
+<!-- Card 4: Low Stock Alert -->
+<div class="bg-error-container/20 p-6 rounded-xl shadow-sm border border-error/20 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-[120px]" data-icon="warning">warning</span>
+</div>
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-error text-on-error rounded-lg">
+<span class="material-symbols-outlined" data-icon="inventory">inventory</span>
+</span>
+<span class="font-label-sm text-error bg-white px-2 py-1 rounded-full">8 ITEMS</span>
+</div>
+<div>
+<p class="font-label-md text-on-error-container">Low Stock Items</p>
+<h3 class="font-headline-md text-headline-md text-error">Critical Alert</h3>
+</div>
+<a class="mt-4 text-label-sm text-error font-bold flex items-center gap-1 hover:underline" href="#">
+                        Review Catalog <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Main Grid: Recent Orders & Alerts -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Orders Table (Bento Left) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-headline-md text-on-surface">Recent Orders</h3>
+<button class="text-primary font-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Order ID</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Customer</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Amount</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#KN-8291</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">AO</div>
+<span class="text-body-md">Adebayo O.</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-md">₦120,500</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm bg-secondary-container/30 text-on-secondary-container">Processing</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary material-symbols-outlined" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#KN-8290</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold text-[10px]">ZS</div>
+<span class="text-body-md">Zainab S.</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-md">₦45,000</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm bg-primary/10 text-primary">Shipped</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary material-symbols-outlined" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#KN-8289</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary font-bold text-[10px]">IF</div>
+<span class="text-body-md">Ibrahim F.</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-md">₦88,200</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm bg-green-100 text-green-800">Delivered</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary material-symbols-outlined" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-label-md text-on-surface">#KN-8288</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">KM</div>
+<span class="text-body-md">Khadijah M.</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-md">₦210,000</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm bg-secondary-container/30 text-on-secondary-container">Processing</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary material-symbols-outlined" data-icon="visibility">visibility</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Stock & Alerts Sidebar (Bento Right) -->
+<div class="space-y-gutter">
+<!-- Low Stock Alerts -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Inventory Status</h3>
+<span class="material-symbols-outlined text-secondary" data-icon="inventory">inventory</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<img alt="Product" class="w-12 h-12 rounded bg-surface-container object-cover" data-alt="A macro close-up of a high-quality Kaftan fabric in deep emerald green, showing the intricate textured weave and golden embroidery details. The lighting is soft and luxurious, emphasizing the fabric's rich craftsmanship and modest heritage aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp70U8xIy6T6KN4RkbQ8XJ9Rtm8b5oNvYJ9mkfna7D6n-5TwSyNkv_QXopRn9V1DbJA90BD2YilBM726f5sCndOLo_3CFFqsg97WD0DpyKuXk8A356J6o81LvbyaIy70r3BTN4H8GU7oDll9wAfYFopnvvcBpqwBQO1B75IVItWcMPbES11zsnB7AZ5A7hFd0n1qjI5G4ZX-uOSAAKw2kxgQojEoUCOm4zSc1bSnNbQJnsVmXkF_FFDg4aVKgOzSglKgooLd8Bkzfe"/>
+<div class="flex-1">
+<p class="font-label-md">Emerald Gold Kaftan</p>
+<p class="text-label-sm text-error">Only 2 left in stock</p>
+</div>
+<div class="w-12 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-error w-1/5 h-full"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<img alt="Product" class="w-12 h-12 rounded bg-surface-container object-cover" data-alt="Close-up of a premium black Abaya with subtle metallic thread embroidery along the hem. The lighting highlights the drape and weight of the high-end fabric, reflecting a minimalist and professional fashion editorial style within a luxury boutique environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1Qcy1ob-tSQiQZC-SBO8dCA3FIx7igt6H1xdaA2HMWIfEeXIbOdYpbfcqIWIJgd4eJUWfAv9-13DyddDBfz86_W-UiZevuALEloW4wBaf1e5PlvaktbKqLhbpHFSeP8dRGje1gcmOeIBBB-jlV5wYM1RHXeH56eLQ11_Zk3zL2MKNMso4hBEjlebY2uoekb_f70t9DdS0wlz29LbAwUtMVlYKp2xvKTPe685mbZtiCsYVHyzUN4ImcGLyn1qUFMZ8CFixhGE-zZjY"/>
+<div class="flex-1">
+<p class="font-label-md">Midnight Silk Abaya</p>
+<p class="text-label-sm text-secondary">Only 5 left in stock</p>
+</div>
+<div class="w-12 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-secondary w-2/5 h-full"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<img alt="Product" class="w-12 h-12 rounded bg-surface-container object-cover" data-alt="A stack of folded premium pashmina hijabs in earth tones like cream, sand, and deep green. The image is clean and bright with high-key lighting, capturing the softness of the fabrics and the organized aesthetic of a high-end designer showroom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD277QeWQwFM1Gp2SnNqLPttyBAXwsRz35vx_-KhwCKCS0ZYFpkOeX63TAso2KkpJdQav9HlkSqUv63TyQ6g9Qs7QNoPlifHD9xR0pgIqYvp3QwtehKOaRmzsFGP9-HHLH2AvuvjgLQt4_SoWtxiJq_lssGRjJFI0bEpuzCJOd6_WgnFoTFK7TisXG0_9zyC4ekHacwHvpAylxYB5b9dpqB6gV0Jr5KgoDirukc6fH_QiDj0yYIENadaDvnmnl9WvtZTMqqeQG8-lZ9"/>
+<div class="flex-1">
+<p class="font-label-md">Desert Sand Hijab Set</p>
+<p class="text-label-sm text-outline">Low stock (8 left)</p>
+</div>
+<div class="w-12 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-outline w-3/5 h-full"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border border-outline text-outline font-label-md rounded-lg hover:bg-surface-container transition-colors">
+                            Restock Inventory
+                        </button>
+</div>
+<!-- Store Health/Quick Stats -->
+<div class="bg-primary text-on-primary p-6 rounded-xl shadow-md">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<h4 class="font-label-md uppercase tracking-widest">Store Performance</h4>
+</div>
+<p class="text-display-lg font-display-lg leading-tight mb-2">94%</p>
+<p class="font-body-md opacity-80 mb-6">Customer satisfaction is up 4% this month. Great job!</p>
+<div class="flex justify-between items-center">
+<span class="text-label-sm bg-white/20 px-3 py-1 rounded-full">Top Seller: Kaftans</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-bright shadow-[0_-2px_10px_rgba(0,0,0,0.05)] flex justify-around items-center h-16 z-50 border-t border-outline-variant/30">
+<a class="flex flex-col items-center text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="package">package</span>
+<span class="text-[10px] font-label-sm">Orders</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-label-sm">Catalog</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-label-sm">Account</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for hover effects on table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+                row.style.transition = 'transform 0.2s ease-out';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simple Dashboard greeting update based on time
+        const updateGreeting = () => {
+            const hour = new Date().getHours();
+            const greetingText = document.querySelector('header h2');
+            if (hour < 12) greetingText.innerText = 'Good Morning, Fimihan';
+            else if (hour < 18) greetingText.innerText = 'Good Afternoon, Fimihan';
+            else greetingText.innerText = 'Good Evening, Fimihan';
+        };
+        updateGreeting();
+    </script>
+</body></html>

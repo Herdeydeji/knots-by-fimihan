@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Abaya Collection | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(250, 247, 242, 0.4), rgba(250, 247, 242, 0.8));
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #004326;
+    }
+    @keyframes subtle-lift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+    .hover-lift:hover {
+      animation: subtle-lift 0.3s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-primary-container": "#91d2a7",
+                  "surface-bright": "#fcf9f8",
+                  "tertiary": "#3a3a37",
+                  "on-error-container": "#93000a",
+                  "on-primary": "#ffffff",
+                  "tertiary-fixed-dim": "#c8c6c2",
+                  "on-background": "#1b1b1b",
+                  "on-secondary": "#ffffff",
+                  "outline-variant": "#c0c9bf",
+                  "surface": "#fcf9f8",
+                  "on-tertiary-container": "#c6c3bf",
+                  "on-tertiary-fixed": "#1c1c19",
+                  "on-error": "#ffffff",
+                  "primary-fixed-dim": "#93d5aa",
+                  "on-tertiary": "#ffffff",
+                  "on-primary-fixed": "#002110",
+                  "inverse-on-surface": "#f3f0ef",
+                  "outline": "#707971",
+                  "surface-container-low": "#f6f3f2",
+                  "primary-container": "#1a5c3a",
+                  "inverse-primary": "#93d5aa",
+                  "surface-container": "#f0eded",
+                  "secondary-container": "#fec564",
+                  "primary": "#004326",
+                  "surface-variant": "#e5e2e1",
+                  "on-secondary-fixed": "#281900",
+                  "on-tertiary-fixed-variant": "#474743",
+                  "on-surface-variant": "#404942",
+                  "secondary-fixed-dim": "#f5bd5d",
+                  "tertiary-container": "#51514d",
+                  "on-primary-fixed-variant": "#0b5131",
+                  "surface-container-highest": "#e5e2e1",
+                  "on-surface": "#1b1b1b",
+                  "secondary-fixed": "#ffdeac",
+                  "on-secondary-fixed-variant": "#604100",
+                  "tertiary-fixed": "#e5e2dd",
+                  "primary-fixed": "#aff2c4",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-tint": "#2a6a47",
+                  "secondary": "#7e5700",
+                  "on-secondary-container": "#765100",
+                  "error": "#ba1a1a",
+                  "background": "#fcf9f8",
+                  "inverse-surface": "#313030",
+                  "error-container": "#ffdad6",
+                  "surface-dim": "#dcd9d9",
+                  "surface-container-high": "#eae7e7"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "12px",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "margin-desktop": "64px",
+                  "stack-md": "24px",
+                  "margin-mobile": "16px",
+                  "gutter": "16px",
+                  "stack-sm": "8px",
+                  "stack-lg": "48px"
+          },
+          "fontFamily": {
+                  "headline-lg": ["Playfair Display"],
+                  "headline-lg-mobile": ["Playfair Display"],
+                  "body-md": ["DM Sans"],
+                  "body-lg": ["DM Sans"],
+                  "headline-md": ["Playfair Display"],
+                  "label-md": ["DM Sans"],
+                  "label-sm": ["DM Sans"],
+                  "display-lg": ["Playfair Display"]
+          },
+          "fontSize": {
+                  "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                  "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                  "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+      Knots by Fimihan
+    </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Shop</a>
+<a class="text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:opacity-80 transition-opacity">shopping_bag</button>
+<button class="md:hidden material-symbols-outlined text-on-surface-variant p-2">menu</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Breadcrumbs -->
+<nav class="px-margin-mobile md:px-margin-desktop py-stack-sm mt-4">
+<ul class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+<li class="material-symbols-outlined text-[14px]">chevron_right</li>
+<li><a class="hover:text-primary transition-colors" href="#">Shop</a></li>
+<li class="material-symbols-outlined text-[14px]">chevron_right</li>
+<li class="text-primary font-bold">Abayas</li>
+</ul>
+</nav>
+<!-- Category Hero -->
+<section class="relative w-full h-[512px] md:h-[614px] overflow-hidden px-margin-mobile md:px-margin-desktop mb-stack-lg">
+<div class="relative w-full h-full rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700" data-alt="A high-end editorial fashion shot of a woman wearing a flowing, minimalist deep emerald green abaya with delicate gold embroidery along the cuffs. She stands in a sun-drenched, high-ceilinged modern gallery with white walls and subtle Islamic geometric shadows cast by hidden screens. The lighting is soft and ethereal, emphasizing the premium silk fabric's texture and drape. The overall mood is one of sophisticated heritage and contemporary elegance, consistent with a luxury Nigerian boutique aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkBN23o-yh64WifUlNzQ3RYRd2X-M1RBDbnC2QWsMADp5_C1MaF7XtinHoxHqCPIhYRdwf7ASYGQT5MJQtAvKI_W8GW7OaR4osC9JFnmEDdURepmdJc54Q-UwFXOUaF_vGfc5SXzNe96NzcSo9unw_tbrT1esgYHURE1Q_hKUHdUGawG7G4ZdRTSnG9liZHXx6fqu87LeekIQYUS7y8coxJohtVosL-PUBxI_L9dftz7YEDjxmDasu_qBUf1BkcHWZKTtWFlZVZHPf"/>
+<div class="absolute inset-0 hero-gradient flex flex-col justify-center items-center text-center p-gutter">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg text-primary mb-2">The Abaya Collection</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">Timeless silhouettes crafted for grace and comfort.</p>
+</div>
+</div>
+</section>
+<!-- Sticky Filter Controls -->
+<div class="sticky top-20 z-40 bg-surface/90 backdrop-blur-sm px-margin-mobile md:px-margin-desktop py-4 border-b border-outline-variant/30 transition-all duration-300 shadow-sm md:shadow-none">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-6 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+            Filters
+          </button>
+<div class="flex gap-4">
+<span class="hidden md:inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant px-3 py-1 bg-surface-container-low rounded-full">Price Range <span class="material-symbols-outlined text-[16px]">expand_more</span></span>
+<span class="hidden md:inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant px-3 py-1 bg-surface-container-low rounded-full">Color <span class="material-symbols-outlined text-[16px]">expand_more</span></span>
+<span class="hidden md:inline-flex items-center gap-1 font-label-md text-label-md text-on-surface-variant px-3 py-1 bg-surface-container-low rounded-full">Fabric <span class="material-symbols-outlined text-[16px]">expand_more</span></span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<p class="font-label-md text-label-md text-on-surface-variant hidden sm:block">Showing 24 products</p>
+<div class="flex items-center gap-2 font-label-md text-label-md text-primary">
+<span>Sort By</span>
+<select class="bg-transparent border-none focus:ring-0 font-bold p-0 pr-6 appearance-none cursor-pointer">
+<option>Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Grid -->
+<section class="px-margin-mobile md:px-margin-desktop py-stack-lg">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-gutter gap-y-stack-lg">
+<!-- Product 1 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A full-length view of a tailored midnight black abaya with intricate silver beadwork on the hem. The model poses against a warm cream architectural background with soft desert lighting. The garment is captured in motion, showcasing the luxury drape of the lightweight wool crepe fabric. Modern Nigerian luxury styling with gold accessories." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtviuYVpyXPF_pzwh-EamjrEIZnEJgGwyKiVjeYm4zXLwqxOt3U0v0AvLAO7M5o0lcBqoYcI-WMa_iPKAUnz_FV043mtTrL-ZbNXMyKvDwZl04_PAFjW5hbf-MNY-XwbEImLOGZOK1tUfonKEdy7gg2oBG4D3fkmGJBkI_FlsnrDyT4X-T9H7-8OwODgH87HTf3f2HqKjNxdk12eFqPsqX9sPiR9cjI3-tN63e-GCXu7QdrqaFFY1ZzZt2A4bYadkiZTtB-lFNyJmH"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">New Arrival</div>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Zahra Midnight Abaya</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦85,000</p>
+</div>
+<!-- Product 2 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist soft beige linen abaya designed for warm climates. The model is standing in a serene garden at twilight, with subtle golden hour lighting hitting the fabric's texture. The design features wide sleeves and a relaxed silhouette, blending Nigerian textile heritage with contemporary modest fashion. Editorial style photography with wide margins." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz3UeFzm2I-YTuXLVu4rjA2HF38Hzr4k6uS62-1MQCfSwrXlDS7_YBzy7Fhb_-owKOPxMzPNClDT91DDTw4gx98-ShFmJTLeM2-2iQVu97p1NepQahUWq4hPRwhM4N_YiFm880XapQiJBZUtALW0Gx_bF7-_GO3IlOk12o6mntJAmtJvNjJub41gV1eoWunGNgUdJsuCOU9hT-FQkp4nuV0DOBQEcLvO8Izw1ZiPjZdz5fUx4tXGGUM65jVAqL9gv8oA-SsENgQZKU"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Dune Linen Wrap</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦62,500</p>
+</div>
+<!-- Product 3 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A regal deep burgundy velvet abaya with structured shoulders and gold embroidery inspired by traditional West African motifs. The model sits in a vintage luxury lounge with warm amber lighting and deep shadows. The overall feel is one of royalty, prestige, and cultural depth, emphasizing the premium quality of the fabric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFIAk78ozJ7w0NmUmn0IbNXpgZ4L5TJ4npu4NEQbLogfYp5SLe4eWcx3GKTTz8fnUQU-YCj1sbeaDCeoBHvqpeghDTXP9HO-M0YZ2NTkampsTmtxlXad0uuhD53Dubg0kP2ewSBv3BxN9D-OK4LAraqtuDUD67D3YfHf5DccJ3w_CSjQslryyR2DnDtRUr561UHVqzFOmpZG-vCxOLhKH20JpziBJt8mwrt52ZRJcOYFp_wCdO_QbXb_wA3WIOt7eGRv9n08WZY-0B"/>
+<div class="absolute top-4 left-4 bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Limited Edition</div>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Sultana Velvet Robe</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦120,000</p>
+</div>
+<!-- Product 4 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A modern two-tone abaya in charcoal and slate grey silk. The model is walking across a minimalist concrete courtyard under bright, clear daylight. The sharp lines of the garment contrast beautifully with the geometric architectural shadows. This piece highlights a bold, professional take on modest wear for the modern woman." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMqNcqLT10r70jeoMUqq2QTwvDw9G4TjBHZXyBQ2dAUZUUljMwN4kCgeHWXKO0P_fLrQK9QljXVq2gmpAKp-a0rLCkN9cQai9jyE55kbTyTV7H-rQAtBJN6PlVGzCdK9xAnZj9U2bMrRu7WaFfLxVtPwn8e0YFZX_EdMYMF0nAyxl4hzdEKXumMLl7byWRUXyN0oCz9ine0WYgW8baPFLPhJ3cHgl4cXx4RrorQssjfc4LoBkssPX2Xc1G9NRNp_92nuYBeC3qzi3F"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Slate Silk Contrast</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦74,000</p>
+</div>
+<!-- Product 5 (Repeated for Grid Density) -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="An ethereal white chiffon abaya with layered ruffles and delicate lace inserts. The model is posed against a backdrop of soft sand dunes at sunrise. The lighting is low-contrast and dreamy, highlighting the translucency and airy nature of the fabric. High-end modest bridal or celebratory fashion aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJnQvB9F7b2UHDZ0G1RZPt1q7_56Lh5P68SXEGXZY68yFIfOnsViOdVrWAbKgMgtTpIiKS1WMlguNA5ShvBUB4lZM1dsc_X_W-pIt-3WcSW-C9SNRtxDivY--Af15uwUxqB22_Bb3VMpEq9zqFJ-AJJharpNrgkNbOQAHjVQLVBXmQRo2OG75Khn0RdJcOQFfLIkAEwd_ckQ2ZqLyvkv9p-CY0iYS4w2O-NZGnukfs5vPdZvjZP6EJtjZLMITBz6Z_9f9TG1LfRELi"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Ethereal Chiffon Gown</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦98,000</p>
+</div>
+<!-- Product 6 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A tailored navy blue abaya with gold button details down the front, mimicking a luxury trench coat. The setting is an upscale urban street in Lagos at dusk, with warm streetlights creating a sophisticated, cosmopolitan atmosphere. The fabric is a high-twist crepe that holds its shape perfectly, representing modern Nigerian urban elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV57c17a8W5m8OntWhLePBqLPPDlVkbnlBRDiC-alilk3OpvJpEt75OOlZe4drVJps7wnULYZE4hAZX1lVyAc-uht7CjXr3uwsF-Vl2LbzUkZfKISuC_NeKg6hhuiU2aJy-4At0ZkeI1XLWgnFogBTjzPFGWuZeoVHtqi88kJy8hf8HkOvO5Z2KCc-wKUfll0GKgs9XR8gJjVD6OrqKxtWEm0_ggQUVeLtycyJuip1brN44PC7MCiE_GCwiEyzrbCv8Lov8l1-zs9L"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Commander Navy Crepe</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦82,000</p>
+</div>
+<!-- Product 7 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A richly textured dark olive green abaya with hand-painted floral motifs along the sleeves. The model stands in an art studio filled with canvases and natural northern light. The lighting is soft and artistic, focusing on the craftsmanship and painterly details of the garment. It evokes a sense of creative individuality and luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOkw2ohTTL2EVGDVm7Xy0AMJlbMQnrnaLf6k0e6Z04Cl1XAXbw-HBUqB80N-MAEp88M5ABDz1io3cFlMTesVI4yHcdGwH9pyqKC7r3o3iM0daeB9Ee9Thp7nlK4ilgxFJS7bbaARRmjbsez6bieK9OFd9EyoaBAwOOhgO2kDCxe4UigSQnhbDbvMfgE1z0tQiA5b8SqKD9kXbDdOhClwmIBqTvLhXgHnu4AwuYLP5TNDmuIizVfNQvrmzGmpGU14Bj2CXcVbZT4Zyg"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Olive Artisan Bloom</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦91,000</p>
+</div>
+<!-- Product 8 -->
+<div class="group cursor-pointer hover-lift">
+<div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-surface-container mb-stack-sm">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A stunning monochrome abaya with bold geometric black and white patterns inspired by Islamic art and Nigerian adire textiles. The model is framed by a minimalist archway, creating a dramatic, high-contrast composition. The garment is a statement piece for high-fashion events, emphasizing a proud heritage and modern vision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXuFwvOUxUoU578QaTxM08pZHLhV_zfQ4fhsc131HXJX-QOsTsn9uawMgg4-KBV7QdxD-FAEXHunTdiDIAPhr8kKaGDC3GNqDHiDzmq66Xnx3TJL_I_nx3tRrXcOp-jNieo-CXksVNnS52kJ6akZ1Ey9-glHqmT3uxYM1moytEsap9t9Wquv1tCWXeGjQ1qje62VeX0XJRh9zP5kWoBQwETS03dqSzW5XePvdlkP1cAH3JewunvGxtSrm_wzR9Wp_awhmnsT1XV1zk"/>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">Monochrome Heritage</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">₦105,000</p>
+</div>
+</div>
+</section>
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-4 py-stack-lg border-t border-outline-variant/20 mx-margin-mobile md:mx-margin-desktop">
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-2">
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary font-bold">1</button>
+<button class="w-12 h-12 rounded-full border border-transparent text-on-surface-variant hover:bg-surface-container-high transition-all">2</button>
+<button class="w-12 h-12 rounded-full border border-transparent text-on-surface-variant hover:bg-surface-container-high transition-all">3</button>
+</div>
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant">
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Knots by Fimihan</div>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Knots by Fimihan. Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-2">Customer Care</h4>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Contact Us</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-2">Policy</h4>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md" href="#">Sustainability</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-2">Follow Us</h4>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- Floating Gold AI Assistant Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-secondary text-on-secondary shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-50" id="ai-assistant">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-error rounded-full border-2 border-surface animate-pulse"></div>
+</button>
+<script>
+    // Subtle Scroll Interaction for Header
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('h-16', 'shadow-md');
+        header.classList.remove('h-20', 'shadow-sm');
+      } else {
+        header.classList.add('h-20', 'shadow-sm');
+        header.classList.remove('h-16', 'shadow-md');
+      }
+    });
+
+    // AI Assistant Micro-interaction
+    const aiBtn = document.getElementById('ai-assistant');
+    aiBtn.addEventListener('mouseenter', () => {
+      aiBtn.classList.add('rotate-12');
+    });
+    aiBtn.addEventListener('mouseleave', () => {
+      aiBtn.classList.remove('rotate-12');
+    });
+
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body></html>

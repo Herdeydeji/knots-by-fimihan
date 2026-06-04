@@ -1,0 +1,122 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link "KBF Knots by Fimihan" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]:
+          - generic [ref=e11]: KBF
+          - generic [ref=e13]: Knots by Fimihan
+      - navigation [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - link "Shop" [ref=e16] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e17] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e18] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e19]:
+        - link "Search" [ref=e20] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e21]
+        - button "Account" [ref=e24] [cursor=pointer]:
+          - generic [ref=e26]: T
+        - link "1" [ref=e27] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e28]
+          - generic [ref=e30]: "1"
+  - main [ref=e31]:
+    - generic [ref=e32]:
+      - navigation [ref=e33]:
+        - link "Home" [ref=e35] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e36]:
+          - img [ref=e37]
+          - generic [ref=e39]: Shop
+      - generic [ref=e40]:
+        - complementary [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - heading "Category" [level=3] [ref=e44]
+              - generic [ref=e45]:
+                - button "All Products" [ref=e46] [cursor=pointer]
+                - button "Abayas" [ref=e47] [cursor=pointer]
+                - button "Hijabs" [ref=e48] [cursor=pointer]
+                - button "Kaftans" [ref=e49] [cursor=pointer]
+                - button "Sets" [ref=e50] [cursor=pointer]
+                - button "Accessories" [ref=e51] [cursor=pointer]
+            - generic [ref=e52]:
+              - heading "Price Range" [level=3] [ref=e53]
+              - generic [ref=e54]:
+                - spinbutton [ref=e55]
+                - generic [ref=e56]: "-"
+                - spinbutton [ref=e57]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: Showing 0 products
+            - combobox [ref=e61]:
+              - option "Newest" [selected]
+              - 'option "Price: Low to High"'
+              - 'option "Price: High to Low"'
+              - 'option "Name: A-Z"'
+          - paragraph [ref=e63]: No products match your filters. Try adjusting them!
+  - contentinfo [ref=e64]:
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - generic [ref=e70]: KBF
+          - generic [ref=e72]: Knots by Fimihan
+        - paragraph [ref=e73]: Curated Islamic modest fashion for the modern Nigerian woman. Dress modestly, live beautifully.
+        - generic [ref=e74]:
+          - link "Instagram" [ref=e75] [cursor=pointer]:
+            - /url: https://instagram.com
+            - img [ref=e76]
+          - link "WhatsApp" [ref=e78] [cursor=pointer]:
+            - /url: https://wa.me/+2348000000000
+            - img [ref=e79]
+          - link "TikTok" [ref=e81] [cursor=pointer]:
+            - /url: https://tiktok.com
+            - img [ref=e82]
+      - generic [ref=e84]:
+        - heading "Quick Links" [level=4] [ref=e85]
+        - list [ref=e86]:
+          - listitem [ref=e87]:
+            - link "Shop All" [ref=e88] [cursor=pointer]:
+              - /url: /shop
+          - listitem [ref=e89]:
+            - link "About Us" [ref=e90] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e91]:
+            - link "Contact" [ref=e92] [cursor=pointer]:
+              - /url: /contact
+      - generic [ref=e93]:
+        - heading "Customer Service" [level=4] [ref=e94]
+        - list [ref=e95]:
+          - listitem [ref=e96]:
+            - link "Shipping Information" [ref=e97] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e98]:
+            - link "Returns & Exchanges" [ref=e99] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e100]:
+            - link "Size Guide" [ref=e101] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e102]:
+            - link "WhatsApp Us" [ref=e103] [cursor=pointer]:
+              - /url: https://wa.me/+2348000000000
+              - img [ref=e104]
+              - text: WhatsApp Us
+      - generic [ref=e106]:
+        - heading "Newsletter" [level=4] [ref=e107]
+        - paragraph [ref=e108]: Get notified about new drops, sales, and exclusive offers.
+        - generic [ref=e109]:
+          - textbox "Your email" [ref=e110]
+          - button "Subscribe" [ref=e111] [cursor=pointer]
+    - generic [ref=e113]:
+      - paragraph [ref=e114]: © 2026 Knots by Fimihan. All rights reserved.
+      - link "hello@knotsbyfimihan.com" [ref=e115] [cursor=pointer]:
+        - /url: mailto:hello@knotsbyfimihan.com
+        - img [ref=e116]
+        - text: hello@knotsbyfimihan.com
+  - button "Open AI style assistant" [ref=e118] [cursor=pointer]:
+    - img [ref=e119]

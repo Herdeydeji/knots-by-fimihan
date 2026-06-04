@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Success | Knots by Fimihan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-primary-container": "#91d2a7",
+                  "surface-bright": "#fcf9f8",
+                  "tertiary": "#3a3a37",
+                  "on-error-container": "#93000a",
+                  "on-primary": "#ffffff",
+                  "tertiary-fixed-dim": "#c8c6c2",
+                  "on-background": "#1b1b1b",
+                  "on-secondary": "#ffffff",
+                  "outline-variant": "#c0c9bf",
+                  "surface": "#fcf9f8",
+                  "on-tertiary-container": "#c6c3bf",
+                  "on-tertiary-fixed": "#1c1c19",
+                  "on-error": "#ffffff",
+                  "primary-fixed-dim": "#93d5aa",
+                  "on-tertiary": "#ffffff",
+                  "on-primary-fixed": "#002110",
+                  "inverse-on-surface": "#f3f0ef",
+                  "outline": "#707971",
+                  "surface-container-low": "#f6f3f2",
+                  "primary-container": "#1a5c3a",
+                  "inverse-primary": "#93d5aa",
+                  "surface-container": "#f0eded",
+                  "secondary-container": "#fec564",
+                  "primary": "#004326",
+                  "surface-variant": "#e5e2e1",
+                  "on-secondary-fixed": "#281900",
+                  "on-tertiary-fixed-variant": "#474743",
+                  "on-surface-variant": "#404942",
+                  "secondary-fixed-dim": "#f5bd5d",
+                  "tertiary-container": "#51514d",
+                  "on-primary-fixed-variant": "#0b5131",
+                  "surface-container-highest": "#e5e2e1",
+                  "on-surface": "#1b1b1b",
+                  "secondary-fixed": "#ffdeac",
+                  "on-secondary-fixed-variant": "#604100",
+                  "tertiary-fixed": "#e5e2dd",
+                  "primary-fixed": "#aff2c4",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-tint": "#2a6a47",
+                  "secondary": "#7e5700",
+                  "on-secondary-container": "#765100",
+                  "error": "#ba1a1a",
+                  "background": "#fcf9f8",
+                  "inverse-surface": "#313030",
+                  "error-container": "#ffdad6",
+                  "surface-dim": "#dcd9d9",
+                  "surface-container-high": "#eae7e7"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "12px",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "margin-desktop": "64px",
+                  "stack-md": "24px",
+                  "margin-mobile": "16px",
+                  "gutter": "16px",
+                  "stack-sm": "8px",
+                  "stack-lg": "48px"
+          },
+          "fontFamily": {
+                  "headline-lg": ["Playfair Display"],
+                  "headline-lg-mobile": ["Playfair Display"],
+                  "body-md": ["DM Sans"],
+                  "body-lg": ["DM Sans"],
+                  "headline-md": ["Playfair Display"],
+                  "label-md": ["DM Sans"],
+                  "label-sm": ["DM Sans"],
+                  "display-lg": ["Playfair Display"]
+          },
+          "fontSize": {
+                  "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                  "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                  "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hero-gradient {
+      background: radial-gradient(circle at center, #ffffff 0%, #FAF7F2 100%);
+    }
+    .islamic-pattern {
+      opacity: 0.03;
+      background-image: url("https://www.transparenttextures.com/patterns/binding-dark.png");
+    }
+  </style>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed">
+      Knots by Fimihan
+    </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors font-label-md text-label-md" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity">favorite</button>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity">shopping_bag</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
+<!-- Subtle Background Elements -->
+<div class="absolute inset-0 islamic-pattern pointer-events-none"></div>
+<div class="container max-w-4xl mx-auto px-margin-mobile py-stack-lg relative z-10">
+<div class="flex flex-col items-center text-center space-y-stack-md">
+<!-- Elegant Success Illustration -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 mb-stack-md animate-fade-in">
+<div class="absolute inset-0 bg-secondary-fixed/20 rounded-full blur-3xl"></div>
+<img class="w-full h-full object-contain relative z-10 transform transition-transform hover:scale-105 duration-700" data-alt="A luxurious minimalist e-commerce illustration featuring a premium deep emerald green gift box tied with an intricate, shimmering gold silk knot cord. The package sits elegantly on a pristine cream surface with soft, cinematic lighting creating gentle shadows. The aesthetic is modern heritage, blending Nigerian luxury with Islamic modesty through clean lines and expansive white space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Htr6gvdadtuJ-yLPM5K_XFofNneSvrjBbBT7xXlJiS7mCYItlbGUQkyEv29_o0bWi8x79-QUiHqxfFkwQro5_MequTlIt1WwdfvE6zhVeCIb3WQjIr_tB7vk8mxa4QKVPWhThY2kpJzZri7tF_K6qxEBu_bifeklP-ww5jjGxdqERm5wvOsjdF4Y1RUui__y2XJ-Tu4Rr1yN_FtRAM7p_3o0pn-P5mra19Y38wb9vaazHwZ1PtotHCOTa__2W75GoWcldYjcJ1qF"/>
+<!-- Animated Sparkles -->
+<span class="material-symbols-outlined absolute top-4 right-8 text-secondary animate-pulse" style="font-variation-settings: 'FILL' 1">auto_awesome</span>
+<span class="material-symbols-outlined absolute bottom-12 left-4 text-primary opacity-40">eco</span>
+</div>
+<!-- Success Message -->
+<div class="space-y-stack-sm">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+            Thank You for Your Order!
+          </h1>
+<p class="font-body-md text-on-surface-variant max-w-md mx-auto">
+            Your piece of heritage is being carefully prepared. We’ve sent a confirmation email to your inbox.
+          </p>
+</div>
+<!-- Order Summary Card -->
+<div class="w-full max-w-md bg-surface-container-lowest rounded-lg p-stack-md shadow-sm border border-outline-variant/30 space-y-4">
+<div class="flex justify-between items-center border-b border-outline-variant/20 pb-4">
+<span class="font-label-md text-on-surface-variant">Order Number</span>
+<span class="font-label-md font-bold text-primary">#123456</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">local_shipping</span>
+<span class="font-label-md text-on-surface-variant">Estimated Delivery</span>
+</div>
+<span class="font-label-md font-bold text-primary">Oct 24 - Oct 27, 2024</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col md:flex-row gap-gutter w-full max-w-md pt-stack-sm">
+<button class="flex-1 bg-primary text-on-primary font-label-md py-4 rounded-lg hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2">
+            Continue Shopping
+          </button>
+<button class="flex-1 border-2 border-secondary text-secondary font-label-md py-4 rounded-lg hover:bg-secondary/5 transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+            Chat with Support
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter bg-surface-container-lowest dark:bg-surface-container-low border-t border-outline-variant dark:border-outline">
+<div class="space-y-4">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">Knots by Fimihan</div>
+<p class="font-body-md text-on-surface-variant dark:text-surface-variant">Nigerian Crafted. Islamic Inspired.</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-primary dark:text-primary-fixed">Support</h4>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Contact Us</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-primary dark:text-primary-fixed">Company</h4>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Sustainability</a>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant">© 2024 Knots by Fimihan. All rights reserved.</p>
+</div>
+</footer>
+<!-- Floating Circular Gold AI Assistant Button -->
+<div class="fixed bottom-8 right-8 z-[60]">
+<button class="w-14 h-14 md:w-16 md:h-16 bg-secondary-fixed shadow-lg rounded-full flex items-center justify-center text-on-secondary-fixed-variant hover:scale-110 active:scale-95 transition-all duration-300 group overflow-hidden" id="ai-assistant">
+<div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[28px] md:text-[32px]" style="font-variation-settings: 'FILL' 1">auto_fix_high</span>
+</button>
+<!-- Tooltip -->
+<div class="absolute bottom-full right-0 mb-4 bg-primary text-on-primary px-4 py-2 rounded-lg text-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+      Styling Assistant
+    </div>
+</div>
+<script>
+    // Micro-interactions
+    const assistantBtn = document.getElementById('ai-assistant');
+    assistantBtn.addEventListener('mouseenter', () => {
+      assistantBtn.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1, 'wght' 600";
+    });
+    assistantBtn.addEventListener('mouseleave', () => {
+      assistantBtn.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1, 'wght' 400";
+    });
+
+    // Fade-in animation logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.1
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-4');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.animate-fade-in').forEach(el => {
+        el.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-4');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body></html>
