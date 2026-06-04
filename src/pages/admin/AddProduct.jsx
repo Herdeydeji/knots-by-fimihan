@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
+import { supabase } from '../../lib/supabase'
 
 export default function AddProduct() {
   const navigate = useNavigate()
@@ -37,8 +38,30 @@ export default function AddProduct() {
     setForm({ ...form, colors: form.colors.filter((c) => c !== hex) })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const slug = form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+    const { error } = await supabase.from('products').insert([{
+      name: form.name,
+      slug,
+      description: form.description,
+      price: Number(form.price),
+      compare_at_price: form.compareAtPrice ? Number(form.compareAtPrice) : null,
+      category: form.category,
+      stock: Number(form.stock),
+      material: form.material || null,
+      occasion: form.occasion || null,
+      sizes: form.sizes,
+      colors: form.hasColors ? form.colors : [],
+      images: [],
+      is_active: true,
+      is_featured: false,
+      tags: [form.category],
+    }])
+    if (error) {
+      alert('Error: ' + error.message)
+      return
+    }
     setSubmitted(true)
     setTimeout(() => navigate('/admin/products'), 1500)
   }

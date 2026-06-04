@@ -1,19 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineSearch } from 'react-icons/hi'
-import { products } from '../../lib/products'
+import { getAdminProducts, deleteProduct } from '../../lib/products'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
 }
 
 export default function AdminProducts() {
+  const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    getAdminProducts().then(setProducts).catch(() => setProducts([]))
+  }, [])
+
+  const handleDelete = async (id) => {
+    if (!confirm('Are you sure you want to remove this product?')) return
+    await deleteProduct(id)
+    setProducts((prev) => prev.filter((p) => p.id !== id))
+  }
 
   const filtered = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.id.toLowerCase().includes(search.toLowerCase())
+      p.id?.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -54,11 +65,11 @@ export default function AdminProducts() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-cream-200 overflow-hidden flex-shrink-0">
-                        <img src={product.images[0]} alt="" className="w-full h-full object-cover" />
+                        <img src={product.images?.[0]} alt="" className="w-full h-full object-cover" />
                       </div>
                       <div>
                         <p className="font-body font-medium text-[#1C1C1C] line-clamp-1">{product.name}</p>
-                        <p className="text-xs text-[#6B6B6B]">{product.id}</p>
+                        <p className="text-xs text-[#6B6B6B]">{product.id?.slice(0, 8)}</p>
                       </div>
                     </div>
                   </td>
@@ -71,9 +82,9 @@ export default function AdminProducts() {
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      product.isActive ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
+                      product.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
                     }`}>
-                      {product.isActive ? 'Active' : 'Inactive'}
+                      {product.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -81,7 +92,7 @@ export default function AdminProducts() {
                       <button className="p-2 rounded-lg hover:bg-cream-100 text-[#6B6B6B] hover:text-emerald-600 transition-colors">
                         <HiOutlinePencil className="w-4 h-4" />
                       </button>
-                      <button className="p-2 rounded-lg hover:bg-red-50 text-[#6B6B6B] hover:text-red-500 transition-colors">
+                      <button onClick={() => handleDelete(product.id)} className="p-2 rounded-lg hover:bg-red-50 text-[#6B6B6B] hover:text-red-500 transition-colors">
                         <HiOutlineTrash className="w-4 h-4" />
                       </button>
                     </div>

@@ -8,9 +8,12 @@ import { PatternOverlay, StarPattern } from '../components/ui/IslamicPattern'
 
 export default function Homepage() {
   const [likedIds, setLikedIds] = useState([])
+  const [featured, setFeatured] = useState([])
   const { user } = useAuth()
 
-  const featured = getFeaturedProducts()
+  useEffect(() => {
+    getFeaturedProducts().then(setFeatured).catch(console.error)
+  }, [])
 
   const toggleLike = (id) => {
     setLikedIds((prev) =>

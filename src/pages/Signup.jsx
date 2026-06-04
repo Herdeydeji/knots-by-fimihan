@@ -11,8 +11,9 @@ export default function Signup() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
     if (!name || !email || !password) {
       setError('Please fill in all fields')
       return
@@ -21,9 +22,13 @@ export default function Signup() {
       setError('Password must be at least 6 characters')
       return
     }
-    signup(name, email, password)
-    const from = searchParams.get('from') || '/'
-    navigate(from)
+    try {
+      await signup(email, password)
+      const from = searchParams.get('from') || '/'
+      navigate(from)
+    } catch (err) {
+      setError(err.message || 'Failed to create account')
+    }
   }
 
   return (

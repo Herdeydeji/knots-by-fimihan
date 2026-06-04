@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ProductGrid from '../components/ui/ProductGrid'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
@@ -6,9 +7,15 @@ import { CATEGORIES } from '../lib/constants'
 
 export default function CategoryPage() {
   const { slug } = useParams()
+  const [products, setProducts] = useState([])
   const category = CATEGORIES.find((c) => c.slug === slug)
-  const products = getProductsByCategory(slug)
   const heroImage = categoryHeroImages[slug]
+
+  useEffect(() => {
+    if (slug) {
+      getProductsByCategory(slug).then(setProducts).catch(() => setProducts([]))
+    }
+  }, [slug])
 
   if (!category) {
     return (

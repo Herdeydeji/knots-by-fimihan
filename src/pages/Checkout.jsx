@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiOutlineLockClosed } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
-import { SHIPPING_FEE, FREE_SHIPPING_THRESHOLD } from '../lib/constants'
+import { PAYSTACK_PUBLIC_KEY, calculateShipping } from '../lib/constants'
+import { supabase } from '../lib/supabase'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -14,10 +15,8 @@ export default function Checkout() {
   const navigate = useNavigate()
   const { items, subtotal, clearCart } = useCart()
   const { user } = useAuth()
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
-  const total = subtotal + shipping
   const [form, setForm] = useState({
-    name: user?.name || '',
+    name: user?.user_metadata?.full_name || user?.email?.split('@')[0] || '',
     email: user?.email || '',
     phone: '',
     street: '',
@@ -25,17 +24,87 @@ export default function Checkout() {
     state: '',
   })
   const [loading, setLoading] = useState(false)
+  const shipping = calculateShipping(subtotal, form.state)
+  const total = subtotal + shipping.fee
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://js.paystack.co/v1/inline.js'
+    script.async = true
+    document.body.appendChild(script)
+    return () => document.body.removeChild(script)
+  }, [])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const payWithPaystack = () => {
+    if (!window.PaystackPop) {
+      alert('Payment system loading. Please try again.')
+      return
+    }
+
     setLoading(true)
-    setTimeout(() => {
-      clearCart()
-      setLoading(false)
-      navigate('/order-success', { state: { orderNumber: `KBF-${Date.now()}`, total } })
-    }, 1500)
+
+    const handler = window.PaystackPop.setup({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: form.email,
+      amount: total * 100,
+      currency: 'NGN',
+      ref: `KBF-${Date.now()}`,
+      metadata: {
+        custom_fields: [
+          { display_name: 'Customer Name', variable_name: 'customer_name', value: form.name },
+          { display_name: 'Phone', variable_name: 'customer_phone', value: form.phone },
+        ],
+      },
+      callback: async (response) => {
+        try {
+          const edgeFunctionUrl = `${supabase.supabaseUrl}/functions/v1/verify-payment`
+          const { data, error: fnError } = await supabase.functions.invoke('verify-payment', {
+            body: {
+              reference: response.reference,
+              customer_name: form.name,
+              customer_email: form.email,
+              customer_phone: form.phone,
+              shipping_address: {
+                street: form.street,
+                city: form.city,
+                state: form.state,
+                country: 'Nigeria',
+              },
+              items: items.map((item) => ({
+                product_id: item.id,
+                name: item.name,
+                size: item.size,
+                color: item.color,
+                qty: item.quantity,
+                price: item.price,
+              })),
+              subtotal,
+              shipping_fee: shipping.fee,
+              total,
+            },
+          })
+
+          if (fnError) throw fnError
+
+          clearCart()
+          setLoading(false)
+          navigate('/order-success', {
+            state: { orderNumber: data.order_number, total },
+          })
+        } catch (err) {
+          console.error('Payment verification error:', err)
+          alert('Payment was successful but we had trouble confirming your order. Please contact support with your payment reference: ' + response.reference)
+          setLoading(false)
+        }
+      },
+      onClose: () => {
+        setLoading(false)
+      },
+    })
+
+    handler.openIframe()
   }
 
   if (!user) {
@@ -71,7 +140,7 @@ export default function Checkout() {
       <h1 className="text-2xl lg:text-3xl font-display font-semibold text-emerald-600 mb-8">Checkout</h1>
 
       <div className="grid lg:grid-cols-5 gap-8">
-        <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6">
+        <form onSubmit={(e) => { e.preventDefault(); payWithPaystack() }} className="lg:col-span-3 space-y-6">
           <div className="card p-6">
             <h3 className="font-body font-semibold text-[#1C1C1C] mb-4">Shipping Information</h3>
             <div className="space-y-4">
@@ -144,7 +213,7 @@ export default function Checkout() {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6B6B6B]">Shipping</span>
-                <span>{shipping === 0 ? <span className="text-emerald-600">Free</span> : formatPrice(shipping)}</span>
+                <span>{shipping.free ? <span className="text-emerald-600">Free</span> : formatPrice(shipping.fee)}</span>
               </div>
               <hr className="border-cream-200" />
               <div className="flex justify-between text-base">

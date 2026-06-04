@@ -10,15 +10,20 @@ export default function Login() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('')
     if (!email || !password) {
       setError('Please fill in all fields')
       return
     }
-    login(email, password)
-    const from = searchParams.get('from') || '/'
-    navigate(from)
+    try {
+      await login(email, password)
+      const from = searchParams.get('from') || '/'
+      navigate(from)
+    } catch (err) {
+      setError(err.message || 'Invalid email or password')
+    }
   }
 
   return (

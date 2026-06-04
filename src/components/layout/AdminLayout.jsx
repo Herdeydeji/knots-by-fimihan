@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList, HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft } from 'react-icons/hi'
+import { supabase } from '../../lib/supabase'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
@@ -8,9 +9,36 @@ const adminLinks = [
   { label: 'Orders', path: '/admin/orders', icon: HiOutlineClipboardList },
 ]
 
+const ADMIN_EMAIL = 'adedejiadebeso@gmail.com'
+
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [checking, setChecking] = useState(true)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session || session.user.email !== ADMIN_EMAIL) {
+        navigate('/login?from=/admin/dashboard')
+      } else {
+        setChecking(false)
+      }
+    })
+  }, [navigate])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    navigate('/login')
+  }
+
+  if (checking) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center">
+        <p className="text-[#6B6B6B] font-body">Verifying access...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -46,11 +74,14 @@ export default function AdminLayout() {
               )
             })}
           </nav>
-          <div className="absolute bottom-4 left-4 right-4">
-            <Link to="/" className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm text-white/60 hover:bg-white/10 hover:text-white transition-colors">
+          <div className="absolute bottom-4 left-4 right-4 space-y-1">
+            <Link to="/" className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm text-white/60 hover:bg-white/10 hover:text-white transition-colors w-full">
               <HiOutlineArrowLeft className="w-4 h-4" />
               Back to Store
             </Link>
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm text-white/60 hover:bg-red-500/20 hover:text-red-300 transition-colors w-full">
+              Sign Out
+            </button>
           </div>
         </aside>
 

@@ -444,4 +444,146 @@ The Gemini model will be given a system prompt containing:
 
 ---
 
+## 19. Backend Implementation Plan (Supabase + Paystack)
+
+**Status:** In Progress — June 2026  
+**Backend:** Supabase (PostgreSQL, Auth, Storage, Edge Functions)  
+**Payments:** Paystack (NGN)  
+**Deployment:** Supabase Edge Functions
+
+### Supabase Project
+
+| Setting | Value |
+|---------|-------|
+| Name | `knots-by-fimihan` |
+| Region | `eu-west-1` (Ireland — closest to Nigeria) |
+| Plan | Free |
+| Organization | Herdeydeji's Org |
+
+### Database Schema
+
+#### `products`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `name` | TEXT | Product name |
+| `slug` | TEXT | URL-friendly name (unique) |
+| `description` | TEXT | Full product description |
+| `price` | NUMERIC | Price in Naira (NGN) |
+| `compare_at_price` | NUMERIC | Original price (for sale display) |
+| `category` | TEXT | abaya, hijab, kaftan, set, accessory |
+| `images` | TEXT[] | Array of image URLs |
+| `sizes` | TEXT[] | Available sizes |
+| `colors` | TEXT[] | Available colors |
+| `material` | TEXT | Fabric/material type |
+| `occasion` | TEXT | Event/use type |
+| `stock` | INTEGER | Total available inventory |
+| `is_featured` | BOOLEAN | Show on homepage |
+| `is_active` | BOOLEAN | Visible on store |
+| `tags` | TEXT[] | Search/filter tags |
+| `created_at` | TIMESTAMPTZ | Auto |
+| `updated_at` | TIMESTAMPTZ | Auto |
+
+#### `categories`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | |
+| `name` | TEXT | Display name |
+| `slug` | TEXT | URL slug (unique) |
+| `description` | TEXT | |
+| `image_url` | TEXT | Category hero image |
+| `display_order` | INTEGER | Sort order on nav |
+
+#### `orders`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `order_number` | TEXT | Human-readable (e.g. KBF-20260001) |
+| `customer_name` | TEXT | |
+| `customer_email` | TEXT | |
+| `customer_phone` | TEXT | |
+| `shipping_address` | JSONB | `{street, city, state, country}` |
+| `items` | JSONB | Array of `{product_id, name, size, color, qty, price}` |
+| `subtotal` | NUMERIC | |
+| `shipping_fee` | NUMERIC | |
+| `total` | NUMERIC | |
+| `payment_reference` | TEXT | Paystack reference |
+| `payment_status` | TEXT | pending, paid, failed |
+| `fulfillment_status` | TEXT | pending, processing, shipped, delivered |
+| `tracking_number` | TEXT | Courier tracking number |
+| `notes` | TEXT | Admin notes |
+| `created_at` | TIMESTAMPTZ | Auto |
+| `updated_at` | TIMESTAMPTZ | Auto |
+
+#### `site_settings`
+| Column | Type | Notes |
+|--------|------|-------|
+| `key` | TEXT (PK) | Setting key |
+| `value` | TEXT | Setting value |
+
+### RLS Policies
+
+| Table | SELECT | INSERT | UPDATE | DELETE |
+|-------|--------|--------|--------|--------|
+| `products` | Public | Admin only | Admin only | Admin only |
+| `categories` | Public | Admin only | Admin only | Admin only |
+| `orders` | Admin only | Public (authenticated) | Admin only | Admin only |
+| `site_settings` | Public | Admin only | Admin only | Admin only |
+
+### Supabase Storage
+
+- **Bucket:** `product-images` (public)
+- Used for admin product image uploads
+- Public read access, admin write access
+
+### Supabase Auth
+
+- **Provider:** Email/Password
+- **Admin user:** adedejiadebeso@gmail.com
+- Routes `/admin/*` protected by auth session check
+
+### Paystack Configuration
+
+| Setting | Value |
+|---------|-------|
+| Public Key | pk_test_8a6efcfbff945ad50ec6e4978b6368d73ef391b8 |
+| Secret Key | sk_test_82597fc62ac6c1a8742b76bb48415cde3a888567 |
+| Currency | NGN |
+| Channels | card, bank, ussd, bank_transfer, mobile_money |
+
+### Edge Functions
+
+#### `verify-payment`
+- **Trigger:** Called from frontend after Paystack popup success
+- **Input:** `{ reference, customer_name, email, phone, address, items, subtotal, shipping_fee, total }`
+- **Logic:** Verify with Paystack API → Insert order into `orders` table
+- **Response:** `{ success, order_number }`
+
+#### `paystack-webhook`
+- **Trigger:** Paystack webhook events (`charge.success`, `charge.failed`)
+- **Logic:** Verify webhook signature → Update `orders.payment_status`
+- **URL:** `{project_url}/functions/v1/paystack-webhook`
+
+### Frontend Migration
+
+| File | Change |
+|------|--------|
+| `src/lib/supabase.js` | Create Supabase client with project URL + anon key |
+| `src/lib/products.js` | Swap hardcoded data for `supabase.from('products').select('*')` |
+| `src/lib/orders.js` | Swap for Supabase queries |
+| `src/lib/auth.jsx` | Replace mock auth with `supabase.auth` |
+| `src/pages/Checkout.jsx` | Integrate Paystack popup + call `verify-payment` Edge Function |
+| `src/lib/constants.js` | Pull from `site_settings` table |
+
+### Shipping Fees
+- Lagos: ₦2,000
+- Other South-West states: ₦2,500
+- Other Nigerian states: ₦3,500
+- Free shipping on orders above ₦25,000
+
+---
+
+*IMPORTANT GITHUB COMMIT*
+----always commit repo to github
+
 *Document ends. Ready for implementation.*

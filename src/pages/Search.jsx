@@ -8,9 +8,9 @@ export default function Search() {
   const [results, setResults] = useState([])
   const [searched, setSearched] = useState(false)
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault()
-    const r = searchProducts(query)
+    const r = await searchProducts(query)
     setResults(r)
     setSearched(true)
   }

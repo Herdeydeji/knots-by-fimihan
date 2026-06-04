@@ -19,21 +19,29 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1)
   const [added, setAdded] = useState(false)
   const [noSizeWarn, setNoSizeWarn] = useState(false)
+  const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedImage, setSelectedImage] = useState(0)
   const addItem = useCart((s) => s.addItem)
   const { user, openAuthModal } = useAuth()
 
   useEffect(() => {
-    const p = getProductBySlug(slug)
-    setProduct(p)
-    setSelectedSize('')
-    setSelectedColor('')
-    setQuantity(1)
-    setAdded(false)
-    setNoSizeWarn(false)
-    setSelectedImage(0)
-    window.scrollTo(0, 0)
+    getProductBySlug(slug).then((p) => {
+      setProduct(p)
+      setSelectedSize('')
+      setSelectedColor('')
+      setQuantity(1)
+      setAdded(false)
+      setNoSizeWarn(false)
+      setSelectedImage(0)
+      window.scrollTo(0, 0)
+    }).catch(() => setProduct(null))
   }, [slug])
+
+  useEffect(() => {
+    if (product) {
+      getRelatedProducts(product).then(setRelatedProducts).catch(() => setRelatedProducts([]))
+    }
+  }, [product])
 
   if (!product) {
     return (
@@ -46,8 +54,6 @@ export default function ProductDetail() {
       </div>
     )
   }
-
-  const relatedProducts = getRelatedProducts(product)
   const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price
 
   const handleAddToCart = () => {

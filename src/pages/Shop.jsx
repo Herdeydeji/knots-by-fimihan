@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import ProductGrid from '../components/ui/ProductGrid'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
-import { products } from '../lib/products'
+import { getAllProducts } from '../lib/products'
 import { CATEGORIES } from '../lib/constants'
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [priceRange, setPriceRange] = useState({ min: '', max: '' })
+  const [allProducts, setAllProducts] = useState([])
+
+  useEffect(() => {
+    getAllProducts().then(setAllProducts).catch(() => setAllProducts([]))
+  }, [])
 
   const activeCategory = searchParams.get('category') || ''
   const activeSort = searchParams.get('sort') || 'newest'
 
-  let filtered = [...products].filter((p) => p.isActive)
+  let filtered = [...allProducts]
 
   if (activeCategory) {
     filtered = filtered.filter((p) => p.category === activeCategory)

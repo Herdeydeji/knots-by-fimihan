@@ -1,17 +1,32 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlineCube, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineExclamationCircle } from 'react-icons/hi'
-import { orders, getOrderStats } from '../../lib/orders'
-import { products } from '../../lib/products'
+import { getOrderStats, getAllOrders } from '../../lib/orders'
+import { getAdminProducts } from '../../lib/products'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
 }
 
 export default function AdminDashboard() {
-  const stats = getOrderStats()
+  const [stats, setStats] = useState({ totalOrders: 0, totalRevenue: 0, pendingOrders: 0, paidOrders: 0 })
+  const [products, setProducts] = useState([])
+  const [recentOrders, setRecentOrders] = useState([])
+
+  useEffect(() => {
+    Promise.all([
+      getOrderStats(),
+      getAdminProducts(),
+      getAllOrders(),
+    ]).then(([s, p, o]) => {
+      setStats(s)
+      setProducts(p)
+      setRecentOrders(o.slice(0, 5))
+    }).catch(console.error)
+  }, [])
+
   const lowStock = products.filter((p) => p.stock < 5 && p.stock > 0)
   const outOfStock = products.filter((p) => p.stock === 0)
-  const recentOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5)
 
   const cards = [
     { label: 'Total Orders', value: stats.totalOrders, icon: HiOutlineClipboardList, color: 'bg-blue-50 text-blue-600' },
@@ -53,17 +68,17 @@ export default function AdminDashboard() {
                 className="flex items-center justify-between p-3 rounded-xl hover:bg-cream-50 transition-colors"
               >
                 <div>
-                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{order.id}</p>
-                  <p className="text-xs text-[#6B6B6B]">{order.customerName}</p>
+                  <p className="text-sm font-body font-medium text-[#1C1C1C]">{order.order_number}</p>
+                  <p className="text-xs text-[#6B6B6B]">{order.customer_name}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-body font-bold text-emerald-600">{formatPrice(order.total)}</p>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                    order.fulfillmentStatus === 'shipped' ? 'bg-emerald-50 text-emerald-600' :
-                    order.fulfillmentStatus === 'processing' ? 'bg-blue-50 text-blue-600' :
+                    order.fulfillment_status === 'shipped' ? 'bg-emerald-50 text-emerald-600' :
+                    order.fulfillment_status === 'processing' ? 'bg-blue-50 text-blue-600' :
                     'bg-yellow-50 text-yellow-600'
                   }`}>
-                    {order.fulfillmentStatus}
+                    {order.fulfillment_status}
                   </span>
                 </div>
               </Link>
