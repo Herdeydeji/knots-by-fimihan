@@ -30,13 +30,12 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             <div className="flex items-center gap-1">
               <button
-                className="lg:hidden flex items-center gap-1.5 p-2 -ml-2 text-emerald-600 hover:text-emerald-700"
+                className="lg:hidden p-2 -ml-2 text-emerald-600 hover:text-emerald-700"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
                 type="button"
               >
                 <HiOutlineMenu className="w-6 h-6" />
-                <span className="text-[11px] font-bold uppercase tracking-widest font-body">Menu</span>
               </button>
               <Link to="/">
                 <KBFLogo />
@@ -112,7 +111,10 @@ export default function Header() {
           <div className="absolute inset-0 bg-black/70" onClick={() => setMobileOpen(false)} />
           <div className="absolute inset-0 bg-white" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 16px)' }}>
             <div className="flex items-center justify-between px-4 pb-4 border-b border-cream-200">
-              <KBFLogo />
+              <div className="flex items-center gap-2">
+                <KBFLogo />
+                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C]">Menu</span>
+              </div>
               <button onClick={() => setMobileOpen(false)} aria-label="Close menu" type="button" className="p-2 hover:bg-cream-200 rounded-lg">
                 <HiOutlineX className="w-5 h-5" />
               </button>

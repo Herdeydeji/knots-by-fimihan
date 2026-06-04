@@ -63,6 +63,7 @@ export default function AdminLayout() {
               <div className="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center flex-shrink-0 border border-gold-500/30">
                 <span className="text-sm font-bold text-gold-500 font-display tracking-wide">KBF</span>
               </div>
+              <span className="text-[11px] font-bold uppercase tracking-widest font-body text-white/80 mr-auto">Menu</span>
               <span className="text-base font-display font-bold text-white leading-tight hidden sm:block">Knots by Fimihan</span>
             </Link>
             <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
@@ -106,9 +107,8 @@ export default function AdminLayout() {
         <div className="flex-1 min-w-0 lg:ml-64">
           <div className="sticky top-0 z-30 bg-cream-50 border-b border-cream-200 lg:hidden">
             <div className="flex items-center h-14 px-4">
-              <button onClick={() => setSidebarOpen(true)} className="flex items-center gap-1.5" aria-label="Open admin menu">
+              <button onClick={() => setSidebarOpen(true)} aria-label="Open admin menu">
                 <HiOutlineMenu className="w-6 h-6 text-emerald-600" />
-                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-emerald-600">Menu</span>
               </button>
             </div>
           </div>
