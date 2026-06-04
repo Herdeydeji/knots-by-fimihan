@@ -45,66 +45,71 @@ export default function Checkout() {
 
     setLoading(true)
 
-    const handler = window.PaystackPop.setup({
-      key: PAYSTACK_PUBLIC_KEY,
-      email: form.email,
-      amount: total * 100,
-      currency: 'NGN',
-      ref: `KBF-${Date.now()}`,
-      metadata: {
-        custom_fields: [
-          { display_name: 'Customer Name', variable_name: 'customer_name', value: form.name },
-          { display_name: 'Phone', variable_name: 'customer_phone', value: form.phone },
-        ],
-      },
-      callback: async (response) => {
-        try {
-          const edgeFunctionUrl = `${supabase.supabaseUrl}/functions/v1/verify-payment`
-          const { data, error: fnError } = await supabase.functions.invoke('verify-payment', {
-            body: {
-              reference: response.reference,
-              customer_name: form.name,
-              customer_email: form.email,
-              customer_phone: form.phone,
-              shipping_address: {
-                street: form.street,
-                city: form.city,
-                state: form.state,
-                country: 'Nigeria',
+    try {
+      const handler = window.PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: form.email,
+        amount: total * 100,
+        currency: 'NGN',
+        ref: `KBF-${Date.now()}`,
+        metadata: {
+          custom_fields: [
+            { display_name: 'Customer Name', variable_name: 'customer_name', value: form.name },
+            { display_name: 'Phone', variable_name: 'customer_phone', value: form.phone },
+          ],
+        },
+        callback: async (response) => {
+          try {
+            const { data, error: fnError } = await supabase.functions.invoke('verify-payment', {
+              body: {
+                reference: response.reference,
+                customer_name: form.name,
+                customer_email: form.email,
+                customer_phone: form.phone,
+                shipping_address: {
+                  street: form.street,
+                  city: form.city,
+                  state: form.state,
+                  country: 'Nigeria',
+                },
+                items: items.map((item) => ({
+                  product_id: item.id,
+                  name: item.name,
+                  size: item.size,
+                  color: item.color,
+                  qty: item.quantity,
+                  price: item.price,
+                })),
+                subtotal,
+                shipping_fee: shipping.fee,
+                total,
               },
-              items: items.map((item) => ({
-                product_id: item.id,
-                name: item.name,
-                size: item.size,
-                color: item.color,
-                qty: item.quantity,
-                price: item.price,
-              })),
-              subtotal,
-              shipping_fee: shipping.fee,
-              total,
-            },
-          })
+            })
 
-          if (fnError) throw fnError
+            if (fnError) throw fnError
 
-          clearCart()
+            clearCart()
+            setLoading(false)
+            navigate('/order-success', {
+              state: { orderNumber: data.order_number, total },
+            })
+          } catch (err) {
+            console.error('Payment verification error:', err)
+            alert('Payment was successful but we had trouble confirming your order. Please contact support with your payment reference: ' + response.reference)
+            setLoading(false)
+          }
+        },
+        onClose: () => {
           setLoading(false)
-          navigate('/order-success', {
-            state: { orderNumber: data.order_number, total },
-          })
-        } catch (err) {
-          console.error('Payment verification error:', err)
-          alert('Payment was successful but we had trouble confirming your order. Please contact support with your payment reference: ' + response.reference)
-          setLoading(false)
-        }
-      },
-      onClose: () => {
-        setLoading(false)
-      },
-    })
+        },
+      })
 
-    handler.openIframe()
+      handler.openIframe()
+    } catch (err) {
+      console.error('Paystack error:', err)
+      setLoading(false)
+      alert('Payment could not be opened. Please check that popups are allowed and try again.')
+    }
   }
 
   if (!user) {
