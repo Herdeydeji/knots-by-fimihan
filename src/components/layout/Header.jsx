@@ -70,7 +70,7 @@ export default function Header() {
                   <button className="p-2 text-emerald-600" aria-label="Account" type="button">
                     <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
                       <span className="text-xs font-bold text-emerald-600 font-display">
-                        {user.name.charAt(0).toUpperCase()}
+                        {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
                       </span>
                     </div>
                   </button>

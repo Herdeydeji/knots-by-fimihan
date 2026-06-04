@@ -23,7 +23,7 @@ export default function Signup() {
       return
     }
     try {
-      await signup(email, password)
+      await signup(email, password, name)
       const from = searchParams.get('from') || '/'
       navigate(from)
     } catch (err) {
