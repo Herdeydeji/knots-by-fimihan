@@ -2,11 +2,11 @@ import { supabase } from './supabase'
 
 export const SITE_NAME = "Knots by Fimihan"
 export const SITE_TAGLINE = "Dress Modestly, Live Beautifully"
-export const WHATSAPP_NUMBER = "+2348000000000"
+export const WHATSAPP_NUMBER = "+2348057370277"
 export const SHIPPING_FEE = 2500
 export const FREE_SHIPPING_THRESHOLD = 25000
-export const INSTAGRAM_HANDLE = "@knotsbyfimihan"
-export const EMAIL = "hello@knotsbyfimihan.com"
+export const INSTAGRAM_HANDLE = ""
+export const EMAIL = "knotbyfimihan121@gmail.com"
 
 export const CATEGORIES = [
   { id: 1, name: "Abayas", slug: "abayas", description: "Full-length Islamic outer garments", icon: "Abayas" },

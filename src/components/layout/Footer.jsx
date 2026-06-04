@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { HiOutlineMail } from 'react-icons/hi'
-import { FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa'
+import { FaWhatsapp } from 'react-icons/fa'
 import { KBFLogo } from '../ui/IslamicPattern'
 import { WHATSAPP_NUMBER, EMAIL } from '../../lib/constants'
 
@@ -16,14 +16,8 @@ export default function Footer() {
               Dress modestly, live beautifully.
             </p>
             <div className="flex items-center gap-4 mt-6">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-cream-200 hover:text-gold-500 transition-colors" aria-label="Instagram">
-                <FaInstagram className="w-5 h-5" />
-              </a>
               <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-cream-200 hover:text-gold-500 transition-colors" aria-label="WhatsApp">
                 <FaWhatsapp className="w-5 h-5" />
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-cream-200 hover:text-gold-500 transition-colors" aria-label="TikTok">
-                <FaTiktok className="w-5 h-5" />
               </a>
             </div>
           </div>
