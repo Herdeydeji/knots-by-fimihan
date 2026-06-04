@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { HiOutlineLockClosed } from 'react-icons/hi'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { HiOutlineLockClosed, HiOutlineSparkles } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
@@ -13,6 +13,7 @@ function formatPrice(price) {
 
 export default function Checkout() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { items, subtotal, clearCart } = useCart()
   const { user } = useAuth()
   const [form, setForm] = useState({
@@ -24,6 +25,7 @@ export default function Checkout() {
     state: '',
   })
   const [loading, setLoading] = useState(false)
+  const [processingRedirect, setProcessingRedirect] = useState(false)
   const shipping = calculateShipping(subtotal, form.state)
   const total = subtotal + shipping.fee
 
@@ -33,6 +35,34 @@ export default function Checkout() {
     script.async = true
     document.body.appendChild(script)
     return () => document.body.removeChild(script)
+  }, [])
+
+  useEffect(() => {
+    const reference = searchParams.get('reference') || searchParams.get('trxref')
+    if (!reference) return
+
+    const saved = sessionStorage.getItem('kbf-checkout-pending')
+    if (!saved) return
+
+    sessionStorage.removeItem('kbf-checkout-pending')
+
+    const checkoutData = JSON.parse(saved)
+    setProcessingRedirect(true)
+
+    supabase.functions.invoke('verify-payment', {
+      body: { reference, ...checkoutData },
+    })
+      .then(({ data, error }) => {
+        if (error) throw error
+        useCart.getState().clearCart()
+        navigate(`/order-success?reference=${reference}`, {
+          state: { orderNumber: data.order_number, total: checkoutData.total },
+        })
+      })
+      .catch((err) => {
+        console.error('Payment verification error:', err)
+        navigate(`/order-success?reference=${reference}`, { state: { error: true, ref: reference } })
+      })
   }, [])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
@@ -85,6 +115,29 @@ export default function Checkout() {
 
     setLoading(true)
 
+    sessionStorage.setItem('kbf-checkout-pending', JSON.stringify({
+      customer_name: form.name,
+      customer_email: form.email,
+      customer_phone: form.phone,
+      shipping_address: {
+        street: form.street,
+        city: form.city,
+        state: form.state,
+        country: 'Nigeria',
+      },
+      items: items.map((item) => ({
+        product_id: item.id,
+        name: item.name,
+        size: item.size,
+        color: item.color,
+        qty: item.quantity,
+        price: item.price,
+      })),
+      subtotal,
+      shipping_fee: shipping.fee,
+      total,
+    }))
+
     try {
       const handler = window.PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
@@ -99,15 +152,29 @@ export default function Checkout() {
           ],
         },
         callback: handlePaystackCallback,
-        onClose: () => { setLoading(false) },
+        onClose: () => { setLoading(false)
+          sessionStorage.removeItem('kbf-checkout-pending') },
       })
 
       handler.openIframe()
     } catch (err) {
       console.error('Paystack error:', err)
       setLoading(false)
+      sessionStorage.removeItem('kbf-checkout-pending')
       alert('Payment could not be opened. Please check that popups are allowed and try again.')
     }
+  }
+
+  if (processingRedirect) {
+    return (
+      <div className="max-w-lg mx-auto px-4 lg:px-8 py-20 text-center">
+        <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6">
+          <HiOutlineSparkles className="w-10 h-10 text-emerald-600 animate-pulse" />
+        </div>
+        <h2 className="font-display text-2xl font-bold text-emerald-600">Payment Confirmed!</h2>
+        <p className="text-[#6B6B6B] mt-2">Verifying your payment and creating your order...</p>
+      </div>
+    )
   }
 
   if (!user) {
