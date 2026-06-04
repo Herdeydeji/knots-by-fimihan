@@ -46,63 +46,77 @@ export default function AdminProducts() {
         />
       </div>
 
-      <div className="card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-cream-200 bg-cream-50">
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Product</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Category</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Price</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Stock</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Status</th>
-                <th className="text-right px-4 py-3 font-body font-semibold text-[#6B6B6B]">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((product) => (
-                <tr key={product.id} className="border-b border-cream-100 hover:bg-cream-50 transition-colors">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-cream-200 overflow-hidden flex-shrink-0">
-                        <img src={product.images?.[0]} alt="" className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <p className="font-body font-medium text-[#1C1C1C] line-clamp-1">{product.name}</p>
-                        <p className="text-xs text-[#6B6B6B]">{product.id?.slice(0, 8)}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 capitalize text-[#6B6B6B]">{product.category}</td>
-                  <td className="px-4 py-3 font-medium">{formatPrice(product.price)}</td>
-                  <td className="px-4 py-3">
-                    <span className={`font-medium ${product.stock < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
-                      {product.stock}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      product.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
-                    }`}>
-                      {product.is_active ? 'Active' : 'Inactive'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 rounded-lg hover:bg-cream-100 text-[#6B6B6B] hover:text-emerald-600 transition-colors">
-                        <HiOutlinePencil className="w-4 h-4" />
-                      </button>
-                      <button onClick={() => handleDelete(product.id)} className="p-2 rounded-lg hover:bg-red-50 text-[#6B6B6B] hover:text-red-500 transition-colors">
-                        <HiOutlineTrash className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {filtered.length === 0 ? (
+        <div className="card py-16">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-2xl bg-cream-200 flex items-center justify-center mx-auto mb-6">
+              <HiOutlineCube className="w-10 h-10 text-[#6B6B6B]" />
+            </div>
+            <h3 className="text-xl font-display font-semibold text-[#1C1C1C]">No Products Available</h3>
+            <p className="text-[#6B6B6B] font-body mt-2 leading-relaxed">
+              {search ? 'No products match your search. Try a different term.' : 'Add your first product to start selling.'}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-cream-200 bg-cream-50">
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Product</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Category</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Price</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Stock</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Status</th>
+                  <th className="text-right px-4 py-3 font-body font-semibold text-[#6B6B6B]">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((product) => (
+                  <tr key={product.id} className="border-b border-cream-100 hover:bg-cream-50 transition-colors">
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-cream-200 overflow-hidden flex-shrink-0">
+                          <img src={product.images?.[0]} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                          <p className="font-body font-medium text-[#1C1C1C] line-clamp-1">{product.name}</p>
+                          <p className="text-xs text-[#6B6B6B]">{product.id?.slice(0, 8)}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 capitalize text-[#6B6B6B]">{product.category}</td>
+                    <td className="px-4 py-3 font-medium">{formatPrice(product.price)}</td>
+                    <td className="px-4 py-3">
+                      <span className={`font-medium ${product.stock < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
+                        {product.stock}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        product.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
+                      }`}>
+                        {product.is_active ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 rounded-lg hover:bg-cream-100 text-[#6B6B6B] hover:text-emerald-600 transition-colors">
+                          <HiOutlinePencil className="w-4 h-4" />
+                        </button>
+                        <button onClick={() => handleDelete(product.id)} className="p-2 rounded-lg hover:bg-red-50 text-[#6B6B6B] hover:text-red-500 transition-colors">
+                          <HiOutlineTrash className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAllOrders, updateFulfillmentStatus, getOrderById } from '../../lib/orders'
 import { supabase } from '../../lib/supabase'
-import { HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineMail, HiOutlineX } from 'react-icons/hi'
+import { HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineMail, HiOutlineX, HiOutlineClipboardList } from 'react-icons/hi'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -198,51 +198,65 @@ export default function AdminOrders() {
         ))}
       </div>
 
-      <div className="card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-cream-200 bg-cream-50">
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Order</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Customer</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Total</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Payment</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Status</th>
-                <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((order) => (
-                <tr
-                  key={order.id}
-                  onClick={() => setSelectedOrder(order)}
-                  className="border-b border-cream-100 hover:bg-cream-50 transition-colors cursor-pointer"
-                >
-                  <td className="px-4 py-3 font-mono text-sm font-medium text-[#1C1C1C]">{order.order_number}</td>
-                  <td className="px-4 py-3">
-                    <p className="font-medium text-[#1C1C1C]">{order.customer_name}</p>
-                    <p className="text-xs text-[#6B6B6B]">{order.customer_email}</p>
-                  </td>
-                  <td className="px-4 py-3 font-medium text-emerald-600">{formatPrice(order.total)}</td>
-                  <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      order.payment_status === 'paid' ? 'bg-emerald-50 text-emerald-600' : 'bg-yellow-50 text-yellow-600'
-                    }`}>
-                      {order.payment_status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${statusColors[order.fulfillment_status] || 'bg-gray-50 text-gray-600'}`}>
-                      {order.fulfillment_status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-[#6B6B6B]">{new Date(order.created_at).toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {filtered.length === 0 ? (
+        <div className="card py-16">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-20 h-20 rounded-2xl bg-cream-200 flex items-center justify-center mx-auto mb-6">
+              <HiOutlineClipboardList className="w-10 h-10 text-[#6B6B6B]" />
+            </div>
+            <h3 className="text-xl font-display font-semibold text-[#1C1C1C]">No Orders Yet</h3>
+            <p className="text-[#6B6B6B] font-body mt-2 leading-relaxed">
+              {filter === 'all' ? 'Orders will appear here once customers start purchasing.' : `No orders with status "${filter}".`}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-cream-200 bg-cream-50">
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Order</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Customer</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Total</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Payment</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Status</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B]">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((order) => (
+                  <tr
+                    key={order.id}
+                    onClick={() => setSelectedOrder(order)}
+                    className="border-b border-cream-100 hover:bg-cream-50 transition-colors cursor-pointer"
+                  >
+                    <td className="px-4 py-3 font-mono text-sm font-medium text-[#1C1C1C]">{order.order_number}</td>
+                    <td className="px-4 py-3">
+                      <p className="font-medium text-[#1C1C1C]">{order.customer_name}</p>
+                      <p className="text-xs text-[#6B6B6B]">{order.customer_email}</p>
+                    </td>
+                    <td className="px-4 py-3 font-medium text-emerald-600">{formatPrice(order.total)}</td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        order.payment_status === 'paid' ? 'bg-emerald-50 text-emerald-600' : 'bg-yellow-50 text-yellow-600'
+                      }`}>
+                        {order.payment_status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${statusColors[order.fulfillment_status] || 'bg-gray-50 text-gray-600'}`}>
+                        {order.fulfillment_status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-[#6B6B6B]">{new Date(order.created_at).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {selectedOrder && (
         <OrderDetailModal

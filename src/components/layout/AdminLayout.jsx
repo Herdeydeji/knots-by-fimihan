@@ -106,10 +106,10 @@ export default function AdminLayout() {
         <div className="flex-1 min-w-0 lg:ml-64">
           <div className="sticky top-0 z-30 bg-cream-50 border-b border-cream-200 lg:hidden">
             <div className="flex items-center h-14 px-4">
-              <button onClick={() => setSidebarOpen(true)} aria-label="Open admin menu">
+              <button onClick={() => setSidebarOpen(true)} className="flex items-center gap-1.5" aria-label="Open admin menu">
                 <HiOutlineMenu className="w-6 h-6 text-emerald-600" />
+                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-emerald-600">Menu</span>
               </button>
-              <span className="ml-3 font-body font-semibold text-sm">Admin</span>
             </div>
           </div>
           <div className="p-4 lg:p-8">

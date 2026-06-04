@@ -30,12 +30,13 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             <div className="flex items-center gap-1">
               <button
-                className="lg:hidden p-2 -ml-2 text-emerald-600 hover:text-emerald-700"
+                className="lg:hidden flex items-center gap-1.5 p-2 -ml-2 text-emerald-600 hover:text-emerald-700"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
                 type="button"
               >
                 <HiOutlineMenu className="w-6 h-6" />
+                <span className="text-[11px] font-bold uppercase tracking-widest font-body">Menu</span>
               </button>
               <Link to="/">
                 <KBFLogo />
