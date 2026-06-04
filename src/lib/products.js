@@ -8,7 +8,7 @@ export const categoryHeroImages = {
   accessories: "https://images.pexels.com/photos/4646225/pexels-photo-4646225.jpeg?auto=compress&cs=tinysrgb&w=1200",
 }
 
-export const heroImage = "https://images.pexels.com/photos/30723894/pexels-photo-30723894.jpeg?auto=compress&cs=tinysrgb&w=1920"
+export const heroImage = "https://images.pexels.com/photos/35344026/pexels-photo-35344026.jpeg?auto=compress&cs=tinysrgb&w=1920"
 
 export async function getProductBySlug(slug) {
   const { data, error } = await supabase

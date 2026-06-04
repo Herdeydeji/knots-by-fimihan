@@ -14,38 +14,62 @@ export default function Homepage() {
 
   return (
     <div>
-      <section className="relative h-[80vh] min-h-[500px] max-h-[700px] overflow-hidden bg-emerald-900">
+      <section className="relative h-[90vh] min-h-[600px] max-h-[850px] overflow-hidden bg-emerald-900">
         <img
           src={heroImage}
           alt="Knots by Fimihan"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 sm:opacity-75"
         />
-        <PatternOverlay opacity="0.08" className="text-gold-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-emerald-900/40 to-transparent" />
-        <div className="relative z-10 h-full max-w-7xl mx-auto px-4 lg:px-8 flex flex-col justify-center pb-16">
-          <p className="text-gold-400 text-sm font-medium uppercase tracking-[0.2em] font-body mb-4">
-            Knots by Fimihan
-          </p>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight max-w-3xl">
-            Modest Fashion,<br />Timeless Elegance
+        <PatternOverlay opacity="0.06" className="text-gold-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/95 via-emerald-900/60 to-emerald-900/20" />
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-4 lg:px-8 flex flex-col justify-center pb-20">
+          <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full w-fit mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
+            <span className="text-gold-300 text-xs font-medium uppercase tracking-[0.15em] font-body">
+              Islamic Modest Fashion
+            </span>
+          </div>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight max-w-4xl">
+            Dress Modestly,<br />
+            <span className="text-gold-400">Live Beautifully</span>
           </h1>
-          <p className="text-cream-200 text-lg mt-6 max-w-xl font-body leading-relaxed">
-            Discover our curated collection of Islamic modest fashion for the modern woman.
-            Abayas, hijabs, kaftans, and more.
+          <p className="text-cream-200 text-lg sm:text-xl mt-6 max-w-2xl font-body leading-relaxed">
+            Premium abayas, hijabs, and kaftans for the woman who values
+            both her faith and her style. Thoughtfully curated, ethically sourced.
           </p>
-          <div className="flex flex-wrap gap-4 mt-8">
+          <div className="flex flex-wrap gap-4 mt-10">
             <Link
               to="/shop"
-              className="bg-gold-500 text-white px-8 py-3.5 rounded-xl font-body font-medium hover:bg-gold-600 transition-all inline-flex items-center gap-2"
+              className="bg-gold-500 text-white px-10 py-4 rounded-xl font-body font-medium hover:bg-gold-600 transition-all inline-flex items-center gap-2 text-lg shadow-xl shadow-gold-500/30"
             >
-              Shop Now <HiOutlineArrowRight className="w-4 h-4" />
+              Explore Collection <HiOutlineArrowRight className="w-5 h-5" />
             </Link>
             <Link
               to="/about"
-              className="border-2 border-white/30 text-white px-8 py-3.5 rounded-xl font-body font-medium hover:bg-white/10 transition-all"
+              className="border-2 border-white/30 text-white px-10 py-4 rounded-xl font-body font-medium hover:bg-white/10 transition-all text-lg"
             >
               Our Story
             </Link>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-12 pt-8 border-t border-white/10 max-w-lg">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-cream-200 text-sm font-body">Premium Quality</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+              </svg>
+              <span className="text-cream-200 text-sm font-body">Free Shipping</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span className="text-cream-200 text-sm font-body">Secure Checkout</span>
+            </div>
           </div>
         </div>
       </section>
