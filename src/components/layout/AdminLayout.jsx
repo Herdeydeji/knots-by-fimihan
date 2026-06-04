@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList, HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft } from 'react-icons/hi'
+import {
+  HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
+  HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox,
+} from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
+import { getUnreadNotificationCount } from '../../lib/notifications'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
   { label: 'Products', path: '/admin/products', icon: HiOutlineCube },
   { label: 'Orders', path: '/admin/orders', icon: HiOutlineClipboardList },
+  { label: 'Complaints', path: '/admin/complaints', icon: HiOutlineInbox },
 ]
 
 const ADMIN_EMAIL = 'adedejiadebeso@gmail.com'
@@ -14,6 +19,7 @@ const ADMIN_EMAIL = 'adedejiadebeso@gmail.com'
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [checking, setChecking] = useState(true)
+  const [unreadCount, setUnreadCount] = useState(0)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -26,6 +32,14 @@ export default function AdminLayout() {
       }
     })
   }, [navigate])
+
+  useEffect(() => {
+    if (!checking) {
+      getUnreadNotificationCount().then(setUnreadCount)
+      const interval = setInterval(() => getUnreadNotificationCount().then(setUnreadCount), 15000)
+      return () => clearInterval(interval)
+    }
+  }, [checking])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -59,6 +73,7 @@ export default function AdminLayout() {
             {adminLinks.map((link) => {
               const Icon = link.icon
               const isActive = location.pathname === link.path
+              const showBadge = link.path === '/admin/complaints' && unreadCount > 0
               return (
                 <Link
                   key={link.path}
@@ -69,7 +84,10 @@ export default function AdminLayout() {
                   }`}
                 >
                   <Icon className="w-5 h-5" />
-                  {link.label}
+                  <span className="flex-1">{link.label}</span>
+                  {link.label === 'Dashboard' && unreadCount > 0 && (
+                    <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                  )}
                 </Link>
               )
             })}

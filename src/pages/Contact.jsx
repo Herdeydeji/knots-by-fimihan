@@ -2,14 +2,27 @@ import { useState } from 'react'
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from 'react-icons/hi'
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
+import { submitComplaint } from '../lib/notifications'
 import { WHATSAPP_NUMBER, EMAIL, INSTAGRAM_HANDLE } from '../lib/constants'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    setSubmitting(true)
+    setError('')
+    try {
+      await submitComplaint(form)
+      setSent(true)
+    } catch (err) {
+      setError(err.message || 'Failed to send message')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -28,7 +41,7 @@ export default function Contact() {
           <div>
             <h2 className="text-2xl font-display font-semibold text-emerald-600 mb-4">We'd Love to Hear from You</h2>
             <p className="text-[#6B6B6B] font-body leading-relaxed mb-8">
-              Have a question about sizing, shipping, or styling? We're here to help. Reach out via any of these channels.
+              Have a question, complaint, or feedback? We're here to help. Reach out via any of these channels.
             </p>
 
             <div className="space-y-4">
@@ -64,17 +77,24 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Name</label>
-                  <input required className="input-field" placeholder="Your name" />
+                  <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input-field" placeholder="Your name" />
                 </div>
                 <div>
                   <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Email</label>
-                  <input type="email" required className="input-field" placeholder="your@email.com" />
+                  <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-field" placeholder="your@email.com" />
+                </div>
+                <div>
+                  <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Subject</label>
+                  <input required value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="input-field" placeholder="What's this about?" />
                 </div>
                 <div>
                   <label className="block text-sm font-body font-medium text-[#1C1C1C] mb-1.5">Message</label>
-                  <textarea required rows={4} className="input-field resize-none" placeholder="How can we help you?" />
+                  <textarea required rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="input-field resize-none" placeholder="How can we help you?" />
                 </div>
-                <button type="submit" className="btn-primary w-full">Send Message</button>
+                {error && <p className="text-red-600 text-sm">{error}</p>}
+                <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-50">
+                  {submitting ? 'Sending...' : 'Send Message'}
+                </button>
               </form>
             )}
           </div>

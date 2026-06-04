@@ -26,6 +26,7 @@ import StyleAssistant from './pages/StyleAssistant'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
+import AdminComplaints from './pages/admin/AdminComplaints'
 import AddProduct from './pages/admin/AddProduct'
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/new" element={<AddProduct />} />
             <Route path="orders" element={<AdminOrders />} />
+            <Route path="complaints" element={<AdminComplaints />} />
           </Route>
         </Routes>
       </BrowserRouter>
