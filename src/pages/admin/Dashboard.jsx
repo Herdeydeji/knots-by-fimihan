@@ -32,7 +32,7 @@ export default function AdminDashboard() {
     { label: 'Total Orders', value: stats.totalOrders, icon: HiOutlineClipboardList, color: 'bg-blue-50 text-blue-600' },
     { label: 'Revenue', value: formatPrice(stats.totalRevenue), icon: HiOutlineCurrencyDollar, color: 'bg-emerald-50 text-emerald-600' },
     { label: 'Pending', value: stats.pendingOrders, icon: HiOutlineExclamationCircle, color: 'bg-yellow-50 text-yellow-600' },
-    { label: 'Products', value: products.filter((p) => p.isActive).length, icon: HiOutlineCube, color: 'bg-purple-50 text-purple-600' },
+    { label: 'Products', value: products.filter((p) => p.is_active).length, icon: HiOutlineCube, color: 'bg-purple-50 text-purple-600' },
   ]
 
   return (

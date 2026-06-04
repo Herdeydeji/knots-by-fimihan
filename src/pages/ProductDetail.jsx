@@ -54,7 +54,7 @@ export default function ProductDetail() {
       </div>
     )
   }
-  const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price
+  const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
 
   const handleAddToCart = () => {
     if (!user) {
@@ -103,7 +103,7 @@ export default function ProductDetail() {
               />
               {hasDiscount && (
                 <div className="absolute top-4 left-4 bg-gold-500 text-white text-sm font-bold px-3 py-1.5 rounded-xl">
-                  {Math.round((1 - product.price / product.compareAtPrice) * 100)}% OFF
+                  {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
                 </div>
               )}
             </div>
@@ -131,7 +131,7 @@ export default function ProductDetail() {
               <div className="flex items-baseline gap-3 mt-3">
                 <span className="font-body text-2xl font-bold text-emerald-600">{formatPrice(product.price)}</span>
                 {hasDiscount && (
-                  <span className="text-lg text-[#6B6B6B] line-through">{formatPrice(product.compareAtPrice)}</span>
+                  <span className="text-lg text-[#6B6B6B] line-through">{formatPrice(product.compare_at_price)}</span>
                 )}
               </div>
             </div>

@@ -18,9 +18,9 @@ export default function ProductCard({ product, isLiked, onToggleLike }) {
     onToggleLike(product.id)
   }
 
-  if (!product || !product.isActive) return null
+  if (!product || !product.is_active) return null
 
-  const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price
+  const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
 
   return (
     <Link
@@ -45,7 +45,7 @@ export default function ProductCard({ product, isLiked, onToggleLike }) {
         </button>
         {hasDiscount && (
           <div className="absolute top-3 left-3 bg-gold-500 text-white text-[11px] font-bold px-2 py-1 rounded-lg">
-            {Math.round((1 - product.price / product.compareAtPrice) * 100)}% OFF
+            {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
           </div>
         )}
       </div>
@@ -57,7 +57,7 @@ export default function ProductCard({ product, isLiked, onToggleLike }) {
         <div className="flex items-baseline gap-2 mt-2">
           <span className="font-body font-bold text-emerald-600">{formatPrice(product.price)}</span>
           {hasDiscount && (
-            <span className="text-sm text-[#6B6B6B] line-through">{formatPrice(product.compareAtPrice)}</span>
+            <span className="text-sm text-[#6B6B6B] line-through">{formatPrice(product.compare_at_price)}</span>
           )}
         </div>
       </div>

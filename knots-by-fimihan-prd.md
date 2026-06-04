@@ -583,6 +583,14 @@ The Gemini model will be given a system prompt containing:
 
 ---
 
+## Changelog
+
+### 2026-06-04 — Fix signup white screen crash
+
+- **Header.jsx**: `user.name.charAt(0)` crashed on new users because `user.name` is `undefined` on the Supabase auth object. Changed to `user.user_metadata?.name || user.email`.
+- **auth.jsx**: `signup` now accepts a `name` parameter and passes it as `options.data` to `supabase.auth.signUp()`.
+- **Signup.jsx**: Collected `name` from the form is now forwarded to `signup(email, password, name)`.
+
 *IMPORTANT GITHUB COMMIT*
 ----always commit repo to github
 
