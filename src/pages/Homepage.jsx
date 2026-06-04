@@ -2,24 +2,15 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { getFeaturedProducts, heroImage } from '../lib/products'
-import { useAuth } from '../lib/auth'
 import ProductCard from '../components/ui/ProductCard'
 import { PatternOverlay, StarPattern } from '../components/ui/IslamicPattern'
 
 export default function Homepage() {
-  const [likedIds, setLikedIds] = useState([])
   const [featured, setFeatured] = useState([])
-  const { user } = useAuth()
 
   useEffect(() => {
     getFeaturedProducts().then(setFeatured).catch(console.error)
   }, [])
-
-  const toggleLike = (id) => {
-    setLikedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    )
-  }
 
   return (
     <div>
@@ -80,8 +71,6 @@ export default function Homepage() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  isLiked={likedIds.includes(product.id)}
-                  onToggleLike={toggleLike}
                 />
               ))
             ) : (
