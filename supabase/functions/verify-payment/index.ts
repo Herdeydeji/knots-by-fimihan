@@ -4,6 +4,19 @@ const PAYSTACK_SECRET_KEY = Deno.env.get("PAYSTACK_SECRET_KEY") ?? "sk_test_8259
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, X-Client-Info",
+}
+
+function jsonResponse(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+  })
+}
+
 interface PaymentRequest {
   reference: string
   customer_name: string
@@ -81,30 +94,41 @@ async function insertOrder(order: {
   return orders?.[0]?.order_number ?? null
 }
 
+async function updateOrderByReference(reference: string, updates: object): Promise<boolean> {
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/orders?payment_reference=eq.${encodeURIComponent(reference)}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify(updates),
+    }
+  )
+  return response.ok
+}
+
 Deno.serve(async (req: Request) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: CORS_HEADERS })
+  }
+
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    })
+    return jsonResponse({ error: "Method not allowed" }, 405)
   }
 
   try {
     const body: PaymentRequest = await req.json()
 
     if (!body.reference) {
-      return new Response(
-        JSON.stringify({ error: "Payment reference is required" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      )
+      return jsonResponse({ error: "Payment reference is required" }, 400)
     }
 
     const isValid = await verifyPaystackTransaction(body.reference)
     if (!isValid) {
-      return new Response(
-        JSON.stringify({ error: "Payment verification failed" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      )
+      return jsonResponse({ error: "Payment verification failed" }, 400)
     }
 
     const orderNumber = generateOrderNumber()
@@ -125,21 +149,12 @@ Deno.serve(async (req: Request) => {
     })
 
     if (!orderId) {
-      return new Response(
-        JSON.stringify({ error: "Failed to create order" }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
-      )
+      return jsonResponse({ error: "Failed to create order" }, 500)
     }
 
-    return new Response(
-      JSON.stringify({ success: true, order_number: orderNumber }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    )
+    return jsonResponse({ success: true, order_number: orderNumber })
   } catch (err) {
     console.error("Error processing payment:", err)
-    return new Response(
-      JSON.stringify({ error: "Internal server error" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    )
+    return jsonResponse({ error: "Internal server error" }, 500)
   }
 })
