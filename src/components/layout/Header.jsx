@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList } from 'react-icons/hi'
+import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
+import { useTheme } from '../../lib/theme'
 import { KBFLogo } from '../ui/IslamicPattern'
 
 const navLinks = [
@@ -17,6 +18,7 @@ export default function Header() {
   const itemCount = useCart((s) => s.itemCount)
   const location = useLocation()
   const { user, logout } = useAuth()
+  const { dark, toggle } = useTheme()
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -82,6 +84,10 @@ export default function Header() {
                     <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
                       <HiOutlineUser className="w-4 h-4" /> Dashboard
                     </Link>
+                    <button onClick={toggle} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700" type="button">
+                      {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
+                      {dark ? 'Light Mode' : 'Dark Mode'}
+                    </button>
                     <button onClick={logout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" type="button">
                       <HiOutlineLogout className="w-4 h-4" /> Sign Out
                     </button>
@@ -146,6 +152,10 @@ export default function Header() {
                   <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
                     Dashboard
                   </Link>
+                  <button onClick={toggle} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800 w-full text-left" type="button">
+                    {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
+                    {dark ? 'Light Mode' : 'Dark Mode'}
+                  </button>
                   <button onClick={() => { logout(); setMobileOpen(false) }} className="w-full text-left px-4 py-3 rounded-xl font-body font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" type="button">
                     Sign Out
                   </button>
