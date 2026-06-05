@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { HiOutlineLockClosed, HiOutlineSparkles } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
@@ -26,6 +26,7 @@ export default function Checkout() {
   })
   const [loading, setLoading] = useState(false)
   const [processingRedirect, setProcessingRedirect] = useState(false)
+  const paidRef = useRef(false)
   const shipping = calculateShipping(subtotal, form.state)
   const total = subtotal + shipping.fee
 
@@ -54,6 +55,7 @@ export default function Checkout() {
     })
       .then(({ data, error }) => {
         if (error) throw error
+        paidRef.current = true
         useCart.getState().clearCart()
         navigate(`/order-success?reference=${reference}`, {
           state: { orderNumber: data.order_number, total: checkoutData.total },
@@ -96,6 +98,7 @@ export default function Checkout() {
     })
       .then(({ data, error }) => {
         if (error) throw error
+        paidRef.current = true
         clearCart()
         setLoading(false)
         navigate(`/order-success?reference=${response.reference}`, { state: { orderNumber: data.order_number, total } })
@@ -196,7 +199,7 @@ export default function Checkout() {
     )
   }
 
-  if (items.length === 0) {
+  if (items.length === 0 && !paidRef.current && !processingRedirect) {
     navigate('/cart')
     return null
   }
