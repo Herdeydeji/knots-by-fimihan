@@ -6,9 +6,12 @@ export default function AdminComplaints() {
   const [complaints, setComplaints] = useState([])
   const [filter, setFilter] = useState('all')
   const [selected, setSelected] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    getAllComplaints().then(setComplaints).catch(() => setComplaints([]))
+    setLoading(true)
+    getAllComplaints().then(setComplaints).catch(() => setError('Failed to load messages')).finally(() => setLoading(false))
   }, [])
 
   const filtered = filter === 'all'
@@ -52,7 +55,16 @@ export default function AdminComplaints() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className={`${selected ? 'hidden lg:block' : 'block'} lg:col-span-2 space-y-3`}>
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="card p-8 text-center">
+              <p className="text-[#6B6B6B] dark:text-gray-400 font-body text-sm">Loading messages...</p>
+            </div>
+          ) : error ? (
+            <div className="card p-8 text-center">
+              <p className="text-red-500 font-body text-sm">{error}</p>
+              <button onClick={() => window.location.reload()} className="btn-primary mt-4 text-sm">Retry</button>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="card p-8 text-center">
               <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-cream-200 dark:bg-gray-700 flex items-center justify-center">
                 <HiOutlineInbox className="w-6 h-6 text-[#6B6B6B] dark:text-gray-400" />

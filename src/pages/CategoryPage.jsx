@@ -8,12 +8,15 @@ import { CATEGORIES } from '../lib/constants'
 export default function CategoryPage() {
   const { slug } = useParams()
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const category = CATEGORIES.find((c) => c.slug === slug)
   const heroImage = categoryHeroImages[slug]
 
   useEffect(() => {
     if (slug) {
-      getProductsByCategory(slug).then(setProducts).catch(() => setProducts([]))
+      setLoading(true)
+      getProductsByCategory(slug).then(setProducts).catch(() => setError('Failed to load products')).finally(() => setLoading(false))
     }
   }, [slug])
 
@@ -46,7 +49,26 @@ export default function CategoryPage() {
           { label: 'Shop', path: '/shop' },
           { label: category.name, path: '' },
         ]} />
-        <ProductGrid products={products} emptyMessage={`No ${category.name.toLowerCase()} available yet. Check back soon!`} />
+        {loading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800 border border-cream-200 dark:border-gray-700 animate-pulse">
+                <div className="aspect-[4/5] bg-cream-200 dark:bg-gray-700" />
+                <div className="p-4 space-y-2">
+                  <div className="h-3 bg-cream-200 dark:bg-gray-700 rounded w-1/3" />
+                  <div className="h-4 bg-cream-200 dark:bg-gray-700 rounded w-2/3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="card py-16 text-center mt-6">
+            <p className="text-red-500 font-body">{error}</p>
+            <button onClick={() => window.location.reload()} className="btn-primary mt-4 text-sm">Retry</button>
+          </div>
+        ) : (
+          <ProductGrid products={products} emptyMessage={`No ${category.name.toLowerCase()} available yet. Check back soon!`} />
+        )}
       </div>
     </div>
   )

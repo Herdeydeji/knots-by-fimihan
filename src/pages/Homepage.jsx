@@ -4,13 +4,33 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import { getFeaturedProducts, heroImage } from '../lib/products'
 import ProductCard from '../components/ui/ProductCard'
 import { PatternOverlay, StarPattern } from '../components/ui/IslamicPattern'
+import { supabase } from '../lib/supabase'
 
 export default function Homepage() {
   const [featured, setFeatured] = useState([])
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+  const [subscribing, setSubscribing] = useState(false)
 
   useEffect(() => {
     getFeaturedProducts().then(setFeatured).catch(console.error)
   }, [])
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setSubscribing(true)
+    try {
+      const { error } = await supabase.from('newsletter_subscribers').insert({ email })
+      if (error && error.code !== '23505') throw error
+      setSubscribed(true)
+      setEmail('')
+    } catch (err) {
+      alert('Failed to subscribe. Please try again.')
+    } finally {
+      setSubscribing(false)
+    }
+  }
 
   return (
     <div>
@@ -156,16 +176,23 @@ export default function Homepage() {
               <p className="text-cream-200 mt-4 max-w-lg mx-auto font-body">
                 Be the first to know about new collections, exclusive offers, and styling tips.
               </p>
-              <form onSubmit={(e) => e.preventDefault()} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-5 py-3 rounded-xl border border-white/20 bg-white/10 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
-                />
-                <button type="submit" className="bg-gold-500 text-white px-6 py-3 rounded-xl font-body font-medium hover:bg-gold-600 transition-all whitespace-nowrap">
-                  Subscribe
-                </button>
-              </form>
+              {subscribed ? (
+                <p className="mt-8 text-cream-200 font-body">Thanks for subscribing! 🎉</p>
+              ) : (
+                <form onSubmit={handleSubscribe} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                    className="flex-1 px-5 py-3 rounded-xl border border-white/20 bg-white/10 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+                  />
+                  <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-6 py-3 rounded-xl font-body font-medium hover:bg-gold-600 transition-all whitespace-nowrap disabled:opacity-50">
+                    {subscribing ? 'Subscribing...' : 'Subscribe'}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

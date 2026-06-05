@@ -7,12 +7,16 @@ export default function Search() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [searched, setSearched] = useState(false)
+  const [searching, setSearching] = useState(false)
 
   const handleSearch = async (e) => {
     e.preventDefault()
+    if (!query.trim()) return
+    setSearching(true)
     const r = await searchProducts(query)
     setResults(r)
     setSearched(true)
+    setSearching(false)
   }
 
   return (
@@ -25,9 +29,12 @@ export default function Search() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search products, categories, occasions..."
-          className="input-field !pl-12 !py-4 text-lg"
+          className="input-field !pl-12 !pr-20 !py-4 text-lg"
           autoFocus
         />
+        <button type="submit" disabled={searching} className="absolute right-2 top-1/2 -translate-y-1/2 bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50">
+          {searching ? '...' : 'Search'}
+        </button>
       </form>
 
       {!searched && (
@@ -44,7 +51,13 @@ export default function Search() {
         </div>
       )}
 
-      {searched && (
+      {searching && (
+        <div className="flex items-center justify-center min-h-[30vh]">
+          <p className="text-[#6B6B6B] dark:text-gray-400 font-body">Searching...</p>
+        </div>
+      )}
+
+      {searched && !searching && (
         <div>
           <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body mb-6">
             {results.length === 0

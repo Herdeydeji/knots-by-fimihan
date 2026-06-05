@@ -1,10 +1,32 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlineMail } from 'react-icons/hi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { KBFLogo } from '../ui/IslamicPattern'
 import { WHATSAPP_NUMBER, EMAIL } from '../../lib/constants'
+import { supabase } from '../../lib/supabase'
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+  const [subscribing, setSubscribing] = useState(false)
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setSubscribing(true)
+    try {
+      const { error } = await supabase.from('newsletter_subscribers').insert({ email })
+      if (error && error.code !== '23505') throw error
+      setSubscribed(true)
+      setEmail('')
+    } catch (err) {
+      alert('Failed to subscribe. Please try again.')
+    } finally {
+      setSubscribing(false)
+    }
+  }
+
   return (
     <footer className="bg-emerald-600 text-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12 lg:py-16">
@@ -57,16 +79,23 @@ export default function Footer() {
           <div>
             <h4 className="font-body font-semibold text-sm uppercase tracking-wider mb-4 text-gold-400">Newsletter</h4>
             <p className="text-cream-200 text-sm mb-4">Get notified about new drops, sales, and exclusive offers.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
-              />
-              <button type="submit" className="bg-gold-500 text-white px-4 py-2.5 rounded-xl text-sm font-body font-medium hover:bg-gold-600 transition-all">
-                Subscribe
-              </button>
-            </form>
+            {subscribed ? (
+              <p className="text-cream-200 text-sm">Thanks for subscribing!</p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email"
+                  required
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+                />
+                <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-4 py-2.5 rounded-xl text-sm font-body font-medium hover:bg-gold-600 transition-all disabled:opacity-50">
+                  {subscribing ? '...' : 'Subscribe'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>

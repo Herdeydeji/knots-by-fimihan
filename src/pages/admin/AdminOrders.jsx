@@ -19,7 +19,7 @@ function formatPriceRaw(price) {
   return `₦${Number(price).toLocaleString()}`
 }
 
-function OrderDetailModal({ order, onClose, onAction }) {
+function OrderDetailModal({ order, onClose, onAction, actionLoading }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40" onClick={onClose}>
       <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
@@ -79,11 +79,11 @@ function OrderDetailModal({ order, onClose, onAction }) {
             <div className="border-t border-cream-200 dark:border-gray-700 pt-4">
               <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-medium uppercase tracking-wider mb-3">Order Actions</p>
               <div className="flex gap-3">
-                <button onClick={() => onAction('processing')} className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors">
-                  <HiOutlineCheckCircle className="w-4 h-4" /> Confirm Order
+                <button onClick={() => onAction('processing')} disabled={actionLoading} className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-xl text-sm font-medium hover:bg-emerald-700 transition-colors disabled:opacity-50">
+                  <HiOutlineCheckCircle className="w-4 h-4" /> {actionLoading ? 'Processing...' : 'Confirm Order'}
                 </button>
-                <button onClick={() => onAction('cancelled')} className="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-medium hover:bg-red-100 transition-colors">
-                  <HiOutlineXCircle className="w-4 h-4" /> Reject Order
+                <button onClick={() => onAction('cancelled')} disabled={actionLoading} className="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-medium hover:bg-red-100 transition-colors disabled:opacity-50">
+                  <HiOutlineXCircle className="w-4 h-4" /> {actionLoading ? 'Processing...' : 'Reject Order'}
                 </button>
               </div>
             </div>
@@ -263,6 +263,7 @@ export default function AdminOrders() {
           order={selectedOrder}
           onClose={() => !actionLoading && setSelectedOrder(null)}
           onAction={handleAction}
+          actionLoading={actionLoading}
         />
       )}
     </div>

@@ -29,6 +29,8 @@ import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminComplaints from './pages/admin/AdminComplaints'
 import AddProduct from './pages/admin/AddProduct'
+import EditProduct from './pages/admin/EditProduct'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
@@ -57,9 +59,11 @@ export default function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/new" element={<AddProduct />} />
+            <Route path="products/:id/edit" element={<EditProduct />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="complaints" element={<AdminComplaints />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

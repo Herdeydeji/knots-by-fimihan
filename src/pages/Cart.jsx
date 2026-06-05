@@ -71,7 +71,7 @@ export default function Cart() {
                 <div className="flex items-center justify-between mt-3">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => updateQuantity(item.key, item.quantity - 1)}
+                      onClick={() => item.quantity <= 1 ? removeItem(item.key) : updateQuantity(item.key, item.quantity - 1)}
                       className="w-8 h-8 rounded-lg border border-cream-300 dark:border-gray-600 flex items-center justify-center text-sm hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200"
                     >
                       -

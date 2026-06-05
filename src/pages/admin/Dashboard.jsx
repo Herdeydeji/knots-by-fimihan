@@ -12,8 +12,11 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalOrders: 0, totalRevenue: 0, pendingOrders: 0, paidOrders: 0 })
   const [products, setProducts] = useState([])
   const [recentOrders, setRecentOrders] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
+    setLoading(true)
     Promise.all([
       getOrderStats(),
       getAdminProducts(),
@@ -22,7 +25,7 @@ export default function AdminDashboard() {
       setStats(s)
       setProducts(p)
       setRecentOrders(o.slice(0, 5))
-    }).catch(console.error)
+    }).catch(() => setError('Failed to load dashboard data')).finally(() => setLoading(false))
   }, [])
 
   const lowStock = products.filter((p) => p.stock < 5 && p.stock > 0)
@@ -39,10 +42,21 @@ export default function AdminDashboard() {
     <div>
       <h1 className="text-2xl font-display font-semibold text-emerald-600 mb-8">Dashboard</h1>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {cards.map((card) => {
-          const Icon = card.icon
-          return (
+      {loading ? (
+        <div className="card p-8 text-center">
+          <p className="text-[#6B6B6B] dark:text-gray-400 font-body">Loading dashboard...</p>
+        </div>
+      ) : error ? (
+        <div className="card p-8 text-center">
+          <p className="text-red-500 font-body">{error}</p>
+          <button onClick={() => window.location.reload()} className="btn-primary mt-4 text-sm">Retry</button>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {cards.map((card) => {
+              const Icon = card.icon
+              return (
                 <div key={card.label} className="card p-4 lg:p-6">
                   <div className={`w-10 h-10 rounded-xl ${card.color} flex items-center justify-center mb-3`}>
                     <Icon className="w-5 h-5" />
@@ -50,11 +64,11 @@ export default function AdminDashboard() {
                   <p className="text-2xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{card.value}</p>
                   <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">{card.label}</p>
                 </div>
-          )
-        })}
-      </div>
+              )
+            })}
+          </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8">
         <div className="card p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200">Recent Orders</h3>
@@ -108,6 +122,8 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
+    </>
+    )}
     </div>
   )
 }

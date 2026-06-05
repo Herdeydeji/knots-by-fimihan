@@ -9,9 +9,12 @@ export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [priceRange, setPriceRange] = useState({ min: '', max: '' })
   const [allProducts, setAllProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    getAllProducts().then(setAllProducts).catch(() => setAllProducts([]))
+    setLoading(true)
+    getAllProducts().then(setAllProducts).catch(() => setError('Failed to load products')).finally(() => setLoading(false))
   }, [])
 
   const activeCategory = searchParams.get('category') || ''
@@ -109,23 +112,44 @@ export default function Shop() {
         </aside>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">
-              Showing <span className="font-medium text-[#1C1C1C] dark:text-gray-200">{filtered.length}</span> products
-            </p>
-            <select
-              value={activeSort}
-              onChange={(e) => updateFilter('sort', e.target.value)}
-              className="input-field !py-2 !w-auto text-sm"
-            >
-              <option value="newest">Newest</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name">Name: A-Z</option>
-            </select>
-          </div>
-
-          <ProductGrid products={filtered} emptyMessage="No products match your filters. Try adjusting them!" />
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800 border border-cream-200 dark:border-gray-700 animate-pulse">
+                  <div className="aspect-[4/5] bg-cream-200 dark:bg-gray-700" />
+                  <div className="p-4 space-y-2">
+                    <div className="h-3 bg-cream-200 dark:bg-gray-700 rounded w-1/3" />
+                    <div className="h-4 bg-cream-200 dark:bg-gray-700 rounded w-2/3" />
+                    <div className="h-4 bg-cream-200 dark:bg-gray-700 rounded w-1/4" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : error ? (
+            <div className="card py-16 text-center">
+              <p className="text-red-500 font-body">{error}</p>
+              <button onClick={() => window.location.reload()} className="btn-primary mt-4 text-sm">Retry</button>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">
+                  Showing <span className="font-medium text-[#1C1C1C] dark:text-gray-200">{filtered.length}</span> products
+                </p>
+                <select
+                  value={activeSort}
+                  onChange={(e) => updateFilter('sort', e.target.value)}
+                  className="input-field !py-2 !w-auto text-sm"
+                >
+                  <option value="newest">Newest</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="name">Name: A-Z</option>
+                </select>
+              </div>
+              <ProductGrid products={filtered} emptyMessage="No products match your filters. Try adjusting them!" />
+            </>
+          )}
         </div>
       </div>
     </div>

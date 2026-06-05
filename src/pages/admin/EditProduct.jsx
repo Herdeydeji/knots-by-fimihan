@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
+import { getProductById, updateProduct } from '../../lib/products'
 
-export default function AddProduct() {
+export default function EditProduct() {
+  const { id } = useParams()
   const navigate = useNavigate()
   const [form, setForm] = useState({
     name: '',
@@ -20,10 +22,34 @@ export default function AddProduct() {
     colors: [],
   })
   const [colorInput, setColorInput] = useState('#1A5C3A')
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [imageFiles, setImageFiles] = useState([])
-  const [imagePreviews, setImagePreviews] = useState([])
-  const [uploading, setUploading] = useState(false)
+  const [existingImages, setExistingImages] = useState([])
+  const [newImageFiles, setNewImageFiles] = useState([])
+  const [newImagePreviews, setNewImagePreviews] = useState([])
+
+  useEffect(() => {
+    getProductById(id).then((product) => {
+      setForm({
+        name: product.name || '',
+        description: product.description || '',
+        price: product.price?.toString() || '',
+        compareAtPrice: product.compare_at_price?.toString() || '',
+        category: product.category || 'abayas',
+        stock: product.stock?.toString() || '',
+        material: product.material || '',
+        occasion: product.occasion || '',
+        sizes: product.sizes || [],
+        hasColors: (product.colors?.length || 0) > 0,
+        colors: product.colors || [],
+      })
+      setExistingImages(product.images || [])
+    }).catch(() => {
+      alert('Product not found')
+      navigate('/admin/products')
+    }).finally(() => setLoading(false))
+  }, [id, navigate])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
   const handleSizeToggle = (size) => {
@@ -43,86 +69,98 @@ export default function AddProduct() {
 
   const handleImageSelect = (e) => {
     const files = Array.from(e.target.files)
-    setImageFiles(files)
+    setNewImageFiles(files)
     const previews = files.map((f) => URL.createObjectURL(f))
-    setImagePreviews(previews)
+    setNewImagePreviews(previews)
+  }
+
+  const removeExistingImage = (url) => {
+    setExistingImages((prev) => prev.filter((u) => u !== url))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setUploading(true)
-    const imageUrls = []
+    setSubmitting(true)
+    const allImages = [...existingImages]
     try {
-      for (const file of imageFiles) {
+      for (const file of newImageFiles) {
         const ext = file.name.split('.').pop()
         const path = `products/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
         const { error: uploadError } = await supabase.storage.from('product-images').upload(path, file)
         if (uploadError) throw uploadError
         const { data: { publicUrl } } = supabase.storage.from('product-images').getPublicUrl(path)
-        imageUrls.push(publicUrl)
+        allImages.push(publicUrl)
       }
     } catch (err) {
       alert('Error uploading images: ' + err.message)
-      setUploading(false)
+      setSubmitting(false)
       return
     }
 
-    const slug = form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-    const { error } = await supabase.from('products').insert([{
-      name: form.name,
-      slug,
-      description: form.description,
-      price: Number(form.price),
-      compare_at_price: form.compareAtPrice ? Number(form.compareAtPrice) : null,
-      category: form.category,
-      stock: Number(form.stock),
-      material: form.material || null,
-      occasion: form.occasion || null,
-      sizes: form.sizes,
-      colors: form.hasColors ? form.colors : [],
-      images: imageUrls,
-      is_active: true,
-      is_featured: false,
-      tags: [form.category],
-    }])
-    if (error) {
-      alert('Error: ' + error.message)
-      setUploading(false)
-      return
+    try {
+      await updateProduct(id, {
+        name: form.name,
+        description: form.description,
+        price: Number(form.price),
+        compare_at_price: form.compareAtPrice ? Number(form.compareAtPrice) : null,
+        category: form.category,
+        stock: Number(form.stock),
+        material: form.material || null,
+        occasion: form.occasion || null,
+        sizes: form.sizes,
+        colors: form.hasColors ? form.colors : [],
+        images: allImages,
+        tags: [form.category],
+      })
+      setSubmitted(true)
+      setTimeout(() => navigate('/admin/products'), 1500)
+    } catch (err) {
+      alert('Error: ' + err.message)
+    } finally {
+      setSubmitting(false)
     }
-    setSubmitted(true)
-    setTimeout(() => navigate('/admin/products'), 1500)
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-2xl">
+        <h1 className="text-2xl font-display font-semibold text-emerald-600 mb-6">Edit Product</h1>
+        <div className="card p-8 text-center">
+          <p className="text-[#6B6B6B] dark:text-gray-400 font-body">Loading product...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-display font-semibold text-emerald-600 mb-6">Add New Product</h1>
+      <h1 className="text-2xl font-display font-semibold text-emerald-600 mb-6">Edit Product</h1>
 
       {submitted ? (
         <div className="card p-8 text-center">
-          <p className="font-body text-emerald-600 font-medium text-lg">Product added successfully!</p>
+          <p className="font-body text-emerald-600 font-medium text-lg">Product updated successfully!</p>
           <p className="text-sm text-[#6B6B6B] dark:text-gray-400 mt-2">Redirecting to products list...</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="card p-6 space-y-5">
           <div>
             <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Product Name</label>
-            <input name="name" required value={form.name} onChange={handleChange} className="input-field" placeholder="e.g. Emerald Grace Abaya" />
+            <input name="name" required value={form.name} onChange={handleChange} className="input-field" />
           </div>
 
           <div>
             <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Description</label>
-            <textarea name="description" required value={form.description} onChange={handleChange} rows={3} className="input-field resize-none" placeholder="Full product description..." />
+            <textarea name="description" required value={form.description} onChange={handleChange} rows={3} className="input-field resize-none" />
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Price (₦)</label>
-              <input name="price" type="number" required value={form.price} onChange={handleChange} className="input-field" placeholder="18500" />
+              <input name="price" type="number" required value={form.price} onChange={handleChange} className="input-field" />
             </div>
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Compare-at Price (₦)</label>
-              <input name="compareAtPrice" type="number" value={form.compareAtPrice} onChange={handleChange} className="input-field" placeholder="22000 (optional)" />
+              <input name="compareAtPrice" type="number" value={form.compareAtPrice} onChange={handleChange} className="input-field" placeholder="Optional" />
             </div>
           </div>
 
@@ -137,18 +175,18 @@ export default function AddProduct() {
             </div>
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Stock</label>
-              <input name="stock" type="number" required value={form.stock} onChange={handleChange} className="input-field" placeholder="25" />
+              <input name="stock" type="number" required value={form.stock} onChange={handleChange} className="input-field" />
             </div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Material</label>
-              <input name="material" value={form.material} onChange={handleChange} className="input-field" placeholder="Premium Chiffon" />
+              <input name="material" value={form.material} onChange={handleChange} className="input-field" />
             </div>
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Occasion</label>
-              <input name="occasion" value={form.occasion} onChange={handleChange} className="input-field" placeholder="Eid, Wedding Guest" />
+              <input name="occasion" value={form.occasion} onChange={handleChange} className="input-field" />
             </div>
           </div>
 
@@ -209,15 +247,26 @@ export default function AddProduct() {
 
           <div>
             <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Product Images</label>
+            {existingImages.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-3">
+                {existingImages.map((url, i) => (
+                  <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700 group">
+                    <img src={url} alt="" className="w-full h-full object-cover" />
+                    <button type="button" onClick={() => removeExistingImage(url)} className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <HiOutlineX className="w-5 h-5 text-white" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
             <label className="border-2 border-dashed border-cream-300 dark:border-gray-600 rounded-xl p-8 text-center hover:border-emerald-600 transition-colors cursor-pointer block">
               <HiOutlineUpload className="w-8 h-8 text-[#6B6B6B] dark:text-gray-400 mx-auto mb-2" />
-              <p className="text-sm text-[#6B6B6B] dark:text-gray-400">Click to browse images</p>
-              <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-1">Supports JPG, PNG, WebP (max 5MB)</p>
+              <p className="text-sm text-[#6B6B6B] dark:text-gray-400">Click to add more images</p>
               <input type="file" accept="image/*" multiple onChange={handleImageSelect} className="hidden" />
             </label>
-            {imagePreviews.length > 0 && (
+            {newImagePreviews.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-3">
-                {imagePreviews.map((url, i) => (
+                {newImagePreviews.map((url, i) => (
                   <div key={i} className="w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700">
                     <img src={url} alt="" className="w-full h-full object-cover" />
                   </div>
@@ -226,8 +275,8 @@ export default function AddProduct() {
             )}
           </div>
 
-          <button type="submit" disabled={uploading} className="btn-primary w-full disabled:opacity-50">
-            {uploading ? 'Uploading...' : 'Add Product'}
+          <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-50">
+            {submitting ? 'Saving...' : 'Save Changes'}
           </button>
         </form>
       )}

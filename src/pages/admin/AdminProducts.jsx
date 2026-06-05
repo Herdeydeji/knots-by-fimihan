@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineSearch } from 'react-icons/hi'
+import { Link, useNavigate } from 'react-router-dom'
+import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineSearch, HiOutlineCube } from 'react-icons/hi'
 import { getAdminProducts, deleteProduct } from '../../lib/products'
 
 function formatPrice(price) {
@@ -8,17 +8,31 @@ function formatPrice(price) {
 }
 
 export default function AdminProducts() {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [deleting, setDeleting] = useState(null)
 
   useEffect(() => {
-    getAdminProducts().then(setProducts).catch(() => setProducts([]))
+    setLoading(true)
+    getAdminProducts().then(setProducts).catch(() => setError('Failed to load products')).finally(() => setLoading(false))
   }, [])
 
   const handleDelete = async (id) => {
     if (!confirm('Are you sure you want to remove this product?')) return
-    await deleteProduct(id)
+    const previous = products
+    setDeleting(id)
     setProducts((prev) => prev.filter((p) => p.id !== id))
+    try {
+      await deleteProduct(id)
+    } catch {
+      setProducts(previous)
+      alert('Failed to delete product. Please try again.')
+    } finally {
+      setDeleting(null)
+    }
   }
 
   const filtered = products.filter(
@@ -46,7 +60,16 @@ export default function AdminProducts() {
         />
       </div>
 
-      {filtered.length === 0 ? (
+      {loading ? (
+        <div className="card py-16 text-center">
+          <p className="text-[#6B6B6B] dark:text-gray-400 font-body">Loading products...</p>
+        </div>
+      ) : error ? (
+        <div className="card py-16 text-center">
+          <p className="text-red-500 font-body">{error}</p>
+          <button onClick={() => window.location.reload()} className="btn-primary mt-4 text-sm">Retry</button>
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="card py-16">
           <div className="text-center max-w-md mx-auto">
             <div className="w-20 h-20 rounded-2xl bg-cream-200 dark:bg-gray-700 flex items-center justify-center mx-auto mb-6">
@@ -102,10 +125,10 @@ export default function AdminProducts() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 rounded-lg hover:bg-cream-100 dark:hover:bg-gray-700 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 transition-colors">
+                        <button onClick={() => navigate(`/admin/products/${product.id}/edit`)} className="p-2 rounded-lg hover:bg-cream-100 dark:hover:bg-gray-700 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 transition-colors">
                           <HiOutlinePencil className="w-4 h-4" />
                         </button>
-                        <button onClick={() => handleDelete(product.id)} className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-[#6B6B6B] dark:text-gray-400 hover:text-red-500 transition-colors">
+                        <button onClick={() => handleDelete(product.id)} disabled={deleting === product.id} className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-[#6B6B6B] dark:text-gray-400 hover:text-red-500 transition-colors disabled:opacity-50">
                           <HiOutlineTrash className="w-4 h-4" />
                         </button>
                       </div>
