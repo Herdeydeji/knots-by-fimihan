@@ -123,6 +123,29 @@ async function queueEmail(to: string, subject: string, htmlBody: string): Promis
   return res.ok
 }
 
+async function sendViaResend(to: string, subject: string, html: string): Promise<boolean> {
+  const key = Deno.env.get("RESEND_API_KEY")
+  if (!key) return false
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Knots by Fimihan <noreply@knotbyfimihan.com>",
+        to,
+        subject,
+        html,
+      }),
+    })
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
 async function createNotification(type: string, title: string, message: string, link?: string): Promise<boolean> {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/admin_notifications`, {
     method: "POST",
@@ -231,6 +254,27 @@ Deno.serve(async (req: Request) => {
       `Order Confirmed — ${orderNumber}`,
       emailHtml
     )
+
+    const emailSent = await sendViaResend(
+      body.customer_email,
+      `Order Confirmed — ${orderNumber}`,
+      emailHtml
+    )
+
+    if (emailSent) {
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/email_queue?to_email=eq.${encodeURIComponent(body.customer_email)}&status=eq.pending`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_SERVICE_KEY,
+            "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+          },
+          body: JSON.stringify({ status: "sent", sent_at: new Date().toISOString() }),
+        }
+      )
+    }
 
     await createNotification(
       "new_order",

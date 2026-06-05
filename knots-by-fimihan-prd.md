@@ -420,31 +420,85 @@ The Gemini model will be given a system prompt containing:
 
 ---
 
-## 17. Out of Scope (for MVP)
+## 17. Email & Notification System
 
-- User authentication / customer accounts
+### Email Provider
+- **Provider:** Resend (`https://api.resend.com/emails`)
+- **Sender:** "Knots by Fimihan" `<noreply@knotbyfimihan.com>`
+- **API Key:** `RESEND_API_KEY` (set as Supabase Edge Function secret)
+
+### Customer Emails
+
+| Trigger | Subject | Sent By |
+|---------|---------|---------|
+| Payment verified | `Order Confirmed — KBF-xxxx` | `verify-payment` Edge Function (queues + sends via Resend) |
+| Admin confirms order | `Order Confirmed — KBF-xxxx` | `send-email` Edge Function (from AdminOrders.jsx) |
+| Admin marks shipped | `Order Shipped — KBF-xxxx` | `send-email` Edge Function (from AdminOrders.jsx) |
+| Admin marks delivered | `Order Delivered — KBF-xxxx` | `send-email` Edge Function (from AdminOrders.jsx) |
+| Admin cancels order | `Order Cancelled — KBF-xxxx` | `send-email` Edge Function (from AdminOrders.jsx) |
+
+Each email is sent via Resend API and also queued in `email_queue` table as fallback.
+
+### Admin In-App Notifications
+
+| Trigger | Type | Message |
+|---------|------|---------|
+| New order placed | `new_order` | `{name} placed order KBF-xxxx — ₦{total}` |
+| Order confirmed | `order_confirmed` | `Order KBF-xxxx was confirmed by admin` |
+| Order shipped | `order_shipped` | `Order KBF-xxxx was marked as shipped` |
+| Order delivered | `order_delivered` | `Order KBF-xxxx was delivered by admin` |
+| Order cancelled | `order_cancelled` | `Order KBF-xxxx was cancelled by admin` |
+| Contact form submitted | `new_complaint` | `{name} submitted a complaint: {subject}` |
+
+Notifications are stored in `admin_notifications` table and displayed in the admin panel bell icon (polled every 15s).
+
+---
+
+## 18. UI/UX Enhancements (Implemented)
+
+### Theme System
+- **Light mode is default** for new visitors (no system dark mode auto-apply)
+- Dark/light toggle lives inside the user profile dropdown
+- User preference persisted in localStorage (`kbf-theme` key)
+- Tailwind dark mode set to `class` strategy
+
+### Animations
+- **Custom keyframes:** `fadeInUp`, `fadeInDown`, `fadeInLeft`, `fadeInRight`, `scaleIn`, `float`, `slideUp`
+- **Homepage:** Staggered hero entrance (badge → h1 → p → buttons → features), floating hero image, scroll-triggered section reveals via `useInView` hook
+- **Product cards:** Hover lift (`-translate-y-1` + `shadow-xl`), enhanced image zoom (`scale-110` with `duration-700`), overlay tint
+- **Product grid:** Staggered card entrance with index-based delay (`i * 60ms`)
+- **Cart page:** Staggered item entrance (`i * 80ms`), order summary delay
+- **Nav links:** Animated underline (`after:w-0 hover:after:w-full`)
+
+### Footer
+- Footer is in the DOM from page load but invisible until the user scrolls near it (IntersectionObserver sentinel)
+- Footer hidden on: `/cart`, `/search`, `/product/*`, `/orders`, `/order-success`
+- Newsletter forms stack vertically on mobile (`flex-col sm:flex-row`)
+
+### Header
+- Profile icon: gradient background (`from-emerald-600 to-emerald-800`) + gold border + hover scale
+- Cart icon: `HiOutlineShoppingCart` with red badge and `animate-scale-in`
+- Dark mode toggle in account dropdown and mobile menu
+
+### Admin Panel
+- Sidebar: Logo `KBF` + `Menu` label (no full brand name)
+- Sign out button: border style with red hover tint
+
+---
+
+## 19. Out of Scope (for MVP)
+
 - Product reviews & ratings
-- Wishlist
 - Multi-vendor support
 - Loyalty/points system
 - Blog / content section
 - Multi-currency support
 - International shipping
+- WhatsApp order notifications (mentioned on success page but not implemented)
 
 ---
 
-## 18. Open Questions
-
-1. Does Fimihan want to manage the admin herself, or is Adedeji the admin?
-2. What courier services should be integrated or referenced (Sendbox, GIG Logistics, DHL Nigeria)?
-3. Should the AI chat use a free Gemini API key or a paid one?
-4. What is the initial product count for launch (affects catalog design)?
-5. Is there an existing brand logo/color guide to follow?
-6. Should order confirmation emails be sent via Supabase Edge Functions + Resend, or just in-app?
-
----
-
-## 19. Backend Implementation Plan (Supabase + Paystack)
+## 20. Backend Implementation Plan (Supabase + Paystack)
 
 **Status:** In Progress — June 2026  
 **Backend:** Supabase (PostgreSQL, Auth, Storage, Edge Functions)  
@@ -521,14 +575,71 @@ The Gemini model will be given a system prompt containing:
 | `key` | TEXT (PK) | Setting key |
 | `value` | TEXT | Setting value |
 
+**Seed data:** `hero_title`, `hero_subtitle`, `shipping_fee`, `free_shipping_threshold`, `whatsapp_number`
+
+#### `email_queue`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `to_email` | TEXT | Recipient email |
+| `subject` | TEXT | Email subject |
+| `html_body` | TEXT | HTML content |
+| `status` | TEXT | pending, sent, failed |
+| `created_at` | TIMESTAMPTZ | Auto |
+| `sent_at` | TIMESTAMPTZ | Null until sent |
+
+#### `admin_notifications`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `type` | TEXT | new_order, new_complaint, order_confirmed, order_shipped, order_delivered, order_cancelled |
+| `title` | TEXT | Short title |
+| `message` | TEXT | Detailed message |
+| `link` | TEXT | Admin route to navigate to |
+| `is_read` | BOOLEAN | Default false |
+| `created_at` | TIMESTAMPTZ | Auto |
+
+#### `complaints`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `user_id` | UUID | Nullable, FK to auth.users |
+| `name` | TEXT | Submitter name |
+| `email` | TEXT | Submitter email |
+| `subject` | TEXT | Complaint subject |
+| `message` | TEXT | Complaint body |
+| `status` | TEXT | open, in_progress, resolved |
+| `created_at` | TIMESTAMPTZ | Auto |
+| `updated_at` | TIMESTAMPTZ | Auto |
+
+#### `newsletter_subscribers`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID (PK) | Auto-generated |
+| `email` | TEXT | Unique subscriber email |
+| `created_at` | TIMESTAMPTZ | Auto |
+
+#### `wishlists`
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | BIGSERIAL (PK) | Identity |
+| `user_id` | UUID | FK to auth.users |
+| `product_id` | UUID | FK to products |
+| `created_at` | TIMESTAMPTZ | Auto |
+
 ### RLS Policies
 
 | Table | SELECT | INSERT | UPDATE | DELETE |
 |-------|--------|--------|--------|--------|
 | `products` | Public | Admin only | Admin only | Admin only |
 | `categories` | Public | Admin only | Admin only | Admin only |
-| `orders` | Admin only | Public (authenticated) | Admin only | Admin only |
+| `orders` | Admin only | Authenticated users | Admin only | Admin only |
 | `site_settings` | Public | Admin only | Admin only | Admin only |
+| `email_queue` | Admin only | Edge Functions (service key) | Edge Functions (service key) | Admin only |
+| `admin_notifications` | Authenticated users | Edge Functions (service key) | Authenticated users | Admin only |
+| `complaints` | Admin only | Public | Admin only | Admin only |
+| `newsletter_subscribers` | Admin only | Public | Admin only | Admin only |
+| `wishlists` | Authenticated users | Authenticated users | Authenticated users | Authenticated users |
 
 ### Supabase Storage
 
@@ -555,14 +666,31 @@ The Gemini model will be given a system prompt containing:
 
 #### `verify-payment`
 - **Trigger:** Called from frontend after Paystack popup success
-- **Input:** `{ reference, customer_name, email, phone, address, items, subtotal, shipping_fee, total }`
-- **Logic:** Verify with Paystack API → Insert order into `orders` table
+- **Input:** `{ reference, customer_name, customer_email, customer_phone, shipping_address, items, subtotal, shipping_fee, total }`
+- **Logic:**
+  1. Verify transaction with Paystack API
+  2. Check for duplicate reference (return existing order if found)
+  3. Generate order number (`KBF-{year}{random4}`)
+  4. Insert order into `orders` table
+  5. Build email HTML with order details and item table
+  6. Send email via Resend API
+  7. Queue email in `email_queue` as fallback
+  8. Insert admin notification (`new_order`)
 - **Response:** `{ success, order_number }`
+- **File:** `supabase/functions/verify-payment/index.ts`
+- **Required secrets:** `PAYSTACK_SECRET_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`
 
-#### `paystack-webhook`
-- **Trigger:** Paystack webhook events (`charge.success`, `charge.failed`)
-- **Logic:** Verify webhook signature → Update `orders.payment_status`
-- **URL:** `{project_url}/functions/v1/paystack-webhook`
+#### `send-email`
+- **Trigger:** Called from admin panel UI when changing order status
+- **Input:** `{ to, subject, html, type?, title?, message?, link?, notifyAdmin? }`
+- **Logic:**
+  1. Send email via Resend API
+  2. Queue email in `email_queue` table
+  3. If `notifyAdmin` is true, insert admin notification record
+  4. On successful send, mark queue record as `sent`
+- **Response:** `{ success, sent, queued }`
+- **File:** `supabase/functions/send-email/index.ts`
+- **Required secrets:** `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`
 
 ### Frontend Migration
 
@@ -591,7 +719,35 @@ The Gemini model will be given a system prompt containing:
 - **auth.jsx**: `signup` now accepts a `name` parameter and passes it as `options.data` to `supabase.auth.signUp()`.
 - **Signup.jsx**: Collected `name` from the form is now forwarded to `signup(email, password, name)`.
 
-*IMPORTANT GITHUB COMMIT*
-----always commit repo to github
+### 2026-06-05 — UI/UX enhancements, notifications, and fixes
+
+#### UI/UX Enhancements
+- **Theme (theme.js)**: Removed `prefers-color-scheme: dark` — system dark mode no longer auto-applies. Light mode is default for new visitors.
+- **Header.jsx**: Profile icon redesigned with gradient + gold border + hover scale. Cart icon changed to `HiOutlineShoppingCart` with red badge. Dark mode toggle moved to account dropdown and mobile menu. Nav links have animated underline (`after:w-0 hover:after:w-full`).
+- **Footer.jsx**: IntersectionObserver sentinel for scroll-triggered fade-in. Newsletter forms stack vertically on mobile (`flex-col sm:flex-row`).
+- **Layout.jsx**: Footer hidden on `/cart`, `/search`, `/product/*`, `/orders`, `/order-success`.
+- **tailwind.config.js**: Extended keyframes (`fadeInUp`, `fadeInDown`, `fadeInLeft`, `fadeInRight`, `scaleIn`, `float`, `slideUp`).
+- **hooks/useInView.js**: Custom IntersectionObserver hook with single-trigger behavior.
+- **Homepage.jsx**: Staggered hero entrance, scroll-triggered section reveals, floating hero image, hover effects on feature icons.
+- **ProductCard.jsx**: Hover lift (`hover:-translate-y-1`), enhanced image zoom, overlay tint.
+- **ProductGrid.jsx**: Staggered card entrance with index-based animation delay.
+- **Cart.jsx**: Staggered item entrance and order summary animation.
+- **AdminLayout.jsx**: Sidebar shows only `KBF` + `Menu`. Sign out button has border-only style with red hover.
+- **Admin header**: Shows "Admin Panel" heading on desktop and mobile.
+
+#### Notification System
+- **verify-payment/index.ts**: Added Resend email sending (was only queueing). Now sends payment confirmation email via Resend and marks queue as sent.
+- **AdminOrders.jsx**: Sends emails via `send-email` edge function for confirm/ship/deliver/cancel actions. Creates admin notifications for each action.
+- **notifications.js**: Contact form submissions create `admin_notifications` records.
+- **AdminLayout.jsx**: Polls unread notification count every 15s from `admin_notifications` table.
+- **AdminComplaints.jsx**: Full CRUD for complaints with status management (open/in_progress/resolved).
+
+#### Critical Fixes
+- **Checkout.jsx**: Fixed empty cart redirect overriding `navigate('/order-success')` after payment — added `paidRef` ref to prevent the cart guard from firing during payment processing.
+- **admin_notifications CHECK constraint**: Altered to allow `order_shipped`, `order_delivered`, `order_cancelled` types (was only allowing `new_order`, `new_complaint`, `order_confirmed`, `product_like`, `payment_received`).
+
+#### Deployment
+- Netlify auto-deploys from GitHub `master` branch.
+- Supabase Edge Functions: `verify-payment` and `send-email`.
 
 *Document ends. Ready for implementation.*
