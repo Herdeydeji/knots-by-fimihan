@@ -1,13 +1,18 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import ChatWidget from '../chat/ChatWidget'
 import AuthModal from '../ui/AuthModal'
 import StyleAssistantPopup from '../chat/StyleAssistantPopup'
 
+const hideFooterPaths = ['/cart', '/search']
+const hideFooterPatterns = [/^\/product\//]
+
 export default function Layout() {
   const [assistantOpen, setAssistantOpen] = useState(false)
+  const location = useLocation()
+  const showFooter = !hideFooterPaths.includes(location.pathname) && !hideFooterPatterns.some((p) => p.test(location.pathname))
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-50 dark:bg-gray-950">
@@ -15,7 +20,7 @@ export default function Layout() {
       <main className="flex-1">
         <Outlet />
       </main>
-      <Footer />
+      {showFooter && <Footer />}
       <ChatWidget onToggle={() => setAssistantOpen((v) => !v)} />
       <AuthModal />
       {assistantOpen && <StyleAssistantPopup onClose={() => setAssistantOpen(false)} />}
