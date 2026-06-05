@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
-  HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox,
+  HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox, HiOutlineChatAlt2,
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
+import { getUnreadConversationCount } from '../../lib/chat'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
   { label: 'Products', path: '/admin/products', icon: HiOutlineCube },
   { label: 'Orders', path: '/admin/orders', icon: HiOutlineClipboardList },
+  { label: 'Chat', path: '/admin/chat', icon: HiOutlineChatAlt2 },
   { label: 'Complaints', path: '/admin/complaints', icon: HiOutlineInbox },
 ]
 
@@ -21,6 +23,7 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [checking, setChecking] = useState(true)
   const [unreadCount, setUnreadCount] = useState(0)
+  const [unreadChats, setUnreadChats] = useState(0)
   const location = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
@@ -36,12 +39,19 @@ export default function AdminLayout() {
   useEffect(() => {
     if (!checking) {
       getUnreadNotificationCount().then(setUnreadCount)
+      getUnreadConversationCount().then(setUnreadChats)
     }
   }, [checking])
 
   useRealtimeSubscription('admin_notifications', 'INSERT', null, () => {
     if (!checking) {
       getUnreadNotificationCount().then(setUnreadCount)
+    }
+  })
+
+  useRealtimeSubscription('chat_messages', 'INSERT', null, () => {
+    if (!checking) {
+      getUnreadConversationCount().then(setUnreadChats)
     }
   })
 
@@ -77,7 +87,6 @@ export default function AdminLayout() {
             {adminLinks.map((link) => {
               const Icon = link.icon
               const isActive = location.pathname === link.path
-              const showBadge = link.path === '/admin/complaints' && unreadCount > 0
               return (
                 <Link
                   key={link.path}
@@ -89,7 +98,15 @@ export default function AdminLayout() {
                 >
                   <Icon className="w-5 h-5" />
                   <span className="flex-1">{link.label}</span>
-                  {link.label === 'Dashboard' && unreadCount > 0 && (
+                  {link.label === 'Dashboard' && (unreadCount > 0 || unreadChats > 0) && (
+                    <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                  )}
+                  {link.label === 'Chat' && unreadChats > 0 && (
+                    <span className="min-w-[18px] h-[18px] rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center px-1">
+                      {unreadChats > 9 ? '9+' : unreadChats}
+                    </span>
+                  )}
+                  {link.label === 'Complaints' && unreadCount > 0 && (
                     <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
                   )}
                 </Link>
