@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getAllOrders, updateFulfillmentStatus, getOrderById } from '../../lib/orders'
 import { supabase } from '../../lib/supabase'
 import { HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineMail, HiOutlineX, HiOutlineClipboardList, HiOutlineTruck, HiOutlineHome } from 'react-icons/hi'
+import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -176,6 +177,14 @@ export default function AdminOrders() {
   useEffect(() => {
     getAllOrders().then(setOrders).catch(() => setOrders([]))
   }, [])
+
+  useRealtimeSubscription('orders', 'INSERT', null, (payload) => {
+    setOrders((prev) => [payload.new, ...prev])
+  })
+
+  useRealtimeSubscription('orders', 'UPDATE', null, (payload) => {
+    setOrders((prev) => prev.map((o) => o.id === payload.new.id ? { ...o, ...payload.new } : o))
+  })
 
   const filtered = filter === 'all' ? orders : orders.filter((o) => o.fulfillment_status === filter)
 

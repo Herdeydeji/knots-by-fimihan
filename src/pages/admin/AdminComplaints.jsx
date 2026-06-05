@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { HiOutlineInbox, HiOutlineCheckCircle, HiOutlineXCircle } from 'react-icons/hi'
 import { getAllComplaints, updateComplaintStatus } from '../../lib/notifications'
+import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 export default function AdminComplaints() {
   const [complaints, setComplaints] = useState([])
@@ -13,6 +14,14 @@ export default function AdminComplaints() {
     setLoading(true)
     getAllComplaints().then(setComplaints).catch(() => setError('Failed to load messages')).finally(() => setLoading(false))
   }, [])
+
+  useRealtimeSubscription('complaints', 'INSERT', null, (payload) => {
+    setComplaints((prev) => [payload.new, ...prev])
+  })
+
+  useRealtimeSubscription('complaints', 'UPDATE', null, (payload) => {
+    setComplaints((prev) => prev.map((c) => c.id === payload.new.id ? { ...c, ...payload.new } : c))
+  })
 
   const filtered = filter === 'all'
     ? complaints

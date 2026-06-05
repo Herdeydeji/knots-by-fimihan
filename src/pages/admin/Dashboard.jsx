@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { HiOutlineCube, HiOutlineClipboardList, HiOutlineCurrencyDollar, HiOutlineExclamationCircle } from 'react-icons/hi'
 import { getOrderStats, getAllOrders } from '../../lib/orders'
 import { getAdminProducts } from '../../lib/products'
+import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -14,6 +15,11 @@ export default function AdminDashboard() {
   const [recentOrders, setRecentOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  const refreshStats = () => {
+    getOrderStats().then(setStats).catch(() => {})
+    getAllOrders().then((o) => setRecentOrders(o.slice(0, 5))).catch(() => {})
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -27,6 +33,10 @@ export default function AdminDashboard() {
       setRecentOrders(o.slice(0, 5))
     }).catch(() => setError('Failed to load dashboard data')).finally(() => setLoading(false))
   }, [])
+
+  useRealtimeSubscription('orders', 'INSERT', null, refreshStats)
+  useRealtimeSubscription('orders', 'UPDATE', null, refreshStats)
+  useRealtimeSubscription('orders', 'DELETE', null, refreshStats)
 
   const lowStock = products.filter((p) => p.stock < 5 && p.stock > 0)
   const outOfStock = products.filter((p) => p.stock === 0)

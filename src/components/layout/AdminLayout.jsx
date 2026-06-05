@@ -6,6 +6,7 @@ import {
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
+import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
@@ -35,10 +36,14 @@ export default function AdminLayout() {
   useEffect(() => {
     if (!checking) {
       getUnreadNotificationCount().then(setUnreadCount)
-      const interval = setInterval(() => getUnreadNotificationCount().then(setUnreadCount), 15000)
-      return () => clearInterval(interval)
     }
   }, [checking])
+
+  useRealtimeSubscription('admin_notifications', 'INSERT', null, () => {
+    if (!checking) {
+      getUnreadNotificationCount().then(setUnreadCount)
+    }
+  })
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

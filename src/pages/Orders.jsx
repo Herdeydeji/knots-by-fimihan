@@ -12,6 +12,7 @@ import { useAuth } from '../lib/auth'
 import { getOrdersByEmail, updateFulfillmentStatus } from '../lib/orders'
 import { supabase } from '../lib/supabase'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
+import { useRealtimeSubscription } from '../hooks/useRealtime'
 
 function formatPrice(price) {
   return `₦${Number(price).toLocaleString()}`
@@ -187,6 +188,11 @@ export default function Orders() {
       .catch(() => setOrders([]))
       .finally(() => setLoading(false))
   }, [user])
+
+  useRealtimeSubscription('orders', 'UPDATE', null, (payload) => {
+    if (!user || payload.new.customer_email !== user.email) return
+    setOrders((prev) => prev.map((o) => o.id === payload.new.id ? { ...o, ...payload.new } : o))
+  })
 
   const handleCancel = async (orderId) => {
     setCancelling(orderId)
