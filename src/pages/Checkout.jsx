@@ -58,7 +58,7 @@ export default function Checkout() {
         paidRef.current = true
         useCart.getState().clearCart()
         navigate(`/order-success?reference=${reference}`, {
-          state: { orderNumber: data.order_number, total: checkoutData.total },
+          state: { orderNumber: data.order_number, total: checkoutData.total, subtotal: checkoutData.subtotal, shipping_fee: checkoutData.shipping_fee },
         })
       })
       .catch((err) => {
@@ -101,7 +101,7 @@ export default function Checkout() {
         paidRef.current = true
         clearCart()
         setLoading(false)
-        navigate(`/order-success?reference=${response.reference}`, { state: { orderNumber: data.order_number, total } })
+        navigate(`/order-success?reference=${response.reference}`, { state: { orderNumber: data.order_number, total, subtotal, shipping_fee: shipping.fee } })
       })
       .catch((err) => {
         console.error('Payment verification error:', err)

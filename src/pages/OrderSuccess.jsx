@@ -5,7 +5,8 @@ import { getOrderByReference, getOrderByNumber } from '../lib/orders'
 import confetti from 'canvas-confetti'
 
 function formatPrice(price) {
-  return `₦${Number(price).toLocaleString()}`
+  const num = Number(price)
+  return Number.isNaN(num) ? '' : `₦${num.toLocaleString()}`
 }
 
 const statusColors = {
@@ -28,7 +29,7 @@ export default function OrderSuccess() {
 
   useEffect(() => {
     if (state.orderNumber) {
-      setOrder({ order_number: state.orderNumber, total: state.total })
+      setOrder({ order_number: state.orderNumber, total: state.total, subtotal: state.subtotal, shipping_fee: state.shipping_fee })
       setLoading(false)
       return
     }
@@ -170,14 +171,14 @@ export default function OrderSuccess() {
 
         <hr className="border-cream-200 dark:border-gray-700" />
 
-        <div className="grid grid-cols-2 gap-3 text-sm">
+        <div className="flex justify-between items-start text-sm">
           <div>
             <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Payment</p>
             <p className={`font-medium capitalize ${order.payment_status === 'paid' ? 'text-emerald-600' : 'text-yellow-600'}`}>
               {order.payment_status || 'Paid'}
             </p>
           </div>
-          <div>
+          <div className="text-right">
             <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Delivery</p>
             <p className={`font-medium capitalize ${statusColors[order.fulfillment_status]?.split(' ')[1] || ''}`}>
               {order.fulfillment_status || 'Pending'}
