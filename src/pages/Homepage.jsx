@@ -191,7 +191,7 @@ export default function Homepage() {
                     required
                     className="flex-1 px-5 py-3 rounded-xl border border-white/20 bg-white/10 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 transition-all"
                   />
-                  <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-6 py-3 rounded-xl font-body font-medium hover:bg-gold-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all whitespace-nowrap disabled:opacity-50">
+                  <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-6 py-3 rounded-xl font-body font-medium hover:bg-gold-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all whitespace-nowrap disabled:opacity-50 sm:w-auto w-full">
                     {subscribing ? 'Subscribing...' : 'Subscribe'}
                   </button>
                 </form>

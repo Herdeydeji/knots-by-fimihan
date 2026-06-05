@@ -104,9 +104,9 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   required
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+                  className="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-cream-300 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50"
                 />
-                <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-4 py-2.5 rounded-xl text-sm font-body font-medium hover:bg-gold-600 transition-all disabled:opacity-50">
+                <button type="submit" disabled={subscribing} className="bg-gold-500 text-white px-4 py-2.5 rounded-xl text-sm font-body font-medium hover:bg-gold-600 transition-all disabled:opacity-50 sm:w-auto w-full">
                   {subscribing ? '...' : 'Subscribe'}
                 </button>
               </form>
