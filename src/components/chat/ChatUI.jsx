@@ -31,8 +31,7 @@ const MODES = [
   { key: 'admin', label: 'Live Admin', icon: HiOutlineChatAlt2 },
 ]
 
-export default function ChatUI({ onClose }) {
-  const [mode, setMode] = useState('agent')
+export default function ChatUI({ mode, onModeChange, onClose }) {
   const [messages, setMessages] = useState([
     { role: 'assistant', text: "Salam Alaikum! I'm Agent KBF, your personal fashion companion. How can I help you today?" },
   ])
@@ -111,7 +110,7 @@ export default function ChatUI({ onClose }) {
               return (
                 <button
                   key={m.key}
-                  onClick={() => setMode(m.key)}
+                  onClick={() => onModeChange(m.key)}
                   className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold font-body transition-all duration-200 ${
                     active
                       ? 'bg-white dark:bg-gray-600 text-emerald-700 dark:text-emerald-300 shadow-sm'
