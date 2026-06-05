@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { HiOutlinePaperAirplane, HiSparkles, HiOutlineChatAlt2 } from 'react-icons/hi'
 import { getCurrentUser, sendMessage, getConversation } from '../../lib/chat'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
@@ -62,6 +62,30 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
     })
   })
 
+  const sendToAgent = useCallback(async (msg) => {
+    setIsTyping(true)
+    try {
+      const history = messages
+        .filter(m => m.role !== 'system')
+        .map(m => ({ role: m.role, content: m.text }))
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [...history, { role: 'user', content: msg }] }),
+      })
+      const data = await res.json()
+      setMessages((prev) => [...prev, { role: 'assistant', text: data.reply || 'Sorry, I could not process that.' }])
+    } catch {
+      setMessages((prev) => [...prev, {
+        role: 'assistant',
+        text: "I'm having trouble connecting right now. Please reach out to our Support Team via WhatsApp at +2348057370277 or email knotbyfimihan121@gmail.com.",
+      }])
+    } finally {
+      setIsTyping(false)
+    }
+  }, [messages])
+
   const handleSend = (text) => {
     const msg = text || input
     if (!msg.trim()) return
@@ -70,18 +94,7 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
       setMessages((prev) => [...prev, { role: 'user', text: msg }])
       setInput('')
       inputRef.current?.focus()
-
-      setIsTyping(true)
-      setTimeout(() => {
-        setIsTyping(false)
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: 'assistant',
-            text: "That's a great choice! We have several beautiful options in stock. Could you tell me more about the occasion and your preferred color? I'd love to help you find the perfect outfit!",
-          },
-        ])
-      }, 1200)
+      sendToAgent(msg)
     } else {
       if (!currentUser) return
       sendMessage(currentUser.id, msg).catch(() => {})
