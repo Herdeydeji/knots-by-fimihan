@@ -1,9 +1,0 @@
-[     204ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/admin/orders:0
-[     252ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/admin/orders:0
-[ 1261750ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/contact:0
-[ 1262273ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/contact:0
-[ 1263252ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://kaqxifjcrxistggfniks.supabase.co/auth/v1/user:0
-[ 1316036ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/contact:0
-[ 1316468ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/contact:0
-[ 1365065ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/contact:0
-[ 1365195ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/contact:0

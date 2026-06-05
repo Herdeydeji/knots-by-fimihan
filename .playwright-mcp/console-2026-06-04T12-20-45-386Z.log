@@ -1,9 +1,0 @@
-[    1078ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/shop:0
-[    1151ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/shop:0
-[   16419ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/4646225/pexels-photo-4646225.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   16467ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/15751052/pexels-photo-15751052.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   16467ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/30723894/pexels-photo-30723894.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   16467ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/13776836/pexels-photo-13776836.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   16468ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/8350562/pexels-photo-8350562.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   16468ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/15154961/pexels-photo-15154961.jpeg?auto=compress&cs=tinysrgb&w=600:0
-[   19475ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://images.pexels.com/photos/14518677/pexels-photo-14518677.jpeg?auto=compress&cs=tinysrgb&w=600:0

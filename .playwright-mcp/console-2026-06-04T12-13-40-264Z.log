@@ -1,6 +1,0 @@
-[   14944ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://knotbyfimihan.netlify.app/assets/index-oJ6CyOx1.js:0
-[   14951ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/:0
-[   14979ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/:0
-[   49505ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://knotbyfimihan.netlify.app/:0
-[   49703ms] [WARNING] Error while trying to use the following icon from the Manifest: https://knotbyfimihan.netlify.app/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://knotbyfimihan.netlify.app/:0
-[   54932ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://knotbyfimihan.netlify.app/login:0

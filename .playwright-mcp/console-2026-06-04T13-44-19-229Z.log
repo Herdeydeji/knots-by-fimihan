@@ -1,5 +1,0 @@
-[    2120ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/orders:0
-[    2355ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/orders:0
-[    6790ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://w68hgqt4.insforge.site/login:0
-[    6961ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://w68hgqt4.insforge.site/login:0
-[    6965ms] [WARNING] Error while trying to use the following icon from the Manifest: https://w68hgqt4.insforge.site/icons/icon-192x192.png (Download error or resource isn't a valid image) @ https://w68hgqt4.insforge.site/login:0
