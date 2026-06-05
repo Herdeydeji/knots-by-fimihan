@@ -6,7 +6,7 @@ import ChatWidget from '../chat/ChatWidget'
 import AuthModal from '../ui/AuthModal'
 import StyleAssistantPopup from '../chat/StyleAssistantPopup'
 
-const hideFooterPaths = ['/cart', '/search']
+const hideFooterPaths = ['/cart', '/search', '/orders']
 const hideFooterPatterns = [/^\/product\//]
 
 export default function Layout() {
