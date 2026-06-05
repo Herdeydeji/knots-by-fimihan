@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlineMail } from 'react-icons/hi'
 import { FaWhatsapp } from 'react-icons/fa'
@@ -7,9 +7,20 @@ import { WHATSAPP_NUMBER, EMAIL } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
 
 export default function Footer() {
+  const [visible, setVisible] = useState(false)
+  const sentinelRef = useRef(null)
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [subscribing, setSubscribing] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0, rootMargin: '100px' }
+    )
+    if (sentinelRef.current) observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const handleSubscribe = async (e) => {
     e.preventDefault()
@@ -28,7 +39,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-emerald-600 text-white">
+    <>
+      <div ref={sentinelRef} className="h-px" />
+      <footer className={`bg-emerald-600 text-white transition-all duration-700 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div>
@@ -109,5 +124,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }

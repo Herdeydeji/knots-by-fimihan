@@ -19,21 +19,10 @@ export const useTheme = create(
   )
 )
 
-const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 const stored = localStorage.getItem('kbf-theme')
 if (stored) {
   const parsed = JSON.parse(stored)
   if (parsed?.state?.dark) {
     document.documentElement.classList.add('dark')
   }
-} else if (mediaQuery.matches) {
-  document.documentElement.classList.add('dark')
-  useTheme.getState().setDark(true)
 }
-
-mediaQuery.addEventListener('change', (e) => {
-  const state = useTheme.getState()
-  if (!localStorage.getItem('kbf-theme')) {
-    state.setDark(e.matches)
-  }
-})

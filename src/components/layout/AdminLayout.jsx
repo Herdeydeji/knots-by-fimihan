@@ -3,11 +3,9 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
   HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox,
-  HiOutlineSun, HiOutlineMoon,
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
-import { useTheme } from '../../lib/theme'
 
 const adminLinks = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: HiOutlineChartBar },
@@ -24,8 +22,6 @@ export default function AdminLayout() {
   const [unreadCount, setUnreadCount] = useState(0)
   const location = useLocation()
   const navigate = useNavigate()
-  const { dark, toggle } = useTheme()
-
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session || session.user.email !== ADMIN_EMAIL) {
@@ -66,8 +62,7 @@ export default function AdminLayout() {
               <div className="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center flex-shrink-0 border border-gold-500/30">
                 <span className="text-sm font-bold text-gold-500 font-display tracking-wide">KBF</span>
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-widest font-body text-white/80 mr-auto">Menu</span>
-              <span className="text-base font-display font-bold text-white leading-tight hidden sm:block">Knots by Fimihan</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest font-body text-white/80">Menu</span>
             </Link>
             <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
               <HiOutlineX className="w-5 h-5" />
@@ -101,7 +96,7 @@ export default function AdminLayout() {
               <HiOutlineArrowLeft className="w-4 h-4" />
               Back to Store
             </Link>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm text-white/60 hover:bg-red-500/20 hover:text-red-300 transition-colors w-full">
+            <button onClick={handleLogout} className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-white/80 border border-white/30 hover:bg-red-500/20 hover:border-red-400 hover:text-red-300 transition-all duration-200 w-full">
               Sign Out
             </button>
           </div>
@@ -117,17 +112,13 @@ export default function AdminLayout() {
                 <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center border border-gold-500/30">
                   <span className="text-[10px] font-bold text-gold-500 font-display tracking-wide">KBF</span>
                 </div>
-                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-200">Admin</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-200">Admin Panel</span>
               </div>
-              <button onClick={toggle} className="p-2 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400">
-                {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
-              </button>
             </div>
           </div>
-          <div className="flex items-center justify-end px-4 lg:px-8 pt-4 pb-0">
-            <button onClick={toggle} className="p-2 text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 hidden lg:block">
-              {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
-            </button>
+          <div className="flex items-center justify-between px-4 lg:px-8 pt-4 pb-0">
+            <h1 className="text-xl lg:text-2xl font-display font-semibold text-emerald-600 hidden lg:block">Admin Panel</h1>
+            <div />
           </div>
           <div className="p-4 lg:p-8">
             <Outlet />

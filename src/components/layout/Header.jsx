@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
+import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
 import { KBFLogo } from '../ui/IslamicPattern'
-import { useTheme } from '../../lib/theme'
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -18,7 +17,6 @@ export default function Header() {
   const itemCount = useCart((s) => s.itemCount)
   const location = useLocation()
   const { user, logout } = useAuth()
-  const { dark, toggle } = useTheme()
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -61,10 +59,6 @@ export default function Header() {
             </nav>
 
             <div className="flex items-center gap-1">
-              <button onClick={toggle} className="p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400" aria-label="Toggle dark mode">
-                {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
-              </button>
-
               <Link to="/search" className="p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400" aria-label="Search">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -122,9 +116,6 @@ export default function Header() {
                 <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-300">Menu</span>
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={toggle} className="p-2 text-[#1C1C1C] dark:text-gray-300" aria-label="Toggle dark mode">
-                  {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
-                </button>
                 <button onClick={() => setMobileOpen(false)} aria-label="Close menu" type="button" className="p-2 hover:bg-cream-200 dark:hover:bg-gray-700 rounded-lg">
                   <HiOutlineX className="w-5 h-5" />
                 </button>
