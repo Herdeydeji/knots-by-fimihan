@@ -182,7 +182,7 @@ export default function Homepage() {
               {subscribed ? (
                 <p className="mt-8 text-cream-200 font-body">Thanks for subscribing! 🎉</p>
               ) : (
-                <form onSubmit={handleSubscribe} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <form onSubmit={handleSubscribe} className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:max-w-md mx-auto">
                   <input
                     type="email"
                     value={email}

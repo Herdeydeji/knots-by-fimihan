@@ -97,7 +97,7 @@ export default function Footer() {
             {subscribed ? (
               <p className="text-cream-200 text-sm">Thanks for subscribing!</p>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   value={email}
