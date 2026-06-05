@@ -83,6 +83,7 @@ export default function Checkout() {
         items: items.map((item) => ({
           product_id: item.id,
           name: item.name,
+          image: item.image,
           size: item.size,
           color: item.color,
           qty: item.quantity,
@@ -128,6 +129,7 @@ export default function Checkout() {
       items: items.map((item) => ({
         product_id: item.id,
         name: item.name,
+        image: item.image,
         size: item.size,
         color: item.color,
         qty: item.quantity,

@@ -161,6 +161,20 @@ Deno.serve(async (req: Request) => {
       return jsonResponse({ error: "Payment verification failed" }, 400)
     }
 
+    const existingOrder = await fetch(
+      `${SUPABASE_URL}/rest/v1/orders?payment_reference=eq.${encodeURIComponent(body.reference)}&select=order_number`,
+      {
+        headers: {
+          "apikey": SUPABASE_SERVICE_KEY,
+          "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+        },
+      }
+    )
+    const existing = await existingOrder.json()
+    if (existing && existing.length > 0) {
+      return jsonResponse({ success: true, order_number: existing[0].order_number, already_exists: true })
+    }
+
     const orderNumber = generateOrderNumber()
 
     const orderId = await insertOrder({
@@ -205,7 +219,7 @@ Deno.serve(async (req: Request) => {
             <p style="margin:8px 0 0;font-size:18px;font-weight:bold;color:#059669">Total: ${formatPrice(body.total)}</p>
           </div>
           <p style="color:#6B6B6B;margin-top:24px">We'll notify you when your order is confirmed. You can track your order status on our website.</p>
-          <a href="https://w68hgqt4.insforge.site/orders" style="display:inline-block;background:#059669;color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:500;margin-top:8px">View My Orders</a>
+          <a href="https://knotbyfimihan.netlify.app/orders" style="display:inline-block;background:#059669;color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:500;margin-top:8px">View My Orders</a>
         </div>
         <div style="text-align:center;padding:16px;color:#9ca3af;font-size:12px">
           <p>Knots by Fimihan — Dress Modestly, Live Beautifully</p>

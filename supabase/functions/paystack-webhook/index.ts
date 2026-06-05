@@ -2,7 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 
 const PAYSTACK_SECRET_KEY = Deno.env.get("PAYSTACK_SECRET_KEY")!
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!
-const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!
+const SUPABASE_SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
 
 async function updateOrderByReference(
   reference: string,
@@ -14,8 +14,8 @@ async function updateOrderByReference(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "apikey": SUPABASE_SERVICE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
         "Prefer": "return=minimal",
       },
       body: JSON.stringify({ payment_status: paymentStatus, updated_at: new Date().toISOString() }),
