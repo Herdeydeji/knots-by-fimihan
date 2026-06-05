@@ -64,7 +64,7 @@ export default function Homepage() {
           <div className="flex flex-wrap gap-4 mt-10 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
             <Link
               to="/shop"
-              className="bg-gold-500 text-white px-10 py-4 rounded-xl font-body font-medium hover:bg-gold-600 transition-all inline-flex items-center gap-2 text-lg shadow-xl shadow-gold-500/30 hover:shadow-2xl hover:shadow-gold-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+              className="bg-gold-500 text-white px-10 py-4 rounded-xl font-body font-medium hover:bg-gold-600 transition-all inline-flex items-center gap-2 text-lg shadow-xl shadow-gold-500/30 hover:shadow-2xl hover:shadow-gold-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] animate-glow"
             >
               Explore Collection <HiOutlineArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>

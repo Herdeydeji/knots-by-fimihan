@@ -6,13 +6,10 @@ import ChatWidget from '../chat/ChatWidget'
 import AuthModal from '../ui/AuthModal'
 import StyleAssistantPopup from '../chat/StyleAssistantPopup'
 
-const hideFooterPaths = ['/cart', '/search', '/orders', '/order-success']
-const hideFooterPatterns = [/^\/product\//]
-
 export default function Layout() {
   const [assistantOpen, setAssistantOpen] = useState(false)
   const location = useLocation()
-  const showFooter = !hideFooterPaths.includes(location.pathname) && !hideFooterPatterns.some((p) => p.test(location.pathname))
+  const showFooter = location.pathname === '/'
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-50 dark:bg-gray-950">
