@@ -8,8 +8,7 @@
   body {
     @apply font-body text-[#1C1C1C] bg-cream-100 antialiased;
   }
-  .dark body,
-  body.dark {
+  .dark body {
     @apply bg-gray-950 text-gray-100;
   }
   .dark .card {
@@ -72,9 +71,6 @@
     @apply w-full px-4 py-3 rounded-xl border border-cream-300 bg-white
            focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600
            placeholder:text-[#6B6B6B] transition-all duration-200;
-  }
-  .dark .input-field {
-    @apply bg-gray-800 border-gray-600 text-gray-100 placeholder:text-gray-500;
   }
   .dark .chip {
     @apply bg-gray-800 text-gray-200 border-gray-600;
