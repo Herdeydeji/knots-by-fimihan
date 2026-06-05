@@ -18,8 +18,10 @@ export default function ProductGrid({ products, emptyMessage = "No products foun
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((product, i) => (
+        <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 60}ms` }}>
+          <ProductCard product={product} />
+        </div>
       ))}
     </div>
   )

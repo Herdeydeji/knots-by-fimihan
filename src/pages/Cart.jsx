@@ -53,8 +53,8 @@ export default function Cart() {
             </div>
           </div>
 
-          {items.map((item) => (
-            <div key={item.key} className="card p-4 flex gap-4">
+          {items.map((item, i) => (
+            <div key={item.key} className="card p-4 flex gap-4 animate-fade-in-up" style={{ animationDelay: `${i * 80}ms` }}>
               <Link to={`/product/${item.slug}`} className="w-24 h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden bg-cream-200 dark:bg-gray-700 flex-shrink-0">
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
               </Link>
@@ -97,7 +97,7 @@ export default function Cart() {
           ))}
         </div>
 
-        <div>
+        <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="card p-6 sticky top-24">
             <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Order Summary</h3>
             <div className="space-y-3 text-sm font-body">

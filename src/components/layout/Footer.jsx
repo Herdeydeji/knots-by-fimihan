@@ -69,7 +69,7 @@ export default function Footer() {
                 { label: 'Contact', path: '/contact' },
               ].map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-cream-200 hover:text-white transition-colors text-sm">
+                  <Link to={link.path} className="text-cream-200 hover:text-white transition-all text-sm hover:translate-x-0.5 inline-block">
                     {link.label}
                   </Link>
                 </li>

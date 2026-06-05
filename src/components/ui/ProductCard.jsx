@@ -31,13 +31,14 @@ export default function ProductCard({ product }) {
   return (
     <Link
       to={`/product/${product.slug}`}
-      className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-cream-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+      className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-cream-200 dark:border-gray-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-cream-100 dark:bg-gray-700">
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 dark:group-hover:bg-black/20 transition-colors duration-300 z-10" />
         <img
           src={product.images[0]}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           loading="lazy"
         />
         <button

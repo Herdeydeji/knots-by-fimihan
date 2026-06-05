@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
+import { HiOutlineShoppingCart, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
 import { useTheme } from '../../lib/theme'
@@ -45,15 +45,16 @@ export default function Header() {
             </div>
 
             <nav className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
+              {navLinks.map((link, i) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`font-body text-sm font-medium transition-colors duration-200 ${
+                  className={`font-body text-sm font-medium transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-emerald-600 after:transition-all after:duration-300 hover:after:w-full ${
                     location.pathname === link.path
-                      ? 'text-gold-500 dark:text-gold-400'
+                      ? 'text-gold-500 dark:text-gold-400 after:bg-gold-500 after:w-full'
                       : 'text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400'
                   }`}
+                  style={{ animationDelay: `${i * 60}ms` }}
                 >
                   {link.label}
                 </Link>
@@ -69,9 +70,9 @@ export default function Header() {
 
               {user ? (
                 <div className="relative group">
-                  <button className="p-2 text-emerald-600 dark:text-emerald-400" aria-label="Account" type="button">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
-                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-display">
+                  <button className="p-1.5 group/avatar" aria-label="Account" type="button">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 border border-gold-500/40 shadow-md shadow-emerald-900/20 flex items-center justify-center transition-transform duration-200 group-hover/avatar:scale-110 group-hover/avatar:shadow-lg group-hover/avatar:shadow-emerald-900/30">
+                      <span className="text-xs font-bold text-gold-300 font-display tracking-wide">
                         {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
                       </span>
                     </div>
@@ -99,10 +100,10 @@ export default function Header() {
                 </Link>
               )}
 
-              <Link to="/cart" className="relative p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">
-                <HiOutlineShoppingBag className="w-5 h-5" />
+              <Link to="/cart" className="relative p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                <HiOutlineShoppingCart className="w-5 h-5" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-gold-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-scale-in">
                     {itemCount > 9 ? '9+' : itemCount}
                   </span>
                 )}
