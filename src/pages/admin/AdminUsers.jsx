@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { HiOutlineUserGroup, HiOutlineBadgeCheck, HiOutlineShoppingBag, HiOutlineChatAlt2 } from 'react-icons/hi'
+import { HiOutlineUserGroup, HiOutlineUser, HiOutlineBadgeCheck, HiOutlineShoppingBag, HiOutlineChatAlt2 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 
 export default function AdminUsers() {
@@ -36,7 +36,28 @@ export default function AdminUsers() {
           <p className="text-[#6B6B6B] dark:text-gray-400 font-body text-sm">No users found</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <>
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="card p-4 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0">
+                <HiOutlineUserGroup className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{users.length}</p>
+                <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Total Users</p>
+              </div>
+            </div>
+            <div className="card p-4 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-gold-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                <HiOutlineBadgeCheck className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{users.filter(u => u.is_admin).length}</p>
+                <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Admins</p>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cream-200 dark:border-gray-700 text-left">
@@ -82,6 +103,7 @@ export default function AdminUsers() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </div>
   )
