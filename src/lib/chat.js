@@ -64,10 +64,9 @@ export async function getAllConversations() {
 }
 
 export async function sendAdminReply(userId, message) {
-  const { error } = await supabase.from('chat_messages').insert({
-    user_id: userId,
-    sender: 'admin',
-    message,
+  const { error } = await supabase.rpc('admin_send_chat_reply', {
+    p_user_id: userId,
+    p_message: message,
   })
   if (error) throw error
 }
