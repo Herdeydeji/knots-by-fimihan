@@ -22,13 +22,14 @@ export async function toggleWishlist(userId, productId) {
       .from('wishlists')
       .delete()
       .eq('id', existing.id)
-    if (error) throw error
+      .eq('user_id', userId)
+    if (error) throw new Error(error.message)
     return false
   }
 
   const { error } = await supabase
     .from('wishlists')
     .insert({ user_id: userId, product_id: productId })
-  if (error) throw error
+  if (error) throw new Error(error.message)
   return true
 }

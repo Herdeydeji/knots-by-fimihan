@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
     try {
       await toggleLike(product.id)
     } catch {
-      /* ignore */
+      alert('Failed to update wishlist. Please try again.')
     }
   }
 

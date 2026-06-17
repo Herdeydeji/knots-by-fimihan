@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck } from 'react-icons/hi'
+import { HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck, HiOutlineHeart, HiHeart } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import { getProductBySlug, getRelatedProducts } from '../lib/products'
@@ -22,7 +22,18 @@ export default function ProductDetail() {
   const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedImage, setSelectedImage] = useState(0)
   const addItem = useCart((s) => s.addItem)
-  const { user, openAuthModal } = useAuth()
+  const { user, wishlist, toggleLike, openAuthModal } = useAuth()
+  const isLiked = wishlist.includes(product?.id)
+
+  const handleToggleWishlist = async (e) => {
+    e.preventDefault()
+    if (!user) { openAuthModal(`/product/${slug}`); return }
+    try {
+      await toggleLike(product.id)
+    } catch {
+      alert('Failed to update wishlist. Please try again.')
+    }
+  }
 
   useEffect(() => {
     getProductBySlug(slug).then((p) => {
@@ -104,6 +115,15 @@ export default function ProductDetail() {
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
+              <button
+                onClick={handleToggleWishlist}
+                className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 z-10 ${
+                  isLiked ? 'bg-red-50 text-red-500 dark:bg-red-900/50 dark:text-red-400' : 'bg-white/80 text-[#6B6B6B] dark:bg-gray-700/40 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
+                }`}
+                aria-label={isLiked ? 'Remove from wishlist' : 'Add to wishlist'}
+              >
+                {isLiked ? <HiHeart className="w-5 h-5" /> : <HiOutlineHeart className="w-5 h-5" />}
+              </button>
               {hasDiscount && (
                 <div className="absolute top-4 left-4 bg-gold-500 text-white text-sm font-bold px-3 py-1.5 rounded-xl">
                   {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
