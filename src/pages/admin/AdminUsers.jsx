@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { HiOutlineUserGroup, HiOutlineUser, HiOutlineBadgeCheck, HiOutlineShoppingBag, HiOutlineChatAlt2 } from 'react-icons/hi'
+import { HiOutlineUserGroup, HiOutlineUser, HiOutlineBadgeCheck, HiOutlineShoppingBag, HiOutlineChatAlt2, HiOutlineShieldCheck, HiOutlineShieldExclamation } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
+import { useAuth } from '../../lib/auth'
 
 export default function AdminUsers() {
+  const { user: currentUser } = useAuth()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [toggling, setToggling] = useState(null)
 
-  useEffect(() => {
+  const fetchUsers = () => {
     setLoading(true)
     supabase.from('profiles').select('*').order('created_at', { ascending: false }).then(async ({ data: profiles }) => {
       if (!profiles) { setLoading(false); return }
@@ -18,7 +21,29 @@ export default function AdminUsers() {
       setUsers(enriched)
       setLoading(false)
     }).catch(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchUsers() }, [])
+
+  const handleToggleAdmin = async (target) => {
+    const alreadyAdmin = target.is_admin
+    const action = alreadyAdmin ? 'revoke admin access from' : 'grant admin access to'
+    if (!window.confirm(`Are you sure you want to ${action} ${target.full_name || target.email}?`)) return
+
+    setToggling(target.id)
+    const { error } = await supabase.rpc('admin_set_admin_role', {
+      target_user_id: target.id,
+      make_admin: !alreadyAdmin
+    })
+    setToggling(null)
+
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    setUsers((prev) => prev.map((u) => u.id === target.id ? { ...u, is_admin: !alreadyAdmin } : u))
+  }
 
   return (
     <div>
@@ -67,6 +92,7 @@ export default function AdminUsers() {
                 <th className="pb-3 font-semibold text-[#1C1C1C] dark:text-gray-200 font-body hidden md:table-cell">Joined</th>
                 <th className="pb-3 font-semibold text-[#1C1C1C] dark:text-gray-200 font-body text-right">Orders</th>
                 <th className="pb-3 font-semibold text-[#1C1C1C] dark:text-gray-200 font-body text-right">Chats</th>
+                <th className="pb-3 font-semibold text-[#1C1C1C] dark:text-gray-200 font-body text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -74,6 +100,7 @@ export default function AdminUsers() {
                 <tr key={u.id} className="border-b border-cream-100 dark:border-gray-700/50 hover:bg-cream-50 dark:hover:bg-gray-700/30 transition-colors">
                   <td className="py-3 pr-4">
                     <span className="font-medium text-[#1C1C1C] dark:text-gray-200">{u.full_name || '—'}</span>
+                    {u.id === currentUser?.id && <span className="ml-2 text-xs text-[#6B6B6B] dark:text-gray-500">(you)</span>}
                   </td>
                   <td className="py-3 pr-4 hidden sm:table-cell text-[#6B6B6B] dark:text-gray-400">{u.email}</td>
                   <td className="py-3 pr-4">
@@ -97,6 +124,33 @@ export default function AdminUsers() {
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-[#6B6B6B] dark:text-gray-400">
                       <HiOutlineChatAlt2 className="w-3.5 h-3.5" /> {u.chatCount}
                     </span>
+                  </td>
+                  <td className="py-3 text-right">
+                    {u.id === currentUser?.id ? (
+                      <span className="text-xs text-[#6B6B6B] dark:text-gray-500">—</span>
+                    ) : (
+                      <button
+                        onClick={() => handleToggleAdmin(u)}
+                        disabled={toggling === u.id}
+                        className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${
+                          u.is_admin
+                            ? 'text-red-600 bg-red-50 hover:bg-red-100 dark:text-red-400 dark:bg-red-900/20 dark:hover:bg-red-900/30'
+                            : 'text-emerald-600 bg-emerald-50 hover:bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/30'
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                      >
+                        {toggling === u.id ? (
+                          <svg className="animate-spin w-3.5 h-3.5" viewBox="0 0 24 24" fill="none">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                          </svg>
+                        ) : u.is_admin ? (
+                          <HiOutlineShieldExclamation className="w-3.5 h-3.5" />
+                        ) : (
+                          <HiOutlineShieldCheck className="w-3.5 h-3.5" />
+                        )}
+                        {toggling === u.id ? '...' : u.is_admin ? 'Revoke Admin' : 'Make Admin'}
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
