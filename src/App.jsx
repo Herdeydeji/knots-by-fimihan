@@ -29,6 +29,7 @@ import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminComplaints from './pages/admin/AdminComplaints'
 import AdminChat from './pages/admin/AdminChat'
+import AdminUsers from './pages/admin/AdminUsers'
 import AddProduct from './pages/admin/AddProduct'
 import EditProduct from './pages/admin/EditProduct'
 import NotFound from './pages/NotFound'
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="products/:id/edit" element={<EditProduct />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="complaints" element={<AdminComplaints />} />
+            <Route path="users" element={<AdminUsers />} />
             <Route path="chat" element={<AdminChat />} />
           </Route>
           <Route path="*" element={<NotFound />} />

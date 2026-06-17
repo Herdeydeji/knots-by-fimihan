@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
-  HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox, HiOutlineChatAlt2,
+  HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox, HiOutlineChatAlt2, HiOutlineUserGroup,
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
@@ -14,6 +14,7 @@ const adminLinks = [
   { label: 'Products', path: '/admin/products', icon: HiOutlineCube },
   { label: 'Orders', path: '/admin/orders', icon: HiOutlineClipboardList },
   { label: 'Chat', path: '/admin/chat', icon: HiOutlineChatAlt2 },
+  { label: 'Users', path: '/admin/users', icon: HiOutlineUserGroup },
   { label: 'Complaints', path: '/admin/complaints', icon: HiOutlineInbox },
 ]
 
