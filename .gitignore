@@ -25,3 +25,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Design assets
+.stitch/
+
+# Local debug artifacts
+check-*.mjs
+verify-fix.mjs
+test-admin-chat-local.mjs
+deploy.tar.gz
+*.png
+vite-*.txt
