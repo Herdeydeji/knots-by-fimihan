@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HiOutlinePaperAirplane, HiSparkles, HiOutlineChatAlt2 } from 'react-icons/hi'
-import { getCurrentUser, sendMessage, getConversation } from '../../lib/chat'
-import { useRealtimeSubscription } from '../../hooks/useRealtime'
+import { useAuth } from '../../lib/auth'
+import { supabase } from '../../lib/supabase'
+import { sendMessage, getConversation } from '../../lib/chat'
 
 const suggestions = [
   "Help me find an Eid outfit",
@@ -32,35 +34,56 @@ const MODES = [
 ]
 
 export default function ChatUI({ mode, onModeChange, onClose }) {
+  const navigate = useNavigate()
+  const { user } = useAuth()
   const [messages, setMessages] = useState([
     { role: 'assistant', text: "Salam Alaikum! I'm Agent KBF, your personal fashion companion. How can I help you today?" },
   ])
   const [adminMessages, setAdminMessages] = useState([])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
-
-  useEffect(() => {
-    getCurrentUser().then(setCurrentUser)
-  }, [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, adminMessages, isTyping])
 
-  useEffect(() => {
-    if (mode !== 'admin' || !currentUser) return
-    getConversation(currentUser.id).then(setAdminMessages)
-  }, [mode, currentUser])
+  const messagesRef = useRef([])
+  useEffect(() => { messagesRef.current = adminMessages }, [adminMessages])
 
-  useRealtimeSubscription('chat_messages', 'INSERT', currentUser ? { user_id: currentUser.id } : null, (payload) => {
-    setAdminMessages((prev) => {
-      if (prev.some(m => m.id === payload.new.id)) return prev
-      return [...prev, payload.new]
-    })
-  })
+  useEffect(() => {
+    if (mode !== 'admin' || !user) return
+    getConversation(user.id).then(setAdminMessages)
+  }, [mode, user])
+
+  useEffect(() => {
+    const channel = supabase.channel(`chat-admin-${user?.id || 'anon'}`)
+    channel.on('postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'chat_messages', filter: user ? `user_id=eq.${user.id}` : undefined },
+      (payload) => {
+        const prev = messagesRef.current
+        if (!prev.some(m => m.id === payload.new.id)) {
+          setAdminMessages([...prev, payload.new])
+        }
+      }
+    )
+    channel.subscribe()
+    return () => { supabase.removeChannel(channel) }
+  }, [user?.id])
+
+  useEffect(() => {
+    if (mode !== 'admin' || !user) return
+    const interval = setInterval(() => {
+      getConversation(user.id).then(msgs => {
+        setAdminMessages(prev => {
+          if (prev.length === msgs.length && prev[prev.length - 1]?.id === msgs[msgs.length - 1]?.id) return prev
+          return msgs
+        })
+      })
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [mode, user])
 
   const sendToAgent = useCallback(async (msg) => {
     setIsTyping(true)
@@ -75,6 +98,7 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
         body: JSON.stringify({ messages: [...history, { role: 'user', content: msg }] }),
       })
       const data = await res.json()
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`)
       setMessages((prev) => [...prev, { role: 'assistant', text: data.reply || 'Sorry, I could not process that.' }])
     } catch {
       setMessages((prev) => [...prev, {
@@ -96,19 +120,27 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
       inputRef.current?.focus()
       sendToAgent(msg)
     } else {
-      if (!currentUser) return
-      sendMessage(currentUser.id, msg).catch(() => {})
+      if (!user) return
+      sendMessage(user.id, msg).catch(() => {})
       setInput('')
       inputRef.current?.focus()
       setAdminMessages((prev) => [...prev, {
         id: `temp-${Date.now()}`,
-        user_id: currentUser.id,
+        user_id: user.id,
         sender: 'user',
         message: msg,
         created_at: new Date().toISOString(),
       }])
     }
   }
+
+  const handleModeChange = useCallback((newMode) => {
+    if (newMode === 'admin' && !user) {
+      navigate('/login?from=/style-assistant')
+      return
+    }
+    onModeChange(newMode)
+  }, [user, navigate, onModeChange])
 
   const displayMessages = mode === 'agent' ? messages : adminMessages
 
@@ -123,7 +155,7 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
               return (
                 <button
                   key={m.key}
-                  onClick={() => onModeChange(m.key)}
+                  onClick={() => handleModeChange(m.key)}
                   className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold font-body transition-all duration-200 ${
                     active
                       ? 'bg-white dark:bg-gray-600 text-emerald-700 dark:text-emerald-300 shadow-sm'
@@ -156,7 +188,11 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
                         : 'bg-white dark:bg-gray-700 text-[#1C1C1C] dark:text-gray-200 rounded-2xl rounded-bl-md shadow-sm border border-cream-200 dark:border-gray-600'
                     }`}
                   >
-                    <span className="font-body">{msg.text}</span>
+                    {msg.role === 'assistant' ? (
+                      <span className="font-body" dangerouslySetInnerHTML={{ __html: msg.text }} />
+                    ) : (
+                      <span className="font-body">{msg.text}</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -179,12 +215,12 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
             </>
           ) : (
             <>
-              {!currentUser && (
+              {!user && (
                 <div className="flex items-center justify-center h-full">
                   <p className="text-sm text-[#6B6B6B] dark:text-gray-400">Please sign in to chat with our team.</p>
                 </div>
               )}
-              {currentUser && displayMessages.length === 0 && (
+              {user && displayMessages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full text-center px-6">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-3">
                     <HiOutlineChatAlt2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
@@ -195,7 +231,7 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
                   </p>
                 </div>
               )}
-              {currentUser && displayMessages.map((msg) => (
+              {user && displayMessages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
                   {msg.sender === 'admin' && (
                     <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center flex-shrink-0 mr-2 mt-1 shadow-sm">

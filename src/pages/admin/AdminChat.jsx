@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HiOutlineChatAlt2, HiOutlinePaperAirplane, HiOutlineUser, HiOutlineCheck, HiOutlineArrowLeft } from 'react-icons/hi'
 import { getAllConversations, sendAdminReply, getConversation, markConversationRead } from '../../lib/chat'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
 export default function AdminChat() {
+  const navigate = useNavigate()
   const [conversations, setConversations] = useState([])
   const [selectedUserId, setSelectedUserId] = useState(null)
   const [selectedMessages, setSelectedMessages] = useState([])
@@ -63,15 +65,38 @@ export default function AdminChat() {
   const showChat = !!selectedUserId
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-cream-200 dark:border-gray-700 overflow-hidden">
+    <div className="fixed inset-0 z-50 lg:static lg:inset-auto flex lg:h-[calc(100vh-10rem)] bg-white dark:bg-gray-800 lg:rounded-2xl lg:shadow-sm lg:border lg:border-cream-200 dark:border-gray-700 overflow-hidden">
       <div className={`${showConversations ? 'flex' : 'hidden'} lg:flex w-full lg:w-72 flex-shrink-0 border-r border-cream-200 dark:border-gray-700 overflow-y-auto flex-col`}>
-        <div className="p-4 border-b border-cream-200 dark:border-gray-700">
-          <h2 className="font-display font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">Conversations</h2>
+        <div className="p-4 border-b border-cream-200 dark:border-gray-700 flex items-center gap-3">
+          <button
+            onClick={() => navigate('/admin')}
+            className="lg:hidden p-1 rounded-xl transition-colors text-[#6B6B6B] dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400"
+            type="button"
+            aria-label="Back to dashboard"
+          >
+            <HiOutlineArrowLeft className="w-5 h-5" />
+          </button>
+          <h2 className="font-display font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">
+            <span className="lg:hidden">Messages</span>
+            <span className="hidden lg:inline">Conversations</span>
+          </h2>
         </div>
         {loading ? (
-          <div className="p-4 text-sm text-[#6B6B6B] dark:text-gray-400">Loading...</div>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          </div>
         ) : conversations.length === 0 ? (
-          <div className="p-4 text-sm text-[#6B6B6B] dark:text-gray-400">No conversations yet.</div>
+          <div className="flex-1 flex items-center justify-center text-center px-6">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-3">
+                <HiOutlineChatAlt2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <p className="text-sm font-semibold text-[#1C1C1C] dark:text-gray-200 font-body">No messages yet</p>
+              <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-1 max-w-[200px]">
+                Customer conversations will appear here.
+              </p>
+            </div>
+          </div>
         ) : (
           conversations.map((conv) => {
             const last = conv.messages[0]
@@ -127,19 +152,38 @@ export default function AdminChat() {
           </div>
         ) : (
           <>
-            <div className="px-4 py-3 border-b border-cream-200 dark:border-gray-700 flex items-center gap-3">
-              <button
-                onClick={() => setSelectedUserId(null)}
-                className="lg:hidden p-1 -ml-1 rounded-lg hover:bg-cream-100 dark:hover:bg-gray-700 transition-colors"
-                type="button"
-                aria-label="Back to conversations"
-              >
-                <HiOutlineArrowLeft className="w-5 h-5 text-[#1C1C1C] dark:text-gray-200" />
-              </button>
-              <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">
-                {selectedConversation?.user?.full_name || selectedConversation?.user?.email || selectedUserId.slice(0, 8)}
-              </p>
-            </div>
+            <header className="lg:hidden relative bg-gradient-to-r from-emerald-600 to-emerald-700 text-white flex items-center gap-3 px-4 py-3 flex-shrink-0 overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.12),transparent_60%)]" />
+                <button
+                  onClick={() => setSelectedUserId(null)}
+                  className="relative p-1 rounded-xl transition-colors text-white/80 hover:text-white"
+                  type="button"
+                  aria-label="Back to conversations"
+                >
+                  <HiOutlineArrowLeft className="w-5 h-5" />
+                </button>
+                <div className="relative flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-gold-500/30">
+                    <span className="text-[10px] font-bold text-white font-display tracking-tight">
+                      {(selectedConversation?.user?.full_name?.[0] || selectedConversation?.user?.email?.[0] || 'U').toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <h1 className="font-display font-semibold text-sm leading-tight tracking-wide">
+                      {selectedConversation?.user?.full_name || selectedConversation?.user?.email || selectedUserId.slice(0, 8)}
+                    </h1>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                      <p className="text-[10px] text-emerald-200 leading-tight font-body">Online</p>
+                    </div>
+                  </div>
+                </div>
+              </header>
+              <div className="hidden lg:flex px-4 py-3 border-b border-cream-200 dark:border-gray-700 items-center gap-3 flex-shrink-0">
+                <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">
+                  {selectedConversation?.user?.full_name || selectedConversation?.user?.email || selectedUserId.slice(0, 8)}
+                </p>
+              </div>
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               {selectedMessages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-start' : 'justify-end'} animate-fade-in`}>

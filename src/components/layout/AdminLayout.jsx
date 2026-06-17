@@ -139,24 +139,26 @@ export default function AdminLayout() {
         </aside>
 
         <div className="flex-1 min-w-0 lg:ml-64">
-          <div className="sticky top-0 z-30 bg-cream-50 dark:bg-gray-900 border-b border-cream-200 dark:border-gray-700 lg:hidden">
-            <div className="flex items-center justify-between h-14 px-4">
-              <div className="flex items-center gap-2">
-                <button onClick={() => setSidebarOpen(true)} className="p-1 -ml-1" aria-label="Open admin menu">
-                  <HiOutlineMenu className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                </button>
-                <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center border border-gold-500/30">
-                  <span className="text-[10px] font-bold text-gold-500 font-display tracking-wide">KBF</span>
+          {location.pathname !== '/admin/chat' && (
+            <div className="sticky top-0 z-30 bg-cream-50 dark:bg-gray-900 border-b border-cream-200 dark:border-gray-700 lg:hidden">
+              <div className="flex items-center justify-between h-14 px-4">
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setSidebarOpen(true)} className="p-1 -ml-1" aria-label="Open admin menu">
+                    <HiOutlineMenu className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </button>
+                  <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center border border-gold-500/30">
+                    <span className="text-[10px] font-bold text-gold-500 font-display tracking-wide">KBF</span>
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-200">Admin Panel</span>
                 </div>
-                <span className="text-[11px] font-bold uppercase tracking-widest font-body text-[#1C1C1C] dark:text-gray-200">Admin Panel</span>
               </div>
             </div>
-          </div>
+          )}
           <div className="flex items-center justify-between px-4 lg:px-8 pt-4 pb-0">
             <h1 className="text-xl lg:text-2xl font-display font-semibold text-emerald-600 hidden lg:block">Admin Panel</h1>
             <div />
           </div>
-          <div className="p-4 lg:p-8">
+          <div className={location.pathname === '/admin/chat' ? 'lg:p-8 h-full' : 'p-4 lg:p-8'}>
             <Outlet />
           </div>
         </div>

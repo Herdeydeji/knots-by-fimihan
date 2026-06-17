@@ -1,37 +1,33 @@
-import Groq from 'groq-sdk'
-import { createClient } from '@supabase/supabase-js'
+const NVIDIA_API_KEY = process.env.NVIDIA_API_KEY
+const MODEL = 'nvidia/nemotron-3-super-120b-a12b'
+const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions'
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
-const MODEL = 'llama-3.3-70b-versatile'
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://kaqxifjcrxistggfniks.supabase.co'
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://kaqxifjcrxistggfniks.supabase.co'
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+async function supabaseQuery(url, key, table, select) {
+  const res = await fetch(`${url}/rest/v1/${table}?select=${encodeURIComponent(select)}`, {
+    headers: {
+      'apikey': key,
+      'Authorization': `Bearer ${key}`,
+    },
+  })
+  if (!res.ok) throw new Error(`Supabase ${table} query failed: ${res.status}`)
+  return res.json()
+}
 
-let cachedContext = null
+function buildSystemPrompt(products, categories) {
+  const productList = products?.length
+    ? products.map(p =>
+        `- ${p.name} (${p.category || 'Uncategorized'}) — ₦${Number(p.price).toLocaleString()}${p.description ? `: ${p.description}` : ''}`
+      ).join('\n')
+    : '(product data temporarily unavailable)'
 
-async function getContext() {
-  if (cachedContext) return cachedContext
+  const categoryList = categories?.length
+    ? categories.map(c => `- ${c.name} (${c.slug}): ${c.description}`).join('\n')
+    : ''
 
-  try {
-    const [productsRes, categoriesRes] = await Promise.all([
-      supabase.from('products').select('name, price, description, category'),
-      supabase.from('categories').select('name, slug, description'),
-    ])
-    const products = productsRes.data || []
-    const categories = categoriesRes.data || []
-
-    const productList = products.length
-      ? products.map(p =>
-          `- ${p.name} (${p.category || 'Uncategorized'}) — ₦${Number(p.price).toLocaleString()}${p.description ? `: ${p.description}` : ''}`
-        ).join('\n')
-      : '(product data temporarily unavailable)'
-
-    const categoryList = categories.length
-      ? categories.map(c => `- ${c.name} (${c.slug}): ${c.description}`).join('\n')
-      : ''
-
-    cachedContext = `You are Agent KBF, the official AI assistant for Knots by Fimihan — a Nigerian modest fashion brand that sells Islamic wear.
+  return `You are Agent KBF, the official AI assistant for Knots by Fimihan — a Nigerian modest fashion brand that sells Islamic wear.
 
 ## YOUR ROLE
 You help customers with questions about the store, products, orders, shipping, and everything related to Knots by Fimihan. Be warm, helpful, and professional. Use "Salam Alaikum" as a greeting when appropriate.
@@ -45,6 +41,7 @@ You help customers with questions about the store, products, orders, shipping, a
 - Location: Lagos, Nigeria
 - Shipping: ₦2,000 within Lagos, ₦2,500 in South-West states, ₦3,500 elsewhere. Free shipping on orders above ₦25,000.
 - Payments: Paystack (cards, bank transfers, USSD)
+- Live Chat: Available on the website via the chat widget
 
 ## CATEGORIES
 ${categoryList || '- Abayas, Hijabs, Kaftans, Sets, Accessories'}
@@ -54,16 +51,11 @@ ${productList}
 
 ## STRICT RULES
 1. ONLY answer questions about Knots by Fimihan — its products, orders, shipping, policies, or anything directly related to the store.
-2. If a question is outside this scope (e.g., general advice, world events, non-fashion topics, coding, etc.), you MUST NOT answer it. Instead respond like this:
-   "I'm sorry, I can only assist with questions about Knots by Fimihan and our products. For further assistance, please reach out to our Support Team via WhatsApp at +2348057370277 or email knotbyfimihan121@gmail.com."
+2. If a question is outside this scope (e.g., general advice, world events, non-fashion topics, coding, personal style advice for other brands, etc.), you MUST NOT answer it. Instead respond like this:
+   "I'm sorry, I can only assist with questions about Knots by Fimihan and our products. For further assistance, please contact us on WhatsApp at +2348057370277 or reach out to our Support Team via the live chat on our website."
 3. Do NOT make up product information. If you're unsure about a product's availability or details, direct the user to contact support.
-4. Keep responses concise and helpful.`
-
-    return cachedContext
-  } catch (err) {
-    console.warn('Could not load store context:', err.message)
-    return `You are Agent KBF, the official AI assistant for Knots by Fimihan. Follow the strict rules: only answer questions about the store and products. If asked anything else, direct the user to contact Support Team via WhatsApp at +2348057370277 or email knotbyfimihan121@gmail.com.`
-  }
+4. Keep responses concise and helpful.
+5. Format ALL responses as clean HTML (not Markdown). Use &lt;p&gt;, &lt;strong&gt;, &lt;br&gt;, &lt;ul&gt;/&lt;li&gt;, &lt;a&gt; tags where appropriate. Do NOT wrap the entire response in a single &lt;p&gt; — use proper HTML structure. Do NOT use markdown syntax like **, *, -, # etc.`
 }
 
 export default async function handler(req, res) {
@@ -77,22 +69,50 @@ export default async function handler(req, res) {
   }
 
   try {
-    const systemPrompt = await getContext()
+    let products = [], categories = []
 
-    const completion = await groq.chat.completions.create({
-      model: MODEL,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        ...messages,
-      ],
-      temperature: 0.7,
-      max_tokens: 512,
+    try {
+      products = await supabaseQuery(SUPABASE_URL, SUPABASE_KEY, 'products', 'name,price,description,category')
+    } catch (e) {
+      console.warn('Could not load products:', e.message)
+    }
+
+    try {
+      categories = await supabaseQuery(SUPABASE_URL, SUPABASE_KEY, 'categories', 'name,slug,description')
+    } catch (e) {
+      console.warn('Could not load categories:', e.message)
+    }
+
+    const systemPrompt = buildSystemPrompt(products, categories)
+
+    const response = await fetch(NVIDIA_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${NVIDIA_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...messages,
+        ],
+        temperature: 0.7,
+        max_tokens: 512,
+      }),
     })
 
-    const reply = completion.choices[0]?.message?.content || ''
+    if (!response.ok) {
+      const errText = await response.text()
+      console.error('NVIDIA API error:', response.status, errText)
+      return res.status(502).json({ error: 'AI service returned an error' })
+    }
+
+    const data = await response.json()
+    const reply = data.choices?.[0]?.message?.content || ''
     res.status(200).json({ reply })
   } catch (err) {
-    console.error('Groq API error:', err)
+    console.error('Chat API error:', err)
     res.status(500).json({ error: 'Failed to get response from AI' })
   }
 }
