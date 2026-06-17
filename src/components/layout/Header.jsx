@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { HiOutlineShoppingCart, HiOutlineMenu, HiOutlineX, HiOutlineUser, HiOutlineLogout, HiOutlineClipboardList, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
@@ -17,6 +17,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const itemCount = useCart((s) => s.itemCount)
   const location = useLocation()
+  const navigate = useNavigate()
   const { user, logout, isAdmin } = useAuth()
   const { dark, toggle } = useTheme()
 
@@ -68,34 +69,18 @@ export default function Header() {
                 </svg>
               </Link>
 
+              <button onClick={toggle} className="p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400" aria-label="Toggle theme" type="button">
+                {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
+              </button>
+
               {user ? (
-                <div className="relative group">
-                  <button className="p-1.5 group/avatar" aria-label="Account" type="button">
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 border border-gold-500/40 shadow-md shadow-emerald-900/20 flex items-center justify-center transition-transform duration-200 group-hover/avatar:scale-110 group-hover/avatar:shadow-lg group-hover/avatar:shadow-emerald-900/30">
-                      <span className="text-xs font-bold text-gold-300 font-display tracking-wide">
-                        {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
-                      </span>
-                    </div>
-                  </button>
-                  <div className="absolute right-0 top-full mt-1 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-cream-200 dark:border-gray-700 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <p className="px-4 py-2 text-sm text-[#6B6B6B] dark:text-gray-400 border-b border-cream-100 dark:border-gray-700 truncate">{user.email}</p>
-                    <Link to="/orders" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
-                      <HiOutlineClipboardList className="w-4 h-4" /> My Orders
-                    </Link>
-                    {isAdmin && (
-                      <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
-                        <HiOutlineUser className="w-4 h-4" /> Dashboard
-                      </Link>
-                    )}
-                    <button onClick={toggle} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700" type="button">
-                      {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
-                      {dark ? 'Light Mode' : 'Dark Mode'}
-                    </button>
-                    <button onClick={logout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" type="button">
-                      <HiOutlineLogout className="w-4 h-4" /> Sign Out
-                    </button>
+                <Link to="/profile" className="p-1.5 group/avatar" aria-label="Profile">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 border border-gold-500/40 shadow-md shadow-emerald-900/20 flex items-center justify-center transition-transform duration-200 group-hover/avatar:scale-110 group-hover/avatar:shadow-lg group-hover/avatar:shadow-emerald-900/30">
+                    <span className="text-xs font-bold text-gold-300 font-display tracking-wide">
+                      {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
+                    </span>
                   </div>
-                </div>
+                </Link>
               ) : (
                 <Link to="/login" className="p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400" aria-label="Sign in">
                   <HiOutlineUser className="w-5 h-5" />
@@ -148,21 +133,19 @@ export default function Header() {
               <hr className="my-3 border-cream-200 dark:border-gray-700" />
               {user ? (
                 <>
-                  <p className="px-4 py-2 text-sm text-[#6B6B6B] dark:text-gray-400">{user.email}</p>
+                  <Link to="/profile" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
+                    <HiOutlineUser className="w-4 h-4" /> My Profile
+                  </Link>
                   <Link to="/orders" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
                     <HiOutlineClipboardList className="w-4 h-4" /> My Orders
                   </Link>
                   {isAdmin && (
-                    <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
-                      Dashboard
+                    <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
+                      <HiOutlineUser className="w-4 h-4" /> Dashboard
                     </Link>
                   )}
-                  <button onClick={toggle} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800 w-full text-left" type="button">
-                    {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
-                    {dark ? 'Light Mode' : 'Dark Mode'}
-                  </button>
-                  <button onClick={() => { logout(); setMobileOpen(false) }} className="w-full text-left px-4 py-3 rounded-xl font-body font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" type="button">
-                    Sign Out
+                  <button onClick={() => { logout(); setMobileOpen(false) }} className="w-full text-left flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" type="button">
+                    <HiOutlineLogout className="w-4 h-4" /> Sign Out
                   </button>
                 </>
               ) : (

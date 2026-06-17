@@ -23,6 +23,7 @@ import Contact from './pages/Contact'
 import Search from './pages/Search'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Profile from './pages/Profile'
 import StyleAssistant from './pages/StyleAssistant'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/AdminProducts'
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/style-assistant" element={<StyleAssistant />} />
           <Route path="/admin" element={<AdminLayout />}>
