@@ -56,12 +56,6 @@ export default function AdminLayout() {
     }
   })
 
-  useRealtimeSubscription('chat_messages', 'INSERT', null, () => {
-    if (!checking) {
-      getUnreadConversationCount().then(setUnreadChats)
-    }
-  })
-
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate('/login')
