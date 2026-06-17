@@ -56,7 +56,10 @@ export default function ProductDetail() {
   }
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
 
+  const outOfStock = product.stock <= 0
+
   const handleAddToCart = () => {
+    if (outOfStock) return
     if (!user) {
       openAuthModal(`/product/${product.slug}`)
       return
@@ -134,6 +137,11 @@ export default function ProductDetail() {
                   <span className="text-lg text-[#6B6B6B] dark:text-gray-400 line-through">{formatPrice(product.compare_at_price)}</span>
                 )}
               </div>
+              {outOfStock ? (
+                <span className="inline-flex items-center text-xs font-medium text-red-500 bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-full">Out of Stock</span>
+              ) : product.stock <= 5 ? (
+                <span className="inline-flex items-center text-xs font-medium text-amber-600 bg-amber-50 dark:bg-amber-900/30 px-3 py-1 rounded-full">Only {product.stock} left</span>
+              ) : null}
             </div>
 
             <p className="text-[#6B6B6B] dark:text-gray-400 leading-relaxed font-body">{product.description}</p>
@@ -193,6 +201,7 @@ export default function ProductDetail() {
                 <button
                   onClick={() => setQuantity(quantity + 1)}
                   className="w-10 h-10 rounded-xl border border-cream-200 dark:border-gray-600 flex items-center justify-center hover:bg-cream-100 dark:hover:bg-gray-700 transition-colors"
+                  disabled={quantity >= product.stock}
                 >
                   <HiOutlinePlus className="w-4 h-4" />
                 </button>
@@ -201,13 +210,18 @@ export default function ProductDetail() {
 
             <button
               onClick={handleAddToCart}
+              disabled={outOfStock}
               className={`w-full py-3.5 rounded-xl font-body font-medium flex items-center justify-center gap-2 transition-all ${
-                added
-                  ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40'
-                  : 'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 dark:hover:bg-emerald-900'
+                outOfStock
+                  ? 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 cursor-not-allowed'
+                  : added
+                    ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40'
+                    : 'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 dark:hover:bg-emerald-900'
               }`}
             >
-              {added ? (
+              {outOfStock ? (
+                <><HiOutlineShoppingBag className="w-5 h-5" /> Out of Stock</>
+              ) : added ? (
                 <><HiOutlineCheck className="w-5 h-5" /> Added to Cart</>
               ) : (
                 <><HiOutlineShoppingBag className="w-5 h-5" /> Add to Cart</>

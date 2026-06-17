@@ -27,6 +27,7 @@ export default function ProductCard({ product }) {
   if (!product || !product.is_active) return null
 
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
+  const outOfStock = product.stock <= 0
 
   return (
     <Link
@@ -53,6 +54,11 @@ export default function ProductCard({ product }) {
         {hasDiscount && (
           <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-gold-500 text-white text-[10px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-lg">
             {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
+          </div>
+        )}
+        {outOfStock && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-20">
+            <span className="bg-white dark:bg-gray-800 text-[#1C1C1C] dark:text-gray-200 text-xs font-bold px-3 py-1.5 rounded-lg">Out of Stock</span>
           </div>
         )}
       </div>

@@ -198,6 +198,36 @@ Deno.serve(async (req: Request) => {
       return jsonResponse({ success: true, order_number: existing[0].order_number, already_exists: true })
     }
 
+    // Validate stock for all items before proceeding
+    for (const item of body.items) {
+      const prodRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/products?id=eq.${item.product_id}&select=stock,name`,
+        {
+          headers: {
+            "apikey": SUPABASE_SERVICE_KEY,
+            "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+          },
+        }
+      )
+      if (!prodRes.ok) {
+        return jsonResponse({ error: `Failed to check stock for ${item.name}` }, 500)
+      }
+      const products = await prodRes.json()
+      const product = products?.[0]
+      if (!product) {
+        return jsonResponse({ error: `Product not found: ${item.name}` }, 400)
+      }
+      if (product.stock < item.qty) {
+        return jsonResponse({
+          error: `Insufficient stock for ${product.name}. Available: ${product.stock}, requested: ${item.qty}`,
+          insufficient_stock: true,
+          product: product.name,
+          available: product.stock,
+          requested: item.qty,
+        }, 409)
+      }
+    }
+
     const orderNumber = generateOrderNumber()
 
     const orderId = await insertOrder({
@@ -282,6 +312,44 @@ Deno.serve(async (req: Request) => {
       `${body.customer_name} placed order ${orderNumber} — ${formatPrice(body.total)}`,
       "/admin/orders"
     )
+
+    // Decrement stock and check low-stock alerts for each item
+    for (const item of body.items) {
+      const decRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/rpc/decrement_stock`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_SERVICE_KEY,
+            "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+          },
+          body: JSON.stringify({ p_id: item.product_id, p_qty: item.qty }),
+        }
+      )
+      if (decRes.ok) {
+        const newStock = await decRes.json()
+        if (newStock !== null && newStock !== undefined) {
+          if (newStock <= 0) {
+            await createNotification(
+              "product_like",
+              "Stock Depleted",
+              `${item.name} is now out of stock. Restock to keep it available.`,
+              "/admin/products"
+            )
+          } else if (newStock <= 5) {
+            await createNotification(
+              "product_like",
+              "Low Stock Alert",
+              `${item.name} has only ${newStock} left. Consider restocking soon.`,
+              "/admin/products"
+            )
+          }
+        }
+      } else {
+        console.error(`Failed to decrement stock for product ${item.product_id}:`, await decRes.text())
+      }
+    }
 
     return jsonResponse({ success: true, order_number: orderNumber })
   } catch (err) {
