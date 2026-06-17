@@ -9,13 +9,17 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const [authModal, setAuthModal] = useState({ open: false, returnPath: null })
   const [wishlist, setWishlist] = useState([])
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       const u = session?.user ?? null
       setUser(u)
       if (u) {
-        getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
+        await Promise.all([
+          getWishlist(u.id).then(setWishlist).catch(() => setWishlist([])),
+          checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false)),
+        ])
       }
       setLoading(false)
     })
@@ -25,8 +29,10 @@ export function AuthProvider({ children }) {
       setUser(u)
       if (u) {
         getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
+        checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false))
       } else {
         setWishlist([])
+        setIsAdmin(false)
       }
     })
 
@@ -44,6 +50,15 @@ export function AuthProvider({ children }) {
     if (error) throw error
     return data.user
   }, [])
+
+  const checkAdmin = async (userId) => {
+    const { data } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', userId)
+      .single()
+    return data?.is_admin ?? false
+  }
 
   const logout = useCallback(async () => {
     await supabase.auth.signOut()
@@ -69,7 +84,7 @@ export function AuthProvider({ children }) {
   if (loading) return null
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, authModal, openAuthModal, closeAuthModal, wishlist, toggleLike: handleToggleLike }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, authModal, openAuthModal, closeAuthModal, wishlist, toggleLike: handleToggleLike, isAdmin }}>
       {children}
     </AuthContext.Provider>
   )

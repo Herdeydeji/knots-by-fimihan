@@ -17,7 +17,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const itemCount = useCart((s) => s.itemCount)
   const location = useLocation()
-  const { user, logout } = useAuth()
+  const { user, logout, isAdmin } = useAuth()
   const { dark, toggle } = useTheme()
 
   useEffect(() => {
@@ -82,9 +82,11 @@ export default function Header() {
                     <Link to="/orders" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
                       <HiOutlineClipboardList className="w-4 h-4" /> My Orders
                     </Link>
-                    <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
-                      <HiOutlineUser className="w-4 h-4" /> Dashboard
-                    </Link>
+                    {isAdmin && (
+                      <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700">
+                        <HiOutlineUser className="w-4 h-4" /> Dashboard
+                      </Link>
+                    )}
                     <button onClick={toggle} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#1C1C1C] dark:text-gray-200 hover:bg-cream-50 dark:hover:bg-gray-700" type="button">
                       {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
                       {dark ? 'Light Mode' : 'Dark Mode'}
@@ -150,9 +152,11 @@ export default function Header() {
                   <Link to="/orders" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
                     <HiOutlineClipboardList className="w-4 h-4" /> My Orders
                   </Link>
-                  <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
-                    Dashboard
-                  </Link>
+                  {isAdmin && (
+                    <Link to="/admin/dashboard" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800">
+                      Dashboard
+                    </Link>
+                  )}
                   <button onClick={toggle} className="flex items-center gap-2 px-4 py-3 rounded-xl font-body font-medium text-[#1C1C1C] dark:text-gray-300 hover:bg-cream-200 dark:hover:bg-gray-800 w-full text-left" type="button">
                     {dark ? <HiOutlineSun className="w-4 h-4" /> : <HiOutlineMoon className="w-4 h-4" />}
                     {dark ? 'Light Mode' : 'Dark Mode'}

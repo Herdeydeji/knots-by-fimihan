@@ -17,8 +17,6 @@ const adminLinks = [
   { label: 'Complaints', path: '/admin/complaints', icon: HiOutlineInbox },
 ]
 
-const ADMIN_EMAIL = 'adedejiadebeso@gmail.com'
-
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [checking, setChecking] = useState(true)
@@ -27,8 +25,17 @@ export default function AdminLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session || session.user.email !== ADMIN_EMAIL) {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session) {
+        navigate('/login?from=/admin/dashboard')
+        return
+      }
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', session.user.id)
+        .single()
+      if (!profile?.is_admin) {
         navigate('/login?from=/admin/dashboard')
       } else {
         setChecking(false)

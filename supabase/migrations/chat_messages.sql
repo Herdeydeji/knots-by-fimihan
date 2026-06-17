@@ -24,7 +24,7 @@ DROP POLICY IF EXISTS "Admins can insert replies" ON chat_messages;
 CREATE POLICY "Admins can insert replies"
   ON chat_messages FOR INSERT
   WITH CHECK (
-    sender = 'admin' AND auth.jwt() ->> 'email' = 'adedejiadebeso@gmail.com'
+    sender = 'admin' AND public.is_admin()
   );
 
 DROP POLICY IF EXISTS "Users can read their own conversations" ON chat_messages;
@@ -38,7 +38,7 @@ DROP POLICY IF EXISTS "Admins can read all conversations" ON chat_messages;
 CREATE POLICY "Admins can read all conversations"
   ON chat_messages FOR SELECT
   USING (
-    auth.jwt() ->> 'email' = 'adedejiadebeso@gmail.com'
+    public.is_admin()
   );
 
 -- Enable Realtime
