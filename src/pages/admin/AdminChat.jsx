@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { HiOutlineChatAlt2, HiOutlinePaperAirplane, HiOutlineUser, HiOutlineCheck } from 'react-icons/hi'
+import { HiOutlineChatAlt2, HiOutlinePaperAirplane, HiOutlineUser, HiOutlineCheck, HiOutlineArrowLeft } from 'react-icons/hi'
 import { getAllConversations, sendAdminReply, getConversation, markConversationRead } from '../../lib/chat'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
@@ -32,6 +32,26 @@ export default function AdminChat() {
     }
   })
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getAllConversations().then(c => {
+        setConversations(prev => {
+          if (prev.length !== c.length) return c
+          return prev
+        })
+      })
+      if (selectedUserId) {
+        getConversation(selectedUserId).then(msgs => {
+          setSelectedMessages(prev => {
+            if (prev.length !== msgs.length) return msgs
+            return prev
+          })
+        })
+      }
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [selectedUserId])
+
   const handleSend = async () => {
     if (!input.trim() || !selectedUserId) return
     await sendAdminReply(selectedUserId, input.trim())
@@ -39,10 +59,12 @@ export default function AdminChat() {
   }
 
   const selectedConversation = conversations.find(c => c.user_id === selectedUserId)
+  const showConversations = !selectedUserId
+  const showChat = !!selectedUserId
 
   return (
     <div className="flex h-[calc(100vh-10rem)] bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-cream-200 dark:border-gray-700 overflow-hidden">
-      <div className="w-72 flex-shrink-0 border-r border-cream-200 dark:border-gray-700 overflow-y-auto">
+      <div className={`${showConversations ? 'flex' : 'hidden'} lg:flex w-full lg:w-72 flex-shrink-0 border-r border-cream-200 dark:border-gray-700 overflow-y-auto flex-col`}>
         <div className="p-4 border-b border-cream-200 dark:border-gray-700">
           <h2 className="font-display font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">Conversations</h2>
         </div>
@@ -90,7 +112,7 @@ export default function AdminChat() {
         )}
       </div>
 
-      <div className="flex-1 flex flex-col">
+      <div className={`${showChat ? 'flex' : 'hidden'} lg:flex flex-1 flex-col`}>
         {!selectedUserId ? (
           <div className="flex-1 flex items-center justify-center text-center px-6">
             <div>
@@ -105,7 +127,15 @@ export default function AdminChat() {
           </div>
         ) : (
           <>
-            <div className="px-4 py-3 border-b border-cream-200 dark:border-gray-700">
+            <div className="px-4 py-3 border-b border-cream-200 dark:border-gray-700 flex items-center gap-3">
+              <button
+                onClick={() => setSelectedUserId(null)}
+                className="lg:hidden p-1 -ml-1 rounded-lg hover:bg-cream-100 dark:hover:bg-gray-700 transition-colors"
+                type="button"
+                aria-label="Back to conversations"
+              >
+                <HiOutlineArrowLeft className="w-5 h-5 text-[#1C1C1C] dark:text-gray-200" />
+              </button>
               <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">
                 {selectedConversation?.user?.full_name || selectedConversation?.user?.email || selectedUserId.slice(0, 8)}
               </p>
@@ -119,7 +149,7 @@ export default function AdminChat() {
                     </div>
                   )}
                   <div
-                    className={`max-w-[75%] px-4 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[85%] sm:max-w-[75%] px-4 py-2.5 text-sm leading-relaxed ${
                       msg.sender === 'user'
                         ? 'bg-cream-100 dark:bg-gray-700 text-[#1C1C1C] dark:text-gray-200 rounded-2xl rounded-bl-md shadow-sm border border-cream-200 dark:border-gray-600'
                         : 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-2xl rounded-br-md shadow-md'

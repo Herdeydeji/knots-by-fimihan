@@ -22,7 +22,11 @@ export function useRealtimeSubscription(table, event, filter, callback) {
       onChange
     )
 
-    channel.subscribe()
+    channel.subscribe((status) => {
+      if (status === 'CHANNEL_ERROR') {
+        console.warn(`Realtime channel error: ${channelName}`)
+      }
+    })
 
     return () => {
       supabase.removeChannel(channel)

@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 
-const BASE = 'https://knotbyfimihan.netlify.app';
+const BASE = 'https://knotbyfimihan-herdeydeji.vercel.app';
 
 async function run() {
   const browser = await chromium.launch({
@@ -18,9 +18,11 @@ async function run() {
   let text = await page.textContent('body');
   console.log('   Body contains Sign In:', text.includes('Sign In'));
 
-  // Step 2: Fill login form
-  await page.fill('input[type="email"]', 'adedejiadebeso@gmail.com');
-  await page.fill('input[type="password"]', 'Admin123!');
+  // Step 2: Fill login form (prompt for credentials in CI)
+  const testEmail = process.env.TEST_EMAIL || 'adedejiadebeso@gmail.com';
+  const testPassword = process.env.TEST_PASSWORD || '';
+  await page.fill('input[type="email"]', testEmail);
+  await page.fill('input[type="password"]', testPassword);
   await page.click('button[type="submit"]');
   await page.waitForTimeout(5000);
   console.log('2. After login, URL:', page.url());
