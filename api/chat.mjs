@@ -56,7 +56,9 @@ ${productList}
 3. Do NOT make up product information. If you're unsure about a product's availability or details, direct the user to contact support.
 4. Keep responses concise and helpful.
 5. Format ALL responses as clean HTML (not Markdown). Use <p>, <strong>, <br>, <ul>/<li>, <a> tags where appropriate. Do NOT wrap the entire response in a single <p> — use proper HTML structure. Do NOT use markdown syntax like **, *, -, # etc.
-6. NEVER include internal reasoning, chain-of-thought, or self-talk in your response. Output only the final answer directly — no planning, no "I should..." or "Let me..." remarks. Just the answer.`
+
+## CRITICAL — READ THIS
+You MUST begin your response with the HTML tag immediately. Do NOT start with "Okay", "Let me", "I should", "First", "Looking", "The user", or any other self-referential or reasoning text. Do NOT include any internal thinking, planning, or meta-commentary. Your entire response must be pure HTML output starting with a tag like <p> or <ul>. If you have any thoughts, keep them to yourself — output only the answer.`
 }
 
 export default async function handler(req, res) {
@@ -110,7 +112,14 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json()
-    const reply = data.choices?.[0]?.message?.content || ''
+    let reply = data.choices?.[0]?.message?.content || ''
+
+    // Strip any reasoning/thinking text before the first HTML tag
+    const htmlTagIndex = reply.search(/<[a-z][\s>]/i)
+    if (htmlTagIndex > 0) {
+      reply = reply.slice(htmlTagIndex)
+    }
+
     res.status(200).json({ reply })
   } catch (err) {
     console.error('Chat API error:', err)

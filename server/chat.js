@@ -44,7 +44,13 @@ export async function handleChat(req, res) {
     }
 
     const data = await response.json()
-    const reply = data.choices?.[0]?.message?.content || ''
+    let reply = data.choices?.[0]?.message?.content || ''
+
+    const htmlTagIndex = reply.search(/<[a-z][\s>]/i)
+    if (htmlTagIndex > 0) {
+      reply = reply.slice(htmlTagIndex)
+    }
+
     res.json({ reply })
   } catch (err) {
     console.error('NVIDIA API error:', err)
