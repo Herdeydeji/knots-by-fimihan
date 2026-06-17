@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import { fileURLToPath } from 'url';
 
-const BASE = 'http://localhost:5174';
+const BASE = 'https://knotbyfimihan.netlify.app';
 
 const tests = [
   { route: '/', name: 'Homepage', check: (t) => t.includes('Dress Modestly') || t.includes('Knots') },
@@ -12,10 +12,11 @@ const tests = [
   { route: '/about', name: 'About', check: (t) => t.includes('Story') || t.includes('Fimihan') },
   { route: '/contact', name: 'Contact', check: (t) => t.includes('Touch') || t.includes('Contact') },
   { route: '/search', name: 'Search', check: (t) => t.includes('Search') },
-  { route: '/admin/dashboard', name: 'Admin Dashboard', check: (t) => t.includes('Dashboard') },
-  { route: '/admin/products', name: 'Admin Products', check: (t) => t.includes('Product') },
-  { route: '/admin/orders', name: 'Admin Orders', check: (t) => t.includes('Order') },
-  { route: '/admin/products/new', name: 'Admin Add Product', check: (t) => t.includes('Product') || t.includes('Add') },
+  { route: '/admin/dashboard', name: 'Admin Dashboard (redirect to login)', check: (t) => t.includes('Sign In') || t.includes('email') },
+  { route: '/admin/products', name: 'Admin Products (redirect to login)', check: (t) => t.includes('Sign In') || t.includes('email') },
+  { route: '/admin/orders', name: 'Admin Orders (redirect to login)', check: (t) => t.includes('Sign In') || t.includes('email') },
+  { route: '/admin/products/new', name: 'Admin Add Product (redirect to login)', check: (t) => t.includes('Sign In') || t.includes('email') },
+  { route: '/admin/chat', name: 'Admin Chat (redirect to login)', check: (t) => t.includes('Sign In') || t.includes('email') },
   { route: '/checkout', name: 'Checkout (empty cart)', check: (t) => t.includes('/cart') },
   { route: '/order-success', name: 'Order Success (no state)', check: (t) => t.includes('/') },
 ];
