@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <rect x="2" y="2" width="56" height="56" rx="14" fill="#1A5C3A"/>
+  <rect x="2" y="2" width="56" height="56" rx="14" stroke="#C9963A" stroke-width="2"/>
+  <text x="30" y="42" font-family="Georgia, 'Playfair Display', serif" font-size="26" font-weight="700" fill="#C9963A" text-anchor="middle" letter-spacing="1">KBF</text>
+  <text x="74" y="30" font-family="Georgia, 'Playfair Display', serif" font-size="20" font-weight="700" fill="#1A5C3A">Knots by</text>
+  <text x="74" y="48" font-family="Georgia, 'Playfair Display', serif" font-size="20" font-weight="700" fill="#1A5C3A">Fimihan</text>
+</svg>
