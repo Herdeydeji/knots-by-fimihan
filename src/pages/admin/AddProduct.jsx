@@ -15,6 +15,7 @@ export default function AddProduct() {
     stock: '',
     material: '',
     occasion: '',
+    hasSizes: true,
     sizes: [],
     hasColors: true,
     colors: [],
@@ -78,7 +79,7 @@ export default function AddProduct() {
       stock: Number(form.stock),
       material: form.material || null,
       occasion: form.occasion || null,
-      sizes: form.sizes,
+      sizes: form.hasSizes ? form.sizes : [],
       colors: form.hasColors ? form.colors : [],
       images: imageUrls,
       is_active: true,
@@ -152,25 +153,38 @@ export default function AddProduct() {
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Sizes</label>
-            <div className="flex flex-wrap gap-2">
-              {['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size) => (
-                <button
-                  key={size}
-                  type="button"
-                  onClick={() => handleSizeToggle(size)}
-                  className={`px-4 py-2 rounded-xl border text-sm font-body transition-all ${
-                    form.sizes.includes(size)
-                      ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600'
-                      : 'border-cream-300 dark:border-gray-600 text-[#6B6B6B] dark:text-gray-300 hover:border-emerald-600'
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
+          <div className="border-t border-cream-200 dark:border-gray-700 pt-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <div className="relative">
+                <input type="checkbox" checked={form.hasSizes} onChange={(e) => setForm({ ...form, hasSizes: e.target.checked, sizes: e.target.checked ? form.sizes : [] })} className="sr-only peer" />
+                <div className="w-10 h-5 bg-cream-300 dark:bg-gray-600 rounded-full peer-checked:bg-emerald-600 transition-colors"></div>
+                <div className="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-5 transition-transform"></div>
+              </div>
+              <span className="text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200">Enable sizes for this product</span>
+            </label>
           </div>
+
+          {form.hasSizes && (
+            <div>
+              <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Sizes</label>
+              <div className="flex flex-wrap gap-2">
+                {['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => handleSizeToggle(size)}
+                    className={`px-4 py-2 rounded-xl border text-sm font-body transition-all ${
+                      form.sizes.includes(size)
+                        ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600'
+                        : 'border-cream-300 dark:border-gray-600 text-[#6B6B6B] dark:text-gray-300 hover:border-emerald-600'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="border-t border-cream-200 dark:border-gray-700 pt-4">
             <label className="flex items-center gap-3 cursor-pointer">

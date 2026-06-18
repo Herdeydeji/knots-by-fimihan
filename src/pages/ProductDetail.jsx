@@ -75,7 +75,8 @@ export default function ProductDetail() {
       openAuthModal(`/product/${product.slug}`)
       return
     }
-    if (!selectedSize) {
+    const hasSizes = (product.sizes?.length || 0) > 0
+    if (hasSizes && !selectedSize) {
       setNoSizeWarn(true)
       setTimeout(() => setNoSizeWarn(false), 3000)
       return
@@ -170,25 +171,31 @@ export default function ProductDetail() {
               <span className="font-medium">Material:</span> {product.material}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-[#1C1C1C] dark:text-gray-200 mb-2">Size</label>
-              <div className="flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => { setSelectedSize(size); setNoSizeWarn(false) }}
-                    className={`px-4 py-2 rounded-xl text-sm font-body font-medium border transition-all ${
-                      selectedSize === size
-                        ? 'bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-900'
-                        : 'bg-white dark:bg-gray-700 text-[#6B6B6B] dark:text-gray-300 border-cream-200 dark:border-gray-600 hover:border-emerald-600 hover:text-emerald-600'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {(product.sizes?.length || 0) > 0 ? (
+              <div>
+                <label className="block text-sm font-medium text-[#1C1C1C] dark:text-gray-200 mb-2">Size</label>
+                <div className="flex flex-wrap gap-2">
+                  {product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => { setSelectedSize(size); setNoSizeWarn(false) }}
+                      className={`px-4 py-2 rounded-xl text-sm font-body font-medium border transition-all ${
+                        selectedSize === size
+                          ? 'bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-900'
+                          : 'bg-white dark:bg-gray-700 text-[#6B6B6B] dark:text-gray-300 border-cream-200 dark:border-gray-600 hover:border-emerald-600 hover:text-emerald-600'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+                {!selectedSize && <p className="text-xs text-red-400 mt-1 dark:text-red-300">Please select a size</p>}
               </div>
-              {!selectedSize && <p className="text-xs text-red-400 mt-1 dark:text-red-300">Please select a size</p>}
-            </div>
+            ) : (
+              <div className="flex items-center gap-2 text-sm text-[#6B6B6B] dark:text-gray-400">
+                <span className="font-medium text-[#1C1C1C] dark:text-gray-200">Size:</span> One Size
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-[#1C1C1C] dark:text-gray-200 mb-2">Color</label>
