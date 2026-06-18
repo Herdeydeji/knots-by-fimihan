@@ -210,11 +210,11 @@ export default function Checkout() {
   if (processingRedirect) {
     return (
       <div className="max-w-lg mx-auto px-4 lg:px-8 py-20 text-center">
-        <div className="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center mx-auto mb-6">
-          <HiOutlineSparkles className="w-10 h-10 text-emerald-600 animate-pulse" />
+        <div className="w-20 h-20 rounded-full bg-emerald-50 dark:bg-emerald-900/40 ring-1 ring-emerald-600/20 dark:ring-emerald-800/30 flex items-center justify-center mx-auto mb-6">
+          <HiOutlineSparkles className="w-10 h-10 text-emerald-600 dark:text-emerald-400 animate-pulse" />
         </div>
         <h2 className="font-display text-2xl font-bold text-emerald-600">Payment Confirmed!</h2>
-        <p className="text-[#6B6B6B] dark:text-gray-400 mt-2">Verifying your payment and creating your order...</p>
+        <p className="text-[#6B6B6B] dark:text-gray-300 mt-2">Verifying your payment and creating your order...</p>
       </div>
     )
   }

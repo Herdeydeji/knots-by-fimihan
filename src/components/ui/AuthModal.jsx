@@ -30,7 +30,7 @@ export default function AuthModal() {
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={closeAuthModal} />
       <div className="relative bg-cream-100 dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center border border-cream-200 dark:border-gray-700">
-        <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gold-100 dark:bg-gold-900/40 flex items-center justify-center">
+        <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gold-100 dark:bg-gold-900/40 ring-1 ring-gold-600/20 dark:ring-gold-800/30 flex items-center justify-center">
           <svg className="w-6 h-6 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
