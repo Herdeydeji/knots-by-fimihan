@@ -5,10 +5,11 @@ import {
   HiOutlineChatAlt2, HiOutlineHeart, HiOutlineCalendar, HiOutlineBadgeCheck,
   HiOutlineLogout, HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
   HiOutlineUserGroup, HiOutlineInbox, HiOutlinePencil, HiOutlineCheck,
-  HiOutlineXCircle
+  HiOutlineXCircle, HiOutlineSun, HiOutlineMoon
 } from 'react-icons/hi'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
+import { useTheme } from '../lib/theme'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 
 function getInitials(name) {
@@ -44,6 +45,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [editing, setEditing] = useState(false)
+  const { dark, toggle } = useTheme()
   const [form, setForm] = useState({ full_name: '', phone: '' })
   const [saved, setSaved] = useState(false)
 
@@ -281,6 +283,29 @@ export default function Profile() {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className="card p-5 sm:p-6">
+            <h2 className="text-base sm:text-lg font-display font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Appearance</h2>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                  {dark ? <HiOutlineSun className="w-5 h-5 text-amber-600 dark:text-amber-400" /> : <HiOutlineMoon className="w-5 h-5 text-amber-600 dark:text-amber-400" />}
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">Dark Mode</p>
+                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400">{dark ? 'On' : 'Off'}</p>
+                </div>
+              </div>
+              <button
+                onClick={toggle}
+                className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${dark ? 'bg-emerald-600' : 'bg-cream-200 dark:bg-gray-600'}`}
+                aria-label="Toggle dark mode"
+                type="button"
+              >
+                <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${dark ? 'translate-x-6' : 'translate-x-0'}`} />
+              </button>
             </div>
           </div>
 

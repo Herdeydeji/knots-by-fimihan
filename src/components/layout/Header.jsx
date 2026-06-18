@@ -1,8 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineShoppingCart, HiOutlineUser, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi'
+import { HiOutlineShoppingCart, HiOutlineUser } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { useAuth } from '../../lib/auth'
-import { useTheme } from '../../lib/theme'
 import { KBFLogo } from '../ui/IslamicPattern'
 
 const navLinks = [
@@ -16,7 +15,6 @@ export default function Header() {
   const itemCount = useCart((s) => s.itemCount)
   const location = useLocation()
   const { user } = useAuth()
-  const { dark, toggle } = useTheme()
 
   return (
     <header className="sticky top-0 z-50 bg-cream-100/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-cream-200 dark:border-gray-700">
@@ -48,10 +46,6 @@ export default function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </Link>
-
-            <button onClick={toggle} className="p-2 text-[#1C1C1C] dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hidden lg:flex" aria-label="Toggle theme" type="button">
-              {dark ? <HiOutlineSun className="w-5 h-5" /> : <HiOutlineMoon className="w-5 h-5" />}
-            </button>
 
             {user ? (
               <Link to="/profile" className="hidden lg:flex p-1.5 group/avatar" aria-label="Profile">
