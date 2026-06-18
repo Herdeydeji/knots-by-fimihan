@@ -92,7 +92,14 @@ export default function ProductDetail() {
   ]
 
   return (
-    <div className="min-h-screen bg-cream-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-cream-50 dark:bg-gray-950 relative">
+      <button
+        onClick={() => window.history.back()}
+        className="sm:hidden absolute top-4 left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center"
+        aria-label="Go back"
+      >
+        <HiOutlineArrowLeft className="w-5 h-5 text-[#1C1C1C]" />
+      </button>
       <div className="max-w-7xl mx-auto lg:px-8">
         <div className="lg:py-8">
           <nav className="hidden lg:flex items-center gap-2 text-sm text-[#6B6B6B] dark:text-gray-400 mb-8 font-body px-4 lg:px-0">

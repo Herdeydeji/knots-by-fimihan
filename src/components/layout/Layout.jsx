@@ -12,11 +12,12 @@ export default function Layout() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
   const isAssistant = location.pathname === '/style-assistant'
+  const hideMobileHeader = location.pathname.startsWith('/product/') || location.pathname === '/checkout'
   const showBottomNav = !isAdmin && !isAssistant
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-50 dark:bg-gray-950">
-      <Header />
+      <div className={hideMobileHeader ? 'hidden sm:block' : ''}><Header /></div>
       <main className="flex-1 pb-16 lg:pb-0">
         <Outlet />
       </main>
