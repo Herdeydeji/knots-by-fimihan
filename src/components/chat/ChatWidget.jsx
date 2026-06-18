@@ -19,11 +19,11 @@ export default function ChatWidget({ onToggle }) {
       aria-label="Open AI style assistant"
     >
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="10" rx="2" />
-        <circle cx="12" cy="16" r="1" fill="currentColor" />
-        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-        <line x1="3" y1="16" x2="5" y2="16" />
-        <line x1="19" y1="16" x2="21" y2="16" />
+        <rect x="5" y="8" width="14" height="10" rx="2" />
+        <circle cx="9" cy="13" r="1" fill="currentColor" />
+        <circle cx="15" cy="13" r="1" fill="currentColor" />
+        <path d="M9 3v2M15 3v2M9 18v3M15 18v3" />
+        <path d="M7 22h10" />
       </svg>
     </button>
   )
