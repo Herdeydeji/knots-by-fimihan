@@ -55,7 +55,7 @@ export const useCart = create(
       updateQuantity: (key, quantity) => {
         set((state) => {
           const updated = state.items.map((item) =>
-            item.key === key ? { ...item, quantity } : item
+            item.key === key ? { ...item, quantity: Math.min(quantity, item.stock) } : item
           )
           const itemCount = updated.reduce((sum, i) => sum + i.quantity, 0)
           const subtotal = updated.reduce((sum, i) => sum + i.price * i.quantity, 0)
