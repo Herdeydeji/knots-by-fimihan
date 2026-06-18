@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { HiOutlineLockClosed, HiOutlineSparkles } from 'react-icons/hi'
+import { HiOutlineLockClosed, HiOutlineSparkles, HiOutlineCheck } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 import { PAYSTACK_PUBLIC_KEY, calculateShipping } from '../lib/constants'
 import { supabase } from '../lib/supabase'
+
+const STEPS = [
+  { label: 'Cart', path: '/cart' },
+  { label: 'Shipping', path: '' },
+  { label: 'Payment', path: '' },
+  { label: 'Confirm', path: '' },
+]
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -242,6 +249,20 @@ export default function Checkout() {
         { label: 'Checkout', path: '' },
       ]} />
 
+      <div className="flex items-center justify-center gap-2 mb-8">
+        {STEPS.map((step, i) => (
+          <div key={step.label} className="flex items-center gap-2">
+            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium ${
+              i < 2 ? 'bg-emerald-600 text-white' : 'bg-cream-200 dark:bg-gray-700 text-[#6B6B6B] dark:text-gray-400'
+            }`}>
+              {i < 2 ? <HiOutlineCheck className="w-3 h-3" /> : <span>{i + 1}</span>}
+              <span className="hidden sm:inline">{step.label}</span>
+            </div>
+            {i < STEPS.length - 1 && <span className="text-cream-300 dark:text-gray-600 text-xs">——</span>}
+          </div>
+        ))}
+      </div>
+
       <h1 className="text-2xl lg:text-3xl font-display font-semibold text-emerald-600 mb-8">Checkout</h1>
 
       <div className="grid lg:grid-cols-5 gap-8">
@@ -341,6 +362,23 @@ export default function Checkout() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-40 safe-bottom">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-[#6B6B6B] dark:text-gray-400 font-body">Total</span>
+            <p className="font-bold text-emerald-600">{formatPrice(total)}</p>
+          </div>
+          <button
+            onClick={payWithPaystack}
+            disabled={loading || stockChecking}
+            className="btn-gold text-sm inline-flex items-center gap-2 py-2.5"
+          >
+            <HiOutlineLockClosed className="w-4 h-4" />
+            {stockChecking ? 'Checking...' : loading ? 'Processing...' : 'Pay Now'}
+          </button>
         </div>
       </div>
     </div>

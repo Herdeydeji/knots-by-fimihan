@@ -30,32 +30,30 @@ export default function Cart() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8">
+    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 pb-24 lg:pb-8">
       <Breadcrumbs items={[
         { label: 'Home', path: '/' },
         { label: 'Cart', path: '' },
       ]} />
 
-      <h1 className="text-2xl lg:text-3xl font-display font-semibold text-emerald-600 mb-8">Shopping Cart</h1>
+      <h1 className="text-2xl lg:text-3xl font-display font-semibold text-emerald-600 mb-6">Shopping Cart</h1>
+
+      <div className="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-2xl p-4 mb-4 border border-cream-200 dark:border-gray-700">
+        <div className="flex-1 bg-cream-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
+          <div className="bg-gold-500 h-full rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+        </div>
+        <span className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body whitespace-nowrap">
+          {subtotal >= FREE_SHIPPING_THRESHOLD
+            ? 'Free shipping!'
+            : `₦${(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString()} to free shipping`}
+        </span>
+      </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 mb-4 border border-cream-200 dark:border-gray-700">
-            <div className="flex items-center gap-3">
-              <div className="flex-1 bg-cream-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
-                <div className="bg-gold-500 h-full rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
-              </div>
-              <span className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body whitespace-nowrap">
-                {subtotal >= FREE_SHIPPING_THRESHOLD
-                  ? 'Free shipping!'
-                  : `₦${(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString()} to free shipping`}
-              </span>
-            </div>
-          </div>
-
+        <div className="lg:col-span-2 space-y-3">
           {items.map((item, i) => (
             <div key={item.key} className="card p-4 flex gap-4 animate-fade-in-up" style={{ animationDelay: `${i * 80}ms` }}>
-              <Link to={`/product/${item.slug}`} className="w-24 h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden bg-cream-200 dark:bg-gray-700 flex-shrink-0">
+              <Link to={`/product/${item.slug}`} className="w-20 h-20 lg:w-28 lg:h-28 rounded-xl overflow-hidden bg-cream-200 dark:bg-gray-700 flex-shrink-0">
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
               </Link>
               <div className="flex-1 min-w-0">
@@ -64,20 +62,18 @@ export default function Cart() {
                     {item.name}
                   </h3>
                 </Link>
-                <p className="text-sm text-[#6B6B6B] dark:text-gray-400 mt-1">
+                <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-0.5">
                   {item.size && `Size: ${item.size}`}{item.color && ` | Color: ${item.color}`}
                 </p>
                 <p className="font-body font-bold text-emerald-600 mt-1">{formatPrice(item.price)}</p>
                 {item.stock > 0 && item.stock <= 5 && (
-                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
-                    Only {item.stock} left
-                  </p>
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5">Only {item.stock} left</p>
                 )}
-                <div className="flex items-center justify-between mt-3">
+                <div className="flex items-center justify-between mt-2">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => item.quantity <= 1 ? removeItem(item.key) : updateQuantity(item.key, item.quantity - 1)}
-                      className="w-8 h-8 rounded-lg border border-cream-300 dark:border-gray-600 flex items-center justify-center text-sm hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200"
+                      className="w-7 h-7 rounded-lg border border-cream-300 dark:border-gray-600 flex items-center justify-center text-sm hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200"
                     >
                       -
                     </button>
@@ -85,7 +81,7 @@ export default function Cart() {
                     <button
                       onClick={() => updateQuantity(item.key, item.quantity + 1)}
                       disabled={item.quantity >= item.stock}
-                      className={`w-8 h-8 rounded-lg border flex items-center justify-center text-sm transition-colors ${
+                      className={`w-7 h-7 rounded-lg border flex items-center justify-center text-sm transition-colors ${
                         item.quantity >= item.stock
                           ? 'border-gray-200 dark:border-gray-700 text-gray-300 dark:text-gray-600 cursor-not-allowed'
                           : 'border-cream-300 dark:border-gray-600 hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200'
@@ -107,7 +103,7 @@ export default function Cart() {
           ))}
         </div>
 
-        <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+        <div className="hidden lg:block animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="card p-6 sticky top-24">
             <h3 className="font-body font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Order Summary</h3>
             <div className="space-y-3 text-sm font-body">
@@ -133,6 +129,16 @@ export default function Cart() {
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-4 lg:hidden z-40 safe-bottom">
+        <div className="flex items-center justify-between mb-2">
+          <span className="font-body text-sm text-[#6B6B6B] dark:text-gray-400">Total</span>
+          <span className="font-bold text-emerald-600 text-lg">{formatPrice(total)}</span>
+        </div>
+        <Link to="/checkout" className="btn-gold w-full inline-flex items-center justify-center text-sm">
+          Proceed to Checkout
+        </Link>
       </div>
     </div>
   )
