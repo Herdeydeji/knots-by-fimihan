@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck, HiOutlineHeart, HiHeart } from 'react-icons/hi'
+import { HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck, HiOutlineHeart, HiHeart, HiOutlineArrowLeft } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import { getProductBySlug, getRelatedProducts } from '../lib/products'
