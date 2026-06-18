@@ -178,7 +178,7 @@ export default function Homepage() {
                     className="card-app p-5 flex items-start gap-4 group hover:border-emerald-600/30 transition-all animate-fade-in-up"
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
-                    <div className="w-11 h-11 rounded-xl bg-gold-50 dark:bg-gold-900/20 flex items-center justify-center flex-shrink-0
+                    <div className="w-11 h-11 rounded-xl bg-gold-50 dark:bg-gold-900/20 ring-1 ring-gold-600/20 dark:ring-gold-800/30 flex items-center justify-center flex-shrink-0
                       group-hover:bg-gold-100 dark:group-hover:bg-gold-900/40 transition-colors">
                       <Icon className="w-5 h-5 text-gold-600" />
                     </div>
@@ -223,7 +223,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      <section className="py-6 bg-emerald-50 dark:bg-gray-900/50">
+      <section className="py-6 bg-emerald-50 dark:bg-gray-900/40 dark:border-y dark:border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-3 gap-4 lg:gap-8">
             {[
@@ -234,8 +234,8 @@ export default function Homepage() {
               const Icon = item.icon
               return (
                 <div key={item.label} className="text-center">
-                  <div className="w-10 h-10 rounded-xl bg-gold-100 dark:bg-gold-900/30 flex items-center justify-center mx-auto">
-                    <Icon className="w-5 h-5 text-gold-600" />
+                  <div className="w-10 h-10 rounded-xl bg-gold-100 dark:bg-gold-900/30 ring-1 ring-gold-600/20 dark:ring-gold-800/30 flex items-center justify-center mx-auto">
+                    <Icon className="w-5 h-5 text-gold-600 dark:text-gold-400" />
                   </div>
                   <h3 className="font-body font-semibold text-xs mt-2 text-[#1C1C1C] dark:text-gray-200">{item.label}</h3>
                   <p className="text-[10px] text-[#6B6B6B] dark:text-gray-400 mt-0.5 leading-relaxed hidden sm:block">{item.desc}</p>

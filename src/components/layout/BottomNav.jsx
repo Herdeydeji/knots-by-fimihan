@@ -39,7 +39,7 @@ export default function BottomNav() {
                 </span>
               )}
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                active ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''
+                active ? 'bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40' : ''
               }`}>
                 <Icon className="w-5 h-5" />
               </div>
@@ -62,12 +62,12 @@ export default function BottomNav() {
         >
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
             isActive('/profile') || isActive('/login')
-              ? 'bg-emerald-50 dark:bg-emerald-900/30'
+              ? 'bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40'
               : ''
           }`}>
             {user ? (
               <div className="w-5 h-5 rounded-lg bg-emerald-600 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-gold-300 font-display">
+                <span className="text-[10px] font-bold text-white font-display">
                   {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
                 </span>
               </div>

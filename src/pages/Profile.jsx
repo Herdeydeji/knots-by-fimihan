@@ -152,7 +152,7 @@ export default function Profile() {
                 </p>
                 <div className="flex items-center justify-center sm:justify-start gap-2 mt-3">
                   {isAdmin && (
-                    <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 font-medium">
+                    <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40 dark:text-emerald-400 font-medium">
                       <HiOutlineBadgeCheck className="w-3.5 h-3.5" /> Admin
                     </span>
                   )}
@@ -163,7 +163,7 @@ export default function Profile() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="card p-3 sm:p-4 flex items-center gap-3">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/30 flex items-center justify-center flex-shrink-0">
                 <HiOutlineShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
@@ -236,7 +236,7 @@ export default function Profile() {
                 <label className="block text-xs font-medium text-[#6B6B6B] dark:text-gray-400 mb-1.5 font-body uppercase tracking-wide">Email</label>
                 <div className="flex items-center gap-2">
                   <p className="text-sm text-[#1C1C1C] dark:text-gray-200 font-medium">{user.email}</p>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 font-medium">Verified</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40 dark:text-emerald-400 font-medium">Verified</span>
                 </div>
               </div>
 

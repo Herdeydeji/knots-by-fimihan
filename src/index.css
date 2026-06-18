@@ -12,13 +12,13 @@
     @apply bg-gray-950 text-gray-100;
   }
   .dark .card {
-    @apply bg-gray-800 border-gray-700 shadow-gray-900/50;
+    @apply bg-gray-800/90 border-gray-600/40 shadow-lg shadow-black/30;
   }
   .dark .input-field {
-    @apply bg-gray-800 border-gray-600 text-gray-100 placeholder:text-gray-500;
+    @apply bg-gray-900 border-gray-600/70 text-gray-100 placeholder:text-gray-500;
   }
   .dark .btn-outline {
-    @apply border-gold-500/60 text-gold-400 hover:bg-gold-500/10;
+    @apply border-gold-400/50 text-gold-300 hover:bg-gold-500/10 ring-1 ring-gold-500/20;
   }
   .dark .btn-ghost {
     @apply text-emerald-400 hover:bg-emerald-900/30;
@@ -84,10 +84,13 @@
            placeholder:text-[#6B6B6B] transition-all duration-200;
   }
   .dark .chip {
-    @apply bg-gray-800 text-gray-200 border-gray-600;
+    @apply bg-gray-800/80 text-gray-200 border-gray-600/60;
   }
   .dark .card-app {
-    @apply bg-gray-800 border-gray-700;
+    @apply bg-gray-800/90 border-gray-600/40 shadow-lg shadow-black/20;
+  }
+  .dark .category-pill {
+    @apply bg-gray-800/80 border-gray-600/40 text-gray-200 hover:border-emerald-400 hover:bg-emerald-900/20;
   }
 }
 

@@ -54,8 +54,8 @@ export default function Contact() {
                 const Icon = item.icon
                 return (
                   <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="card p-4 flex items-center gap-4 hover:border-emerald-600/20 dark:hover:border-emerald-600/40 transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-emerald-600" />
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 ring-1 ring-emerald-600/20 dark:ring-emerald-800/30 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <p className="text-xs text-[#6B6B6B] dark:text-gray-400 font-body">{item.label}</p>

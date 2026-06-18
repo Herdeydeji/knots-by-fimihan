@@ -42,8 +42,8 @@ export default function About() {
 
           <section className="card-app p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gold-100 dark:bg-gold-900/30 flex items-center justify-center">
-                <span className="text-lg">👩🏾‍🦱</span>
+              <div className="w-10 h-10 rounded-xl bg-gold-100 dark:bg-gold-900/30 ring-1 ring-gold-600/20 dark:ring-gold-800/30 flex items-center justify-center">
+                <HiOutlineHeart className="w-5 h-5 text-gold-600" />
               </div>
               <h3 className="font-display font-semibold text-xl text-emerald-600">Meet Fimihan</h3>
             </div>
@@ -67,8 +67,8 @@ export default function About() {
                 const Icon = v.icon
                 return (
                   <div key={v.title} className="card-app p-5 flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Icon className="w-4 h-4 text-emerald-600" />
+                    <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <h4 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200 mb-0.5">{v.title}</h4>
