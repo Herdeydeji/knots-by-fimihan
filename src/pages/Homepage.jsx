@@ -5,6 +5,7 @@ import {
   HiOutlineViewGrid, HiOutlineTemplate, HiOutlineCollection,
   HiOutlineViewGridAdd, HiOutlineBriefcase, HiOutlineTag,
   HiOutlineTruck, HiOutlineSparkles, HiOutlineHeart, HiOutlineLockClosed,
+  HiOutlineGift, HiOutlineStar, HiOutlineFire,
 } from 'react-icons/hi'
 import { getFeaturedProducts } from '../lib/products'
 import { getHeroSlides, getAdvertisements } from '../lib/homepage'

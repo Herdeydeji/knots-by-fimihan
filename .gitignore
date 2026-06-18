@@ -28,6 +28,7 @@ dist-ssr
 
 # Design assets
 .stitch/
+knots-by-fimihan/
 
 # Local debug artifacts
 check-*.mjs
