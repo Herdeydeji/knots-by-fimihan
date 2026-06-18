@@ -45,14 +45,14 @@ export default function Homepage() {
 
   useEffect(() => {
     if (slides.length < 2) return
-    const timer = setInterval(next, 15000)
+    const timer = setInterval(next, 10000)
     return () => clearInterval(timer)
   }, [next, slides.length])
 
   return (
     <div className="pb-4">
         <section
-          className="relative mx-4 sm:mx-0 rounded-2xl sm:rounded-none h-[40vh] min-h-[280px] sm:h-[65vh] sm:min-h-[500px] sm:max-h-[700px] overflow-hidden bg-emerald-900"
+          className="relative mx-4 sm:mx-0 rounded-2xl sm:rounded-none h-[150px] sm:h-[65vh] sm:min-h-[500px] sm:max-h-[700px] overflow-hidden bg-emerald-900"
         >
 
         {slides.map((slide, i) => (
@@ -69,23 +69,25 @@ export default function Homepage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/95 via-emerald-900/60 to-emerald-900/20" />
             <div className="relative z-10 h-full max-w-7xl mx-auto px-4 lg:px-8 flex flex-col justify-center pb-8 sm:pb-12">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full w-fit mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-                <span className="text-gold-300 text-[10px] font-medium uppercase tracking-[0.15em] font-body">
+              <div className="inline-flex items-center gap-1 sm:gap-2 bg-white/10 backdrop-blur-sm border border-white/10 px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-full w-fit mb-1 sm:mb-6">
+                <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gold-400 animate-pulse" />
+                <span className="text-gold-300 text-[8px] sm:text-[10px] font-medium uppercase tracking-[0.15em] font-body">
                   {slide.badge}
                 </span>
               </div>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl">
-                {slide.heading_line1}<br />
+              <h1 className="font-display text-sm sm:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl">
+                <span>{slide.heading_line1}</span>
+                <span className="sm:hidden"> </span>
+                <br className="hidden sm:block" />
                 <span className="text-gold-400">{slide.heading_line2}</span>
               </h1>
-              <p className="text-cream-200 text-base sm:text-lg mt-4 max-w-xl font-body leading-relaxed">
+              <p className="hidden sm:block text-cream-200 text-base sm:text-lg mt-4 max-w-xl font-body leading-relaxed">
                 {slide.description}
               </p>
               <Link
                 to={slide.cta_link}
-                className="mt-8 bg-gold-500 text-white px-8 py-3 rounded-xl font-body font-medium
-                  hover:bg-gold-600 transition-all inline-flex items-center gap-2 text-base
+                className="mt-1 sm:mt-8 bg-gold-500 text-white px-3 sm:px-8 py-1 sm:py-3 rounded-xl font-body font-medium
+                  hover:bg-gold-600 transition-all inline-flex items-center gap-1 sm:gap-2 text-[10px] sm:text-base
                   shadow-lg shadow-gold-500/30 hover:shadow-xl active:scale-[0.98] w-fit"
               >
                 {slide.cta_text} <HiOutlineArrowRight className="w-4 h-4" />
@@ -116,7 +118,7 @@ export default function Homepage() {
         </button>
 
         {slides.length > 1 && (
-          <div className="absolute bottom-6 left-4 lg:left-8 z-20 flex items-center gap-2.5">
+          <div className="absolute bottom-2 sm:bottom-6 left-4 lg:left-8 z-20 flex items-center gap-2.5">
             {slides.map((_, i) => (
               <button
                 key={i}
