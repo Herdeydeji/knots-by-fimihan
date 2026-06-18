@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import {
   HiOutlineArrowRight, HiOutlineArrowLeft, HiOutlineShoppingBag,
@@ -59,48 +59,20 @@ const ADS = [
 
 export default function Homepage() {
   const [current, setCurrent] = useState(0)
-  const [progress, setProgress] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
   const [featured, setFeatured] = useState([])
   const [newArrivals, setNewArrivals] = useState([])
-  const timerRef = useRef(null)
 
   const goTo = useCallback((i) => {
     setCurrent(i)
-    setProgress(0)
   }, [])
 
   const next = useCallback(() => {
     setCurrent((p) => (p + 1) % SLIDES.length)
-    setProgress(0)
   }, [])
 
   const prev = useCallback(() => {
     setCurrent((p) => (p - 1 + SLIDES.length) % SLIDES.length)
-    setProgress(0)
   }, [])
-
-  useEffect(() => {
-    if (isPaused) return
-    timerRef.current = setInterval(next, 5000)
-    return () => clearInterval(timerRef.current)
-  }, [isPaused, next])
-
-  useEffect(() => {
-    if (isPaused) return
-    setProgress(0)
-    const start = Date.now()
-    const duration = 5000
-    let raf
-    const tick = () => {
-      const elapsed = Date.now() - start
-      const pct = Math.min((elapsed / duration) * 100, 100)
-      setProgress(pct)
-      if (pct < 100) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [current, isPaused])
 
   useEffect(() => {
     getFeaturedProducts().then((products) => {
@@ -111,17 +83,9 @@ export default function Homepage() {
 
   return (
     <div className="pb-4">
-      <section
-        className="relative h-[65vh] min-h-[500px] max-h-[700px] overflow-hidden bg-emerald-900"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <div className="absolute top-0 left-0 right-0 z-20 h-1 bg-white/10">
-          <div
-            className="h-full bg-gold-500 transition-[width] duration-75 ease-linear"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+        <section
+          className="relative h-[65vh] min-h-[500px] max-h-[700px] overflow-hidden bg-emerald-900"
+        >
 
         {SLIDES.map((slide, i) => (
           <div
