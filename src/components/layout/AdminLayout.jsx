@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
   HiOutlineMenu, HiOutlineX, HiOutlineArrowLeft, HiOutlineInbox, HiOutlineChatAlt2, HiOutlineUserGroup,
+  HiOutlinePhotograph, HiOutlineTemplate,
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { getUnreadNotificationCount } from '../../lib/notifications'
@@ -16,6 +17,8 @@ const adminLinks = [
   { label: 'Chat', path: '/admin/chat', icon: HiOutlineChatAlt2 },
   { label: 'Users', path: '/admin/users', icon: HiOutlineUserGroup },
   { label: 'Complaints', path: '/admin/complaints', icon: HiOutlineInbox },
+  { label: 'Hero Slides', path: '/admin/hero-slides', icon: HiOutlinePhotograph },
+  { label: 'Ads', path: '/admin/advertisements', icon: HiOutlineTemplate },
 ]
 
 export default function AdminLayout() {

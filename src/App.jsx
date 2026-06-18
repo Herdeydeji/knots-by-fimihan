@@ -33,6 +33,8 @@ import AdminChat from './pages/admin/AdminChat'
 import AdminUsers from './pages/admin/AdminUsers'
 import AddProduct from './pages/admin/AddProduct'
 import EditProduct from './pages/admin/EditProduct'
+import AdminHeroSlides from './pages/admin/HeroSlides'
+import AdminAdvertisements from './pages/admin/Advertisements'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -68,6 +70,8 @@ export default function App() {
             <Route path="complaints" element={<AdminComplaints />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="chat" element={<AdminChat />} />
+            <Route path="hero-slides" element={<AdminHeroSlides />} />
+            <Route path="advertisements" element={<AdminAdvertisements />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -7,58 +7,17 @@ import {
   HiOutlineTruck, HiOutlineSparkles, HiOutlineHeart, HiOutlineLockClosed,
 } from 'react-icons/hi'
 import { getFeaturedProducts } from '../lib/products'
+import { getHeroSlides, getAdvertisements } from '../lib/homepage'
 import ProductCard from '../components/ui/ProductCard'
 import { CATEGORIES } from '../lib/constants'
 
-const SLIDES = [
-  {
-    image: 'https://images.unsplash.com/photo-1772714601002-fbb0fea8a911?w=1200&q=80',
-    badge: 'Islamic Modest Fashion',
-    heading: ['Dress Modestly,', 'Live Beautifully'],
-    highlight: 'Live Beautifully',
-    description: 'Premium abayas, hijabs, and kaftans for the woman who values both her faith and her style.',
-    cta: 'Explore Collection',
-    link: '/shop',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1758817730402-b0ea18d9e607?w=1200&q=80',
-    badge: 'Just Landed',
-    heading: ['The', 'New Collection'],
-    highlight: 'New Collection',
-    description: 'Elegant new arrivals in premium fabrics. Hand-selected for the modern Muslim woman.',
-    cta: 'Shop New Arrivals',
-    link: '/shop?sort=newest',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1750190321796-c749877df841?w=1200&q=80',
-    badge: 'Eid Season',
-    heading: ['Get Ready for', 'Eid Celebrations'],
-    highlight: 'Eid Celebrations',
-    description: 'Special occasion wear starting from ₦25,000. Look your best this season.',
-    cta: 'Shop Eid Collection',
-    link: '/shop?category=kaftans',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1770964211782-013475eacc3f?w=1200&q=80',
-    badge: 'Special Offer',
-    heading: ['Free Shipping', 'Over ₦50,000'],
-    highlight: 'Free Shipping',
-    description: 'Plus easy returns within 7 days and 100% authentic materials guaranteed.',
-    cta: 'Shop Now',
-    link: '/shop',
-  },
-]
-
+const AD_ICONS = { HiOutlineTag, HiOutlineTruck, HiOutlineSparkles, HiOutlineShoppingBag, HiOutlineGift, HiOutlineStar, HiOutlineFire }
 const categoryIcons = [HiOutlineViewGrid, HiOutlineTemplate, HiOutlineCollection, HiOutlineViewGridAdd, HiOutlineBriefcase]
-
-const ADS = [
-  { icon: HiOutlineTag, title: 'Eid Sale', desc: '-20% on selected modest wear', cta: 'Shop Sale', link: '/shop' },
-  { icon: HiOutlineTruck, title: 'Free Shipping', desc: 'On orders over ₦50,000', cta: 'Learn More', link: '/shop' },
-  { icon: HiOutlineSparkles, title: 'New Arrivals', desc: 'Dropping every Friday', cta: 'View New', link: '/shop?sort=newest' },
-]
 
 export default function Homepage() {
   const [current, setCurrent] = useState(0)
+  const [slides, setSlides] = useState([])
+  const [ads, setAds] = useState([])
   const [featured, setFeatured] = useState([])
   const [newArrivals, setNewArrivals] = useState([])
 
@@ -67,14 +26,16 @@ export default function Homepage() {
   }, [])
 
   const next = useCallback(() => {
-    setCurrent((p) => (p + 1) % SLIDES.length)
-  }, [])
+    setCurrent((p) => (p + 1) % (slides.length || 1))
+  }, [slides])
 
   const prev = useCallback(() => {
-    setCurrent((p) => (p - 1 + SLIDES.length) % SLIDES.length)
-  }, [])
+    setCurrent((p) => (p - 1 + (slides.length || 1)) % (slides.length || 1))
+  }, [slides])
 
   useEffect(() => {
+    getHeroSlides().then(setSlides).catch(console.error)
+    getAdvertisements().then(setAds).catch(console.error)
     getFeaturedProducts().then((products) => {
       setFeatured(products)
       setNewArrivals(products.slice().reverse())
@@ -87,15 +48,15 @@ export default function Homepage() {
           className="relative h-[65vh] min-h-[500px] max-h-[700px] overflow-hidden bg-emerald-900"
         >
 
-        {SLIDES.map((slide, i) => (
+        {slides.map((slide, i) => (
           <div
-            key={i}
+            key={slide.id}
             className={`absolute inset-0 transition-all duration-700 ease-in-out ${
               i === current ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-[1.02]'
             }`}
           >
             <img
-              src={slide.image}
+              src={slide.image_url}
               alt=""
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -108,19 +69,19 @@ export default function Homepage() {
                 </span>
               </div>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl">
-                {slide.heading[0]}<br />
-                <span className="text-gold-400">{slide.heading[1]}</span>
+                {slide.heading_line1}<br />
+                <span className="text-gold-400">{slide.heading_line2}</span>
               </h1>
               <p className="text-cream-200 text-base sm:text-lg mt-4 max-w-xl font-body leading-relaxed">
                 {slide.description}
               </p>
               <Link
-                to={slide.link}
+                to={slide.cta_link}
                 className="mt-8 bg-gold-500 text-white px-8 py-3 rounded-xl font-body font-medium
                   hover:bg-gold-600 transition-all inline-flex items-center gap-2 text-base
                   shadow-lg shadow-gold-500/30 hover:shadow-xl active:scale-[0.98] w-fit"
               >
-                {slide.cta} <HiOutlineArrowRight className="w-4 h-4" />
+                {slide.cta_text} <HiOutlineArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -147,21 +108,23 @@ export default function Homepage() {
           <HiOutlineArrowRight className="w-5 h-5" />
         </button>
 
-        <div className="absolute bottom-6 left-4 lg:left-8 z-20 flex items-center gap-2.5">
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className={`rounded-full transition-all duration-500 ${
-                i === current
-                  ? 'bg-gold-500 w-7 h-2'
-                  : 'bg-white/40 hover:bg-white/60 w-2 h-2'
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-              type="button"
-            />
-          ))}
-        </div>
+        {slides.length > 1 && (
+          <div className="absolute bottom-6 left-4 lg:left-8 z-20 flex items-center gap-2.5">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className={`rounded-full transition-all duration-500 ${
+                  i === current
+                    ? 'bg-gold-500 w-7 h-2'
+                    : 'bg-white/40 hover:bg-white/60 w-2 h-2'
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+                type="button"
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="py-6">
@@ -193,36 +156,38 @@ export default function Homepage() {
         </div>
       </section>
 
-      <section className="py-6">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
-            {ADS.map((ad, i) => {
-              const Icon = ad.icon
-              return (
-                <Link
-                  key={ad.title}
-                  to={ad.link}
-                  className="card-app p-5 flex items-start gap-4 group hover:border-emerald-600/30 transition-all animate-fade-in-up"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                >
-                  <div className="w-11 h-11 rounded-xl bg-gold-50 dark:bg-gold-900/20 flex items-center justify-center flex-shrink-0
-                    group-hover:bg-gold-100 dark:group-hover:bg-gold-900/40 transition-colors">
-                    <Icon className="w-5 h-5 text-gold-600" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">{ad.title}</h3>
-                    <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-0.5">{ad.desc}</p>
-                    <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1.5 inline-flex items-center gap-1
-                      group-hover:gap-2 transition-all">
-                      {ad.cta} <HiOutlineArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
-                </Link>
-              )
-            })}
+      {ads.length > 0 && (
+        <section className="py-6">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
+              {ads.map((ad, i) => {
+                const Icon = AD_ICONS[ad.icon_name] || HiOutlineTag
+                return (
+                  <Link
+                    key={ad.id}
+                    to={ad.cta_link}
+                    className="card-app p-5 flex items-start gap-4 group hover:border-emerald-600/30 transition-all animate-fade-in-up"
+                    style={{ animationDelay: `${i * 100}ms` }}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-gold-50 dark:bg-gold-900/20 flex items-center justify-center flex-shrink-0
+                      group-hover:bg-gold-100 dark:group-hover:bg-gold-900/40 transition-colors">
+                      <Icon className="w-5 h-5 text-gold-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">{ad.title}</h3>
+                      <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-0.5">{ad.description}</p>
+                      <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1.5 inline-flex items-center gap-1
+                        group-hover:gap-2 transition-all">
+                        {ad.cta_text} <HiOutlineArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
