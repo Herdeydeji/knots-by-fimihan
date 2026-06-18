@@ -21,7 +21,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-14 lg:h-20">
           <Link to="/" className="flex items-center">
-            <KBFLogo size="small" className="[&_.hidden]:lg:block" />
+            <KBFLogo />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">

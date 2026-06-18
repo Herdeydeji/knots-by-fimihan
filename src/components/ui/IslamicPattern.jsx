@@ -31,24 +31,41 @@ export function StarPattern({ className = '', opacity = '0.05' }) {
   )
 }
 
-export function KBFLogo({ className = '', size = 'default' }) {
-  const sizes = {
-    small: { box: 'w-8 h-8', text: 'text-xs', wrapper: 'w-8 h-8' },
-    default: { box: 'w-10 h-10', text: 'text-sm', wrapper: 'w-10 h-10' },
-    large: { box: 'w-14 h-14', text: 'text-xl', wrapper: 'w-14 h-14' },
-    xl: { box: 'w-16 h-16', text: 'text-2xl', wrapper: 'w-16 h-16' },
+export function KBFLogo({ className = '', size = 'default', light = false }) {
+  const isSmall = size === 'small'
+  const g = (dark) => {
+    if (light) return { badge: 'transparent', border: 'rgba(201,150,58,0.5)', starOuter: 'rgba(201,150,58,0.12)', star: '#C9963A', monoBg: 'transparent', monoBorder: '#C9963A', word: '#FAF7F2', tag: '#C9963A' }
+    return { badge: '#1A5C3A', border: 'rgba(201,150,58,0.3)', starOuter: 'rgba(201,150,58,0.08)', star: '#C9963A', monoBg: '#1A5C3A', monoBorder: '#C9963A', word: '#1A5C3A', tag: '#C9963A' }
   }
-  const s = sizes[size] || sizes.default
+  const c = g()
+
+  const badge = (
+    <svg viewBox="0 0 60 60" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="56" height="56" rx="14" fill={c.badge} stroke={c.border} strokeWidth="1" />
+      <path d="M30 13 L40 20 L47 30 L40 40 L30 47 L20 40 L13 30 L20 20 Z" fill={c.star} opacity="0.12" />
+      <path d="M30 19 L36 24 L41 30 L36 36 L30 41 L24 36 L19 30 L24 24 Z" fill={c.star} />
+      <circle cx="30" cy="30" r="9" fill={c.monoBg} stroke={c.monoBorder} strokeWidth="0.8" />
+      <text x="30" y="35" textAnchor="middle" fontFamily="'Playfair Display',Georgia,serif" fontSize="15" fontWeight="700" fill={c.star} letterSpacing="0.5">K</text>
+    </svg>
+  )
+
+  if (isSmall) {
+    return (
+      <div className={`flex items-center gap-2 ${className}`}>
+        <div className="w-8 h-8 flex-shrink-0">{badge}</div>
+      </div>
+    )
+  }
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`${s.wrapper} rounded-xl bg-emerald-600 flex items-center justify-center flex-shrink-0 border border-gold-500/30`}>
-        <span className={`${s.text} font-bold text-gold-500 font-display tracking-wide`}>KBF</span>
-      </div>
+    <div className={`flex items-center gap-2.5 ${className}`}>
+      <div className="w-10 h-10 lg:w-11 lg:h-11 flex-shrink-0">{badge}</div>
       <div className="hidden sm:block">
-        <span className={`${size === 'large' || size === 'xl' ? 'text-lg' : 'text-base'} font-display font-bold text-emerald-600 leading-tight block`}>
-          Knots by Fimihan
-        </span>
+        <svg viewBox="0 0 200 60" className="h-9 lg:h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="26" fontFamily="'Playfair Display',Georgia,serif" fontSize="18" fontWeight="700" fill={c.word}>Knots by</text>
+          <text x="98" y="26" fontFamily="'Playfair Display',Georgia,serif" fontSize="18" fontWeight="700" fill={c.star}>Fimihan</text>
+          <text x="0" y="43" fontFamily="'DM Sans','Helvetica Neue',Arial,sans-serif" fontSize="8.5" fill={c.tag} letterSpacing="4.5">MODEST FASHION</text>
+        </svg>
       </div>
     </div>
   )
