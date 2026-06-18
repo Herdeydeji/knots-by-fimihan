@@ -5,9 +5,9 @@ import {
   HiOutlineViewGrid, HiOutlineTemplate, HiOutlineCollection,
   HiOutlineViewGridAdd, HiOutlineBriefcase, HiOutlineTag,
   HiOutlineTruck, HiOutlineSparkles, HiOutlineHeart, HiOutlineLockClosed,
-  HiOutlineGift, HiOutlineStar, HiOutlineFire,
+  HiOutlineGift, HiOutlineStar, HiOutlineFire, HiStar,
 } from 'react-icons/hi'
-import { getFeaturedProducts } from '../lib/products'
+import { getAllProducts } from '../lib/products'
 import { getHeroSlides, getAdvertisements } from '../lib/homepage'
 import ProductCard from '../components/ui/ProductCard'
 import { CATEGORIES } from '../lib/constants'
@@ -19,7 +19,6 @@ export default function Homepage() {
   const [current, setCurrent] = useState(0)
   const [slides, setSlides] = useState([])
   const [ads, setAds] = useState([])
-  const [featured, setFeatured] = useState([])
   const [newArrivals, setNewArrivals] = useState([])
 
   const goTo = useCallback((i) => {
@@ -37,9 +36,9 @@ export default function Homepage() {
   useEffect(() => {
     getHeroSlides().then(setSlides).catch(console.error)
     getAdvertisements().then(setAds).catch(console.error)
-    getFeaturedProducts().then((products) => {
-      setFeatured(products)
-      setNewArrivals(products.slice().reverse())
+    getAllProducts().then(products => {
+      const sorted = [...products].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      setNewArrivals(sorted.slice(0, 8))
     }).catch(console.error)
   }, [])
 
@@ -200,25 +199,60 @@ export default function Homepage() {
 
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-gold-500 text-[11px] font-medium uppercase tracking-[0.15em] font-body">Featured</p>
-              <h2 className="font-display text-xl lg:text-2xl font-bold text-[#1C1C1C] dark:text-gray-200 mt-0.5">Bestsellers</h2>
-            </div>
-            <Link to="/shop" className="text-sm text-emerald-600 font-body font-medium hover:text-emerald-700 flex items-center gap-1">
-              View All <HiOutlineArrowRight className="w-3.5 h-3.5" />
-            </Link>
+          <div className="text-center mb-6">
+            <p className="text-gold-500 text-[11px] font-medium uppercase tracking-[0.15em] font-body">Testimonials</p>
+            <h2 className="font-display text-xl lg:text-2xl font-bold text-[#1C1C1C] dark:text-gray-200 mt-0.5">What Our Customers Say</h2>
           </div>
-          <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-4 lg:gap-5">
-            {featured.length > 0 ? (
-              featured.map((product) => (
-                <div key={product.id} className="min-w-[160px] sm:min-w-[180px] lg:min-w-0 w-[160px] sm:w-[180px] lg:w-auto flex-shrink-0">
-                  <ProductCard product={product} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+            {[
+              {
+                name: 'Aisha M.',
+                product: 'Emerald Abaya',
+                rating: 5,
+                text: 'The abaya I ordered is absolutely stunning. The fabric is premium quality and the fit is perfect. I have received so many compliments. Barakallah!',
+              },
+              {
+                name: 'Fatima K.',
+                product: 'Everyday Hijab Collection',
+                rating: 5,
+                text: 'Alhamdulillah, I finally found my go-to store for modest wear. The hijab material is so soft and breathable. Highly recommend to all my sisters!',
+              },
+              {
+                name: 'Zainab A.',
+                product: 'Lace Kaftan Set',
+                rating: 4,
+                text: 'I was hesitant ordering online but the customer service was excellent and delivery was quick. The kaftan set fit beautifully. Will definitely order again.',
+              },
+              {
+                name: 'Maryam O.',
+                product: 'Gold Embroidery Kaftan',
+                rating: 5,
+                text: 'Beautiful craftsmanship and attention to detail. The gold embroidery on my kaftan is just breathtaking. It was the highlight of my event outfit.',
+              },
+            ].map((t, i) => (
+              <div
+                key={i}
+                className="card-app p-5 lg:p-6 flex flex-col animate-fade-in-up"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="flex items-center gap-1 mb-3">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    s < t.rating
+                      ? <HiStar key={s} className="w-4 h-4 text-gold-500 fill-gold-500" />
+                      : <HiStar key={s} className="w-4 h-4 text-cream-300 dark:text-gray-600" />
+                  ))}
                 </div>
-              ))
-            ) : (
-              <p className="text-[#6B6B6B] dark:text-gray-300 py-8 text-sm">Loading products...</p>
-            )}
+                <p className="text-sm lg:text-base text-[#6B6B6B] dark:text-gray-300 leading-relaxed font-body italic mb-4 flex-1">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div className="flex items-center justify-between pt-3 border-t border-cream-200 dark:border-gray-700/50">
+                  <span className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">{t.name}</span>
+                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-0.5 rounded-full">
+                    {t.product}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

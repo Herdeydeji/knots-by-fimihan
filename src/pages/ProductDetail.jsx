@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck, HiOutlineHeart, HiHeart, HiOutlineArrowLeft } from 'react-icons/hi'
+import {
+  HiOutlineShoppingBag, HiOutlineMinus, HiOutlinePlus, HiOutlineCheck,
+  HiOutlineHeart, HiHeart, HiOutlineArrowLeft, HiStar, HiOutlineStar,
+  HiOutlinePencil,
+} from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
 import { getProductBySlug, getRelatedProducts } from '../lib/products'
+import { getProductReviews, getProductRating, getReviewDistribution, createReview } from '../lib/reviews'
 import ProductCard from '../components/ui/ProductCard'
 
 function formatPrice(price) {
@@ -20,9 +25,40 @@ export default function ProductDetail() {
   const [noSizeWarn, setNoSizeWarn] = useState(false)
   const [relatedProducts, setRelatedProducts] = useState([])
   const [selectedImage, setSelectedImage] = useState(0)
+
+  const [reviews, setReviews] = useState([])
+  const [ratingSummary, setRatingSummary] = useState({ average: 0, count: 0 })
+  const [reviewDist, setReviewDist] = useState({})
+  const [reviewsLoading, setReviewsLoading] = useState(true)
+
+  const [showReviewForm, setShowReviewForm] = useState(false)
+  const [newRating, setNewRating] = useState(0)
+  const [newComment, setNewComment] = useState('')
+  const [hoverRating, setHoverRating] = useState(0)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitDone, setSubmitDone] = useState(false)
+
   const addItem = useCart((s) => s.addItem)
   const { user, wishlist, toggleLike, openAuthModal } = useAuth()
   const isLiked = wishlist.includes(product?.id)
+
+  const loadReviews = useCallback(async (productId) => {
+    setReviewsLoading(true)
+    try {
+      const [r, rating, dist] = await Promise.all([
+        getProductReviews(productId),
+        getProductRating(productId),
+        getReviewDistribution(productId),
+      ])
+      setReviews(r)
+      setRatingSummary(rating)
+      setReviewDist(dist)
+    } catch {
+      // silently fail
+    } finally {
+      setReviewsLoading(false)
+    }
+  }, [])
 
   const handleToggleWishlist = async (e) => {
     e.preventDefault()
@@ -43,6 +79,10 @@ export default function ProductDetail() {
       setAdded(false)
       setNoSizeWarn(false)
       setSelectedImage(0)
+      setShowReviewForm(false)
+      setNewRating(0)
+      setNewComment('')
+      setSubmitDone(false)
       window.scrollTo(0, 0)
     }).catch(() => setProduct(null))
   }, [slug])
@@ -50,8 +90,9 @@ export default function ProductDetail() {
   useEffect(() => {
     if (product) {
       getRelatedProducts(product).then(setRelatedProducts).catch(() => setRelatedProducts([]))
+      loadReviews(product.id)
     }
-  }, [product])
+  }, [product, loadReviews])
 
   if (!product) {
     return (
@@ -82,6 +123,25 @@ export default function ProductDetail() {
     addItem(product, quantity, selectedSize, selectedColor)
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
+  }
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault()
+    if (!user) { openAuthModal(`/product/${slug}`); return }
+    if (newRating === 0) return
+    setSubmitting(true)
+    try {
+      await createReview(product.id, newRating, newComment)
+      setSubmitDone(true)
+      setShowReviewForm(false)
+      setNewRating(0)
+      setNewComment('')
+      loadReviews(product.id)
+    } catch {
+      alert('Failed to submit review. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const defaultColors = [
@@ -266,6 +326,163 @@ export default function ProductDetail() {
               </div>
             </div>
           </div>
+
+          <section className="mt-12 lg:mt-20 px-4 lg:px-0 border-t border-cream-200 dark:border-gray-700 pt-8 lg:pt-10">
+            <h2 className="font-display text-xl lg:text-2xl font-bold text-[#1C1C1C] dark:text-gray-200 mb-6">Customer Reviews</h2>
+
+            {reviewsLoading ? (
+              <div className="space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-4 bg-cream-200 dark:bg-gray-700 rounded w-1/4 mb-2" />
+                    <div className="h-3 bg-cream-200 dark:bg-gray-700 rounded w-full mb-1" />
+                    <div className="h-3 bg-cream-200 dark:bg-gray-700 rounded w-2/3" />
+                  </div>
+                ))}
+              </div>
+            ) : reviews.length > 0 ? (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
+                <div className="lg:col-span-1">
+                  <div className="card-app p-5 text-center">
+                    <p className="font-display text-4xl font-bold text-[#1C1C1C] dark:text-gray-200">{ratingSummary.average}</p>
+                    <div className="flex items-center justify-center gap-0.5 mt-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <HiStar
+                          key={i}
+                          className={`w-4 h-4 ${i < Math.round(ratingSummary.average) ? 'text-gold-500 fill-gold-500' : 'text-cream-300 dark:text-gray-600'}`}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-xs text-[#6B6B6B] dark:text-gray-300 mt-1 font-body">{ratingSummary.count} review{ratingSummary.count !== 1 ? 's' : ''}</p>
+                    <div className="mt-4 space-y-1.5">
+                      {[5, 4, 3, 2, 1].map((star) => {
+                        const count = reviewDist[star] || 0
+                        const pct = ratingSummary.count > 0 ? Math.round((count / ratingSummary.count) * 100) : 0
+                        return (
+                          <div key={star} className="flex items-center gap-2 text-xs">
+                            <span className="w-3 text-right text-[#6B6B6B] dark:text-gray-400">{star}</span>
+                            <HiStar className="w-3 h-3 text-gold-500 fill-gold-500" />
+                            <div className="flex-1 h-1.5 rounded-full bg-cream-200 dark:bg-gray-700 overflow-hidden">
+                              <div className="h-full rounded-full bg-gold-500" style={{ width: `${pct}%` }} />
+                            </div>
+                            <span className="w-6 text-right text-[#6B6B6B] dark:text-gray-400">{count}</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className="lg:col-span-2 space-y-4">
+                  {reviews.map((review) => (
+                    <div key={review.id} className="card-app p-4 lg:p-5">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                              {(review.profiles?.full_name || 'A').charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">
+                              {review.profiles?.full_name || 'Anonymous'}
+                            </span>
+                            <p className="text-[10px] text-[#6B6B6B] dark:text-gray-400">
+                              {new Date(review.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-0.5">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <HiStar
+                              key={i}
+                              className={`w-3.5 h-3.5 ${i < review.rating ? 'text-gold-500 fill-gold-500' : 'text-cream-300 dark:text-gray-600'}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-sm text-[#6B6B6B] dark:text-gray-300 leading-relaxed font-body">{review.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-10 card-app">
+                <HiOutlineStar className="w-10 h-10 text-cream-300 dark:text-gray-600 mx-auto mb-3" />
+                <p className="font-body text-sm text-[#6B6B6B] dark:text-gray-300">No reviews yet. Be the first to review this product!</p>
+              </div>
+            )}
+
+            {!showReviewForm ? (
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => {
+                    if (!user) { openAuthModal(`/product/${slug}`); return }
+                    setShowReviewForm(true)
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-body font-medium text-sm
+                    bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 transition-all"
+                >
+                  <HiOutlinePencil className="w-4 h-4" />
+                  Write a Review
+                </button>
+              </div>
+            ) : submitDone ? (
+              <div className="mt-6 text-center card-app p-4">
+                <p className="text-sm text-emerald-600 dark:text-emerald-400 font-body font-medium">Thank you! Your review has been submitted.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitReview} className="mt-6 card-app p-5 max-w-xl mx-auto">
+                <h3 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200 mb-3">Write Your Review</h3>
+                <div className="flex items-center gap-1 mb-4">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setNewRating(star)}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      className="p-0.5 transition-transform hover:scale-110"
+                    >
+                      {star <= (hoverRating || newRating) ? (
+                        <HiStar className="w-6 h-6 text-gold-500 fill-gold-500" />
+                      ) : (
+                        <HiStar className="w-6 h-6 text-cream-300 dark:text-gray-600" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+                <textarea
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Share your thoughts about this product..."
+                  className="w-full px-3 py-2.5 rounded-xl border border-cream-200 dark:border-gray-600 bg-white dark:bg-gray-800
+                    text-sm text-[#1C1C1C] dark:text-gray-200 placeholder:text-[#6B6B6B] dark:placeholder:text-gray-500
+                    font-body resize-none h-24 focus:outline-none focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600"
+                  required
+                />
+                <div className="flex items-center gap-3 mt-3">
+                  <button
+                    type="submit"
+                    disabled={newRating === 0 || !newComment.trim() || submitting}
+                    className={`px-5 py-2 rounded-xl font-body font-medium text-sm transition-all ${
+                      newRating === 0 || !newComment.trim() || submitting
+                        ? 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500 cursor-not-allowed'
+                        : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                    }`}
+                  >
+                    {submitting ? 'Submitting...' : 'Submit Review'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setShowReviewForm(false); setNewRating(0); setNewComment(''); setHoverRating(0) }}
+                    className="text-sm text-[#6B6B6B] dark:text-gray-400 hover:text-[#1C1C1C] dark:hover:text-gray-200 font-body"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+          </section>
 
           {relatedProducts.length > 0 && (
             <section className="mt-12 lg:mt-20 px-4 lg:px-0">
