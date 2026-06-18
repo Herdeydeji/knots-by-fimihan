@@ -3,11 +3,29 @@ import { supabase } from './supabase'
 export async function getProductReviews(productId) {
   const { data, error } = await supabase
     .from('product_reviews')
-    .select('id, rating, comment, created_at, user_id, profiles!inner(full_name)')
+    .select('id, rating, comment, created_at, user_id')
     .eq('product_id', productId)
     .order('created_at', { ascending: false })
   if (error) throw error
-  return data || []
+
+  const reviews = data || []
+  if (reviews.length === 0) return []
+
+  const userIds = [...new Set(reviews.map((r) => r.user_id))]
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select('id, full_name')
+    .in('id', userIds)
+
+  const profileMap = {}
+  if (profiles) {
+    profiles.forEach((p) => { profileMap[p.id] = p.full_name })
+  }
+
+  return reviews.map((r) => ({
+    ...r,
+    profiles: { full_name: profileMap[r.user_id] || 'Anonymous' },
+  }))
 }
 
 export async function getProductRating(productId) {
