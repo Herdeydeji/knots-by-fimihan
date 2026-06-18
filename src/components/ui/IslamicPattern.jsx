@@ -60,8 +60,8 @@ export function KBFLogo({ className = '', size = 'default', light = false }) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
       <div className="w-10 h-10 lg:w-11 lg:h-11 flex-shrink-0">{badge}</div>
-      <div className="hidden sm:block">
-        <svg viewBox="0 0 200 60" className="h-9 lg:h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div>
+        <svg viewBox="0 0 200 60" className="h-8 sm:h-9 lg:h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <text x="0" y="26" fontFamily="'Playfair Display',Georgia,serif" fontSize="18" fontWeight="700">
             <tspan fill={c.word}>Knots by </tspan>
             <tspan fill={c.star}>Fimihan</tspan>
