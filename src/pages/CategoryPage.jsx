@@ -24,7 +24,7 @@ export default function CategoryPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-16 text-center">
         <h1 className="text-2xl font-display font-semibold text-emerald-600">Category not found</h1>
-        <p className="text-[#6B6B6B] dark:text-gray-400 mt-2">The category you're looking for doesn't exist.</p>
+        <p className="text-[#6B6B6B] dark:text-gray-300 mt-2">The category you're looking for doesn't exist.</p>
       </div>
     )
   }

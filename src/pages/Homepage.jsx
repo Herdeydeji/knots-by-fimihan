@@ -184,7 +184,7 @@ export default function Homepage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200">{ad.title}</h3>
-                      <p className="text-xs text-[#6B6B6B] dark:text-gray-400 mt-0.5">{ad.description}</p>
+                      <p className="text-xs text-[#6B6B6B] dark:text-gray-300 mt-0.5">{ad.description}</p>
                       <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1.5 inline-flex items-center gap-1
                         group-hover:gap-2 transition-all">
                         {ad.cta_text} <HiOutlineArrowRight className="w-3 h-3" />
@@ -217,7 +217,7 @@ export default function Homepage() {
                 </div>
               ))
             ) : (
-              <p className="text-[#6B6B6B] dark:text-gray-400 py-8 text-sm">Loading products...</p>
+              <p className="text-[#6B6B6B] dark:text-gray-300 py-8 text-sm">Loading products...</p>
             )}
           </div>
         </div>
@@ -238,7 +238,7 @@ export default function Homepage() {
                     <Icon className="w-5 h-5 text-gold-600 dark:text-gold-400" />
                   </div>
                   <h3 className="font-body font-semibold text-xs mt-2 text-[#1C1C1C] dark:text-gray-200">{item.label}</h3>
-                  <p className="text-[10px] text-[#6B6B6B] dark:text-gray-400 mt-0.5 leading-relaxed hidden sm:block">{item.desc}</p>
+                  <p className="text-[10px] text-[#6B6B6B] dark:text-gray-300 mt-0.5 leading-relaxed hidden sm:block">{item.desc}</p>
                 </div>
               )
             })}

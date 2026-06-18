@@ -95,7 +95,7 @@ export default function Shop() {
         <aside className="hidden lg:block lg:w-56 flex-shrink-0">
           <div className="lg:sticky lg:top-24 space-y-6">
             <div>
-              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] dark:text-gray-400 mb-3">Price Range</h3>
+              <h3 className="font-body font-semibold text-sm uppercase tracking-wider text-[#6B6B6B] dark:text-gray-300 mb-3">Price Range</h3>
               <div className="flex items-center gap-2">
                 <input
                   type="number"
@@ -104,7 +104,7 @@ export default function Shop() {
                   onChange={(e) => setPriceRange((p) => ({ ...p, min: e.target.value }))}
                   className="input-field !py-2 text-sm w-full"
                 />
-                <span className="text-[#6B6B6B] dark:text-gray-400">-</span>
+                <span className="text-[#6B6B6B] dark:text-gray-300">-</span>
                 <input
                   type="number"
                   placeholder="Max"
@@ -119,7 +119,7 @@ export default function Shop() {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-[#6B6B6B] dark:text-gray-400 font-body">
+            <p className="text-sm text-[#6B6B6B] dark:text-gray-300 font-body">
               <span className="font-medium text-[#1C1C1C] dark:text-gray-200">{filtered.length}</span> products
             </p>
             <div className="flex items-center gap-2">

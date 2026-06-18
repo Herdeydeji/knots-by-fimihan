@@ -47,13 +47,13 @@ export default function About() {
               </div>
               <h3 className="font-display font-semibold text-xl text-emerald-600">Meet Fimihan</h3>
             </div>
-            <p className="text-[#6B6B6B] dark:text-gray-400 font-body leading-relaxed text-sm lg:text-base">
+            <p className="text-[#6B6B6B] dark:text-gray-300 font-body leading-relaxed text-sm lg:text-base">
               Knots by Fimihan was born from a simple observation: Nigerian Muslim women deserved better.
               After years of struggling to find elegant, affordable modest wear that didn't compromise on style,
               Fimihan decided to create the solution herself. What started as a small collection of hand-picked
               abayas has grown into a curated destination for the modern Muslim woman's wardrobe.
             </p>
-            <p className="text-[#6B6B6B] dark:text-gray-400 font-body leading-relaxed mt-4 text-sm lg:text-base">
+            <p className="text-[#6B6B6B] dark:text-gray-300 font-body leading-relaxed mt-4 text-sm lg:text-base">
               Every piece in our collection is thoughtfully selected for quality, fit, and style. We work directly
               with trusted artisans and manufacturers to ensure that each garment meets our standards of modesty,
               comfort, and elegance.
@@ -72,7 +72,7 @@ export default function About() {
                     </div>
                     <div>
                       <h4 className="font-body font-semibold text-sm text-[#1C1C1C] dark:text-gray-200 mb-0.5">{v.title}</h4>
-                      <p className="text-xs text-[#6B6B6B] dark:text-gray-400 leading-relaxed">{v.desc}</p>
+                      <p className="text-xs text-[#6B6B6B] dark:text-gray-300 leading-relaxed">{v.desc}</p>
                     </div>
                   </div>
                 )

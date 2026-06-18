@@ -20,7 +20,7 @@ export default function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-50 bg-cream-100/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-cream-200 dark:border-gray-700 safe-bottom lg:hidden">
+    <nav className="fixed bottom-0 inset-x-0 z-50 bg-cream-100/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-cream-200 dark:border-gray-700/60 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_12px_rgba(0,0,0,0.35)] safe-bottom lg:hidden">
       <div className="flex items-center justify-around h-16">
         {tabs.map((tab) => {
           const Icon = tab.icon

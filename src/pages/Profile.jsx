@@ -168,7 +168,7 @@ export default function Profile() {
               </div>
               <div>
                 <p className="text-lg sm:text-xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{stats.orders}</p>
-                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Orders</p>
+                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-300 font-body">Orders</p>
               </div>
             </div>
             <div className="card p-3 sm:p-4 flex items-center gap-3">
@@ -177,7 +177,7 @@ export default function Profile() {
               </div>
               <div>
                 <p className="text-lg sm:text-xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{stats.chats}</p>
-                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Chats</p>
+                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-300 font-body">Chats</p>
               </div>
             </div>
             <div className="card p-3 sm:p-4 flex items-center gap-3">
@@ -186,7 +186,7 @@ export default function Profile() {
               </div>
               <div>
                 <p className="text-lg sm:text-xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{stats.wishlist}</p>
-                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Wishlist</p>
+                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-300 font-body">Wishlist</p>
               </div>
             </div>
             <div className="card p-3 sm:p-4 flex items-center gap-3">
@@ -195,7 +195,7 @@ export default function Profile() {
               </div>
               <div>
                 <p className="text-lg sm:text-xl font-display font-bold text-[#1C1C1C] dark:text-gray-200">{formatMemberSince(profile?.created_at)}</p>
-                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-400 font-body">Joined</p>
+                <p className="text-[10px] sm:text-xs text-[#6B6B6B] dark:text-gray-300 font-body">Joined</p>
               </div>
             </div>
           </div>
