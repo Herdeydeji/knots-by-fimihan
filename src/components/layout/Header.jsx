@@ -17,7 +17,7 @@ export default function Header() {
   const { user } = useAuth()
 
   return (
-    <header className="sticky top-0 z-50 bg-cream-100/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-cream-200 dark:border-gray-700">
+    <header className="fixed top-0 z-50 bg-cream-100/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-cream-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-14 lg:h-20">
           <Link to="/" className="flex items-center">

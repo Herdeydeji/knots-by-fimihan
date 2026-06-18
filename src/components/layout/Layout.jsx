@@ -18,7 +18,9 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-cream-50 dark:bg-gray-950">
       <div className={hideMobileHeader ? 'hidden sm:block' : ''}><Header /></div>
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main className={`flex-1 pb-16 lg:pb-0 ${
+        hideMobileHeader ? 'pt-0 sm:pt-14 lg:pt-20' : 'pt-14 lg:pt-20'
+      }`}>
         <Outlet />
       </main>
       <div className={!isAdmin ? 'hidden lg:block' : ''}>
