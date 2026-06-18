@@ -46,30 +46,32 @@ export async function handleChat(req, res) {
     const data = await response.json()
     let reply = data.choices?.[0]?.message?.content || ''
 
-    const htmlTagIndex = reply.search(/<[a-z][\s>]/i)
-    if (htmlTagIndex > 0) {
-      reply = reply.slice(htmlTagIndex)
-    } else if (htmlTagIndex === -1) {
-      const knownPrefixes = [
-        /^Okay[,:]/i, /^Ok[,:]/i, /^Let['´`]?s/i, /^Let me/i, /^I should/i, /^I'll/i,
-        /^I think/i, /^First[,:]/i, /^Looking/i, /^The user/i, /^Hmm/i, /^Alright/i,
-        /^So[,:]/i, /^Great[,:]/i, /^Absolutely[,:]/i, /^Of course[,:]/i,
-        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i, /^immediately/i,
-      ]
+    // Strip reasoning prefixes if present
+    const knownPrefixes = [
+      /^Okay[,:.\s]/i, /^Ok[,:.\s]/i, /^Let['´`]?s\s/i, /^Let me\s/i, /^I should\s/i, /^I'll\s/i,
+      /^I think\s/i, /^First[,:.\s]/i, /^Looking\s/i, /^The user\s/i, /^Hmm[,:.\s]/i, /^Alright[,:.\s]/i,
+      /^So[,:.\s]/i, /^Great[,:.\s]/i, /^Absolutely[,:.\s]/i, /^Of course[,:.\s]/i,
+      /^I understand\s/i, /^I need to\s/i, /^I can help\s/i, /^I['´`]m here\s/i,
+      /^immediately[,:.\s]/i, /^Salam Alaikum[,:!\s]/i,
+    ]
+    let changed = true
+    while (changed) {
+      changed = false
       for (const prefix of knownPrefixes) {
         const m = reply.match(prefix)
         if (m && m.index === 0) {
           reply = reply.slice(m[0].length).trim()
+          changed = true
           break
         }
       }
-      const recheck = reply.search(/<[a-z][\s>]/i)
-      if (recheck > 0) {
-        reply = reply.slice(recheck)
-      } else if (recheck === -1 && !reply.startsWith('<')) {
-        reply = `<p>${reply}</p>`
-      }
     }
+    // Wrap in <p> tags for proper rendering
+    if (!reply.startsWith('<')) {
+      reply = `<p>${reply}</p>`
+    }
+    // Fix bare newlines into <br> tags for HTML rendering
+    reply = reply.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')
 
     res.json({ reply })
   } catch (err) {
