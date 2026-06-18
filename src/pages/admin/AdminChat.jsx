@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiOutlineChatAlt2, HiOutlinePaperAirplane, HiOutlineUser, HiOutlineCheck, HiOutlineArrowLeft } from 'react-icons/hi'
+import { supabase } from '../../lib/supabase'
 import { getAllConversations, sendAdminReply, getConversation, markConversationRead } from '../../lib/chat'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
@@ -56,8 +57,32 @@ export default function AdminChat() {
 
   const handleSend = async () => {
     if (!input.trim() || !selectedUserId) return
-    await sendAdminReply(selectedUserId, input.trim())
+    const msg = input.trim()
+    await sendAdminReply(selectedUserId, msg)
     setInput('')
+
+    try {
+      const conv = conversations.find(c => c.user_id === selectedUserId)
+      const userEmail = conv?.user?.email
+      if (userEmail) {
+        await supabase.functions.invoke('send-email', {
+          body: {
+            to: userEmail,
+            subject: 'New reply from Knots by Fimihan Support',
+            html: `<div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+              <h2 style="color:#059669">New Reply from Support</h2>
+              <p>You received a reply from our support team:</p>
+              <blockquote style="background:#f0fdf4;padding:12px;border-radius:8px;border-left:4px solid #059669;margin:12px 0">
+                ${msg}
+              </blockquote>
+              <p><a href="https://knotbyfimihan.vercel.app/style-assistant" style="background:#059669;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block">View Reply</a></p>
+              <hr style="border:none;border-top:1px solid #eee;margin:16px 0" />
+              <p style="font-size:12px;color:#6b7280">Knots by Fimihan — Dress Modestly, Live Beautifully</p>
+            </div>`,
+          },
+        })
+      }
+    } catch {} // email notification is a bonus
   }
 
   const selectedConversation = conversations.find(c => c.user_id === selectedUserId)

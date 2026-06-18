@@ -12,6 +12,15 @@ export async function sendMessage(userId, message) {
     message,
   })
   if (error) throw error
+
+  try {
+    await supabase.from('admin_notifications').insert({
+      type: 'new_chat_message',
+      title: 'New Chat Message',
+      message: `A customer sent a message: ${message.slice(0, 100)}`,
+      link: '/admin/chat',
+    })
+  } catch {} // notification is a bonus
 }
 
 export async function getConversation(userId) {
