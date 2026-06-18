@@ -68,6 +68,11 @@ export default function Cart() {
                   {item.size && `Size: ${item.size}`}{item.color && ` | Color: ${item.color}`}
                 </p>
                 <p className="font-body font-bold text-emerald-600 mt-1">{formatPrice(item.price)}</p>
+                {item.stock > 0 && item.stock <= 5 && (
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
+                    Only {item.stock} left
+                  </p>
+                )}
                 <div className="flex items-center justify-between mt-3">
                   <div className="flex items-center gap-2">
                     <button
@@ -79,7 +84,12 @@ export default function Cart() {
                     <span className="w-8 text-center text-sm font-medium text-[#1C1C1C] dark:text-gray-200">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.key, item.quantity + 1)}
-                      className="w-8 h-8 rounded-lg border border-cream-300 dark:border-gray-600 flex items-center justify-center text-sm hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200"
+                      disabled={item.quantity >= item.stock}
+                      className={`w-8 h-8 rounded-lg border flex items-center justify-center text-sm transition-colors ${
+                        item.quantity >= item.stock
+                          ? 'border-gray-200 dark:border-gray-700 text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                          : 'border-cream-300 dark:border-gray-600 hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200'
+                      }`}
                     >
                       +
                     </button>

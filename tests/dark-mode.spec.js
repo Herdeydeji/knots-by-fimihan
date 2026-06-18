@@ -9,7 +9,7 @@ test.describe('Dark Mode', () => {
   })
 
   test('toggles via sun/moon button in header', async ({ page }) => {
-    const toggle = page.locator('button[aria-label="Toggle dark mode"]')
+    const toggle = page.locator('button[aria-label="Toggle theme"]')
     await expect(page.locator('html')).not.toHaveClass(/dark/)
 
     await toggle.click()
@@ -20,7 +20,7 @@ test.describe('Dark Mode', () => {
   })
 
   test('persists after navigation', async ({ page }) => {
-    const toggle = page.locator('button[aria-label="Toggle dark mode"]')
+    const toggle = page.locator('button[aria-label="Toggle theme"]')
     await toggle.click()
     await page.locator('a[href*="shop"]').first().click()
     await page.waitForURL('**/shop*')
@@ -28,7 +28,7 @@ test.describe('Dark Mode', () => {
   })
 
   test('admin pages render in both modes', async ({ page }) => {
-    const toggle = page.locator('button[aria-label="Toggle dark mode"]')
+    const toggle = page.locator('button[aria-label="Toggle theme"]')
 
     for (const mode of ['light', 'dark']) {
       if (mode === 'dark') await toggle.click()
@@ -39,7 +39,7 @@ test.describe('Dark Mode', () => {
   })
 
   test('store pages have no flash of wrong colors in dark mode', async ({ page }) => {
-    const toggle = page.locator('button[aria-label="Toggle dark mode"]')
+    const toggle = page.locator('button[aria-label="Toggle theme"]')
     await toggle.click()
 
     const pages = ['/', '/shop', '/contact', '/about']

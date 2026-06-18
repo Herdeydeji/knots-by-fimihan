@@ -11,13 +11,16 @@ export const useCart = create(
       addItem: (product, quantity = 1, size, color) => {
         set((state) => {
           const key = `${product.id}-${size || ''}-${color || ''}`
+          const stock = product.stock ?? 0
           const existing = state.items.find((item) => item.key === key)
           let updated
           if (existing) {
+            const newQty = Math.min(existing.quantity + quantity, stock)
             updated = state.items.map((item) =>
-              item.key === key ? { ...item, quantity: item.quantity + quantity } : item
+              item.key === key ? { ...item, quantity: newQty, stock } : item
             )
           } else {
+            const qty = Math.min(quantity, stock)
             updated = [
               ...state.items,
               {
@@ -27,9 +30,10 @@ export const useCart = create(
                 slug: product.slug,
                 price: product.price,
                 image: product.images?.[0] || '',
-                quantity,
+                quantity: qty,
                 size,
                 color,
+                stock,
               },
             ]
           }

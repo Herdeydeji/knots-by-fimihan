@@ -25,6 +25,8 @@ export default function Checkout() {
     state: '',
   })
   const [loading, setLoading] = useState(false)
+  const [stockError, setStockError] = useState(null)
+  const [stockChecking, setStockChecking] = useState(false)
   const [processingRedirect, setProcessingRedirect] = useState(false)
   const paidRef = useRef(false)
   const shipping = calculateShipping(subtotal, form.state)
@@ -111,10 +113,38 @@ export default function Checkout() {
       })
   }
 
-  const payWithPaystack = () => {
+  const payWithPaystack = async () => {
     if (!window.PaystackPop) {
       alert('Payment system loading. Please try again.')
       return
+    }
+
+    setStockError(null)
+    setStockChecking(true)
+    const ids = [...new Set(items.map((i) => i.id))]
+    const { data: stockData, error: stockFetchErr } = await supabase
+      .from('products')
+      .select('id, stock, name')
+      .in('id', ids)
+    setStockChecking(false)
+    if (stockFetchErr) {
+      console.error('Stock check error:', stockFetchErr)
+    } else {
+      const stockMap = Object.fromEntries((stockData || []).map((p) => [p.id, p]))
+      const issues = items
+        .filter((item) => {
+          const db = stockMap[item.id]
+          return db && db.stock < item.quantity
+        })
+        .map((item) => ({
+          name: item.name,
+          available: stockMap[item.id].stock,
+          requested: item.quantity,
+        }))
+      if (issues.length > 0) {
+        setStockError(issues)
+        return
+      }
     }
 
     setLoading(true)
@@ -250,13 +280,27 @@ export default function Checkout() {
             </div>
           </div>
 
+          {stockError && (
+            <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4">
+              <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2">
+                Stock changed — please review your cart
+              </p>
+              <ul className="space-y-1">
+                {stockError.map((issue, i) => (
+                  <li key={i} className="text-xs text-red-600 dark:text-red-300">
+                    {issue.name}: only {issue.available} available, you have {issue.requested} in cart
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || stockChecking}
             className="btn-gold w-full inline-flex items-center justify-center gap-2 text-base py-4"
           >
             <HiOutlineLockClosed className="w-5 h-5" />
-            {loading ? 'Processing...' : `Pay ${formatPrice(total)}`}
+            {stockChecking ? 'Checking stock...' : loading ? 'Processing...' : `Pay ${formatPrice(total)}`}
           </button>
           <p className="text-xs text-center text-[#6B6B6B] dark:text-gray-400 font-body">
             Secure payment powered by Paystack. Your information is encrypted and secure.
