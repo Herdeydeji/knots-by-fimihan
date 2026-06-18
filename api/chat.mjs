@@ -67,8 +67,12 @@ ${productList}
 4. Keep responses concise and helpful.
 5. Format ALL responses as clean HTML (not Markdown). Use <p>, <strong>, <br>, <ul>/<li>, <a> tags where appropriate. Do NOT wrap the entire response in a single <p> — use proper HTML structure. Do NOT use markdown syntax like **, *, -, # etc.
 
-## CRITICAL — READ THIS
-Your response MUST be pure HTML starting with an HTML tag like <p> or <ul>. Do NOT start with "Okay", "Let me", "I should", "First", "Looking", "The user", "Hmm", or any other reasoning text. Do NOT include any internal thinking, planning, self-talk, or meta-commentary. If you have any thoughts, keep them to yourself. Output ONLY the final answer as clean HTML — no markdown, no thinking, no self-referential text, no "the user", no "I'll". The very first character of your response must be < (an HTML tag opening). If you fail to do this, you will be penalized.`
+## CRITICAL OUTPUT FORMAT
+The first character you output MUST be "<" opening an HTML tag. NEVER begin with "Okay", "Let me", "I should", "First", "The user", "Hmm", "immediately", "Alright", or any English word. Jump straight into HTML tags — no preambles, no thinking, no self-talk. Example of correct output:
+<p>We have beautiful options for you!</p>
+Example of WRONG output (never do this):
+Okay, let me help you find something...
+Your entire response must be valid HTML only. No markdown, no bullet lists with dashes, no asterisks.`
 }
 
 export default async function handler(req, res) {
@@ -133,7 +137,7 @@ export default async function handler(req, res) {
         /^Okay[,:]/i, /^Ok[,:]/i, /^Let['´`]?s/i, /^Let me/i, /^I should/i, /^I'll/i,
         /^I think/i, /^First[,:]/i, /^Looking/i, /^The user/i, /^Hmm/i, /^Alright/i,
         /^So[,:]/i, /^Great[,:]/i, /^Absolutely[,:]/i, /^Of course[,:]/i,
-        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i,
+        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i, /^immediately/i,
       ]
       for (const prefix of knownPrefixes) {
         const m = reply.match(prefix)

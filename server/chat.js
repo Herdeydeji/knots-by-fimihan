@@ -54,7 +54,7 @@ export async function handleChat(req, res) {
         /^Okay[,:]/i, /^Ok[,:]/i, /^Let['´`]?s/i, /^Let me/i, /^I should/i, /^I'll/i,
         /^I think/i, /^First[,:]/i, /^Looking/i, /^The user/i, /^Hmm/i, /^Alright/i,
         /^So[,:]/i, /^Great[,:]/i, /^Absolutely[,:]/i, /^Of course[,:]/i,
-        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i,
+        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i, /^immediately/i,
       ]
       for (const prefix of knownPrefixes) {
         const m = reply.match(prefix)
