@@ -43,10 +43,16 @@ export default function Homepage() {
     }).catch(console.error)
   }, [])
 
+  useEffect(() => {
+    if (slides.length < 2) return
+    const timer = setInterval(next, 15000)
+    return () => clearInterval(timer)
+  }, [next, slides.length])
+
   return (
     <div className="pb-4">
         <section
-          className="relative h-[65vh] min-h-[500px] max-h-[700px] overflow-hidden bg-emerald-900"
+          className="relative mx-4 sm:mx-0 rounded-2xl sm:rounded-none h-[40vh] min-h-[280px] sm:h-[65vh] sm:min-h-[500px] sm:max-h-[700px] overflow-hidden bg-emerald-900"
         >
 
         {slides.map((slide, i) => (
@@ -62,7 +68,7 @@ export default function Homepage() {
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/95 via-emerald-900/60 to-emerald-900/20" />
-            <div className="relative z-10 h-full max-w-7xl mx-auto px-4 lg:px-8 flex flex-col justify-center pb-12">
+            <div className="relative z-10 h-full max-w-7xl mx-auto px-4 lg:px-8 flex flex-col justify-center pb-8 sm:pb-12">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full w-fit mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
                 <span className="text-gold-300 text-[10px] font-medium uppercase tracking-[0.15em] font-body">
