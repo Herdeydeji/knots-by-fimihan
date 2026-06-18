@@ -68,7 +68,7 @@ ${productList}
 5. Format ALL responses as clean HTML (not Markdown). Use <p>, <strong>, <br>, <ul>/<li>, <a> tags where appropriate. Do NOT wrap the entire response in a single <p> — use proper HTML structure. Do NOT use markdown syntax like **, *, -, # etc.
 
 ## CRITICAL — READ THIS
-You MUST begin your response with the HTML tag immediately. Do NOT start with "Okay", "Let me", "I should", "First", "Looking", "The user", or any other self-referential or reasoning text. Do NOT include any internal thinking, planning, or meta-commentary. Your entire response must be pure HTML output starting with a tag like <p> or <ul>. If you have any thoughts, keep them to yourself — output only the answer.`
+Your response MUST be pure HTML starting with an HTML tag like <p> or <ul>. Do NOT start with "Okay", "Let me", "I should", "First", "Looking", "The user", "Hmm", or any other reasoning text. Do NOT include any internal thinking, planning, self-talk, or meta-commentary. If you have any thoughts, keep them to yourself. Output ONLY the final answer as clean HTML — no markdown, no thinking, no self-referential text, no "the user", no "I'll". The very first character of your response must be < (an HTML tag opening). If you fail to do this, you will be penalized.`
 }
 
 export default async function handler(req, res) {
@@ -128,6 +128,27 @@ export default async function handler(req, res) {
     const htmlTagIndex = reply.search(/<[a-z][\s>]/i)
     if (htmlTagIndex > 0) {
       reply = reply.slice(htmlTagIndex)
+    } else if (htmlTagIndex === -1) {
+      const knownPrefixes = [
+        /^Okay[,:]/i, /^Ok[,:]/i, /^Let['´`]?s/i, /^Let me/i, /^I should/i, /^I'll/i,
+        /^I think/i, /^First[,:]/i, /^Looking/i, /^The user/i, /^Hmm/i, /^Alright/i,
+        /^So[,:]/i, /^Great[,:]/i, /^Absolutely[,:]/i, /^Of course[,:]/i,
+        /^I understand/i, /^I need to/i, /^I can help/i, /^I'm here/i,
+      ]
+      for (const prefix of knownPrefixes) {
+        const m = reply.match(prefix)
+        if (m && m.index === 0) {
+          reply = reply.slice(m[0].length).trim()
+          break
+        }
+      }
+      // After stripping prefixes, check again for HTML and also ensure we have HTML output
+      const recheck = reply.search(/<[a-z][\s>]/i)
+      if (recheck > 0) {
+        reply = reply.slice(recheck)
+      } else if (recheck === -1 && !reply.startsWith('<')) {
+        reply = `<p>${reply}</p>`
+      }
     }
 
     res.status(200).json({ reply })
