@@ -8,7 +8,7 @@ export const useToast = create((set, get) => ({
   addToast: (message, type = 'success', duration = 3000) => {
     const id = nextId++
     set((state) => ({
-      toasts: [...state.toasts, { id, message, type, removing: false }],
+      toasts: [...state.toasts, { id, message, type, duration, createdAt: Date.now(), removing: false }],
     }))
     setTimeout(() => get().removeToast(id), duration)
   },

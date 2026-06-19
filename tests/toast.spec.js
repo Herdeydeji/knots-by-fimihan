@@ -40,7 +40,7 @@ test.describe('Toast infrastructure', () => {
     expect(src).toContain('ctx.resume()')
     expect(src).toContain('createOscillator')
     expect(src).toContain('navigator.vibrate')
-    expect(src).toContain('bottom-20')
+    expect(src).toContain('top-4')
     expect(src).toContain('z-[9999]')
   })
 
