@@ -242,7 +242,7 @@ export default function Checkout() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 pb-36 lg:pb-8">
+    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 pb-28 lg:pb-8">
       <Breadcrumbs items={[
         { label: 'Home', path: '/' },
         { label: 'Cart', path: '/cart' },
@@ -365,7 +365,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-[60] safe-bottom">
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-[60] safe-bottom">
         <div className="flex items-center justify-between">
           <div>
             <span className="text-[10px] text-[#6B6B6B] dark:text-gray-400 font-body">Total</span>

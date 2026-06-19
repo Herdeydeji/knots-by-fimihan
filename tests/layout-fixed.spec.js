@@ -127,6 +127,15 @@ test.describe('Bottom nav fixed positioning on mobile', () => {
     )
     expect(hasBottomNav).toBe(false)
   })
+
+  test('bottom nav is not rendered on checkout page', async ({ page }) => {
+    await page.goto('/checkout')
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => page.waitForTimeout(3000))
+    const hasBottomNav = await page.locator('nav').evaluateAll((els) =>
+      els.some((el) => window.getComputedStyle(el).position === 'fixed')
+    )
+    expect(hasBottomNav).toBe(false)
+  })
 })
 
 test.describe('Bell icon in fixed header on mobile', () => {
