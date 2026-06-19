@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineSearch, HiOutlineCube } from 'react-icons/hi'
 import { getAdminProducts, deleteProduct } from '../../lib/products'
+import { useToast } from '../../stores/useToast'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -14,6 +15,7 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [deleting, setDeleting] = useState(null)
+  const addToast = useToast((s) => s.addToast)
 
   useEffect(() => {
     setLoading(true)
@@ -27,9 +29,10 @@ export default function AdminProducts() {
     setProducts((prev) => prev.filter((p) => p.id !== id))
     try {
       await deleteProduct(id)
+      addToast('Product deleted', 'success')
     } catch {
       setProducts(previous)
-      alert('Failed to delete product. Please try again.')
+      addToast('Failed to delete product. Please try again.', 'error')
     } finally {
       setDeleting(null)
     }

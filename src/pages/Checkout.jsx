@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { HiOutlineLockClosed, HiOutlineSparkles, HiOutlineCheck } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
+import { useToast } from '../stores/useToast'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 import { PAYSTACK_PUBLIC_KEY, calculateShipping } from '../lib/constants'
 import { supabase } from '../lib/supabase'
@@ -23,6 +24,7 @@ export default function Checkout() {
   const [searchParams] = useSearchParams()
   const { items, subtotal, clearCart } = useCart()
   const { user } = useAuth()
+  const addToast = useToast((s) => s.addToast)
   const [form, setForm] = useState({
     name: user?.user_metadata?.full_name || user?.email?.split('@')[0] || '',
     email: user?.email || '',
@@ -122,7 +124,7 @@ export default function Checkout() {
 
   const payWithPaystack = async () => {
     if (!window.PaystackPop) {
-      alert('Payment system loading. Please try again.')
+      addToast('Payment system is still loading. Please wait.', 'error')
       return
     }
 
@@ -203,7 +205,7 @@ export default function Checkout() {
       console.error('Paystack error:', err)
       setLoading(false)
       sessionStorage.removeItem('kbf-checkout-pending')
-      alert('Payment could not be opened. Please check that popups are allowed and try again.')
+      addToast('Payment popup was blocked. Please allow popups and try again.', 'error')
     }
   }
 

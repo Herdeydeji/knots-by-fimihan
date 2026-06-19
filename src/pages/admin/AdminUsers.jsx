@@ -6,6 +6,7 @@ import {
 } from 'react-icons/hi'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
+import { useToast } from '../../stores/useToast'
 
 function getInitials(name) {
   if (!name) return '?'
@@ -22,6 +23,7 @@ export default function AdminUsers() {
   const [loading, setLoading] = useState(true)
   const [toggling, setToggling] = useState(null)
   const [search, setSearch] = useState('')
+  const addToast = useToast((s) => s.addToast)
 
   const fetchUsers = () => {
     setLoading(true)
@@ -52,11 +54,12 @@ export default function AdminUsers() {
     setToggling(null)
 
     if (error) {
-      alert(error.message)
+      addToast(error.message, 'error')
       return
     }
 
     setUsers((prev) => prev.map((u) => u.id === target.id ? { ...u, is_admin: !alreadyAdmin } : u))
+    addToast(alreadyAdmin ? 'Admin access revoked' : 'Admin access granted', 'success')
   }
 
   const filtered = useMemo(

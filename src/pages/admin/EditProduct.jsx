@@ -4,10 +4,12 @@ import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
 import { getProductById, updateProduct } from '../../lib/products'
+import { useToast } from '../../stores/useToast'
 
 export default function EditProduct() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const addToast = useToast((s) => s.addToast)
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -52,7 +54,7 @@ export default function EditProduct() {
       })
       setExistingImages(product.images || [])
     }).catch(() => {
-      alert('Product not found')
+      addToast('Product not found', 'error')
       navigate('/admin/products')
     }).finally(() => setLoading(false))
   }, [id, navigate])
@@ -129,7 +131,7 @@ export default function EditProduct() {
         allImages.push(publicUrl)
       }
     } catch (err) {
-      alert('Error uploading images: ' + err.message)
+      addToast('Error uploading images: ' + err.message, 'error')
       setSubmitting(false)
       return
     }
@@ -151,9 +153,10 @@ export default function EditProduct() {
         tags: [form.category],
       })
       setSubmitted(true)
+      addToast('Product updated successfully!', 'success')
       setTimeout(() => navigate('/admin/products'), 1500)
     } catch (err) {
-      alert('Error: ' + err.message)
+      addToast('Error: ' + err.message, 'error')
     } finally {
       setSubmitting(false)
     }

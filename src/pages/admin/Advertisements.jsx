@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineTemplate, HiOutlineEye, HiOutlineEyeOff, HiOutlineTag, HiOutlineTruck, HiOutlineSparkles, HiOutlineShoppingBag, HiOutlineGift, HiOutlineStar, HiOutlineFire } from 'react-icons/hi'
 import { getAdminAdvertisements, createAdvertisement, updateAdvertisement, deleteAdvertisement } from '../../lib/homepage'
+import { useToast } from '../../stores/useToast'
 
 const ICON_OPTIONS = [
   { label: 'Tag', value: 'HiOutlineTag', icon: HiOutlineTag },
@@ -36,6 +37,7 @@ export default function AdminAdvertisements() {
   const [form, setForm] = useState(DEFAULT_AD)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const addToast = useToast((s) => s.addToast)
 
   const load = () => {
     setLoading(true)
@@ -68,7 +70,7 @@ export default function AdminAdvertisements() {
       setEditing(null)
       load()
     } catch (err) {
-      alert('Error: ' + err.message)
+      addToast('Error: ' + err.message, 'error')
     } finally {
       setSaving(false)
     }
@@ -80,7 +82,7 @@ export default function AdminAdvertisements() {
       await deleteAdvertisement(id)
       load()
     } catch {
-      alert('Failed to delete')
+      addToast('Failed to delete advertisement', 'error')
     }
   }
 
@@ -89,7 +91,7 @@ export default function AdminAdvertisements() {
       await updateAdvertisement(ad.id, { is_active: !ad.is_active })
       load()
     } catch {
-      alert('Failed to update')
+      addToast('Failed to update advertisement', 'error')
     }
   }
 

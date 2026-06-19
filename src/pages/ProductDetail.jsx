@@ -7,6 +7,7 @@ import {
 } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../lib/auth'
+import { useToast } from '../stores/useToast'
 import { getProductBySlug, getRelatedProducts } from '../lib/products'
 import { getProductReviews, getProductRating, getReviewDistribution, createReview } from '../lib/reviews'
 import ProductCard from '../components/ui/ProductCard'
@@ -41,6 +42,7 @@ export default function ProductDetail() {
 
   const addItem = useCart((s) => s.addItem)
   const { user, wishlist, toggleLike, openAuthModal } = useAuth()
+  const addToast = useToast((s) => s.addToast)
   const isLiked = wishlist.includes(product?.id)
 
   const loadReviews = useCallback(async (productId) => {
@@ -65,9 +67,10 @@ export default function ProductDetail() {
     e.preventDefault()
     if (!user) { openAuthModal(`/product/${slug}`); return }
     try {
-      await toggleLike(product.id)
+      const wasLiked = await toggleLike(product.id)
+      addToast(wasLiked ? 'Added to Wishlist ❤️' : 'Removed from Wishlist', 'success')
     } catch {
-      alert('Failed to update wishlist. Please try again.')
+      addToast('Failed to update wishlist. Please try again.', 'error')
     }
   }
 
@@ -140,6 +143,7 @@ export default function ProductDetail() {
     addItem(product, quantity, selectedSize, selectedColor)
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
+    addToast('Added to Bag ✓', 'success')
   }
 
   const handleSubmitReview = async (e) => {
@@ -154,8 +158,9 @@ export default function ProductDetail() {
       setNewRating(0)
       setNewComment('')
       loadReviews(product.id)
+      addToast('Review submitted ✓', 'success')
     } catch {
-      alert('Failed to submit review. Please try again.')
+      addToast('Failed to submit review. Please try again.', 'error')
     } finally {
       setSubmitting(false)
     }

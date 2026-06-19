@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
+import { useToast } from '../../stores/useToast'
 
 export default function AddProduct() {
   const navigate = useNavigate()
+  const addToast = useToast((s) => s.addToast)
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -87,7 +89,7 @@ export default function AddProduct() {
         imageUrls.push(publicUrl)
       }
     } catch (err) {
-      alert('Error uploading images: ' + err.message)
+      addToast('Error uploading images: ' + err.message, 'error')
       setUploading(false)
       return
     }
@@ -112,11 +114,12 @@ export default function AddProduct() {
       tags: [form.category],
     }])
     if (error) {
-      alert('Error: ' + error.message)
+      addToast('Error: ' + error.message, 'error')
       setUploading(false)
       return
     }
     setSubmitted(true)
+    addToast('Product added successfully!', 'success')
     setTimeout(() => navigate('/admin/products'), 1500)
   }
 

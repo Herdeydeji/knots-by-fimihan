@@ -5,8 +5,10 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { KBFLogo } from '../ui/IslamicPattern'
 import { WHATSAPP_NUMBER, EMAIL } from '../../lib/constants'
 import { supabase } from '../../lib/supabase'
+import { useToast } from '../../stores/useToast'
 
 export default function Footer() {
+  const addToast = useToast((s) => s.addToast)
   const [visible, setVisible] = useState(false)
   const sentinelRef = useRef(null)
   const [email, setEmail] = useState('')
@@ -31,8 +33,9 @@ export default function Footer() {
       if (error && error.code !== '23505') throw error
       setSubscribed(true)
       setEmail('')
+      addToast('Subscribed! 🎉', 'success')
     } catch (err) {
-      alert('Failed to subscribe. Please try again.')
+      addToast('Failed to subscribe. Please try again.', 'error')
     } finally {
       setSubscribing(false)
     }

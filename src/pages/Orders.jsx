@@ -9,6 +9,7 @@ import {
   HiOutlineXCircle,
 } from 'react-icons/hi'
 import { useAuth } from '../lib/auth'
+import { useToast } from '../stores/useToast'
 import { getOrdersByEmail, updateFulfillmentStatus } from '../lib/orders'
 import { supabase } from '../lib/supabase'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
@@ -194,13 +195,16 @@ export default function Orders() {
     setOrders((prev) => prev.map((o) => o.id === payload.new.id ? { ...o, ...payload.new } : o))
   })
 
+  const addToast = useToast((s) => s.addToast)
+
   const handleCancel = async (orderId) => {
     setCancelling(orderId)
     try {
       await updateFulfillmentStatus(orderId, 'cancelled')
       setOrders((prev) => prev.map((o) => o.id === orderId ? { ...o, fulfillment_status: 'cancelled' } : o))
+      addToast('Order cancelled', 'success')
     } catch (err) {
-      console.error('Failed to cancel order:', err)
+      addToast('Failed to cancel order', 'error')
     } finally {
       setCancelling(null)
     }

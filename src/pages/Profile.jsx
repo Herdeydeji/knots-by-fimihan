@@ -7,6 +7,7 @@ import {
   HiOutlineUserGroup, HiOutlineInbox, HiOutlinePencil, HiOutlineCheck,
   HiOutlineXCircle, HiOutlineSun, HiOutlineMoon
 } from 'react-icons/hi'
+import { useToast } from '../stores/useToast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 import { useTheme } from '../lib/theme'
@@ -46,6 +47,7 @@ export default function Profile() {
   const [saving, setSaving] = useState(false)
   const [editing, setEditing] = useState(false)
   const { dark, toggle } = useTheme()
+  const addToast = useToast((s) => s.addToast)
   const [form, setForm] = useState({ full_name: '', phone: '' })
   const [saved, setSaved] = useState(false)
 
@@ -71,11 +73,12 @@ export default function Profile() {
       p_phone: form.phone.trim() || null,
     })
     setSaving(false)
-    if (error) { alert(error.message); return }
+    if (error) { addToast(error.message, 'error'); return }
     setProfile((p) => ({ ...p, full_name: form.full_name.trim(), phone: form.phone.trim() }))
     setEditing(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+    addToast('Profile updated ✓', 'success')
   }
 
   const handleLogout = async () => {

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HiOutlineTrash, HiOutlineShoppingBag, HiOutlineArrowLeft } from 'react-icons/hi'
 import { useCart } from '../hooks/useCart'
+import { useToast } from '../stores/useToast'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 import { SHIPPING_FEE, FREE_SHIPPING_THRESHOLD } from '../lib/constants'
 
@@ -10,6 +11,7 @@ function formatPrice(price) {
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, subtotal } = useCart()
+  const addToast = useToast((s) => s.addToast)
   const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
   const total = subtotal + shipping
   const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100)
@@ -72,7 +74,10 @@ export default function Cart() {
                 <div className="flex items-center justify-between mt-2">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => item.quantity <= 1 ? removeItem(item.key) : updateQuantity(item.key, item.quantity - 1)}
+                      onClick={() => {
+                      if (item.quantity <= 1) { removeItem(item.key); addToast('Removed from Bag', 'success') }
+                      else updateQuantity(item.key, item.quantity - 1)
+                    }}
                       className="w-7 h-7 rounded-lg border border-cream-300 dark:border-gray-600 flex items-center justify-center text-sm hover:bg-cream-100 dark:hover:bg-gray-700 text-[#1C1C1C] dark:text-gray-200"
                     >
                       -
@@ -91,7 +96,7 @@ export default function Cart() {
                     </button>
                   </div>
                   <button
-                    onClick={() => removeItem(item.key)}
+                    onClick={() => { removeItem(item.key); addToast('Removed from Bag', 'success') }}
                     className="p-2 text-[#6B6B6B] dark:text-gray-400 hover:text-red-500 transition-colors"
                     aria-label="Remove item"
                   >

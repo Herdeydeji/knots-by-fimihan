@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
+import { useToast } from '../../stores/useToast'
 
 function formatPrice(price) {
   return `₦${price.toLocaleString()}`
@@ -8,6 +9,7 @@ function formatPrice(price) {
 
 export default function ProductCard({ product }) {
   const { user, wishlist, toggleLike, openAuthModal } = useAuth()
+  const addToast = useToast((s) => s.addToast)
   const isLiked = wishlist.includes(product.id)
 
   const handleLike = async (e) => {
@@ -18,9 +20,10 @@ export default function ProductCard({ product }) {
       return
     }
     try {
-      await toggleLike(product.id)
+      const wasLiked = await toggleLike(product.id)
+      addToast(wasLiked ? 'Added to Wishlist ❤️' : 'Removed from Wishlist', 'success')
     } catch {
-      alert('Failed to update wishlist. Please try again.')
+      addToast('Failed to update wishlist. Please try again.', 'error')
     }
   }
 

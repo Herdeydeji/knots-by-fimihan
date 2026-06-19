@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlinePhotograph, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi'
 import { getAdminHeroSlides, createHeroSlide, updateHeroSlide, deleteHeroSlide } from '../../lib/homepage'
+import { useToast } from '../../stores/useToast'
 
 const DEFAULT_SLIDE = {
   image_url: '',
@@ -21,6 +22,7 @@ export default function AdminHeroSlides() {
   const [form, setForm] = useState(DEFAULT_SLIDE)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const addToast = useToast((s) => s.addToast)
 
   const load = () => {
     setLoading(true)
@@ -53,7 +55,7 @@ export default function AdminHeroSlides() {
       setEditing(null)
       load()
     } catch (err) {
-      alert('Error: ' + err.message)
+      addToast('Error: ' + err.message, 'error')
     } finally {
       setSaving(false)
     }
@@ -65,7 +67,7 @@ export default function AdminHeroSlides() {
       await deleteHeroSlide(id)
       load()
     } catch {
-      alert('Failed to delete')
+      addToast('Failed to delete slide', 'error')
     }
   }
 
@@ -74,7 +76,7 @@ export default function AdminHeroSlides() {
       await updateHeroSlide(slide.id, { is_active: !slide.is_active })
       load()
     } catch {
-      alert('Failed to update')
+      addToast('Failed to update slide', 'error')
     }
   }
 
