@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
@@ -30,6 +30,8 @@ export default function EditProduct() {
   const [existingImages, setExistingImages] = useState([])
   const [newImageFiles, setNewImageFiles] = useState([])
   const [newImagePreviews, setNewImagePreviews] = useState([])
+  const existingDragIndex = useRef(null)
+  const newDragIndex = useRef(null)
 
   useEffect(() => {
     getProductById(id).then((product) => {
@@ -73,13 +75,44 @@ export default function EditProduct() {
 
   const handleImageSelect = (e) => {
     const files = Array.from(e.target.files)
-    setNewImageFiles(files)
+    setNewImageFiles(prev => [...prev, ...files])
     const previews = files.map((f) => URL.createObjectURL(f))
-    setNewImagePreviews(previews)
+    setNewImagePreviews(prev => [...prev, ...previews])
+    e.target.value = null
   }
 
   const removeExistingImage = (url) => {
     setExistingImages((prev) => prev.filter((u) => u !== url))
+  }
+  const removeNewImage = (index) => {
+    setNewImageFiles(prev => prev.filter((_, i) => i !== index))
+    setNewImagePreviews(prev => {
+      URL.revokeObjectURL(prev[index])
+      return prev.filter((_, i) => i !== index)
+    })
+  }
+  const handleExistingDragStart = (i) => { existingDragIndex.current = i }
+  const handleDragOver = (e) => { e.preventDefault() }
+  const handleExistingDrop = (i) => {
+    const from = existingDragIndex.current
+    if (from === i) return
+    const newImages = [...existingImages]
+    const [moved] = newImages.splice(from, 1)
+    newImages.splice(i, 0, moved)
+    setExistingImages(newImages)
+  }
+  const handleNewDragStart = (i) => { newDragIndex.current = i }
+  const handleNewDrop = (i) => {
+    const from = newDragIndex.current
+    if (from === i) return
+    const newFiles = [...newImageFiles]
+    const newPreviews = [...newImagePreviews]
+    const [movedFile] = newFiles.splice(from, 1)
+    const [movedPreview] = newPreviews.splice(from, 1)
+    newFiles.splice(i, 0, movedFile)
+    newPreviews.splice(i, 0, movedPreview)
+    setNewImageFiles(newFiles)
+    setNewImagePreviews(newPreviews)
   }
 
   const handleSubmit = async (e) => {
@@ -272,11 +305,19 @@ export default function EditProduct() {
             {existingImages.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-3">
                 {existingImages.map((url, i) => (
-                  <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700 group">
+                  <div
+                    key={i}
+                    draggable
+                    onDragStart={() => handleExistingDragStart(i)}
+                    onDragOver={handleDragOver}
+                    onDrop={() => handleExistingDrop(i)}
+                    className="relative w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700 group cursor-grab active:cursor-grabbing"
+                  >
                     <img src={url} alt="" className="w-full h-full object-cover" />
                     <button type="button" onClick={() => removeExistingImage(url)} className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <HiOutlineX className="w-5 h-5 text-white" />
                     </button>
+                    <div className="absolute bottom-0.5 left-0.5 text-[9px] text-white bg-black/40 px-1 rounded font-body opacity-0 group-hover:opacity-100 transition-opacity">#{i + 1}</div>
                   </div>
                 ))}
               </div>
@@ -289,8 +330,19 @@ export default function EditProduct() {
             {newImagePreviews.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-3">
                 {newImagePreviews.map((url, i) => (
-                  <div key={i} className="w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700">
+                  <div
+                    key={i}
+                    draggable
+                    onDragStart={() => handleNewDragStart(i)}
+                    onDragOver={handleDragOver}
+                    onDrop={() => handleNewDrop(i)}
+                    className="relative w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700 group cursor-grab active:cursor-grabbing"
+                  >
                     <img src={url} alt="" className="w-full h-full object-cover" />
+                    <button type="button" onClick={() => removeNewImage(i)} className="absolute top-0.5 right-0.5 w-5 h-5 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <HiOutlineX className="w-3 h-3 text-white" />
+                    </button>
+                    <div className="absolute bottom-0.5 left-0.5 text-[9px] text-white bg-black/40 px-1 rounded font-body opacity-0 group-hover:opacity-100 transition-opacity">#{i + 1}</div>
                   </div>
                 ))}
               </div>

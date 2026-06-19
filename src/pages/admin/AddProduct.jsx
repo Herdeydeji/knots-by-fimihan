@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiOutlineUpload, HiOutlinePlus, HiOutlineX } from 'react-icons/hi'
 import { CATEGORIES } from '../../lib/constants'
@@ -16,7 +16,7 @@ export default function AddProduct() {
     stock: '',
     material: '',
     occasion: '',
-    hasSizes: true,
+    hasSizes: false,
     sizes: [],
     hasColors: true,
     colors: [],
@@ -26,6 +26,7 @@ export default function AddProduct() {
   const [imageFiles, setImageFiles] = useState([])
   const [imagePreviews, setImagePreviews] = useState([])
   const [uploading, setUploading] = useState(false)
+  const dragIndex = useRef(null)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
   const handleSizeToggle = (size) => {
@@ -45,9 +46,31 @@ export default function AddProduct() {
 
   const handleImageSelect = (e) => {
     const files = Array.from(e.target.files)
-    setImageFiles(files)
+    setImageFiles(prev => [...prev, ...files])
     const previews = files.map((f) => URL.createObjectURL(f))
-    setImagePreviews(previews)
+    setImagePreviews(prev => [...prev, ...previews])
+    e.target.value = null
+  }
+  const removeImage = (index) => {
+    setImageFiles(prev => prev.filter((_, i) => i !== index))
+    setImagePreviews(prev => {
+      URL.revokeObjectURL(prev[index])
+      return prev.filter((_, i) => i !== index)
+    })
+  }
+  const handleDragStart = (i) => { dragIndex.current = i }
+  const handleDragOver = (e) => { e.preventDefault() }
+  const handleDrop = (i) => {
+    const from = dragIndex.current
+    if (from === i) return
+    const newFiles = [...imageFiles]
+    const newPreviews = [...imagePreviews]
+    const [movedFile] = newFiles.splice(from, 1)
+    const [movedPreview] = newPreviews.splice(from, 1)
+    newFiles.splice(i, 0, movedFile)
+    newPreviews.splice(i, 0, movedPreview)
+    setImageFiles(newFiles)
+    setImagePreviews(newPreviews)
   }
 
   const handleSubmit = async (e) => {
@@ -238,8 +261,19 @@ export default function AddProduct() {
             {imagePreviews.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-3">
                 {imagePreviews.map((url, i) => (
-                  <div key={i} className="w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700">
+                  <div
+                    key={i}
+                    draggable
+                    onDragStart={() => handleDragStart(i)}
+                    onDragOver={handleDragOver}
+                    onDrop={() => handleDrop(i)}
+                    className="relative w-20 h-20 rounded-xl overflow-hidden border border-cream-200 dark:border-gray-700 group cursor-grab active:cursor-grabbing"
+                  >
                     <img src={url} alt="" className="w-full h-full object-cover" />
+                    <button type="button" onClick={() => removeImage(i)} className="absolute top-0.5 right-0.5 w-5 h-5 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <HiOutlineX className="w-3 h-3 text-white" />
+                    </button>
+                    <div className="absolute bottom-0.5 left-0.5 text-[9px] text-white bg-black/40 px-1 rounded font-body opacity-0 group-hover:opacity-100 transition-opacity">#{i + 1}</div>
                   </div>
                 ))}
               </div>
