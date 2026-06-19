@@ -15,7 +15,13 @@ function TypingIndicator() {
   return (
     <div className="flex justify-start">
       <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 mr-2 mt-1 shadow-sm">
-        <span className="text-[8px] font-bold text-white font-display tracking-tight">KBF</span>
+        <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="5" y="8" width="14" height="10" rx="2" />
+          <circle cx="9" cy="13" r="1" fill="currentColor" />
+          <circle cx="15" cy="13" r="1" fill="currentColor" />
+          <path d="M9 3v2M15 3v2M9 18v3M15 18v3" />
+          <path d="M7 22h10" />
+        </svg>
       </div>
       <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-cream-200 dark:border-gray-600">
         <div className="flex items-center gap-1.5">
@@ -178,7 +184,13 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
                   {msg.role === 'assistant' && (
                     <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 mr-2 mt-1 shadow-sm">
-                      <span className="text-[8px] font-bold text-white font-display tracking-tight">KBF</span>
+                      <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="5" y="8" width="14" height="10" rx="2" />
+                        <circle cx="9" cy="13" r="1" fill="currentColor" />
+                        <circle cx="15" cy="13" r="1" fill="currentColor" />
+                        <path d="M9 3v2M15 3v2M9 18v3M15 18v3" />
+                        <path d="M7 22h10" />
+                      </svg>
                     </div>
                   )}
                   <div
