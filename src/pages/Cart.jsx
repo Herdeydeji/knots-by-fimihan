@@ -131,7 +131,7 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-4 lg:hidden z-40 safe-bottom">
+      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-4 lg:hidden z-[60] safe-bottom">
         <div className="flex items-center justify-between mb-2">
           <span className="font-body text-sm text-[#6B6B6B] dark:text-gray-400">Total</span>
           <span className="font-bold text-emerald-600 text-lg">{formatPrice(total)}</span>

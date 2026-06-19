@@ -365,7 +365,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-40 safe-bottom">
+      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-[60] safe-bottom">
         <div className="flex items-center justify-between">
           <div>
             <span className="text-[10px] text-[#6B6B6B] dark:text-gray-400 font-body">Total</span>

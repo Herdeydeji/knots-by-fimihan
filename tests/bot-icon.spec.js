@@ -11,7 +11,7 @@ test.describe('Bot icon positioning on mobile', () => {
 
     const bottom = await botIcon.evaluate(el => window.getComputedStyle(el).bottom)
 
-    expect(bottom).toBe('112px')
+    expect(bottom).toBe('144px')
   })
 
   test('bot icon is visible and above bottom nav on mobile', async ({ page }) => {
@@ -21,7 +21,6 @@ test.describe('Bot icon positioning on mobile', () => {
 
     const box = await botIcon.boundingBox()
     expect(box).not.toBeNull()
-    // bot bottom should be well above viewport bottom (112px from bottom)
-    expect(box.y + box.height).toBeLessThanOrEqual(667 - 112 + 5)
+    expect(box.y + box.height).toBeLessThanOrEqual(667 - 144 + 5)
   })
 })
