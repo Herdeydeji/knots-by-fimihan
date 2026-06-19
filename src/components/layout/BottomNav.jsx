@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiOutlineShoppingCart, HiOutlineUser } from 'react-icons/hi'
+import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiOutlineUser } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
 import { useNotifications } from '../../hooks/useNotifications'
 
@@ -52,28 +52,6 @@ export default function BottomNav() {
             </Link>
           )
         })}
-
-        <Link
-          to="/cart"
-          className={`flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-full relative transition-colors ${
-            isActive('/cart')
-              ? 'text-emerald-600 dark:text-emerald-400'
-              : 'text-gray-400 dark:text-gray-500'
-          }`}
-        >
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-            isActive('/cart')
-              ? 'bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40'
-              : ''
-          }`}>
-            <HiOutlineShoppingCart className="w-5 h-5" />
-          </div>
-          <span className={`text-[10px] font-medium font-body tracking-wide ${
-            isActive('/cart') ? 'font-semibold' : ''
-          }`}>
-            Cart
-          </span>
-        </Link>
 
         <Link
           to={user ? '/profile' : '/login'}
