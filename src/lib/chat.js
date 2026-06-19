@@ -86,7 +86,7 @@ export async function sendAdminReply(userId, message) {
       p_type: 'admin_message',
       p_title: 'New Reply from Support',
       p_message: message.slice(0, 150),
-      p_link: '/style-assistant',
+      p_link: '/style-assistant?mode=support',
     })
     sendPushNotification(userId, {
       title: 'New Reply from Support',

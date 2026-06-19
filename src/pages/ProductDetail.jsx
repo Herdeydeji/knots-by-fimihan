@@ -18,6 +18,7 @@ function formatPrice(price) {
 export default function ProductDetail() {
   const { slug } = useParams()
   const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -71,6 +72,7 @@ export default function ProductDetail() {
   }
 
   useEffect(() => {
+    setLoading(true)
     getProductBySlug(slug).then((p) => {
       setProduct(p)
       setSelectedSize('')
@@ -84,7 +86,7 @@ export default function ProductDetail() {
       setNewComment('')
       setSubmitDone(false)
       window.scrollTo(0, 0)
-    }).catch(() => setProduct(null))
+    }).catch(() => setProduct(null)).finally(() => setLoading(false))
   }, [slug])
 
   useEffect(() => {
@@ -94,6 +96,20 @@ export default function ProductDetail() {
     }
   }, [product, loadReviews])
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-cream-50 dark:bg-gray-950 flex items-center justify-center">
+        <div className="animate-scale-in-out">
+          <svg viewBox="0 0 60 60" className="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="56" height="56" rx="14" fill="#1A5C3A" stroke="rgba(201,150,58,0.3)" strokeWidth="1" />
+            <path d="M30 19 L36 24 L41 30 L36 36 L30 41 L24 36 L19 30 L24 24 Z" fill="#C9963A" />
+            <circle cx="30" cy="30" r="9" fill="#1A5C3A" stroke="#C9963A" strokeWidth="0.8" />
+            <text x="30" y="35" textAnchor="middle" fontFamily="'Playfair Display',Georgia,serif" fontSize="15" fontWeight="700" fill="#C9963A" letterSpacing="0.5">K</text>
+          </svg>
+        </div>
+      </div>
+    )
+  }
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center bg-cream-50 dark:bg-gray-950 min-h-[calc(100vh-64px)] flex flex-col items-center justify-center">

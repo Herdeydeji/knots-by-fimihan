@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { HiOutlineArrowLeft, HiOutlineChatAlt2, HiOutlineUserGroup } from 'react-icons/hi'
 import ChatUI from '../components/chat/ChatUI'
 
 export default function StyleAssistant() {
-  const [mode, setMode] = useState('agent')
+  const [searchParams] = useSearchParams()
+  const [mode, setMode] = useState(searchParams.get('mode') || 'agent')
 
   return (
     <div className="h-dvh flex flex-col bg-white dark:bg-gray-950">
