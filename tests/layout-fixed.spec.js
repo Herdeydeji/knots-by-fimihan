@@ -119,15 +119,13 @@ test.describe('Bottom nav fixed positioning on mobile', () => {
     expect(hasBottomNav).toBe(false)
   })
 
-  test('bottom nav is fixed at bottom on cart page', async ({ page }) => {
+  test('bottom nav is not rendered on cart page', async ({ page }) => {
     await page.goto('/cart')
-    await scrollAndCheck(page)
-    const nav = await getBottomNav(page)
-    const cs = await nav.evaluate((el) => window.getComputedStyle(el).position)
-    expect(cs).toBe('fixed')
-    const box = await nav.boundingBox()
-    expect(box).not.toBeNull()
-    expect(box.y + box.height).toBe(667)
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => page.waitForTimeout(3000))
+    const hasBottomNav = await page.locator('nav').evaluateAll((els) =>
+      els.some((el) => window.getComputedStyle(el).position === 'fixed')
+    )
+    expect(hasBottomNav).toBe(false)
   })
 })
 

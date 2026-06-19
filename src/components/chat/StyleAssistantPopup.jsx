@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { HiOutlineX } from 'react-icons/hi'
+import { HiOutlineX, HiOutlineChatAlt2, HiOutlineUserGroup } from 'react-icons/hi'
 import ChatUI from './ChatUI'
 
 const AgentIcon = () => (
@@ -43,6 +43,28 @@ export default function StyleAssistantPopup({ onClose }) {
               <p className="text-[10px] text-emerald-200 leading-tight font-body">{header.status}</p>
             </div>
           </div>
+        </div>
+        <div className="relative ml-auto flex items-center gap-1 bg-white/10 backdrop-blur-sm rounded-xl p-0.5">
+          <button
+            onClick={() => setMode('agent')}
+            className={`px-3 py-1.5 rounded-lg text-[11px] font-body font-medium transition-all flex items-center gap-1.5 ${
+              mode === 'agent' ? 'bg-white text-emerald-700 shadow-sm' : 'text-white/70 hover:text-white'
+            }`}
+            type="button"
+          >
+            <HiOutlineChatAlt2 className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Agent</span>
+          </button>
+          <button
+            onClick={() => setMode('support')}
+            className={`px-3 py-1.5 rounded-lg text-[11px] font-body font-medium transition-all flex items-center gap-1.5 ${
+              mode === 'support' ? 'bg-white text-emerald-700 shadow-sm' : 'text-white/70 hover:text-white'
+            }`}
+            type="button"
+          >
+            <HiOutlineUserGroup className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Support</span>
+          </button>
         </div>
         <button onClick={onClose} className="relative p-1.5 rounded-xl hover:bg-white/10 transition-colors text-white/70 hover:text-white" aria-label="Close assistant">
           <HiOutlineX className="w-5 h-5" />

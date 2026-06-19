@@ -191,7 +191,7 @@ export default function ProductDetail() {
                   {isLiked ? <HiHeart className="w-5 h-5" /> : <HiOutlineHeart className="w-5 h-5" />}
                 </button>
                 {discountBadge && (
-                  <div className="absolute top-4 left-4 bg-gold-500 text-white text-sm font-bold px-3 py-1.5 rounded-xl">
+                  <div className="absolute bottom-4 left-4 bg-gold-500 text-white text-sm font-bold px-3 py-1.5 rounded-xl">
                     {discountBadge}
                   </div>
                 )}
