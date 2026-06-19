@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "iconSrc": "/icons/icon-192x192.png",
+  "iconType": "image/png",
+  "display": "standalone",
+  "displayOverride": [
+    "window-controls-overlay",
+    "standalone"
+  ]
+}

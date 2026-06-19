@@ -20,6 +20,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  if (!vapidPublicKey || !vapidPrivateKey) {
+    return res.status(500).json({ error: 'VAPID keys not configured on server' })
+  }
+  if (!SUPABASE_KEY) {
+    return res.status(500).json({ error: 'Supabase key not configured on server' })
+  }
+
   const { user_id, title, body, url } = req.body
   if (!user_id || !title) {
     return res.status(400).json({ error: 'user_id and title are required' })
@@ -45,9 +52,9 @@ export default async function handler(req, res) {
     const payload = JSON.stringify({ title, body: body || '', url: url || '/' })
 
     await webPush.sendNotification(subscription, payload)
-    res.json({ success: true })
+    return res.json({ success: true })
   } catch (err) {
-    if (err.statusCode === 410 || err.statusCode === 404) {
+    if (err && (err.statusCode === 410 || err.statusCode === 404)) {
       try {
         await fetch(
           `${SUPABASE_URL}/rest/v1/push_subscriptions?user_id=eq.${encodeURIComponent(req.body.user_id)}`,
@@ -62,7 +69,7 @@ export default async function handler(req, res) {
       } catch {}
       return res.json({ success: true, skipped: 'subscription expired' })
     }
-    console.error('send-push error:', err)
-    res.status(500).json({ error: 'Failed to send push notification' })
+    console.error('send-push error:', err && err.message ? err.message : String(err), err)
+    return res.status(500).json({ error: 'Failed to send push notification' })
   }
 }

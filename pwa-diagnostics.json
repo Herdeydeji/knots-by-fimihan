@@ -1,0 +1,9 @@
+{
+  "manifestHref": "https://knotbyfimihan.vercel.app/manifest.json",
+  "swRegistered": true,
+  "swScope": "https://knotbyfimihan.vercel.app/",
+  "swActive": "activated",
+  "pushSupported": true,
+  "notificationPermission": "default",
+  "hasPushSubscription": false
+}
