@@ -209,7 +209,7 @@ export default function AdminChat() {
                   {selectedConversation?.user?.full_name || selectedConversation?.user?.email || selectedUserId.slice(0, 8)}
                 </p>
               </div>
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-[#e8ddd3] dark:bg-gray-800 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(0,0,0,0.02)_2px,rgba(0,0,0,0.02)_4px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)]">
               {selectedMessages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-start' : 'justify-end'} animate-fade-in`}>
                   {msg.sender === 'user' && (

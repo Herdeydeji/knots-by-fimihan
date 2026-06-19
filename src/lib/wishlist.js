@@ -38,7 +38,7 @@ export async function toggleWishlist(userId, productId) {
       p_type: 'product_like',
       p_title: 'First Like! 💕',
       p_message: `You liked a product! We'll keep you updated on similar styles.`,
-      p_link: '/wishlist',
+      p_link: '/shop',
     })
   } catch {} // notification is a bonus
 

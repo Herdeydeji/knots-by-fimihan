@@ -1,18 +1,18 @@
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiUserCircle } from 'react-icons/hi'
+import { HiOutlineHome, HiOutlineSearch, HiOutlineShoppingCart, HiUserCircle } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
-import { useNotifications } from '../../hooks/useNotifications'
+import { useCart } from '../../hooks/useCart'
 
 const tabs = [
   { label: 'Home', path: '/', icon: HiOutlineHome },
   { label: 'Shop', path: '/shop', icon: HiOutlineSearch },
-  { label: 'Notifications', path: '/notifications', icon: HiOutlineBell },
+  { label: 'Cart', path: '/cart', icon: HiOutlineShoppingCart },
 ]
 
 export default function BottomNav() {
   const location = useLocation()
   const { user } = useAuth()
-  const unreadCount = useNotifications((s) => s.unreadCount)
+  const itemCount = useCart((s) => s.itemCount)
 
   const isActive = (path) => {
     if (path === '/') return location.pathname === '/'
@@ -25,7 +25,7 @@ export default function BottomNav() {
         {tabs.map((tab) => {
           const Icon = tab.icon
           const active = isActive(tab.path)
-          const showBadge = tab.label === 'Notifications' && unreadCount > 0
+          const showBadge = tab.label === 'Cart' && itemCount > 0
           return (
             <Link
               key={tab.path}
@@ -36,7 +36,7 @@ export default function BottomNav() {
             >
               {showBadge && (
                 <span className="absolute -top-0.5 right-1/2 translate-x-[14px] bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center z-10">
-                  {unreadCount > 9 ? '9+' : unreadCount}
+                  {itemCount > 9 ? '9+' : itemCount}
                 </span>
               )}
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
@@ -47,7 +47,7 @@ export default function BottomNav() {
               <span className={`text-[10px] font-medium font-body tracking-wide ${
                 active ? 'font-semibold' : ''
               }`}>
-                {tab.label === 'Notifications' ? 'Alerts' : tab.label}
+                {tab.label === 'Cart' ? 'Bag' : tab.label}
               </span>
             </Link>
           )

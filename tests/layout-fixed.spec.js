@@ -115,20 +115,38 @@ test.describe('Bottom nav fixed positioning on mobile', () => {
   })
 })
 
-test.describe('Cart icon in fixed header on mobile', () => {
+test.describe('Bell icon in fixed header on mobile', () => {
   test.use({ viewport: { width: 375, height: 667 } })
 
-  test('cart icon is inside fixed header after scroll on shop page', async ({ page }) => {
+  test('notification bell is inside fixed header after scroll', async ({ page }) => {
+    await page.goto('/')
+    await scrollAndCheck(page)
+    const bellLink = page.locator('header a[href="/notifications"]')
+    await expect(bellLink).toBeVisible()
+    const headerBox = await page.locator('header').boundingBox()
+    const bellBox = await bellLink.boundingBox()
+    expect(headerBox).not.toBeNull()
+    expect(bellBox).not.toBeNull()
+    expect(bellBox.y).toBeGreaterThanOrEqual(headerBox.y)
+    expect(bellBox.y + bellBox.height).toBeLessThanOrEqual(headerBox.y + headerBox.height)
+  })
+})
+
+test.describe('Cart icon in fixed bottom nav on mobile', () => {
+  test.use({ viewport: { width: 375, height: 667 } })
+
+  test('cart link is inside fixed bottom nav after scroll', async ({ page }) => {
     await page.goto('/shop')
     await scrollAndCheck(page)
-    const cartLink = page.locator('header a[href="/cart"]')
+    const bottomNav = await getBottomNav(page)
+    const cartLink = bottomNav.locator('a[href="/cart"]')
     await expect(cartLink).toBeVisible()
-    const headerBox = await page.locator('header').boundingBox()
+    const navBox = await bottomNav.boundingBox()
     const cartBox = await cartLink.boundingBox()
-    expect(headerBox).not.toBeNull()
+    expect(navBox).not.toBeNull()
     expect(cartBox).not.toBeNull()
-    expect(cartBox.y).toBeGreaterThanOrEqual(headerBox.y)
-    expect(cartBox.y + cartBox.height).toBeLessThanOrEqual(headerBox.y + headerBox.height)
+    expect(cartBox.y).toBeGreaterThanOrEqual(navBox.y)
+    expect(cartBox.y + cartBox.height).toBeLessThanOrEqual(navBox.y + navBox.height)
   })
 })
 
