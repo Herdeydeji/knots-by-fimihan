@@ -8,8 +8,12 @@ export const useNotifications = create((set, get) => ({
   userId: null,
 
   init: async (user) => {
+    const prev = get()._channel
+    if (prev) {
+      supabase.removeChannel(prev)
+    }
     if (!user) {
-      set({ unreadCount: 0, initialized: true, userId: null })
+      set({ unreadCount: 0, initialized: true, userId: null, _channel: null })
       return
     }
     const count = await getMyUnreadCount()

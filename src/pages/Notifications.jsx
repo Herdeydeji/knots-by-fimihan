@@ -4,9 +4,9 @@ import {
   HiOutlineBell, HiOutlineCheck, HiOutlineTrash, HiOutlineShoppingBag,
   HiOutlineHeart, HiOutlineChat, HiOutlineTruck, HiOutlineX,
 } from 'react-icons/hi'
+import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 import { useNotifications } from '../hooks/useNotifications'
-import { useRealtimeSubscription } from '../hooks/useRealtime'
 import {
   getMyNotifications,
   markAsRead,
@@ -51,31 +51,26 @@ export default function Notifications() {
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
+    if (!user) { setLoading(false); return }
     try {
       const data = await getMyNotifications()
       setNotifications(data)
     } catch {} finally {
       setLoading(false)
     }
-  }, [])
+  }, [user])
 
   useEffect(() => {
-    if (user) {
-      load()
-    } else {
-      setLoading(false)
-    }
-  }, [user, load])
+    load()
+  }, [load])
 
-  useRealtimeSubscription('user_notifications', 'INSERT', { user_id: `eq.${user?.id}` }, () => {
-    load()
-  })
-  useRealtimeSubscription('user_notifications', 'UPDATE', { user_id: `eq.${user?.id}` }, () => {
-    load()
-  })
-  useRealtimeSubscription('user_notifications', 'DELETE', { user_id: `eq.${user?.id}` }, () => {
-    load()
-  })
+  useEffect(() => {
+    if (!user) return
+    const channel = supabase.channel('notif-page-' + user.id)
+    channel.on('postgres_changes', { event: '*', schema: 'public', table: 'user_notifications', filter: `user_id=eq.${user.id}` }, () => load())
+    channel.subscribe()
+    return () => { supabase.removeChannel(channel) }
+  }, [user, load])
 
   const handleMarkRead = async (id) => {
     try {
