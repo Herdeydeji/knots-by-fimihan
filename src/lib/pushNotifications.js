@@ -19,8 +19,7 @@ export async function requestPermissionAndSubscribe(userId) {
 
   try {
     const registration = await navigator.serviceWorker.ready
-    const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY
-    if (!vapidKey) return
+    const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY || 'BOJebYy3TFmH7OLu-_4XJobuxKMSzhu19DXuQ2hmf3Vxz84pcAHHwNEhpYUomKxqclq788s3Pw8Q9SroEnIYBUY'
 
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
@@ -31,7 +30,7 @@ export async function requestPermissionAndSubscribe(userId) {
       { user_id: userId, subscription: JSON.parse(JSON.stringify(subscription)) },
       { onConflict: 'user_id' }
     )
-  } catch {}
+  } catch (e) { console.error('subscribe error:', e) }
 }
 
 export async function unsubscribe(userId) {
@@ -57,5 +56,5 @@ export async function sendPushNotification(userId, { title, body, url }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id: userId, title, body, url }),
     })
-  } catch {} // push is a bonus
+  } catch (e) { console.error('send-push error:', e) }
 }
