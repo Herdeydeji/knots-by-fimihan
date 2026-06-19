@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { sendPushNotification } from './pushNotifications'
 
 export async function getCurrentUser() {
   const { data: { user } } = await supabase.auth.getUser()
@@ -86,6 +87,11 @@ export async function sendAdminReply(userId, message) {
       p_title: 'New Reply from Support',
       p_message: message.slice(0, 150),
       p_link: '/style-assistant',
+    })
+    sendPushNotification(userId, {
+      title: 'New Reply from Support',
+      body: message.slice(0, 150),
+      url: '/style-assistant',
     })
   } catch {} // notification is a bonus
 }

@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
 import { supabase } from './supabase'
 import { getWishlist, toggleWishlist } from './wishlist'
 import { useNotifications } from '../hooks/useNotifications'
+import { requestPermissionAndSubscribe, unsubscribe as unsubscribePush } from './pushNotifications'
 
 const AuthContext = createContext(null)
 
@@ -11,6 +12,7 @@ export function AuthProvider({ children }) {
   const [authModal, setAuthModal] = useState({ open: false, returnPath: null })
   const [wishlist, setWishlist] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
+  const userIdRef = useRef(null)
 
   const notifStore = useNotifications
 
@@ -18,14 +20,17 @@ export function AuthProvider({ children }) {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       const u = session?.user ?? null
       setUser(u)
+      userIdRef.current = u?.id || null
       if (u) {
         await Promise.all([
           getWishlist(u.id).then(setWishlist).catch(() => setWishlist([])),
           checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false)),
         ])
         notifStore.getState().init(u)
+        requestPermissionAndSubscribe(u.id)
       } else {
         notifStore.getState().cleanup()
+        if (userIdRef.current) unsubscribePush(userIdRef.current)
       }
       setLoading(false)
     })
@@ -33,14 +38,18 @@ export function AuthProvider({ children }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       const u = session?.user ?? null
       setUser(u)
+      const prevId = userIdRef.current
+      userIdRef.current = u?.id || null
       if (u) {
         getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
         checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false))
         notifStore.getState().init(u)
+        requestPermissionAndSubscribe(u.id)
       } else {
         setWishlist([])
         setIsAdmin(false)
         notifStore.getState().cleanup()
+        if (prevId) unsubscribePush(prevId)
       }
     })
 

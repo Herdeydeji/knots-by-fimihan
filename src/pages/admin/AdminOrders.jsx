@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAllOrders, updateFulfillmentStatus, getOrderById } from '../../lib/orders'
 import { supabase } from '../../lib/supabase'
+import { sendPushNotification } from '../../lib/pushNotifications'
 import { HiOutlineCheckCircle, HiOutlineXCircle, HiOutlineMail, HiOutlineX, HiOutlineClipboardList, HiOutlineTruck, HiOutlineHome } from 'react-icons/hi'
 import { useRealtimeSubscription } from '../../hooks/useRealtime'
 
@@ -23,6 +24,7 @@ async function createUserNotification(customerEmail, type, title, message, link)
       p_message: message,
       p_link: link || null,
     })
+    sendPushNotification(profiles.id, { title, body: message, url: link || '/' })
   } catch {} // notification is a bonus
 }
 

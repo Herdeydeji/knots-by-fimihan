@@ -6,6 +6,7 @@ import BottomNav from './BottomNav'
 import ChatWidget from '../chat/ChatWidget'
 import AuthModal from '../ui/AuthModal'
 import StyleAssistantPopup from '../chat/StyleAssistantPopup'
+import PwaInstallPrompt from '../ui/PwaInstallPrompt'
 
 export default function Layout() {
   const [assistantOpen, setAssistantOpen] = useState(false)
@@ -27,6 +28,7 @@ export default function Layout() {
         <Footer />
       </div>
       {showBottomNav && <BottomNav />}
+      <PwaInstallPrompt />
       <ChatWidget onToggle={() => setAssistantOpen((v) => !v)} />
       <AuthModal />
       {assistantOpen && <StyleAssistantPopup onClose={() => setAssistantOpen(false)} />}
