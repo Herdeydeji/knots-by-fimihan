@@ -37,9 +37,10 @@ test.describe('Toast infrastructure', () => {
   test('Toasts component renders with sound and haptic', () => {
     const src = read(files.toasts)
     expect(src).toContain('AudioContext')
+    expect(src).toContain('ctx.resume()')
     expect(src).toContain('createOscillator')
     expect(src).toContain('navigator.vibrate')
-    expect(src).toContain('bottom-4')
+    expect(src).toContain('bottom-20')
     expect(src).toContain('z-[9999]')
   })
 

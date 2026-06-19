@@ -5,6 +5,7 @@ import { useToast } from '../../stores/useToast'
 function playSound(type) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    ctx.resume()
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
     osc.connect(gain)
@@ -12,9 +13,9 @@ function playSound(type) {
     osc.type = type === 'success' ? 'sine' : 'sawtooth'
     osc.frequency.value = type === 'success' ? 880 : 220
     gain.gain.value = 0.15
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (type === 'success' ? 0.1 : 0.15))
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1)
     osc.start()
-    osc.stop(ctx.currentTime + (type === 'success' ? 0.1 : 0.15))
+    osc.stop(ctx.currentTime + 0.15)
   } catch {
   }
 }
@@ -70,7 +71,7 @@ export default function Toasts() {
   if (toasts.length === 0) return null
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 w-[calc(100%-2rem)] max-w-sm sm:left-auto sm:right-4 sm:translate-x-0 sm:w-auto sm:min-w-[320px]">
+    <div className="fixed bottom-20 sm:bottom-4 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 w-[calc(100%-2rem)] max-w-sm sm:left-auto sm:right-4 sm:translate-x-0 sm:w-auto sm:min-w-[320px]">
       {toasts.map((t) => (
         <ToastItem key={t.id} toast={t} />
       ))}
