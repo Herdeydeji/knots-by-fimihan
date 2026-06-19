@@ -212,7 +212,7 @@ export default function ProductDetail() {
               )}
             </div>
 
-            <div className="flex flex-col gap-6 px-4 lg:px-0 pt-5 lg:pt-0 pb-28 lg:pb-0">
+            <div className="flex flex-col gap-6 px-4 lg:px-0 pt-5 lg:pt-0 pb-36 lg:pb-0">
               <div>
                 <p className="text-xs text-gold-500 font-medium uppercase tracking-wider mb-1 font-body">{product.category}</p>
                 <h1 className="font-display text-2xl lg:text-4xl font-bold text-[#1C1C1C] dark:text-gray-200">{product.name}</h1>
@@ -499,7 +499,7 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-40 safe-bottom">
+      <div className="fixed bottom-16 left-0 right-0 bg-white dark:bg-gray-900 border-t border-cream-200 dark:border-gray-700 p-3 lg:hidden z-[60] safe-bottom">
         <div className="flex items-center gap-3">
           <div className="flex-1">
             <span className="font-body text-xs text-[#6B6B6B] dark:text-gray-400">
