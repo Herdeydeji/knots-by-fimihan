@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiOutlineUser } from 'react-icons/hi'
+import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiUserCircle } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
 import { useNotifications } from '../../hooks/useNotifications'
 
@@ -67,13 +67,13 @@ export default function BottomNav() {
               : ''
           }`}>
             {user ? (
-              <div className="w-5 h-5 rounded-lg bg-emerald-600 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-white font-display">
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 ring-1 ring-emerald-400/30 ring-offset-1 ring-offset-cream-100 dark:ring-offset-gray-900 flex items-center justify-center shadow-sm">
+                <span className="text-[11px] font-bold text-white font-display tracking-tight">
                   {(user.user_metadata?.name || user.email || '?').charAt(0).toUpperCase()}
                 </span>
               </div>
             ) : (
-              <HiOutlineUser className="w-5 h-5" />
+              <HiUserCircle className="w-6 h-6" />
             )}
           </div>
           <span className={`text-[10px] font-medium font-body tracking-wide ${
