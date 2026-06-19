@@ -3,9 +3,11 @@ import webPush from 'web-push'
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://kaqxifjcrxistggfniks.supabase.co'
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY
 
-const vapidPublicKey = process.env.VAPID_PUBLIC_KEY
-const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY
-if (vapidPublicKey && vapidPrivateKey) {
+const vapidPublicKey = process.env.VAPID_PUBLIC_KEY || process.env.VITE_VAPID_PUBLIC_KEY
+const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY || process.env.VITE_VAPID_PRIVATE_KEY
+if (!vapidPublicKey || !vapidPrivateKey) {
+  console.error('Missing VAPID keys in environment (checked VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VITE_VAPID_PUBLIC_KEY, VITE_VAPID_PRIVATE_KEY)')
+} else {
   webPush.setVapidDetails(
     'mailto:support@knotbyfimihan.com',
     vapidPublicKey,
