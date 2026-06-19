@@ -43,6 +43,14 @@ async function main() {
     addFile('.', 'vercel.json');
   }
 
+  // Read package.json so Vercel installs npm deps for api/ functions
+  if (fs.existsSync('package.json')) {
+    addFile('.', 'package.json');
+  }
+  if (fs.existsSync('package-lock.json')) {
+    addFile('.', 'package-lock.json');
+  }
+
   console.log('Local files:', files.length);
 
   const deployBody = {
