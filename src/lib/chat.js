@@ -78,6 +78,16 @@ export async function sendAdminReply(userId, message) {
     p_message: message,
   })
   if (error) throw error
+
+  try {
+    await supabase.rpc('create_user_notification', {
+      p_user_id: userId,
+      p_type: 'admin_message',
+      p_title: 'New Reply from Support',
+      p_message: message.slice(0, 150),
+      p_link: '/style-assistant',
+    })
+  } catch {} // notification is a bonus
 }
 
 export async function markConversationRead(userId) {

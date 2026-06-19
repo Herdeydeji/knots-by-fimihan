@@ -18,6 +18,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import OrderSuccess from './pages/OrderSuccess'
 import Orders from './pages/Orders'
+import Notifications from './pages/Notifications'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Search from './pages/Search'
@@ -52,6 +53,7 @@ export default function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/search" element={<Search />} />

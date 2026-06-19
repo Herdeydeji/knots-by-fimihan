@@ -159,6 +159,38 @@ async function createNotification(type: string, title: string, message: string, 
   return res.ok
 }
 
+async function createUserNotification(customerEmail: string, type: string, title: string, message: string, link?: string): Promise<void> {
+  const userRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/profiles?email=eq.${encodeURIComponent(customerEmail)}&select=id`,
+    {
+      headers: {
+        "apikey": SUPABASE_SERVICE_KEY,
+        "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+      },
+    }
+  )
+  if (!userRes.ok) return
+  const profiles = await userRes.json()
+  const userId = profiles?.[0]?.id
+  if (!userId) return
+
+  await fetch(`${SUPABASE_URL}/rest/v1/rpc/create_user_notification`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_SERVICE_KEY,
+      "Authorization": `Bearer ${SUPABASE_SERVICE_KEY}`,
+    },
+    body: JSON.stringify({
+      p_user_id: userId,
+      p_type: type,
+      p_title: title,
+      p_message: message,
+      p_link: link || null,
+    }),
+  })
+}
+
 function formatPrice(price: number): string {
   return `₦${price.toLocaleString()}`
 }
@@ -311,6 +343,14 @@ Deno.serve(async (req: Request) => {
       "New Order Placed",
       `${body.customer_name} placed order ${orderNumber} — ${formatPrice(body.total)}`,
       "/admin/orders"
+    )
+
+    await createUserNotification(
+      body.customer_email,
+      "order_placed",
+      "Order Placed",
+      `Your order ${orderNumber} has been placed successfully! We'll notify you when it's confirmed.`,
+      "/orders"
     )
 
     // Decrement stock and check low-stock alerts for each item

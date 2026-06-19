@@ -31,5 +31,16 @@ export async function toggleWishlist(userId, productId) {
     .from('wishlists')
     .insert({ user_id: userId, product_id: productId })
   if (error) throw new Error(error.message)
+
+  try {
+    await supabase.rpc('create_user_notification', {
+      p_user_id: userId,
+      p_type: 'product_like',
+      p_title: 'First Like! 💕',
+      p_message: `You liked a product! We'll keep you updated on similar styles.`,
+      p_link: '/wishlist',
+    })
+  } catch {} // notification is a bonus
+
   return true
 }

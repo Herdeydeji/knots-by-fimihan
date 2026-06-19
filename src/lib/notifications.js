@@ -23,7 +23,7 @@ export async function submitComplaint({ name, email, subject, message }) {
       message: `${name} submitted a complaint: ${subject}`,
       link: '/admin/complaints',
     })
-  } catch {} // notification is a bonus, don't block complaint submission
+  } catch {}
 }
 
 export async function getAllComplaints() {
@@ -76,4 +76,56 @@ export async function getUnreadNotificationCount() {
     .eq('is_read', false)
   if (error) return 0
   return count || 0
+}
+
+export async function getMyNotifications() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return []
+  const { data, error } = await supabase
+    .from('user_notifications')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(50)
+  if (error) throw error
+  return data || []
+}
+
+export async function getMyUnreadCount() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return 0
+  const { count, error } = await supabase
+    .from('user_notifications')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+    .eq('is_read', false)
+  if (error) return 0
+  return count || 0
+}
+
+export async function markAsRead(id) {
+  const { error } = await supabase
+    .from('user_notifications')
+    .update({ is_read: true })
+    .eq('id', id)
+  if (error) throw error
+}
+
+export async function markAllAsRead() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+  const { error } = await supabase
+    .from('user_notifications')
+    .update({ is_read: true })
+    .eq('user_id', user.id)
+    .eq('is_read', false)
+  if (error) throw error
+}
+
+export async function deleteNotification(id) {
+  const { error } = await supabase
+    .from('user_notifications')
+    .delete()
+    .eq('id', id)
+  if (error) throw error
 }

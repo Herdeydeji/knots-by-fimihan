@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from './supabase'
 import { getWishlist, toggleWishlist } from './wishlist'
+import { useNotifications } from '../hooks/useNotifications'
 
 const AuthContext = createContext(null)
 
@@ -11,6 +12,8 @@ export function AuthProvider({ children }) {
   const [wishlist, setWishlist] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
 
+  const notifStore = useNotifications
+
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       const u = session?.user ?? null
@@ -20,6 +23,9 @@ export function AuthProvider({ children }) {
           getWishlist(u.id).then(setWishlist).catch(() => setWishlist([])),
           checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false)),
         ])
+        notifStore.getState().init(u)
+      } else {
+        notifStore.getState().cleanup()
       }
       setLoading(false)
     })
@@ -30,13 +36,18 @@ export function AuthProvider({ children }) {
       if (u) {
         getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
         checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false))
+        notifStore.getState().init(u)
       } else {
         setWishlist([])
         setIsAdmin(false)
+        notifStore.getState().cleanup()
       }
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+      notifStore.getState().cleanup()
+    }
   }, [])
 
   const login = useCallback(async (email, password) => {

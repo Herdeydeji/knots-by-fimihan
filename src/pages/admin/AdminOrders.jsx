@@ -8,6 +8,24 @@ function formatPrice(price) {
   return `₦${price.toLocaleString()}`
 }
 
+async function createUserNotification(customerEmail, type, title, message, link) {
+  try {
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', customerEmail)
+      .maybeSingle()
+    if (!profiles?.id) return
+    await supabase.rpc('create_user_notification', {
+      p_user_id: profiles.id,
+      p_type: type,
+      p_title: title,
+      p_message: message,
+      p_link: link || null,
+    })
+  } catch {} // notification is a bonus
+}
+
 const SITE_URL = 'https://knotbyfimihan.netlify.app'
 
 const statusColors = {
@@ -319,6 +337,14 @@ export default function AdminOrders() {
         })
       }
 
+      createUserNotification(
+        selectedOrder.customer_email,
+        newStatus === 'processing' ? 'order_confirmed' : `order_${newStatus}`,
+        `Order ${newStatus === 'processing' ? 'Confirmed' : newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}`,
+        `Your order ${selectedOrder.order_number} has been ${newStatus === 'processing' ? 'confirmed' : newStatus}.`,
+        '/orders'
+      )
+
       setSelectedOrder(null)
       setActionMsg(msgText)
       setTimeout(() => setActionMsg(''), 3000)
@@ -366,6 +392,14 @@ export default function AdminOrders() {
         message: `Order ${selectedOrder.order_number} was marked as shipped${trackingNumber ? ` (tracking: ${trackingNumber})` : ''}`,
         link: '/admin/orders',
       })
+
+      createUserNotification(
+        selectedOrder.customer_email,
+        'order_shipped',
+        'Order Shipped',
+        `Your order ${selectedOrder.order_number} has been shipped!${trackingNumber ? ` Tracking: ${trackingNumber}` : ''}`,
+        '/orders'
+      )
 
       setSelectedOrder(null)
       setActionMsg('Marked as shipped! Email sent.')

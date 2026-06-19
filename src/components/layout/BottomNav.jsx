@@ -1,18 +1,18 @@
 import { Link, useLocation } from 'react-router-dom'
-import { HiOutlineHome, HiOutlineSearch, HiOutlineShoppingCart, HiOutlineUser } from 'react-icons/hi'
-import { useCart } from '../../hooks/useCart'
+import { HiOutlineHome, HiOutlineSearch, HiOutlineBell, HiOutlineShoppingCart, HiOutlineUser } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
+import { useNotifications } from '../../hooks/useNotifications'
 
 const tabs = [
   { label: 'Home', path: '/', icon: HiOutlineHome },
   { label: 'Shop', path: '/shop', icon: HiOutlineSearch },
-  { label: 'Cart', path: '/cart', icon: HiOutlineShoppingCart },
+  { label: 'Notifications', path: '/notifications', icon: HiOutlineBell },
 ]
 
 export default function BottomNav() {
   const location = useLocation()
-  const itemCount = useCart((s) => s.itemCount)
   const { user } = useAuth()
+  const unreadCount = useNotifications((s) => s.unreadCount)
 
   const isActive = (path) => {
     if (path === '/') return location.pathname === '/'
@@ -25,6 +25,7 @@ export default function BottomNav() {
         {tabs.map((tab) => {
           const Icon = tab.icon
           const active = isActive(tab.path)
+          const showBadge = tab.label === 'Notifications' && unreadCount > 0
           return (
             <Link
               key={tab.path}
@@ -33,9 +34,9 @@ export default function BottomNav() {
                 active ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-400 dark:text-gray-500'
               }`}
             >
-              {tab.label === 'Cart' && itemCount > 0 && (
+              {showBadge && (
                 <span className="absolute -top-0.5 right-1/2 translate-x-[14px] bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center z-10">
-                  {itemCount > 9 ? '9+' : itemCount}
+                  {unreadCount > 9 ? '9+' : unreadCount}
                 </span>
               )}
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
@@ -46,11 +47,33 @@ export default function BottomNav() {
               <span className={`text-[10px] font-medium font-body tracking-wide ${
                 active ? 'font-semibold' : ''
               }`}>
-                {tab.label}
+                {tab.label === 'Notifications' ? 'Alerts' : tab.label}
               </span>
             </Link>
           )
         })}
+
+        <Link
+          to="/cart"
+          className={`flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-full relative transition-colors ${
+            isActive('/cart')
+              ? 'text-emerald-600 dark:text-emerald-400'
+              : 'text-gray-400 dark:text-gray-500'
+          }`}
+        >
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+            isActive('/cart')
+              ? 'bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-600/20 dark:ring-emerald-800/40'
+              : ''
+          }`}>
+            <HiOutlineShoppingCart className="w-5 h-5" />
+          </div>
+          <span className={`text-[10px] font-medium font-body tracking-wide ${
+            isActive('/cart') ? 'font-semibold' : ''
+          }`}>
+            Cart
+          </span>
+        </Link>
 
         <Link
           to={user ? '/profile' : '/login'}
