@@ -140,7 +140,7 @@ export default function ChatUI({ mode }) {
   return (
     <>
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-[#e8ddd3] dark:bg-gray-800 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(0,0,0,0.02)_2px,rgba(0,0,0,0.02)_4px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)]">
+        <div className="flex-1 overflow-y-auto px-4 pt-4 pb-20 space-y-3 bg-[#e8ddd3] dark:bg-gray-800 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(0,0,0,0.02)_2px,rgba(0,0,0,0.02)_4px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)]">
           {mode === 'agent' ? (
             <>
               {displayMessages.map((msg, i) => (
