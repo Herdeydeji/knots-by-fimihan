@@ -30,7 +30,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 pb-24 lg:pb-8">
+    <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 pb-36 lg:pb-8">
       <Breadcrumbs items={[
         { label: 'Home', path: '/' },
         { label: 'Cart', path: '' },
