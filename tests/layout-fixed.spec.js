@@ -1,13 +1,17 @@
 import { test, expect } from '@playwright/test'
 
 async function scrollAndCheck(page) {
-  await page.waitForLoadState('networkidle')
+  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {})
   await page.evaluate(() => window.scrollTo(0, 500))
   await page.waitForTimeout(200)
 }
 
 async function getBottomNav(page) {
   return page.locator('[class*="fixed"][class*="bottom-0"]')
+}
+
+async function getAddToCartBar(page) {
+  return page.locator('[class*="fixed"][class*="bottom-0"].safe-bottom')
 }
 
 test.describe('Header fixed positioning on mobile (375px)', () => {
@@ -95,12 +99,24 @@ test.describe('Bottom nav fixed positioning on mobile', () => {
     expect(box.y + box.height).toBe(667)
   })
 
-  test('bottom nav is fixed at bottom on product page', async ({ page }) => {
+  test('add-to-cart bar is fixed at bottom-0 on product page', async ({ page }) => {
     await page.goto('/product/premium-crepe-abaya')
     await scrollAndCheck(page)
-    const nav = await getBottomNav(page)
-    const cs = await nav.evaluate((el) => window.getComputedStyle(el).position)
+    const bar = await getAddToCartBar(page)
+    const cs = await bar.evaluate((el) => window.getComputedStyle(el).position)
     expect(cs).toBe('fixed')
+    const box = await bar.boundingBox()
+    expect(box).not.toBeNull()
+    expect(box.y + box.height).toBe(667)
+  })
+
+  test('bottom nav is not rendered on product page', async ({ page }) => {
+    await page.goto('/product/premium-crepe-abaya')
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => page.waitForTimeout(3000))
+    const hasBottomNav = await page.locator('nav').evaluateAll((els) =>
+      els.some((el) => window.getComputedStyle(el).position === 'fixed')
+    )
+    expect(hasBottomNav).toBe(false)
   })
 
   test('bottom nav is fixed at bottom on cart page', async ({ page }) => {
@@ -163,7 +179,7 @@ test.describe('Main content clearance on mobile', () => {
 
   test('main content bottom padding clears bottom nav on shop page', async ({ page }) => {
     await page.goto('/shop')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => page.waitForTimeout(3000))
     const pb = await page.locator('main').evaluate((el) => parseFloat(window.getComputedStyle(el).paddingBottom))
     expect(pb).toBeGreaterThanOrEqual(60)
   })
