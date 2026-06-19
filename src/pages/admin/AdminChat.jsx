@@ -20,6 +20,20 @@ export default function AdminChat() {
   }, [])
 
   useEffect(() => {
+    if (window.innerWidth >= 1024) return
+    const prev = document.body.style.overflow
+    const prevPos = document.body.style.position
+    document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.width = '100%'
+    return () => {
+      document.body.style.overflow = prev
+      document.body.style.position = prevPos
+      document.body.style.width = ''
+    }
+  }, [])
+
+  useEffect(() => {
     if (!selectedUserId) return
     getConversation(selectedUserId).then(setSelectedMessages)
     markConversationRead(selectedUserId)

@@ -45,6 +45,7 @@ export default function ChatUI({ mode }) {
   const [isTyping, setIsTyping] = useState(false)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
+  const sendingRef = useRef(false)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -63,10 +64,18 @@ export default function ChatUI({ mode }) {
     channel.on('postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'chat_messages', filter: user ? `user_id=eq.${user.id}` : undefined },
       (payload) => {
-        const prev = messagesRef.current
-        if (!prev.some(m => m.id === payload.new.id)) {
-          setAdminMessages([...prev, payload.new])
-        }
+        setAdminMessages(prev => {
+          if (prev.some(m => m.id === payload.new.id)) return prev
+          const tempIdx = prev.findIndex(m =>
+            typeof m.id === 'string' && m.id.startsWith('temp-') && m.sender === payload.new.sender
+          )
+          if (tempIdx !== -1) {
+            const updated = [...prev]
+            updated[tempIdx] = payload.new
+            return updated
+          }
+          return [...prev, payload.new]
+        })
       }
     )
     channel.subscribe()
@@ -113,16 +122,18 @@ export default function ChatUI({ mode }) {
 
   const handleSend = (text) => {
     const msg = text || input
-    if (!msg.trim()) return
+    if (!msg.trim() || sendingRef.current) return
+    sendingRef.current = true
+    setTimeout(() => { sendingRef.current = false }, 2000)
 
     if (mode === 'agent') {
       setMessages((prev) => [...prev, { role: 'user', text: msg }])
       setInput('')
       inputRef.current?.focus()
-      sendToAgent(msg)
+      sendToAgent(msg).finally(() => { sendingRef.current = false })
     } else {
-      if (!user) return
-      sendMessage(user.id, msg).catch(() => {})
+      if (!user) { sendingRef.current = false; return }
+      sendMessage(user.id, msg).catch(() => {}).finally(() => { sendingRef.current = false })
       setInput('')
       inputRef.current?.focus()
       setAdminMessages((prev) => [...prev, {

@@ -8,7 +8,7 @@ export default function StyleAssistant() {
   const [mode, setMode] = useState(searchParams.get('mode') || 'agent')
 
   return (
-    <div className="h-dvh flex flex-col bg-white dark:bg-gray-950">
+    <div className="h-dvh flex flex-col bg-white dark:bg-gray-950 overflow-hidden">
       <header className="relative safe-top bg-gradient-to-r from-emerald-600 to-emerald-700 text-white flex items-center gap-3 px-4 pb-3 pt-[calc(var(--sat)+12px)] flex-shrink-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.12),transparent_60%)]" />
         <Link
