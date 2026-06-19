@@ -105,7 +105,8 @@ export default function ProductDetail() {
       </div>
     )
   }
-  const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
+  const discountBadge = product.discount_label?.trim() || null
+  const hasAutoDiscount = product.compare_at_price && product.compare_at_price > product.price
   const outOfStock = product.stock <= 0
 
   const handleAddToCart = () => {
@@ -189,9 +190,9 @@ export default function ProductDetail() {
                 >
                   {isLiked ? <HiHeart className="w-5 h-5" /> : <HiOutlineHeart className="w-5 h-5" />}
                 </button>
-                {hasDiscount && (
+                {discountBadge && (
                   <div className="absolute top-4 left-4 bg-gold-500 text-white text-sm font-bold px-3 py-1.5 rounded-xl">
-                    {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
+                    {discountBadge}
                   </div>
                 )}
               </div>
@@ -218,7 +219,7 @@ export default function ProductDetail() {
                 <h1 className="font-display text-2xl lg:text-4xl font-bold text-[#1C1C1C] dark:text-gray-200">{product.name}</h1>
                 <div className="flex items-baseline gap-3 mt-2">
                   <span className="font-body text-2xl font-bold text-emerald-600">{formatPrice(product.price)}</span>
-                  {hasDiscount && (
+                  {hasAutoDiscount && (
                     <span className="text-lg text-[#6B6B6B] dark:text-gray-400 line-through">{formatPrice(product.compare_at_price)}</span>
                   )}
                 </div>

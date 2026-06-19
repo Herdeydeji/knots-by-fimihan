@@ -90,6 +90,7 @@ export default function AdminProducts() {
                   <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Product</th>
                   <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Category</th>
                   <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Price</th>
+                  <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Badge</th>
                   <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Stock</th>
                   <th className="text-left px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Status</th>
                   <th className="text-right px-4 py-3 font-body font-semibold text-[#6B6B6B] dark:text-gray-400">Actions</th>
@@ -111,6 +112,13 @@ export default function AdminProducts() {
                     </td>
                     <td className="px-4 py-3 capitalize text-[#6B6B6B] dark:text-gray-400">{product.category}</td>
                     <td className="px-4 py-3 font-medium">{formatPrice(product.price)}</td>
+                    <td className="px-4 py-3">
+                      {product.discount_label ? (
+                        <span className="inline-block text-[11px] font-bold text-white bg-gold-500 px-2 py-0.5 rounded-lg">{product.discount_label}</span>
+                      ) : (
+                        <span className="text-[#6B6B6B] dark:text-gray-500">—</span>
+                      )}
+                    </td>
                     <td className="px-4 py-3">
                       <span className={`font-medium ${product.stock < 5 ? 'text-red-500' : 'text-emerald-600'}`}>
                         {product.stock}

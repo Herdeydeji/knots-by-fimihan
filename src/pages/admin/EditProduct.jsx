@@ -13,6 +13,7 @@ export default function EditProduct() {
     description: '',
     price: '',
     compareAtPrice: '',
+    discountBadge: '',
     category: 'abayas',
     stock: '',
     material: '',
@@ -37,6 +38,7 @@ export default function EditProduct() {
         description: product.description || '',
         price: product.price?.toString() || '',
         compareAtPrice: product.compare_at_price?.toString() || '',
+        discountBadge: product.discount_label || '',
         category: product.category || 'abayas',
         stock: product.stock?.toString() || '',
         material: product.material || '',
@@ -105,6 +107,7 @@ export default function EditProduct() {
         description: form.description,
         price: Number(form.price),
         compare_at_price: form.compareAtPrice ? Number(form.compareAtPrice) : null,
+        discount_label: form.discountBadge?.trim() || null,
         category: form.category,
         stock: Number(form.stock),
         material: form.material || null,
@@ -163,6 +166,10 @@ export default function EditProduct() {
             <div>
               <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Compare-at Price (₦)</label>
               <input name="compareAtPrice" type="number" value={form.compareAtPrice} onChange={handleChange} className="input-field" placeholder="Optional" />
+            </div>
+            <div>
+              <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Discount badge</label>
+              <input name="discountBadge" value={form.discountBadge} onChange={handleChange} className="input-field" placeholder="e.g. SALE, 20% OFF — leave blank for no badge" />
             </div>
           </div>
 

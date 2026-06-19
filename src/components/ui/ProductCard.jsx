@@ -26,7 +26,8 @@ export default function ProductCard({ product }) {
 
   if (!product || !product.is_active) return null
 
-  const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
+  const discountBadge = product.discount_label?.trim() || null
+  const hasAutoDiscount = product.compare_at_price && product.compare_at_price > product.price
   const outOfStock = product.stock <= 0
 
   return (
@@ -51,9 +52,9 @@ export default function ProductCard({ product }) {
         >
           {isLiked ? <HiHeart className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <HiOutlineHeart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
         </button>
-        {hasDiscount && (
+        {discountBadge && (
           <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-gold-500 text-white text-[10px] sm:text-[11px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-lg">
-            {Math.round((1 - product.price / product.compare_at_price) * 100)}% OFF
+            {discountBadge}
           </div>
         )}
         {outOfStock && (
@@ -71,7 +72,7 @@ export default function ProductCard({ product }) {
         </h3>
         <div className="flex items-baseline gap-1.5 sm:gap-2 mt-1.5 sm:mt-2 flex-wrap">
           <span className="font-body font-bold text-emerald-600 dark:text-emerald-400 text-sm sm:text-base">{formatPrice(product.price)}</span>
-          {hasDiscount && (
+          {hasAutoDiscount && (
             <span className="text-[11px] sm:text-sm text-[#6B6B6B] dark:text-gray-400 line-through">{formatPrice(product.compare_at_price)}</span>
           )}
         </div>
