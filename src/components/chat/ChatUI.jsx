@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HiOutlinePaperAirplane, HiSparkles, HiOutlineChatAlt2 } from 'react-icons/hi'
+import { HiOutlinePaperAirplane, HiOutlineChatAlt2 } from 'react-icons/hi'
 import { useAuth } from '../../lib/auth'
 import { supabase } from '../../lib/supabase'
 import { sendMessage, getConversation } from '../../lib/chat'
@@ -34,12 +34,7 @@ function TypingIndicator() {
   )
 }
 
-const MODES = [
-  { key: 'agent', label: 'Agent KBF', icon: HiSparkles },
-  { key: 'admin', label: 'Live Admin', icon: HiOutlineChatAlt2 },
-]
-
-export default function ChatUI({ mode, onModeChange, onClose }) {
+export default function ChatUI({ mode }) {
   const navigate = useNavigate()
   const { user } = useAuth()
   const [messages, setMessages] = useState([
@@ -140,43 +135,11 @@ export default function ChatUI({ mode, onModeChange, onClose }) {
     }
   }
 
-  const handleModeChange = useCallback((newMode) => {
-    if (newMode === 'admin' && !user) {
-      navigate('/login?from=/style-assistant')
-      return
-    }
-    onModeChange(newMode)
-  }, [user, navigate, onModeChange])
-
   const displayMessages = mode === 'agent' ? messages : adminMessages
 
   return (
     <>
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 px-4 pt-3 pb-2 border-b border-cream-200 dark:border-gray-700">
-          <div className="flex bg-cream-100 dark:bg-gray-700 rounded-xl p-0.5">
-            {MODES.map((m) => {
-              const Icon = m.icon
-              const active = mode === m.key
-              return (
-                <button
-                  key={m.key}
-                  onClick={() => handleModeChange(m.key)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold font-body transition-all duration-200 ${
-                    active
-                      ? 'bg-white dark:bg-gray-600 text-emerald-700 dark:text-emerald-300 shadow-sm'
-                      : 'text-[#6B6B6B] dark:text-gray-400 hover:text-[#1C1C1C] dark:hover:text-gray-200'
-                  }`}
-                  type="button"
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  {m.label}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
           {mode === 'agent' ? (
             <>
