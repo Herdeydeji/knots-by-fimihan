@@ -152,7 +152,7 @@ export default function ProductDetail() {
   ]
 
   return (
-    <div className="min-h-screen bg-cream-50 dark:bg-gray-950 relative">
+    <div className="min-h-screen bg-cream-50 dark:bg-gray-950 relative pb-36 lg:pb-8">
       <button
         onClick={() => window.history.back()}
         className="sm:hidden absolute top-4 left-4 z-20 w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center"
