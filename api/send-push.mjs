@@ -5,9 +5,7 @@ const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_S
 
 const vapidPublicKey = process.env.VAPID_PUBLIC_KEY || process.env.VITE_VAPID_PUBLIC_KEY
 const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY || process.env.VITE_VAPID_PRIVATE_KEY
-if (!vapidPublicKey || !vapidPrivateKey) {
-  console.error('Missing VAPID keys in environment (checked VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VITE_VAPID_PUBLIC_KEY, VITE_VAPID_PRIVATE_KEY)')
-} else {
+if (vapidPublicKey && vapidPrivateKey) {
   webPush.setVapidDetails(
     'mailto:support@knotbyfimihan.com',
     vapidPublicKey,
@@ -18,13 +16,6 @@ if (!vapidPublicKey || !vapidPrivateKey) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
-  }
-
-  if (!vapidPublicKey || !vapidPrivateKey) {
-    return res.status(500).json({ error: 'VAPID keys not configured on server' })
-  }
-  if (!SUPABASE_KEY) {
-    return res.status(500).json({ error: 'Supabase key not configured on server' })
   }
 
   const { user_id, title, body, url } = req.body
@@ -52,7 +43,7 @@ export default async function handler(req, res) {
     const payload = JSON.stringify({ title, body: body || '', url: url || '/' })
 
     await webPush.sendNotification(subscription, payload)
-    return res.json({ success: true })
+    res.json({ success: true })
   } catch (err) {
     if (err && (err.statusCode === 410 || err.statusCode === 404)) {
       try {
@@ -69,7 +60,7 @@ export default async function handler(req, res) {
       } catch {}
       return res.json({ success: true, skipped: 'subscription expired' })
     }
-    console.error('send-push error:', err && err.message ? err.message : String(err), err)
-    return res.status(500).json({ error: 'Failed to send push notification' })
+    console.error('send-push error:', err)
+    res.status(500).json({ error: 'Failed to send push notification' })
   }
 }
