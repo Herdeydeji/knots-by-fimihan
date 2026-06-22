@@ -2,7 +2,6 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import { createClient } from '@supabase/supabase-js'
-import webPush from 'web-push'
 import { handleChat, setStoreContext } from './chat.js'
 
 const app = express()
@@ -16,15 +15,8 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SU
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-const vapidPublicKey = process.env.VAPID_PUBLIC_KEY
-const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY
-if (vapidPublicKey && vapidPrivateKey) {
-  webPush.setVapidDetails(
-    'mailto:support@knotbyfimihan.com',
-    vapidPublicKey,
-    vapidPrivateKey
-  )
-}
+const ONESIGNAL_APP_ID = process.env.ONESIGNAL_APP_ID
+const ONESIGNAL_API_KEY = process.env.ONESIGNAL_API_KEY
 
 async function loadStoreContext() {
   try {
@@ -53,29 +45,34 @@ app.post('/api/send-push', async (req, res) => {
       return res.status(400).json({ error: 'user_id and title are required' })
     }
 
-    const { data: rows, error } = await supabase
-      .from('push_subscriptions')
-      .select('subscription')
-      .eq('user_id', user_id)
-      .limit(1)
-
-    if (error) throw error
-    if (!rows || rows.length === 0) {
-      return res.json({ success: true, skipped: 'no subscription' })
+    if (!ONESIGNAL_APP_ID || !ONESIGNAL_API_KEY) {
+      return res.status(500).json({ error: 'OneSignal credentials not configured on server.' })
     }
 
-    const subscription = rows[0].subscription
-    const payload = JSON.stringify({ title, body: body || '', url: url || '/' })
+    const response = await fetch('https://onesignal.com/api/v1/notifications', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${ONESIGNAL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        app_id: ONESIGNAL_APP_ID,
+        target_channel: 'push',
+        include_external_user_ids: [user_id],
+        headings: { en: title },
+        contents: { en: body || '' },
+        url: url || '/',
+      }),
+    })
 
-    await webPush.sendNotification(subscription, payload)
+    if (!response.ok) {
+      const errText = await response.text()
+      console.error('OneSignal API error:', response.status, errText)
+      return res.status(response.status).json({ error: `OneSignal API error: ${errText}` })
+    }
+
     res.json({ success: true })
   } catch (err) {
-    if (err.statusCode === 410 || err.statusCode === 404) {
-      try {
-        await supabase.from('push_subscriptions').delete().eq('user_id', req.body.user_id)
-      } catch {}
-      return res.json({ success: true, skipped: 'subscription expired' })
-    }
     console.error('send-push error:', err)
     res.status(500).json({ error: 'Failed to send push notification' })
   }

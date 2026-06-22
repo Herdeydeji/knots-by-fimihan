@@ -108,7 +108,7 @@ export default function AdminChat() {
   const showChat = !!selectedUserId
 
   return (
-    <div className="fixed inset-0 z-50 lg:static lg:inset-auto flex lg:h-[calc(100vh-10rem)] bg-white dark:bg-gray-800 lg:rounded-2xl lg:shadow-sm lg:border lg:border-cream-200 dark:border-gray-700 overflow-hidden">
+    <div className="fixed inset-0 z-50 lg:static lg:inset-auto flex flex-col lg:flex-row lg:h-[calc(100vh-10rem)] bg-white dark:bg-gray-800 lg:rounded-2xl lg:shadow-sm lg:border lg:border-cream-200 dark:border-gray-700 overflow-y-auto lg:overflow-hidden">
       <div className={`${showConversations ? 'flex' : 'hidden'} lg:flex w-full lg:w-72 flex-shrink-0 border-r border-cream-200 dark:border-gray-700 overflow-y-auto flex-col`}>
         <div className="p-4 border-b border-cream-200 dark:border-gray-700 flex items-center gap-3">
           <button
@@ -195,7 +195,7 @@ export default function AdminChat() {
           </div>
         ) : (
           <>
-            <header className="lg:hidden relative bg-gradient-to-r from-emerald-600 to-emerald-700 text-white flex items-center gap-3 px-4 py-3 flex-shrink-0 overflow-hidden">
+            <header className="lg:hidden sticky top-0 z-10 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white flex items-center gap-3 px-4 py-3 flex-shrink-0 overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.12),transparent_60%)]" />
                 <button
                   onClick={() => setSelectedUserId(null)}
@@ -257,7 +257,7 @@ export default function AdminChat() {
               ))}
               <div ref={bottomRef} />
             </div>
-            <div className="border-t border-cream-200 dark:border-gray-700 px-4 py-3">
+            <div className="sticky bottom-0 z-10 bg-white dark:bg-gray-800 border-t border-cream-200 dark:border-gray-700 px-4 py-3">
               <div className="flex items-end gap-2">
                 <input
                   value={input}

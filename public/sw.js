@@ -1,3 +1,4 @@
+importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js')
 const CACHE_NAME = 'kbf-v2'
 const STATIC_ASSETS = [
   '/',
@@ -46,39 +47,4 @@ self.addEventListener('fetch', (event) => {
   )
 })
 
-self.addEventListener('push', (event) => {
-  let data = { title: 'KBF Store', body: '', url: '/' }
-  try {
-    if (event.data) {
-      data = event.data.json()
-    }
-  } catch {}
 
-  const options = {
-    body: data.body || '',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-192x192.png',
-    data: { url: data.url || '/' },
-    vibrate: [200, 100, 200],
-    requireInteraction: true,
-  }
-
-  event.waitUntil(
-    self.registration.showNotification(data.title || 'KBF Store', options)
-  )
-})
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close()
-  const url = event.notification.data?.url || '/'
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
-      for (const client of windowClients) {
-        if (client.url.startsWith(self.location.origin) && 'focus' in client) {
-          return client.focus()
-        }
-      }
-      return clients.openWindow(url)
-    })
-  )
-})
