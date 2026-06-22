@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, useCallback, useRef } f
 import { supabase } from './supabase'
 import { getWishlist, toggleWishlist } from './wishlist'
 import { useNotifications } from '../hooks/useNotifications'
-import { requestPermissionAndSubscribe, unsubscribe as unsubscribePush } from './pushNotifications'
+import { requestPermissionAndSubscribe, unsubscribe as unsubscribePush, sendPushNotification } from './pushNotifications'
 
 const AuthContext = createContext(null)
 
@@ -92,12 +92,19 @@ export function AuthProvider({ children }) {
     setAuthModal({ open: false, returnPath: null })
   }, [])
 
-  const handleToggleLike = useCallback(async (productId) => {
+  const handleToggleLike = useCallback(async (productId, productName) => {
     if (!user) return
     const isLiked = await toggleWishlist(user.id, productId)
     setWishlist((prev) =>
       isLiked ? [...prev, productId] : prev.filter((id) => id !== productId)
     )
+    if (isLiked && productName) {
+      sendPushNotification(user.id, {
+        title: 'Added to Wishlist',
+        body: `${productName} has been added to your wishlist.`,
+        url: '/wishlist',
+      })
+    }
     return isLiked
   }, [user])
 

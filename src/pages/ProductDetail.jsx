@@ -67,7 +67,7 @@ export default function ProductDetail() {
     e.preventDefault()
     if (!user) { openAuthModal(`/product/${slug}`); return }
     try {
-      const wasLiked = await toggleLike(product.id)
+      const wasLiked = await toggleLike(product.id, product.name)
       addToast(wasLiked ? 'Added to Wishlist ❤️' : 'Removed from Wishlist', 'success')
     } catch {
       addToast('Failed to update wishlist. Please try again.', 'error')
