@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineShoppingBag,
@@ -10,7 +10,7 @@ import {
 import { useToast } from '../stores/useToast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
-import { requestPermissionAndSubscribe } from '../lib/pushNotifications'
+import { requestPermissionAndSubscribe, sendPushNotification } from '../lib/pushNotifications'
 import { useTheme } from '../lib/theme'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 
@@ -49,6 +49,40 @@ export default function Profile() {
   const [editing, setEditing] = useState(false)
   const { dark, toggle } = useTheme()
   const addToast = useToast((s) => s.addToast)
+  const [subId, setSubId] = useState(null)
+
+  const checkSub = useCallback(() => {
+    const id = window.OneSignal?.User?.PushSubscription?.id || null
+    setSubId(id)
+    return id
+  }, [])
+
+  useEffect(() => {
+    const t = setInterval(checkSub, 1000)
+    checkSub()
+    return () => clearInterval(t)
+  }, [checkSub])
+
+  const handleEnable = useCallback(() => {
+    requestPermissionAndSubscribe()
+    addToast('Push permission requested', 'success')
+    setTimeout(checkSub, 2000)
+  }, [checkSub])
+
+  const handleTestPush = useCallback(async () => {
+    const id = checkSub()
+    addToast(`Sub ID: ${id || '—'}`, id ? 'success' : 'error')
+    if (!id) {
+      addToast('No subscription — tap Enable first', 'error')
+      return
+    }
+    const ok = await sendPushNotification(user.id, {
+      title: 'Test from Profile',
+      body: 'If you see this, push works!',
+      url: '/profile',
+    })
+    addToast(ok ? 'Push sent ✓' : 'Push send failed', ok ? 'success' : 'error')
+  }, [user, checkSub])
   const [form, setForm] = useState({ full_name: '', phone: '' })
   const [saved, setSaved] = useState(false)
 
@@ -315,25 +349,30 @@ export default function Profile() {
 
           <div className="card p-5 sm:p-6">
             <h2 className="text-base sm:text-lg font-display font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Push Notifications</h2>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
                   <HiOutlineBell className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">Order & Wishlist Updates</p>
-                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Get notified when your order is placed or items are added to wishlist</p>
+                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Get notified when items are added to wishlist</p>
                 </div>
               </div>
               <button
-                onClick={() => {
-                  requestPermissionAndSubscribe()
-                  addToast('Notification permission requested', 'success')
-                }}
+                onClick={handleEnable}
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
                 type="button"
               >
                 <HiOutlineBell className="w-4 h-4" /> Enable
+              </button>
+            </div>
+            <div className="flex items-center gap-3 pt-3 border-t border-cream-200 dark:border-gray-700">
+              <span className="text-xs text-[#6B6B6B] dark:text-gray-400">
+                Sub: <code className="text-emerald-600 dark:text-emerald-400 font-mono text-[10px]">{subId || '—'}</code>
+              </span>
+              <button onClick={handleTestPush} className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium ml-auto" type="button">
+                Test Push
               </button>
             </div>
           </div>
