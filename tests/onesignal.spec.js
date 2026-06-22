@@ -31,6 +31,7 @@ test.describe('OneSignal push notification migration', () => {
     expect(src).toContain('onesignal.com/api/v1/notifications')
     expect(src).toContain('ONESIGNAL_APP_ID')
     expect(src).toContain('ONESIGNAL_API_KEY')
+    expect(src).toContain('include_subscription_ids')
     expect(src).toContain('include_external_user_ids')
   })
 
@@ -55,8 +56,8 @@ test.describe('OneSignal push notification migration', () => {
   test('pushNotifications.js uses OneSignal SDK methods', () => {
     const src = read('src/lib/pushNotifications.js')
     expect(src).toContain('OneSignal.Notifications.requestPermission')
-    expect(src).toContain('OneSignal.login(userId)')
-    expect(src).toContain('OneSignal.logout()')
+    expect(src).toContain('PushSubscription')
+    expect(src).toContain('subscription_id')
     expect(src).not.toContain('VAPID')
     expect(src).not.toContain('supabase')
     expect(src).not.toContain('push_subscriptions')

@@ -40,7 +40,7 @@ app.get('/api/health', (_req, res) => {
 
 app.post('/api/send-push', async (req, res) => {
   try {
-    const { user_id, title, body, url } = req.body
+    const { user_id, subscription_id, title, body, url } = req.body
     if (!user_id || !title) {
       return res.status(400).json({ error: 'user_id and title are required' })
     }
@@ -58,10 +58,12 @@ app.post('/api/send-push', async (req, res) => {
       body: JSON.stringify({
         app_id: ONESIGNAL_APP_ID,
         target_channel: 'push',
-        include_external_user_ids: [user_id],
         headings: { en: title },
         contents: { en: body || '' },
         url: url || '/',
+        ...(subscription_id
+          ? { include_subscription_ids: [subscription_id] }
+          : { include_external_user_ids: [user_id] }),
       }),
     })
 

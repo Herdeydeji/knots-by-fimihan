@@ -327,7 +327,7 @@ export default function Profile() {
               </div>
               <button
                 onClick={() => {
-                  requestPermissionAndSubscribe(user.id)
+                  requestPermissionAndSubscribe()
                   addToast('Notification permission requested', 'success')
                 }}
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"

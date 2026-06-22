@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from './supabase'
 import { getWishlist, toggleWishlist } from './wishlist'
 import { useNotifications } from '../hooks/useNotifications'
-import { requestPermissionAndSubscribe, unsubscribe as unsubscribePush, sendPushNotification } from './pushNotifications'
+import { requestPermissionAndSubscribe, sendPushNotification } from './pushNotifications'
 
 const AuthContext = createContext(null)
 
@@ -12,7 +12,6 @@ export function AuthProvider({ children }) {
   const [authModal, setAuthModal] = useState({ open: false, returnPath: null })
   const [wishlist, setWishlist] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
-  const userIdRef = useRef(null)
 
   const notifStore = useNotifications
 
@@ -27,10 +26,9 @@ export function AuthProvider({ children }) {
           checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false)),
         ])
         notifStore.getState().init(u)
-        requestPermissionAndSubscribe(u.id)
+        requestPermissionAndSubscribe()
       } else {
         notifStore.getState().cleanup()
-        if (userIdRef.current) unsubscribePush(userIdRef.current)
       }
       setLoading(false)
     })
@@ -44,12 +42,11 @@ export function AuthProvider({ children }) {
         getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
         checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false))
         notifStore.getState().init(u)
-        requestPermissionAndSubscribe(u.id)
+        requestPermissionAndSubscribe()
       } else {
         setWishlist([])
         setIsAdmin(false)
         notifStore.getState().cleanup()
-        if (prevId) unsubscribePush(prevId)
       }
     })
 

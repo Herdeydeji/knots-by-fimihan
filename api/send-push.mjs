@@ -14,26 +14,31 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'OneSignal credentials not configured on server. Set ONESIGNAL_APP_ID and ONESIGNAL_API_KEY in Vercel env vars.' })
   }
 
-  const { user_id, title, body, url } = req.body
+  const { user_id, subscription_id, title, body, url } = req.body
   if (!user_id || !title) {
     return res.status(400).json({ error: 'user_id and title are required' })
   }
 
   try {
+    const payload = {
+      app_id: ONESIGNAL_APP_ID,
+      target_channel: 'push',
+      headings: { en: title },
+      contents: { en: body || '' },
+      url: url || '/',
+    }
+    if (subscription_id) {
+      payload.include_subscription_ids = [subscription_id]
+    } else {
+      payload.include_external_user_ids = [user_id]
+    }
     const response = await fetch('https://onesignal.com/api/v1/notifications', {
       method: 'POST',
       headers: {
         'Authorization': `Basic ${ONESIGNAL_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        app_id: ONESIGNAL_APP_ID,
-        target_channel: 'push',
-        include_external_user_ids: [user_id],
-        headings: { en: title },
-        contents: { en: body || '' },
-        url: url || '/',
-      }),
+      body: JSON.stringify(payload),
     })
 
     if (!response.ok) {
