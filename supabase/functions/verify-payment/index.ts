@@ -196,9 +196,12 @@ async function createUserNotification(customerEmail: string, type: string, title
 }
 
 async function sendPushToOneSignal(userId: string, title: string, body: string, url?: string): Promise<void> {
-  if (!ONESIGNAL_APP_ID || !ONESIGNAL_API_KEY) return
+  if (!ONESIGNAL_APP_ID || !ONESIGNAL_API_KEY) {
+    console.error("OneSignal: missing ONESIGNAL_APP_ID or ONESIGNAL_API_KEY")
+    return
+  }
   try {
-    await fetch("https://onesignal.com/api/v1/notifications", {
+    const res = await fetch("https://onesignal.com/api/v1/notifications", {
       method: "POST",
       headers: {
         "Authorization": `Basic ${ONESIGNAL_API_KEY}`,
@@ -213,7 +216,15 @@ async function sendPushToOneSignal(userId: string, title: string, body: string, 
         url: url || "/orders",
       }),
     })
-  } catch {} // push is a bonus
+    const bodyText = await res.text()
+    if (!res.ok) {
+      console.error("OneSignal API error:", res.status, bodyText)
+    } else {
+      console.log("OneSignal push sent:", bodyText)
+    }
+  } catch (err) {
+    console.error("OneSignal fetch error:", err)
+  }
 }
 
 function formatPrice(price: number): string {
