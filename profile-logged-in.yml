@@ -1,0 +1,154 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - img [ref=e10]:
+            - generic [ref=e15]: K
+          - img [ref=e17]:
+            - generic [ref=e18]: Knots by Fimihan
+            - generic [ref=e19]: MODEST FASHION
+      - link "Notifications" [ref=e21] [cursor=pointer]:
+        - /url: /notifications
+        - img [ref=e22]
+        - generic [ref=e24]: "1"
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - navigation [ref=e27]:
+        - link "Home" [ref=e29] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e30]:
+          - img [ref=e31]
+          - generic [ref=e33]: My Profile
+      - generic [ref=e34]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - generic [ref=e39]: AA
+            - img [ref=e41]
+          - generic [ref=e43]:
+            - heading "Adedeji Adebeso" [level=1] [ref=e44]
+            - paragraph [ref=e45]:
+              - generic [ref=e46]:
+                - img [ref=e47]
+                - text: adedejiadebeso@gmail.com
+              - generic [ref=e49]:
+                - img [ref=e50]
+                - text: Member since June 2026
+            - generic [ref=e53]:
+              - img [ref=e54]
+              - text: Admin
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - img [ref=e59]
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: "6"
+              - paragraph [ref=e63]: Orders
+          - generic [ref=e64]:
+            - img [ref=e66]
+            - generic [ref=e68]:
+              - paragraph [ref=e69]: "2"
+              - paragraph [ref=e70]: Chats
+          - generic [ref=e71]:
+            - img [ref=e73]
+            - generic [ref=e75]:
+              - paragraph [ref=e76]: "2"
+              - paragraph [ref=e77]: Wishlist
+          - generic [ref=e78]:
+            - img [ref=e80]
+            - generic [ref=e82]:
+              - paragraph [ref=e83]: June 2026
+              - paragraph [ref=e84]: Joined
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - heading "Personal Information" [level=2] [ref=e87]
+            - button "Edit" [ref=e88] [cursor=pointer]:
+              - img [ref=e89]
+              - text: Edit
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - generic [ref=e93]: Full Name
+              - paragraph [ref=e94]: Adedeji Adebeso
+            - generic [ref=e95]:
+              - generic [ref=e96]: Email
+              - generic [ref=e97]:
+                - paragraph [ref=e98]: adedejiadebeso@gmail.com
+                - generic [ref=e99]: Verified
+            - generic [ref=e100]:
+              - generic [ref=e101]: Phone
+              - paragraph [ref=e102]: "+2349115865564"
+        - generic [ref=e103]:
+          - heading "Appearance" [level=2] [ref=e104]
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - img [ref=e108]
+              - generic [ref=e110]:
+                - paragraph [ref=e111]: Dark Mode
+                - paragraph [ref=e112]: "Off"
+            - button "Toggle dark mode" [ref=e113] [cursor=pointer]
+        - generic [ref=e115]:
+          - heading "Push Notifications" [level=2] [ref=e116]
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - img [ref=e120]
+              - generic [ref=e122]:
+                - paragraph [ref=e123]: Order & Wishlist Updates
+                - paragraph [ref=e124]: Get notified when your order is placed or items are added to wishlist
+            - button "Enable" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+              - text: Enable
+        - generic [ref=e128]:
+          - heading "Admin Panel" [level=2] [ref=e129]
+          - generic [ref=e130]:
+            - link "Dashboard" [ref=e131] [cursor=pointer]:
+              - /url: /admin/dashboard
+              - img [ref=e133]
+              - generic [ref=e135]: Dashboard
+            - link "Products" [ref=e136] [cursor=pointer]:
+              - /url: /admin/products
+              - img [ref=e138]
+              - generic [ref=e140]: Products
+            - link "Orders" [ref=e141] [cursor=pointer]:
+              - /url: /admin/orders
+              - img [ref=e143]
+              - generic [ref=e145]: Orders
+            - link "Users" [ref=e146] [cursor=pointer]:
+              - /url: /admin/users
+              - img [ref=e148]
+              - generic [ref=e150]: Users
+            - link "Chat" [ref=e151] [cursor=pointer]:
+              - /url: /admin/chat
+              - img [ref=e153]
+              - generic [ref=e155]: Chat
+            - link "Complaints" [ref=e156] [cursor=pointer]:
+              - /url: /admin/complaints
+              - img [ref=e158]
+              - generic [ref=e160]: Complaints
+        - generic [ref=e161]:
+          - link "My Orders" [ref=e162] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e163]
+            - text: My Orders
+          - button "Sign Out" [ref=e165] [cursor=pointer]:
+            - img [ref=e166]
+            - text: Sign Out
+  - navigation [ref=e168]:
+    - generic [ref=e169]:
+      - link "Home" [ref=e170] [cursor=pointer]:
+        - /url: /
+        - img [ref=e172]
+        - generic [ref=e174]: Home
+      - link "Shop" [ref=e175] [cursor=pointer]:
+        - /url: /shop
+        - img [ref=e177]
+        - generic [ref=e179]: Shop
+      - link "Bag" [ref=e180] [cursor=pointer]:
+        - /url: /cart
+        - img [ref=e182]
+        - generic [ref=e184]: Bag
+      - link "A Profile" [ref=e185] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=e188]: A
+        - generic [ref=e189]: Profile
+  - button "Open AI style assistant" [ref=e190] [cursor=pointer]:
+    - img [ref=e191]

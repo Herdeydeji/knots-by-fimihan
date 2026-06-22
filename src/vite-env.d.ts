@@ -7,16 +7,16 @@ declare module '*.jsx' {
 
 interface OneSignalSDK {
   init: (config: { appId: string; serviceWorkerPath?: string }) => Promise<void>
+  login: (userId: string) => void
+  logout: () => void
   Notifications: {
     requestPermission: () => Promise<boolean>
     optOut: () => Promise<void>
-    addListenerForClick?: (handler: (event: any) => void) => void
+    addEventListener: (event: string, handler: (event: any) => void) => void
+    removeEventListener: (event: string, handler: (event: any) => void) => void
   }
   User: {
-    setExternalUserId: (userId: string) => Promise<void>
-    removeExternalUserId: () => Promise<void>
-    pushSubscription: {
-      optOut: () => Promise<void>
+    PushSubscription: {
       id?: string
     }
   }

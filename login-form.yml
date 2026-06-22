@@ -1,0 +1,20 @@
+- main [ref=e24]:
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - link "KBF" [ref=e28] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e30]: KBF
+      - heading "Welcome Back" [level=1] [ref=e31]
+      - paragraph [ref=e32]: Sign in to your account
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]: Email
+        - textbox "your@email.com" [ref=e36]: adedejiadebeso@gmail.com
+      - generic [ref=e37]:
+        - generic [ref=e38]: Password
+        - textbox "Enter your password" [ref=e39]: ADEdeji2?
+      - button "Sign In" [ref=e40] [cursor=pointer]
+    - paragraph [ref=e41]:
+      - text: Don't have an account?
+      - link "Create one" [ref=e42] [cursor=pointer]:
+        - /url: /signup

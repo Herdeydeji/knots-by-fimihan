@@ -6,7 +6,7 @@ export async function requestPermissionAndSubscribe(userId) {
     window.OneSignalDeferred = window.OneSignalDeferred || []
     OneSignalDeferred.push(async function (OneSignal) {
       await OneSignal.Notifications.requestPermission()
-      await OneSignal.User.setExternalUserId(userId)
+      OneSignal.login(userId)
     })
   } catch (e) { console.error('OneSignal subscribe error:', e) }
 }
@@ -15,8 +15,7 @@ export async function unsubscribe(userId) {
   try {
     window.OneSignalDeferred = window.OneSignalDeferred || []
     OneSignalDeferred.push(async function (OneSignal) {
-      await OneSignal.User.removeExternalUserId()
-      await OneSignal.User.pushSubscription.optOut()
+      OneSignal.logout()
     })
   } catch {}
 }
