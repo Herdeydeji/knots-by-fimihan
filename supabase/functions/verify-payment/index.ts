@@ -3,6 +3,8 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 const PAYSTACK_SECRET_KEY = Deno.env.get("PAYSTACK_SECRET_KEY") ?? "sk_test_82597fc62ac6c1a8742b76bb48415cde3a888567"
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!
 const SUPABASE_SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+const ONESIGNAL_APP_ID = Deno.env.get("ONESIGNAL_APP_ID")
+const ONESIGNAL_API_KEY = Deno.env.get("ONESIGNAL_API_KEY")
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -189,6 +191,29 @@ async function createUserNotification(customerEmail: string, type: string, title
       p_link: link || null,
     }),
   })
+
+  await sendPushToOneSignal(userId, title, message, link)
+}
+
+async function sendPushToOneSignal(userId: string, title: string, body: string, url?: string): Promise<void> {
+  if (!ONESIGNAL_APP_ID || !ONESIGNAL_API_KEY) return
+  try {
+    await fetch("https://onesignal.com/api/v1/notifications", {
+      method: "POST",
+      headers: {
+        "Authorization": `Basic ${ONESIGNAL_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        app_id: ONESIGNAL_APP_ID,
+        target_channel: "push",
+        include_external_user_ids: [userId],
+        headings: { en: title },
+        contents: { en: body },
+        url: url || "/orders",
+      }),
+    })
+  } catch {} // push is a bonus
 }
 
 function formatPrice(price: number): string {

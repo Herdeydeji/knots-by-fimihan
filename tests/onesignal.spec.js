@@ -66,4 +66,14 @@ test.describe('OneSignal push notification migration', () => {
   test('push_subscriptions.sql migration file is deleted', () => {
     expect(fs.existsSync(path.resolve('supabase/migrations/push_subscriptions.sql'))).toBe(false)
   })
+
+  test('verify-payment edge function sends push notification via OneSignal', () => {
+    const src = read('supabase/functions/verify-payment/index.ts')
+    expect(src).toContain('ONESIGNAL_APP_ID')
+    expect(src).toContain('ONESIGNAL_API_KEY')
+    expect(src).toContain('onesignal.com/api/v1/notifications')
+    expect(src).toContain('sendPushToOneSignal')
+    expect(src).toContain('include_external_user_ids')
+    expect(src).toContain('target_channel')
+  })
 })
