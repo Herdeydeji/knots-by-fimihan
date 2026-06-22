@@ -58,6 +58,7 @@ test.describe('OneSignal push notification migration', () => {
     expect(src).toContain('OneSignal.Notifications.requestPermission')
     expect(src).toContain('PushSubscription')
     expect(src).toContain('subscription_id')
+    expect(src).toContain('_waitForSubId')
     expect(src).not.toContain('VAPID')
     expect(src).not.toContain('supabase')
     expect(src).not.toContain('push_subscriptions')

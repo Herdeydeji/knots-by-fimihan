@@ -1,0 +1,24 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - link [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Notifications" [ref=e21] [cursor=pointer]:
+        - /url: /notifications
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - navigation [ref=e27]
+      - generic [ref=e34]
+      - generic [ref=e52]
+  - navigation [ref=e227]:
+    - generic [ref=e228]:
+      - link "Home" [ref=e229] [cursor=pointer]:
+        - /url: /
+      - link "Shop" [ref=e234] [cursor=pointer]:
+        - /url: /shop
+      - link "Bag" [ref=e239] [cursor=pointer]:
+        - /url: /cart
+      - link "A Profile" [ref=e244] [cursor=pointer]:
+        - /url: /profile
+  - button "Open AI style assistant" [ref=e249] [cursor=pointer]:
+    - img [ref=e250]
