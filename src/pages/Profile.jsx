@@ -5,11 +5,12 @@ import {
   HiOutlineChatAlt2, HiOutlineHeart, HiOutlineCalendar, HiOutlineBadgeCheck,
   HiOutlineLogout, HiOutlineChartBar, HiOutlineCube, HiOutlineClipboardList,
   HiOutlineUserGroup, HiOutlineInbox, HiOutlinePencil, HiOutlineCheck,
-  HiOutlineXCircle, HiOutlineSun, HiOutlineMoon
+  HiOutlineXCircle, HiOutlineSun, HiOutlineMoon, HiOutlineBell
 } from 'react-icons/hi'
 import { useToast } from '../stores/useToast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
+import { requestPermissionAndSubscribe } from '../lib/pushNotifications'
 import { useTheme } from '../lib/theme'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 
@@ -308,6 +309,31 @@ export default function Profile() {
                 type="button"
               >
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${dark ? 'translate-x-6' : 'translate-x-0'}`} />
+              </button>
+            </div>
+          </div>
+
+          <div className="card p-5 sm:p-6">
+            <h2 className="text-base sm:text-lg font-display font-semibold text-[#1C1C1C] dark:text-gray-200 mb-4">Push Notifications</h2>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                  <HiOutlineBell className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-[#1C1C1C] dark:text-gray-200">Order & Wishlist Updates</p>
+                  <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Get notified when your order is placed or items are added to wishlist</p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  requestPermissionAndSubscribe(user.id)
+                  addToast('Notification permission requested', 'success')
+                }}
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
+                type="button"
+              >
+                <HiOutlineBell className="w-4 h-4" /> Enable
               </button>
             </div>
           </div>
