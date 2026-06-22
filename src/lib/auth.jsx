@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       const u = session?.user ?? null
       setUser(u)
-      userIdRef.current = u?.id || null
       if (u) {
         await Promise.all([
           getWishlist(u.id).then(setWishlist).catch(() => setWishlist([])),
@@ -36,8 +35,6 @@ export function AuthProvider({ children }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       const u = session?.user ?? null
       setUser(u)
-      const prevId = userIdRef.current
-      userIdRef.current = u?.id || null
       if (u) {
         getWishlist(u.id).then(setWishlist).catch(() => setWishlist([]))
         checkAdmin(u.id).then(setIsAdmin).catch(() => setIsAdmin(false))
