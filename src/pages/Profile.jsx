@@ -50,6 +50,7 @@ export default function Profile() {
   const { dark, toggle } = useTheme()
   const addToast = useToast((s) => s.addToast)
   const [subId, setSubId] = useState(null)
+  const [perm, setPerm] = useState(Notification.permission)
 
   const checkSub = useCallback(() => {
     const id = window.OneSignal?.User?.PushSubscription?.id || null
@@ -63,10 +64,15 @@ export default function Profile() {
     return () => clearInterval(t)
   }, [checkSub])
 
-  const handleEnable = useCallback(() => {
-    requestPermissionAndSubscribe()
-    addToast('Push permission requested', 'success')
-    setTimeout(checkSub, 2000)
+  const handleEnable = useCallback(async () => {
+    await requestPermissionAndSubscribe()
+    setPerm(Notification.permission)
+    if (Notification.permission === 'granted') {
+      addToast('Push notifications enabled ✓', 'success')
+      setTimeout(checkSub, 2000)
+    } else {
+      addToast('Permission denied — check browser settings', 'error')
+    }
   }, [checkSub])
 
   const handleTestPush = useCallback(async () => {
@@ -359,13 +365,19 @@ export default function Profile() {
                   <p className="text-xs text-[#6B6B6B] dark:text-gray-400">Get notified when items are added to wishlist</p>
                 </div>
               </div>
-              <button
-                onClick={handleEnable}
-                className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
-                type="button"
-              >
-                <HiOutlineBell className="w-4 h-4" /> Enable
-              </button>
+              {perm === 'granted' ? (
+                <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 px-4 py-2 rounded-xl text-sm font-medium flex-shrink-0">
+                  <HiOutlineCheck className="w-4 h-4" /> Enabled
+                </span>
+              ) : (
+                <button
+                  onClick={handleEnable}
+                  className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
+                  type="button"
+                >
+                  <HiOutlineBell className="w-4 h-4" /> Enable
+                </button>
+              )}
             </div>
             <div className="flex items-center gap-3 pt-3 border-t border-cream-200 dark:border-gray-700">
               <span className="text-xs text-[#6B6B6B] dark:text-gray-400">

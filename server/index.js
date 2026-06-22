@@ -61,6 +61,8 @@ app.post('/api/send-push', async (req, res) => {
         headings: { en: title },
         contents: { en: body || '' },
         url: url || '/',
+        chrome_web_icon: 'https://knotbyfimihan.vercel.app/icons/icon-192x192.png',
+        chrome_web_big_picture: 'https://knotbyfimihan.vercel.app/og-image.png',
         ...(subscription_id
           ? { include_subscription_ids: [subscription_id] }
           : { include_external_user_ids: [user_id] }),

@@ -33,6 +33,7 @@ test.describe('OneSignal push notification migration', () => {
     expect(src).toContain('ONESIGNAL_API_KEY')
     expect(src).toContain('include_subscription_ids')
     expect(src).toContain('include_external_user_ids')
+    expect(src).toContain('chrome_web_icon')
   })
 
   test('server/index.js uses OneSignal REST API, not web-push', () => {
@@ -43,6 +44,7 @@ test.describe('OneSignal push notification migration', () => {
     expect(src).toContain('onesignal.com/api/v1/notifications')
     expect(src).toContain('ONESIGNAL_APP_ID')
     expect(src).toContain('ONESIGNAL_API_KEY')
+    expect(src).toContain('chrome_web_icon')
   })
 
   test('main.tsx initializes OneSignal', () => {
