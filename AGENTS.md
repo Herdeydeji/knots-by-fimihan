@@ -46,10 +46,11 @@
 - **Targeting by `include_subscription_ids`** rather than user-level targeting — sidesteps the broken `login()`/consent/external_id pipeline entirely
 
 ## Next Steps
-1. Deploy to Vercel (push commit) to verify wishlist push delivers on production
-2. Also update edge function `sendPushToOneSignal` to optionally accept subscription_id — order confirmation pushes still need user targeting
-3. If user targeting is needed for edge function, consider looking up subscription IDs from OneSignal API by external_id at send time, or storing sub ID in profiles table on subscribe
+1. ✅ Deploy to Vercel — pushed commit to trigger deployment
+2. ✅ `sendPushToOneSignal` updated: accepts `subscription_id` and uses `include_subscription_ids` when provided
+3. ✅ **New flow**: Checkout page reads OneSignal subscription ID and passes it as `subscription_id` in the `verify-payment` request body. Edge function stores it in the DB record and uses it for push targeting.
 4. Verify push delivery on a real device (mobile push requires FCM/APNs setup in OneSignal dashboard)
+5. Verify end-to-end on production: place a real test order and confirm push delivery
 
 ## Critical Context
 - Local Playwright tests pass: OneSignal subscription created (`optedIn: true`), push sent to `/api/send-push` returns 200
@@ -66,7 +67,7 @@
 - `api/send-push.mjs`: uses `include_subscription_ids` when `subscription_id` is in request body, falls back to `include_external_user_ids`
 - `server/index.js`: same logic as `api/send-push.mjs`
 - `tests/onesignal.spec.js`: 9 tests covering all files
-- `supabase/functions/verify-payment/index.ts`: `sendPushToOneSignal()` still uses `include_external_user_ids` (no subscription_id available in webhook context)
+- `supabase/functions/verify-payment/index.ts`: `sendPushToOneSignal()` accepts `subscription_id` and uses `include_subscription_ids` when provided; falls back to `include_external_user_ids`
 
 ## graphify
 

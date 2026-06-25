@@ -21,6 +21,7 @@ function jsonResponse(body: unknown, status = 200) {
 
 interface PaymentRequest {
   reference: string
+  subscription_id?: string
   customer_name: string
   customer_email: string
   customer_phone: string
@@ -161,7 +162,7 @@ async function createNotification(type: string, title: string, message: string, 
   return res.ok
 }
 
-async function createUserNotification(customerEmail: string, type: string, title: string, message: string, link?: string): Promise<void> {
+async function createUserNotification(customerEmail: string, type: string, title: string, message: string, link?: string, subscriptionId?: string): Promise<void> {
   const userRes = await fetch(
     `${SUPABASE_URL}/rest/v1/profiles?email=eq.${encodeURIComponent(customerEmail)}&select=id`,
     {
@@ -192,29 +193,34 @@ async function createUserNotification(customerEmail: string, type: string, title
     }),
   })
 
-  await sendPushToOneSignal(userId, title, message, link)
+  await sendPushToOneSignal(userId, title, message, link, subscriptionId)
 }
 
-async function sendPushToOneSignal(userId: string, title: string, body: string, url?: string): Promise<void> {
+async function sendPushToOneSignal(userId: string, title: string, body: string, url?: string, subscriptionId?: string): Promise<void> {
   if (!ONESIGNAL_APP_ID || !ONESIGNAL_API_KEY) {
     console.error("OneSignal: missing ONESIGNAL_APP_ID or ONESIGNAL_API_KEY")
     return
   }
   try {
+    const payload: Record<string, unknown> = {
+      app_id: ONESIGNAL_APP_ID,
+      target_channel: "push",
+      headings: { en: title },
+      contents: { en: body },
+      url: url || "/orders",
+    }
+    if (subscriptionId) {
+      payload.include_subscription_ids = [subscriptionId]
+    } else {
+      payload.include_external_user_ids = [userId]
+    }
     const res = await fetch("https://onesignal.com/api/v1/notifications", {
       method: "POST",
       headers: {
         "Authorization": `Basic ${ONESIGNAL_API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        app_id: ONESIGNAL_APP_ID,
-        target_channel: "push",
-        include_external_user_ids: [userId],
-        headings: { en: title },
-        contents: { en: body },
-        url: url || "/orders",
-      }),
+      body: JSON.stringify(payload),
     })
     const bodyText = await res.text()
     if (!res.ok) {
@@ -386,7 +392,8 @@ Deno.serve(async (req: Request) => {
       "order_placed",
       "Order Placed",
       `Your order ${orderNumber} has been placed successfully! We'll notify you when it's confirmed.`,
-      "/orders"
+      "/orders",
+      body.subscription_id
     )
 
     // Decrement stock and check low-stock alerts for each item

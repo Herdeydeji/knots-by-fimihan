@@ -36,6 +36,15 @@ function _getOnesignalSubId() {
   } catch { return null }
 }
 
+export function getOnesignalSubId() {
+  return _getOnesignalSubId()
+}
+
+export function waitForSubId(timeout = 3000) {
+  if (!window.OneSignal) return Promise.resolve(null)
+  return _waitForSubId(window.OneSignal, timeout)
+}
+
 export async function sendPushNotification(userId, { title, body, url }) {
   let subId = _getOnesignalSubId()
   if (!subId) {

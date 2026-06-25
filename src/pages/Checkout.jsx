@@ -7,6 +7,7 @@ import { useToast } from '../stores/useToast'
 import Breadcrumbs from '../components/ui/Breadcrumbs'
 import { PAYSTACK_PUBLIC_KEY, calculateShipping } from '../lib/constants'
 import { supabase } from '../lib/supabase'
+import { getOnesignalSubId, waitForSubId } from '../lib/pushNotifications'
 
 const STEPS = [
   { label: 'Cart', path: '/cart' },
@@ -61,8 +62,9 @@ export default function Checkout() {
     const checkoutData = JSON.parse(saved)
     setProcessingRedirect(true)
 
+    const subId = getOnesignalSubId()
     supabase.functions.invoke('verify-payment', {
-      body: { reference, ...checkoutData },
+      body: { reference, subscription_id: subId || undefined, ...checkoutData },
     })
       .then(({ data, error }) => {
         if (error) throw error
@@ -81,9 +83,11 @@ export default function Checkout() {
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handlePaystackCallback = (response) => {
+    const subId = getOnesignalSubId()
     supabase.functions.invoke('verify-payment', {
       body: {
         reference: response.reference,
+        subscription_id: subId || undefined,
         customer_name: form.name,
         customer_email: form.email,
         customer_phone: form.phone,
