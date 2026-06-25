@@ -41,3 +41,6 @@ deploy.tar.gz
 !public/og-image.png
 *.png
 vite-*.txt
+
+# Graphify generated output (regeneratable)
+graphify-out/
