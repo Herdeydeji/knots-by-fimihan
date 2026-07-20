@@ -49,6 +49,9 @@ export default function Login() {
             <label className="block text-sm font-body font-medium text-[#1C1C1C] dark:text-gray-200 mb-1.5">Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-field" placeholder="Enter your password" />
           </div>
+          <div className="flex justify-end -mt-2">
+            <Link to="/forgot-password" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Forgot Password?</Link>
+          </div>
           <button type="submit" className="btn-gold w-full py-3">Sign In</button>
         </form>
 

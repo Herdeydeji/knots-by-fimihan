@@ -24,6 +24,8 @@ import Contact from './pages/Contact'
 import Search from './pages/Search'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import Profile from './pages/Profile'
 import StyleAssistant from './pages/StyleAssistant'
 import AdminDashboard from './pages/admin/Dashboard'
@@ -60,6 +62,8 @@ export default function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/style-assistant" element={<StyleAssistant />} />
