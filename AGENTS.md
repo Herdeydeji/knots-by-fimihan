@@ -1,5 +1,6 @@
 ## Goal
 - Migrate from VAPID/web-push to OneSignal for push notifications and get push delivery working end-to-end.
+- Add forgot password / reset password flow (was missing entirely, causing localhost redirect issue).
 
 ## Constraints & Preferences
 - Use OneSignal SDK via CDN (`OneSignalDeferred` pattern), not npm package
@@ -30,6 +31,10 @@
 - Client now reads `OneSignal.User.PushSubscription.id` and sends it as `subscription_id` to the server
 - Server uses `include_subscription_ids` when `subscription_id` is provided, falling back to `include_external_user_ids`
 - Removed broken `login()`/`logout()` calls from client (silently skipped by SDK consent guard) — targeting by subscription ID instead
+- Added forgot password flow: `src/pages/ForgotPassword.jsx` with `resetPasswordForEmail()` call
+- Added reset password page: `src/pages/ResetPassword.jsx` handling PKCE, implicit, and token_hash flows
+- Added "Forgot Password?" link to `src/pages/Login.jsx`
+- Added routes for `/forgot-password` and `/reset-password` in `src/App.jsx`
 
 ### Blocked
 - OneSignal SDK v16 `login()` is silently skipped — internal `ge()` guard checks consent (`re()` returns true). Calling `setConsentGiven(true)` makes `O=true` but `login()` still doesn't set external_id
@@ -59,6 +64,10 @@
 - `OneSignal.O` defaults to `false` (blocks `login()` via `ge()` guard); calling `setConsentGiven(true)` sets `O=true` but `login()` still doesn't persist alias
 - `PushSubscription.optedIn` = `true` in browser SDK but API-side subscription may be `notification_types: -10` (unsubscribed) — SDK and API state are out of sync
 - Old bundle `index-7t__39En.js` still cached in some browsers; hard refresh needed to get `index-C5wMWGN_.js` with correct v16 API calls
+
+## Note on Supabase Site URL
+- The Supabase Auth **Site URL** must be set to `https://knotbyfimihan.vercel.app` in the dashboard (`Auth → Settings`). The `redirectTo` param in `ForgotPassword.jsx` uses `window.location.origin` so it adapts automatically.
+- Old recovery emails sent before the Site URL change will still have localhost links — trigger a **new** recovery email after the setting update.
 
 ## Relevant Files
 - `src/pages/Profile.jsx`: contains "Enable Push Notifications" card with button calling `requestPermissionAndSubscribe()`

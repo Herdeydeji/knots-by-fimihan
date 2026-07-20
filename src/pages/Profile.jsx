@@ -95,10 +95,10 @@ export default function Profile() {
   useEffect(() => {
     if (!user) return
     Promise.all([
-      supabase.from('profiles').select('*').eq('id', user.id).single().then(({ data }) => data),
-      supabase.from('orders').select('*', { count: 'exact', head: true }).eq('customer_email', user.email).then(({ count }) => count || 0),
-      supabase.from('chat_messages').select('*', { count: 'exact', head: true }).eq('user_id', user.id).then(({ count }) => count || 0),
-      supabase.from('wishlists').select('*', { count: 'exact', head: true }).eq('user_id', user.id).then(({ count }) => count || 0),
+      supabase.from('profiles').select('*').eq('id', user.id).maybeSingle().then(({ data }) => data).catch(() => null),
+      supabase.from('orders').select('*', { count: 'exact', head: true }).eq('customer_email', user.email).then(({ count }) => count || 0).catch(() => 0),
+      supabase.from('chat_messages').select('*', { count: 'exact', head: true }).eq('user_id', user.id).then(({ count }) => count || 0).catch(() => 0),
+      supabase.from('wishlists').select('*', { count: 'exact', head: true }).eq('user_id', user.id).then(({ count }) => count || 0).catch(() => 0),
     ]).then(([profileData, orders, chats, wishlist]) => {
       setProfile(profileData)
       setForm({ full_name: profileData?.full_name || '', phone: profileData?.phone || '' })
