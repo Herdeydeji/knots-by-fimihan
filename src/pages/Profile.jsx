@@ -19,6 +19,10 @@ function getInitials(name) {
   return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
 }
 
+function notifPerm() {
+  return typeof Notification !== 'undefined' ? Notification.permission : 'default'
+}
+
 function formatDate(date) {
   if (!date) return '—'
   return new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -50,7 +54,7 @@ export default function Profile() {
   const { dark, toggle } = useTheme()
   const addToast = useToast((s) => s.addToast)
   const [subId, setSubId] = useState(null)
-  const [perm, setPerm] = useState(Notification.permission)
+  const [perm, setPerm] = useState(notifPerm())
 
   const checkSub = useCallback(() => {
     const id = window.OneSignal?.User?.PushSubscription?.id || null
@@ -66,8 +70,8 @@ export default function Profile() {
 
   const handleEnable = useCallback(async () => {
     await requestPermissionAndSubscribe()
-    setPerm(Notification.permission)
-    if (Notification.permission === 'granted') {
+    setPerm(notifPerm())
+    if (notifPerm() === 'granted') {
       addToast('Push notifications enabled ✓', 'success')
       setTimeout(checkSub, 2000)
     } else {
